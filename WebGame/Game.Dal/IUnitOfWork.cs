@@ -8,6 +8,6 @@ namespace Game.Dal
 {
     public interface IUnitOfWork
     {
-        void Commit();
+        int Commit();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Game.Core.DTO;
+using Game.Dal.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Game.Service.Interfaces
 {
-    public interface IUserService
+    public interface IBuildingService
     {
-        bool RegisterUser(UserDto user);
-        bool LoginUser(UserDto user);
+        List<BuildingDto> GetBuildings();
     }
 }

@@ -18,9 +18,9 @@ namespace Game.Dal
         }
 
 
-        public void Commit()
+        public int Commit()
         {
-            _context.SaveChanges();
+            return _context.SaveChanges();
         }
     }
 }

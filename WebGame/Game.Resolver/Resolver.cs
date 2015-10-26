@@ -29,6 +29,7 @@ namespace Game.Resolver
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 
             builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<BuildingService>().As<IBuildingService>();
         }
     }
 }

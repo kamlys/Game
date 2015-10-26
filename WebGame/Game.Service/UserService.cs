@@ -26,8 +26,9 @@ namespace Game.Service
         }
 
 
-        public void RegisterUser(UserDto user)
+        public bool RegisterUser(UserDto user)
         {
+            bool success = false;
             if (!_user.GetAll().Any(u => u.Login == user.Login) && !_user.GetAll().Any(u => u.Email == user.Email))
             {
                 _user.Add(new Users
@@ -39,18 +40,43 @@ namespace Game.Service
                     Last_Log = DateTime.Now
                 });
             }
-            _unitOfWork.Commit();
-
-            int uID = _user.GetAll().First(u => u.Login == user.Login).ID;
-
-            _map.Add(new Maps
+            if(_unitOfWork.Commit() > 0)
             {
-                User_ID = uID,
-                Width = 10,
-                Height = 10
-            });
-            _unitOfWork.Commit();
+                success = true;
+            }
 
+            if (success)
+            {
+                int uID = _user.GetAll().First(u => u.Login == user.Login).ID;
+
+                _map.Add(new Maps
+                {
+                    User_ID = uID,
+                    Width = 10,
+                    Height = 10
+                });
+                _unitOfWork.Commit();
+            }
+            return success;
+        }
+
+        public bool LoginUser(UserDto userLogin)
+        {
+            if (_user.GetAll().Any(u => u.Login == userLogin.Login))
+            {
+                var user = _user.GetAll().First(u => u.Login == userLogin.Login);
+                if (user.Password == userLogin.Password)
+                {
+                    user.Last_Log = DateTime.Now;
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

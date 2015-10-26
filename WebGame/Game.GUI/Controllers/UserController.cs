@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Game.GUI.Controllers
 {
@@ -35,7 +36,51 @@ namespace Game.GUI.Controllers
             user.Email = register.Email;
             user.Password = Crypto.HashPassword(register.Password);
 
-            _userService.RegisterUser(user);
+
+            if (_userService.RegisterUser(user))
+            {
+                FormsAuthentication.SetAuthCookie(user.Login, true);
+                return RedirectToAction("Index", "Home");
+
+            };
+
+            ModelState.AddModelError("", "Nie udało się zarejestrować.");
+
+            return View();
+        }
+
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginViewModel modelLogin, string returnUrl)
+        {
+            UserDto user = new UserDto();
+
+            user.Login = modelLogin.Login;
+            user.Password = Crypto.HashPassword(modelLogin.Password);
+
+            if(_userService.LoginUser(user))
+            {
+                FormsAuthentication.SetAuthCookie(modelLogin.Login, true);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Login bądź hasło niepoprawne.");
+            }
+
+            return View(modelLogin);
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
 
             return RedirectToAction("Index", "Home");
         }
