@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Game.Service.Interfaces;
-
+using Game.Service.Helpers;
 
 namespace Game.Service
 {
@@ -17,12 +17,14 @@ namespace Game.Service
         private IRepository<Users> _user;
         private IRepository<Maps> _map;
         private IUnitOfWork _unitOfWork;
+        private IHashPass _hassPass;
 
-        public UserService(IRepository<Users> user, IUnitOfWork unitOfWork, IRepository<Maps> map)
+        public UserService(IRepository<Users> user, IUnitOfWork unitOfWork, IRepository<Maps> map, IHashPass hassPass)
         {
             _user = user;
             _map = map;
             _unitOfWork = unitOfWork;
+            _hassPass = hassPass;
         }
 
 
@@ -35,7 +37,7 @@ namespace Game.Service
                 {
                     Login = user.Login,
                     Email = user.Email,
-                    Password = user.Password,
+                    Password = _hassPass.GeneratePassword(user.Password),
                     Registration_Date = DateTime.Now,
                     Last_Log = DateTime.Now
                 });
@@ -65,7 +67,7 @@ namespace Game.Service
             if (_user.GetAll().Any(u => u.Login == userLogin.Login))
             {
                 var user = _user.GetAll().First(u => u.Login == userLogin.Login);
-                if (user.Password == userLogin.Password)
+                if (_hassPass.ValidationPassword(userLogin.Password, user.Password))
                 {
                     user.Last_Log = DateTime.Now;
                     _unitOfWork.Commit();
