@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Game.Service.Interfaces;
-using Game.Service.Helpers;
+
 
 namespace Game.Service
 {
@@ -17,8 +17,6 @@ namespace Game.Service
         private IRepository<Users> _user;
         private IRepository<Maps> _map;
         private IUnitOfWork _unitOfWork;
-
-        static HashPass _hashPass = new HashPass();
 
         public UserService(IRepository<Users> user, IUnitOfWork unitOfWork, IRepository<Maps> map)
         {
@@ -37,7 +35,7 @@ namespace Game.Service
                 {
                     Login = user.Login,
                     Email = user.Email,
-                    Password = _hashPass.GeneratePassword(user.Password),
+                    Password = user.Password,
                     Registration_Date = DateTime.Now,
                     Last_Log = DateTime.Now
                 });
@@ -67,7 +65,7 @@ namespace Game.Service
             if (_user.GetAll().Any(u => u.Login == userLogin.Login))
             {
                 var user = _user.GetAll().First(u => u.Login == userLogin.Login);
-                if(_hashPass.ValidatePassword(userLogin.Password, user.Password))
+                if (user.Password == userLogin.Password)
                 {
                     user.Last_Log = DateTime.Now;
                     _unitOfWork.Commit();

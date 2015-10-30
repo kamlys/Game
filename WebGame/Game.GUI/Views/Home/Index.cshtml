@@ -5,11 +5,4 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (User.Identity.IsAuthenticated)
-{
-    @Html.Action("_BuildingsList", "Building");
-}
-else
-{
-    <div>Niezalogowany</div>
-}
+@Html.Action("_BuildingsList", "Building");

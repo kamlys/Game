@@ -40,9 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildingService.cs" />
-    <Compile Include="Helpers\HashPass.cs" />
     <Compile Include="Interfaces\IBuildingService.cs" />
-    <Compile Include="Interfaces\IHashPass.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

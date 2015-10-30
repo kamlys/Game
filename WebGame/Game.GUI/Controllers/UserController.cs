@@ -34,7 +34,7 @@ namespace Game.GUI.Controllers
 
             user.Login = register.Login;
             user.Email = register.Email;
-            user.Password = register.Password;
+            user.Password = Crypto.HashPassword(register.Password);
 
 
             if (_userService.RegisterUser(user))
@@ -61,7 +61,7 @@ namespace Game.GUI.Controllers
             UserDto user = new UserDto();
 
             user.Login = modelLogin.Login;
-            user.Password = modelLogin.Password;
+            user.Password = Crypto.HashPassword(modelLogin.Password);
 
             if(_userService.LoginUser(user))
             {
