@@ -1,10 +1,20 @@
 ﻿@model List<Game.Core.DTO.BuildingDto>
+@{
+    Layout = null;
+}
 
 <div>
     @foreach (var item in Model)
     {
-        <div>@item.Name</div>
-        <div>@item.Price</div>
+        <div class="btn-group">
+             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @item.Name <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>Cena: @item.Price</li>
+                <li><div class="button btn-build" onclick="buduj(@item.ID, @item.Width, @item.Height)">Buduj</div></li>
+            </ul>
+       </div>
+       <br/><br/>
     }
-    Działa
 </div>
