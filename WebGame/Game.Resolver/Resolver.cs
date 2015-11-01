@@ -3,6 +3,7 @@ using Game.Dal;
 using Game.Dal.Model;
 using Game.Dal.Repository;
 using Game.Service;
+using Game.Service.Helpers;
 using Game.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace Game.Resolver
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
+
+            builder.RegisterType<HashPass>().As<IHashPass>();
 
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<BuildingService>().As<IBuildingService>();
