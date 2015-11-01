@@ -64,7 +64,6 @@ namespace Game.Service
 
         public bool LoginUser(UserDto userLogin)
         {
-            return true;
             if (_user.GetAll().Any(u => u.Login == userLogin.Login))
             {
                 var user = _user.GetAll().First(u => u.Login == userLogin.Login);
