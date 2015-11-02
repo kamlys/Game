@@ -20,6 +20,8 @@ namespace Game.Dal.Model
 
         public int Product_ID { get; set; }
 
+        public string Alias { get; set; }
+
         public virtual Products Products { get; set; }
 
         public virtual Users Users { get; set; }

@@ -71,6 +71,12 @@ namespace Game.Dal.Model
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Dolars)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.User_ID)
+                .WillCascadeOnDelete(false);
         }
     }
 }

@@ -27,6 +27,8 @@ namespace Game.Dal.Model
         [StringLength(50)]
         public string Unit { get; set; }
 
+        public string Alias { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Buildings> Buildings { get; set; }
 

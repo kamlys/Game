@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Game.Core.DTO
 {
-    public class ProductDto
+    public class DolarDto
     {
         public int ID { get; set; }
-        public string Name { get; set; }
-        public int Price_per_unit { get; set; }
-        public string Unit { get; set; }
-        public string Alias { get; set; }
+
+        public int User_ID { get; set; }
+
+        public int Value { get; set; }
 
     }
 }

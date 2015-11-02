@@ -14,5 +14,7 @@ namespace Game.Core.DTO
         public int Y_pos { get; set; }
         public int Lvl { get; set; }
         public int Building_ID { get; set; }
+        public string Alias { get; set; }
+
     }
 }

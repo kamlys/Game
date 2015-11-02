@@ -35,6 +35,7 @@ namespace Game.Dal.Model
         public int Percent_product_per_lvl { get; set; }
 
         public int Product_ID { get; set; }
+        public string Alias { get; set; }
 
         public virtual Products Products { get; set; }
 

@@ -56,6 +56,7 @@
     <Compile Include="Model\Admins.cs" />
     <Compile Include="Model\Bans.cs" />
     <Compile Include="Model\Buildings.cs" />
+    <Compile Include="Model\Dolars.cs" />
     <Compile Include="Model\gameDbContext.cs" />
     <Compile Include="Model\Maps.cs" />
     <Compile Include="Model\Products.cs" />
