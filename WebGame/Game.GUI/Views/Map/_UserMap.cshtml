@@ -1,0 +1,33 @@
+﻿@model Game.GUI.ViewModels.Map.MapViewModel
+@{
+    Layout = null;
+    var map = Model.Map;
+    var userBuildings = Model.UserBuildings;
+}
+
+<div class="map">
+    @for (int i = 0; i < map.Height; i++)
+    {
+        <div class="clearfix">
+            @for (int j = 0; j < map.Width; j++)
+            {
+                   var done = false;
+                   foreach(var a in userBuildings)
+                   {
+                       if(j >= a.x_left && j <= a.x_right && i >= a.y_top && i <= a.y_bottom)
+                       {
+                            done = true;
+                            <div class="map-tile tile-@i@j taken" data-col="@j" data-row="@i">
+                                <div class="building">@a.name</div>
+                            </div>
+                           break;
+                       }
+                   }
+                   if(!done)
+                   {
+                       <div class="map-tile tile-@i@j free" data-col="@j" data-row="@i"></div>
+                   }
+            }
+        </div>
+    }
+</div>

@@ -5,4 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Action("_BuildingsList", "Building");
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Action("_BuildingsList", "Building")
+        </div>
+    <div class="col-md-8">
+        @Html.Action("_UserMap", "Map")
+    </div>
+    </div>
+
+}
