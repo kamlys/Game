@@ -27,7 +27,6 @@ namespace Game.Resolver
             builder.RegisterType<Repository<Users>>().As<IRepository<Users>>();
             builder.RegisterType<Repository<Dolars>>().As<IRepository<Dolars>>();
 
-
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 

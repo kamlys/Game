@@ -242,6 +242,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Map\_UserMap.cshtml" />
     <Content Include="Styles\Map.scss" />
+    <Content Include="Views\Building\_UserBuildingsList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

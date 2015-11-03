@@ -1,0 +1,21 @@
+﻿@model List<Game.Core.DTO.Helpers.UserBuildingDtoHelper>
+@{
+    Layout = null;
+}
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @item.BuildingName<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>LVL: @item.Lvl</li>
+                <li><div class="button btn-build">Rozbuduj</div></li>
+                <li><div class="button btn-build">Wyburz</div></li>
+            </ul>
+        </div>
+        <br /><br />
+    }
+</div>

@@ -1,4 +1,5 @@
 ﻿using Game.Core.DTO;
+using Game.Core.DTO.Helpers;
 using Game.Service;
 using Game.Service.Interfaces;
 using System;
@@ -31,7 +32,7 @@ namespace Game.GUI.Controllers
 
         public ActionResult _UserBuildingsList()
         {
-            List<UserBuildingDto> userBuildigns = _buildingService.GetUserBuildings(User.Identity.Name);
+            List<UserBuildingDtoHelper> userBuildigns = _buildingService.GetUserBuildings(User.Identity.Name);
             return View(userBuildigns);
         }
 

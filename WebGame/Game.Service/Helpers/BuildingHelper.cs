@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Game.Service.Interfaces;
+using Game.Core.DTO.Helpers;
 
 namespace Game.Service
 {
@@ -51,19 +52,18 @@ namespace Game.Service
         }
 
 
-        public List<UserBuildingDto> GetUserBuildings(string User)
+        public List<UserBuildingDtoHelper> GetUserBuildings(string User)
         {
             var buildings = _userBuildings.GetAll().Where(a => a.Users.Login == User);
-            List<UserBuildingDto> list = new List<UserBuildingDto>();
+            List<UserBuildingDtoHelper> list = new List<UserBuildingDtoHelper>();
             foreach (var a in buildings)
             {
                 list.Add(
-                    new UserBuildingDto
+                    new UserBuildingDtoHelper
                     {
-                        Building_ID = a.Building_ID,
-                        ID = a.ID,
+                        BuildingName = a.Buildings.Alias,
                         Lvl = a.Lvl,
-                        User_ID = a.User_ID,
+                        Building_ID = a.Building_ID,
                         X_pos = a.X_pos,
                         Y_pos = a.Y_pos
                     }

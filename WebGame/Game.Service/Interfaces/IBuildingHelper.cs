@@ -1,4 +1,5 @@
 ﻿using Game.Core.DTO;
+using Game.Core.DTO.Helpers;
 using Game.Dal.Model;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Game.Service.Interfaces
     public interface IBuildingHelper
     {
         List<BuildingDto> GetBuildings();
-        List<UserBuildingDto> GetUserBuildings(string User);
+        List<UserBuildingDtoHelper> GetUserBuildings(string User);
 
     }
 }
