@@ -25,14 +25,16 @@ namespace Game.Resolver
             builder.RegisterType<Repository<UserBuildings>>().As<IRepository<UserBuildings>>();
             builder.RegisterType<Repository<UserProducts>>().As<IRepository<UserProducts>>();
             builder.RegisterType<Repository<Users>>().As<IRepository<Users>>();
+            builder.RegisterType<Repository<Dolars>>().As<IRepository<Dolars>>();
+
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 
             builder.RegisterType<HashPass>().As<IHashPass>();
+            builder.RegisterType<BuildingHelper>().As<IBuildingHelper>();
 
             builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterType<BuildingService>().As<IBuildingService>();
             builder.RegisterType<MapService>().As<IMapService>();
             builder.RegisterType<UserBuildingService>().As<IUserBuildingService>();
 

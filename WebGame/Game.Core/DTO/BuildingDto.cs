@@ -10,7 +10,7 @@ namespace Game.Core.DTO
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }
+        public int Price { get; set; }
         public int Percent_price_per_lvl { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }

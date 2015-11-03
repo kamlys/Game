@@ -23,8 +23,15 @@ namespace Game.Service
         }
         public MapDto GetMap(string User)
         {
-            var map = _maps.GetAll().First(a => a.Users.Login == User);
-            return new MapDto { Height = map.Height, Map_ID = map.Map_ID, User_ID = map.User_ID, Width = map.Width };
+            if (User != String.Empty)
+            {
+                var map = _maps.GetAll().First(a => a.Users.Login == User);
+                return new MapDto { Height = map.Height, Map_ID = map.Map_ID, User_ID = map.User_ID, Width = map.Width };
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

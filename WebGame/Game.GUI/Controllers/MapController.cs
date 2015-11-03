@@ -15,9 +15,9 @@ namespace Game.GUI.Controllers
     {
         private IMapService _mapService;
         private IUserBuildingService _userBuildingsService;
-        private IBuildingService _buildingsService;
+        private IBuildingHelper _buildingsService;
 
-        public MapController(IMapService mapService, IUserBuildingService userBuildingService, IBuildingService buildings)
+        public MapController(IMapService mapService, IUserBuildingService userBuildingService, IBuildingHelper buildings)
         {
             _mapService = mapService;
             _userBuildingsService = userBuildingService;

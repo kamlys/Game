@@ -20,7 +20,7 @@ namespace Game.Dal.Model
         [StringLength(200)]
         public string Name { get; set; }
 
-        public double Price { get; set; }
+        public int Price { get; set; }
 
         public int Percent_price_per_lvl { get; set; }
 

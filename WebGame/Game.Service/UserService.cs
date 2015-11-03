@@ -15,14 +15,21 @@ namespace Game.Service
     public class UserService : IUserService
     {
         private IRepository<Users> _user;
+        private IRepository<Dolars> _dolar;
         private IRepository<Maps> _map;
         private IUnitOfWork _unitOfWork;
         private IHashPass _hassPass;
 
-        public UserService(IRepository<Users> user, IUnitOfWork unitOfWork, IRepository<Maps> map, IHashPass hassPass)
+        public UserService(
+            IRepository<Users> user,
+            IRepository<Dolars> dolar, 
+            IUnitOfWork unitOfWork, 
+            IRepository<Maps> map, 
+            IHashPass hassPass)
         {
             _user = user;
             _map = map;
+            _dolar = dolar;
             _unitOfWork = unitOfWork;
             _hassPass = hassPass;
         }
@@ -57,6 +64,13 @@ namespace Game.Service
                     Width = 10,
                     Height = 10
                 });
+
+                _dolar.Add(new Dolars
+                {
+                    User_ID = uID,
+                    Value = 1000
+                });
+
                 _unitOfWork.Commit();
             }
             return success;

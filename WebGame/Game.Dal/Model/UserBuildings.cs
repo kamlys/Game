@@ -20,8 +20,6 @@ namespace Game.Dal.Model
 
         public int Building_ID { get; set; }
 
-        public string Alias { get; set; }
-
         public virtual Buildings Buildings { get; set; }
 
         public virtual Users Users { get; set; }

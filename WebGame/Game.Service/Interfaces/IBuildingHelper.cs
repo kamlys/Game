@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game.Service.Interfaces
 {
-    public interface IBuildingService
+    public interface IBuildingHelper
     {
         List<BuildingDto> GetBuildings();
     }

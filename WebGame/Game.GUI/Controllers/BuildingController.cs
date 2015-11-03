@@ -11,9 +11,9 @@ namespace Game.GUI.Controllers
 {
     public class BuildingController : Controller
     {
-        private IBuildingService _buildingService;
+        private IBuildingHelper _buildingService;
 
-        public BuildingController(IBuildingService buildingService)
+        public BuildingController(IBuildingHelper buildingService)
         {
             _buildingService = buildingService;
         }
@@ -28,5 +28,6 @@ namespace Game.GUI.Controllers
             List<BuildingDto> buildings = _buildingService.GetBuildings();
             return View(buildings);
         }
+
     }
 }

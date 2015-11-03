@@ -11,12 +11,12 @@ using Game.Service.Interfaces;
 
 namespace Game.Service
 {
-    public class BuildingService : IBuildingService
+    public class BuildingHelper : IBuildingHelper
     {
         private IRepository<Buildings> _buildings;
         private IUnitOfWork _unitOfWork;
 
-        public BuildingService(IRepository<Buildings> buildings, IUnitOfWork unitOfWork)
+        public BuildingHelper(IRepository<Buildings> buildings, IUnitOfWork unitOfWork)
         {
             _buildings = buildings;
             _unitOfWork = unitOfWork;
@@ -37,8 +37,9 @@ namespace Game.Service
                     Percent_price_per_lvl = item.Percent_price_per_lvl, 
                     Percent_product_per_lvl = item.Percent_product_per_lvl,
                     Product_ID = item.Product_ID, 
-                    Product_per_sec = item.Product_per_sec} 
-                    );
+                    Product_per_sec = item.Product_per_sec,
+                    Alias = item.Alias
+                });
             }
             return buildingsDto;
         }
