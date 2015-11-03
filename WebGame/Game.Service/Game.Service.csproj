@@ -44,9 +44,11 @@
     <Compile Include="Interfaces\IBuildingHelper.cs" />
     <Compile Include="Interfaces\IHashPass.cs" />
     <Compile Include="Interfaces\IMapService.cs" />
+    <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\IUserBuildingService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="MapService.cs" />
+    <Compile Include="ProductService.cs" />
     <Compile Include="UserBuildingService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
