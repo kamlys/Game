@@ -14,11 +14,17 @@ namespace Game.Service
     public class BuildingHelper : IBuildingHelper
     {
         private IRepository<Buildings> _buildings;
+        private IRepository<UserBuildings> _userBuildings;
+
         private IUnitOfWork _unitOfWork;
 
-        public BuildingHelper(IRepository<Buildings> buildings, IUnitOfWork unitOfWork)
+        public BuildingHelper(
+            IRepository<Buildings> buildings,
+            IRepository<UserBuildings> userBuildings, 
+            IUnitOfWork unitOfWork)
         {
             _buildings = buildings;
+            _userBuildings = userBuildings;
             _unitOfWork = unitOfWork;
         }
 
@@ -42,6 +48,28 @@ namespace Game.Service
                 });
             }
             return buildingsDto;
+        }
+
+
+        public List<UserBuildingDto> GetUserBuildings(string User)
+        {
+            var buildings = _userBuildings.GetAll().Where(a => a.Users.Login == User);
+            List<UserBuildingDto> list = new List<UserBuildingDto>();
+            foreach (var a in buildings)
+            {
+                list.Add(
+                    new UserBuildingDto
+                    {
+                        Building_ID = a.Building_ID,
+                        ID = a.ID,
+                        Lvl = a.Lvl,
+                        User_ID = a.User_ID,
+                        X_pos = a.X_pos,
+                        Y_pos = a.Y_pos
+                    }
+                );
+            }
+            return list;
         }
     }
 }

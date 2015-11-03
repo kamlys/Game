@@ -29,5 +29,11 @@ namespace Game.GUI.Controllers
             return View(buildings);
         }
 
+        public ActionResult _UserBuildingsList()
+        {
+            List<UserBuildingDto> userBuildigns = _buildingService.GetUserBuildings(User.Identity.Name);
+            return View(userBuildigns);
+        }
+
     }
 }

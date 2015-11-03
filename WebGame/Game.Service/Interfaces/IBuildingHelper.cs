@@ -11,5 +11,7 @@ namespace Game.Service.Interfaces
     public interface IBuildingHelper
     {
         List<BuildingDto> GetBuildings();
+        List<UserBuildingDto> GetUserBuildings(string User);
+
     }
 }

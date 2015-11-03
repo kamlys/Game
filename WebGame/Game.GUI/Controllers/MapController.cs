@@ -14,14 +14,12 @@ namespace Game.GUI.Controllers
     public class MapController : Controller
     {
         private IMapService _mapService;
-        private IUserBuildingService _userBuildingsService;
-        private IBuildingHelper _buildingsService;
+        private IBuildingHelper _buildingsHelper;
 
-        public MapController(IMapService mapService, IUserBuildingService userBuildingService, IBuildingHelper buildings)
+        public MapController(IMapService mapService, IBuildingHelper buildings)
         {
             _mapService = mapService;
-            _userBuildingsService = userBuildingService;
-            _buildingsService = buildings;
+            _buildingsHelper = buildings;
         }
         // GET: Building
         public ActionResult Index()
@@ -33,12 +31,12 @@ namespace Game.GUI.Controllers
         {
             MapViewModel vm = new MapViewModel();
             vm.Map = _mapService.GetMap(User.Identity.Name);
-            var ub = _userBuildingsService.GetBuildings(User.Identity.Name);
+            var ub = _buildingsHelper.GetUserBuildings(User.Identity.Name);
             List<UserBuildingsViewModel> ubv = new List<UserBuildingsViewModel>();
 
             foreach (var a in ub)
             {
-                var building = _buildingsService.GetBuildings().Where(b => b.ID == a.Building_ID).First();
+                var building = _buildingsHelper.GetBuildings().Where(b => b.ID == a.Building_ID).First();
                 ubv.Add(new UserBuildingsViewModel{
                     BuildingID = a.Building_ID,
                     level = a.Lvl,

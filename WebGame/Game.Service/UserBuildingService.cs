@@ -32,24 +32,7 @@ namespace Game.Service
             _buildigns = buildings;
             _dolars = dolars;
         }
-        public List<UserBuildingDto> GetBuildings(string User)
-        {
-            var buildings = _userBuildings.GetAll().Where(a => a.Users.Login == User);
-            List<UserBuildingDto> list = new List<UserBuildingDto>();
-            foreach(var a in buildings) {
-                list.Add(
-                    new UserBuildingDto {  
-                        Building_ID = a.Building_ID, 
-                        ID = a.ID, 
-                        Lvl = a.Lvl, 
-                        User_ID = a.User_ID, 
-                        X_pos = a.X_pos,
-                        Y_pos = a.Y_pos
-                    }
-                );
-            }
-            return list;
-        }
+        
 
         public bool Build(int id, int col, int row, string user)
         {

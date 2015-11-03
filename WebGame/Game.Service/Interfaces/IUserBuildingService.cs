@@ -10,7 +10,6 @@ namespace Game.Service.Interfaces
 {
     public interface IUserBuildingService
     {
-        List<UserBuildingDto> GetBuildings(string User);
         bool Build(int id, int col, int row, string user);
     }
 }
