@@ -36,18 +36,19 @@ namespace Game.Service
         }
 
 
-        public int UpdateUserProduct(string User)
+        public void UpdateUserProduct(string User)
         {
             int uID = _user.GetAll().First(u => u.Login == User).ID;
 
-            if(_user.GetAll().First(u=> u.ID == uID).Last_Update == null)
+
+            if (_user.GetAll().First(u => u.ID == uID).Last_Update == null)
             {
                 _user.GetAll().First(u => u.ID == uID).Last_Update = _user.GetAll().First(u => u.ID == uID).Registration_Date;
             }
 
             var dateSubstract = DateTime.Now.Subtract((DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update)).TotalSeconds;
 
-            foreach (var item in _userProduct.GetAll().Where(u=>u.User_ID == uID))
+            foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID))
             {
                 int pID = item.Product_ID;
 
@@ -62,8 +63,6 @@ namespace Game.Service
 
             _unitOfWork.Commit();
 
-
-            throw new NotImplementedException();
         }
     }
 }

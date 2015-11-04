@@ -8,6 +8,6 @@ namespace Game.Service.Interfaces
 {
     public interface IProductService
     {
-        int UpdateUserProduct(string User);
+        void UpdateUserProduct(string User);
     }
 }

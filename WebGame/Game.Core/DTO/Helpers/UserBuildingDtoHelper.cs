@@ -8,6 +8,7 @@ namespace Game.Core.DTO.Helpers
 {
     public class UserBuildingDtoHelper
     {
+        public int ID { get; set; }
         public string BuildingName { get; set; }
         public int Lvl { get; set; }
         public int X_pos { get; set; }

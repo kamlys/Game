@@ -203,6 +203,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\main_page.js" />
+    <Content Include="Scripts\js\ProductUpdate.js" />
     <Content Include="Styles\Map.css">
       <DependentUpon>Map.scss</DependentUpon>
     </Content>

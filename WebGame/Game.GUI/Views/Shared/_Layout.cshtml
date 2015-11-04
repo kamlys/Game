@@ -44,7 +44,10 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @if (User.Identity.IsAuthenticated)
+    {
     @Scripts.Render("~/Scripts/js")
+    }
     @RenderSection("scripts", required: false)
 </body>
 </html>

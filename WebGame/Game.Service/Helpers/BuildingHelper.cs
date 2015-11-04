@@ -61,6 +61,7 @@ namespace Game.Service
                 list.Add(
                     new UserBuildingDtoHelper
                     {
+                        ID = a.ID,
                         BuildingName = a.Buildings.Alias,
                         Lvl = a.Lvl,
                         Building_ID = a.Building_ID,
