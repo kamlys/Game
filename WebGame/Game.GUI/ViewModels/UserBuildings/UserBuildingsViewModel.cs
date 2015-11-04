@@ -14,5 +14,6 @@ namespace Game.GUI.ViewModels.UserBuildings
         public string name;
         public int level;
         public int BuildingID;
+        public int ID;
     }
 }

@@ -30,6 +30,13 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        public JsonResult Destroy(AjaxBuildViewModel a)
+        {
+            _userBuildingsService.Destroy(User.Identity.Name, a.Id);
+            return new JsonResult { Data = true };
+        }
+
+        [HttpPost]
         public void ProductUpdate()
         {
             _productService.UpdateUserProduct(User.Identity.Name);

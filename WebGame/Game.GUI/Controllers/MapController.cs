@@ -31,20 +31,21 @@ namespace Game.GUI.Controllers
         {
             MapViewModel vm = new MapViewModel();
             vm.Map = _mapService.GetMap(User.Identity.Name);
-            var ub = _buildingsHelper.GetUserBuildings(User.Identity.Name);
+            var ub = _buildingsHelper.GetBuildings(User.Identity.Name);
             List<UserBuildingsViewModel> ubv = new List<UserBuildingsViewModel>();
 
             foreach (var a in ub)
             {
                 var building = _buildingsHelper.GetBuildings().Where(b => b.ID == a.Building_ID).First();
-                ubv.Add(new UserBuildingsViewModel{
+                ubv.Add(new UserBuildingsViewModel {
                     BuildingID = a.Building_ID,
                     level = a.Lvl,
                     name = building.Name,
                     x_left = a.X_pos,
                     x_right = a.X_pos + building.Width - 1,
                     y_top = a.Y_pos,
-                    y_bottom = a.Y_pos + building.Height - 1
+                    y_bottom = a.Y_pos + building.Height - 1,
+                    ID = a.ID
                 });
             }
             vm.UserBuildings = ubv;

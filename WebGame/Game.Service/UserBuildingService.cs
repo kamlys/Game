@@ -94,5 +94,15 @@ namespace Game.Service
             }
         }
 
+        public bool Destroy(string user, int ID)
+        {
+            int uID = _users.GetAll().First(a => a.Login == user).ID;
+
+            _userBuildings.Delete(u => u.User_ID == uID && u.ID == ID);
+            _unitOfWork.Commit();
+
+            return true;
+        }
+
     }
 }

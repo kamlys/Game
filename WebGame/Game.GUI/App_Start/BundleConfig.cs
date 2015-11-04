@@ -23,10 +23,7 @@ namespace Game.GUI
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
             bundles.Add(new ScriptBundle("~/Scripts/js").Include(
-                    "~/Scripts/js/main_page.js"));
-
-            bundles.Add(new ScriptBundle("~/Scripts/js").Include(
-                    "~/Scripts/js/ProductUpdate.js"));
+                    "~/Scripts/js/main_page.js", "~/Scripts/js/ProductUpdate.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

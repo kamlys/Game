@@ -38,6 +38,21 @@ function budujAjax(col, row, id)
     });
 }
 
+
+function burzAjax(id) {
+    var data = { id: id};
+    $.ajax({
+        type: "POST",
+        url: 'ajax/destroy',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ a: data }),
+        dataType: "json",
+        success: function (data) {
+            location.reload();
+        }
+    });
+}
+
 $(document).ready(function () {
     $("body").mousedown(function (ev) {
         if (ev.which == 3) {
@@ -90,5 +105,12 @@ $(document).ready(function () {
             }
            
         }
+    });
+
+    $('div[name=remove]').click(function () {
+        var ID = $(this).data("buildingid");
+
+        burzAjax(ID);
+        
     });
 });
