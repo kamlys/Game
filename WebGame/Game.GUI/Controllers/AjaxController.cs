@@ -12,21 +12,28 @@ namespace Game.GUI.Controllers
     {
         private IMapService _mapService;
         private IUserBuildingService _userBuildingsService;
-        private IBuildingHelper _buildingsService;
+        private IBuildingHelper _buildingsHelper;
         private IProductService _productService;
 
-        public AjaxController(IMapService mapService, IUserBuildingService userBuildingService, IProductService productService, IBuildingHelper buildings)
+        public AjaxController(IMapService mapService, IUserBuildingService userBuildingService, IProductService productService, IBuildingHelper buildingsHelper)
         {
             _mapService = mapService;
             _userBuildingsService = userBuildingService;
-            _buildingsService = buildings;
+            _buildingsHelper = buildingsHelper;
             _productService = productService;
         }
         [HttpPost]
         public JsonResult Build(AjaxBuildViewModel a)
         {
-            _userBuildingsService.Build(a.Id, a.Col, a.Row, User.Identity.Name);
-            return new JsonResult { Data = true };
+            if (_buildingsHelper.BuildingValidation(a.Id, a.Col, a.Row, User.Identity.Name))
+            {
+                _userBuildingsService.Build(a.Id, a.Col, a.Row, User.Identity.Name);
+                return new JsonResult { Data = true };
+            }
+            else
+            {
+                return new JsonResult { Data = false };
+            }
         }
 
         [HttpPost]

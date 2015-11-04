@@ -15,16 +15,25 @@ namespace Game.Service
     {
         private IRepository<Buildings> _buildings;
         private IRepository<UserBuildings> _userBuildings;
+        private IRepository<Maps> _maps;
+        private IRepository<Dolars> _dolars;
+        private IRepository<Users> _users;
 
         private IUnitOfWork _unitOfWork;
 
         public BuildingHelper(
             IRepository<Buildings> buildings,
             IRepository<UserBuildings> userBuildings,
-            IUnitOfWork unitOfWork)
+            IRepository<Maps> maps,
+        IRepository<Dolars> dolars,
+        IRepository<Users> users,
+        IUnitOfWork unitOfWork)
         {
             _buildings = buildings;
             _userBuildings = userBuildings;
+            _maps = maps;
+            _dolars = dolars;
+            _users = users;
             _unitOfWork = unitOfWork;
         }
 
@@ -71,6 +80,44 @@ namespace Game.Service
                 );
             }
             return list;
+        }
+
+
+        public bool BuildingValidation(int id, int col, int row, string user)
+        {
+            int uID = _users.GetAll().First(u => u.Login == user).ID;
+            int buildingHeight = _buildings.GetAll().First(b => b.ID == id).Height;
+            int buildingWidth = _buildings.GetAll().First(b => b.ID == id).Width;
+            int mapHeight = _maps.GetAll().First(u => u.User_ID == uID).Height;
+            int mapWidth = _maps.GetAll().First(u => u.User_ID == uID).Width;
+            int userDolars = _dolars.GetAll().First(u => u.User_ID == uID).Value;
+            int buildPrice = _buildings.GetAll().First(b => b.ID == id).Price;
+            bool freePlace = true;
+
+            foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID))
+            {
+                if (item.X_pos == row && item.Y_pos == col)
+                {
+                    freePlace = false;
+                }
+                else if (freePlace && ((row + buildingWidth) <= mapWidth) && ((col + buildingHeight) <= mapHeight) && (userDolars >= buildPrice))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (freePlace && ((row + buildingWidth) <= mapWidth) && ((col + buildingHeight) <= mapHeight) && (userDolars >= buildPrice))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
