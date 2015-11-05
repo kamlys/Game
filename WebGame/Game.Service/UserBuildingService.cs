@@ -69,10 +69,6 @@ namespace Game.Service
                 {
                     create = false;
                 }
-                else
-                {
-                    create = true;
-                }
             }
 
             if (create)
