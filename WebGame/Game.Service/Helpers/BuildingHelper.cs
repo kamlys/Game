@@ -119,5 +119,22 @@ namespace Game.Service
                 return false;
             }
         }
+
+        public Dictionary<int, int> AddProductValue(int uID, int pID)
+        {
+            Dictionary<int, int> AddProduct = new Dictionary<int, int>();
+
+            foreach (var item in _buildings.GetAll())
+            {
+                int buildingCount = _userBuildings.GetAll().Where(u => u.User_ID == uID).Count();
+
+                int Product_per_lvl = _buildings.GetAll().First(p => p.Product_ID == pID).Product_per_sec;
+                int Percent_per_lvl = _buildings.GetAll().First(p => p.Product_ID == pID).Percent_product_per_lvl;
+                int BuildLvl = _userBuildings.GetAll().First(b => b.Buildings.Product_ID == pID).Lvl;
+
+                AddProduct.Add(item.Product_ID, (int)((Product_per_lvl * (Percent_per_lvl * 0.01) * BuildLvl)*buildingCount));
+            }
+            return AddProduct;
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace Game.Service
         private IRepository<Users> _user;
         private IRepository<Buildings> _building;
         private IRepository<UserBuildings> _userBuilding;
+        private IBuildingHelper _buildingHelper;
         private IUnitOfWork _unitOfWork;
 
         public ProductService(
@@ -25,6 +26,7 @@ namespace Game.Service
             IRepository<Buildings> building,
             IRepository<UserBuildings> userBuilding,
             IRepository<Products> products,
+            IBuildingHelper buildingHelper,
             IUnitOfWork unitOfWork)
         {
             _user = user;
@@ -32,6 +34,7 @@ namespace Game.Service
             _building = building;
             _userBuilding = userBuilding;
             _product = products;
+            _buildingHelper = buildingHelper;
             _unitOfWork = unitOfWork;
         }
 
@@ -41,28 +44,24 @@ namespace Game.Service
             int uID = _user.GetAll().First(u => u.Login == User).ID;
 
 
+            int dateSubstract = (int)DateTime.Now.Subtract((DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update)).TotalSeconds;
+
             if (_user.GetAll().First(u => u.ID == uID).Last_Update == null)
             {
                 _user.GetAll().First(u => u.ID == uID).Last_Update = _user.GetAll().First(u => u.ID == uID).Registration_Date;
             }
-
-            var dateSubstract = DateTime.Now.Subtract((DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update)).TotalSeconds;
-
             foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID))
             {
                 int pID = item.Product_ID;
-
-                int Product_per_lvl = _building.GetAll().First(p => p.Product_ID == pID).Product_per_sec;
-                int Percent_per_lvl = _building.GetAll().First(p => p.Product_ID == pID).Percent_product_per_lvl;
-                int BuildLvl = _userBuilding.GetAll().First(b => b.Buildings.Product_ID == pID).Lvl;
-
-                item.Value += (int)Math.Round((Product_per_lvl * (Percent_per_lvl * 0.01) * BuildLvl) * dateSubstract);
+                foreach (var item2 in _buildingHelper.AddProductValue(uID, pID).Where(b => b.Key == pID))
+                {
+                    item.Value += (Convert.ToInt32(item2.Value * dateSubstract));
+                }
             }
 
             _user.GetAll().First(u => u.ID == uID).Last_Update = DateTime.Now;
 
             _unitOfWork.Commit();
-
         }
     }
 }
