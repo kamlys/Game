@@ -27,6 +27,7 @@ namespace Game.GUI.Controllers
         {
             if (_buildingsHelper.BuildingValidation(a.Id, a.Col, a.Row, User.Identity.Name))
             {
+                ProductUpdate();
                 _userBuildingsService.Build(a.Id, a.Col, a.Row, User.Identity.Name);
                 return new JsonResult { Data = true };
             }
@@ -39,6 +40,7 @@ namespace Game.GUI.Controllers
         [HttpPost]
         public JsonResult Destroy(AjaxBuildViewModel a)
         {
+            ShowProduct();
             _userBuildingsService.Destroy(User.Identity.Name, a.Id);
             return new JsonResult { Data = true };
         }
@@ -47,6 +49,14 @@ namespace Game.GUI.Controllers
         public void ProductUpdate()
         {
             _productService.UpdateUserProduct(User.Identity.Name);
+        }
+
+        public JsonResult ShowProduct()
+        {
+            ProductUpdate();
+            int[][] addProduct = _buildingsHelper.AddProductValue(User.Identity.Name);
+
+            return Json(addProduct, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -15,25 +15,30 @@ namespace Game.Service
     {
         private IRepository<Buildings> _buildings;
         private IRepository<UserBuildings> _userBuildings;
+        private IRepository<UserProducts> _userProducts;
         private IRepository<Maps> _maps;
         private IRepository<Dolars> _dolars;
         private IRepository<Users> _users;
-
+        //private IProductService _productService;
         private IUnitOfWork _unitOfWork;
 
         public BuildingHelper(
             IRepository<Buildings> buildings,
             IRepository<UserBuildings> userBuildings,
+            IRepository<UserProducts> userProducts,
             IRepository<Maps> maps,
         IRepository<Dolars> dolars,
         IRepository<Users> users,
+        //IProductService productService,
         IUnitOfWork unitOfWork)
         {
             _buildings = buildings;
             _userBuildings = userBuildings;
+            _userProducts = userProducts;
             _maps = maps;
             _dolars = dolars;
             _users = users;
+            //_productService = productService;
             _unitOfWork = unitOfWork;
         }
 
@@ -120,21 +125,45 @@ namespace Game.Service
             }
         }
 
-        public Dictionary<int, int> AddProductValue(int uID, int pID)
+        public int[][] AddProductValue(string User)
         {
-            Dictionary<int, int> AddProduct = new Dictionary<int, int>();
+            //_productService.UpdateUserProduct(User);
 
-            foreach (var item in _buildings.GetAll())
+            List<int[]> AddProduct = new List<int[]>();
+
+            int uID = _users.GetAll().First(u => u.Login == User).ID;
+
+            Dictionary<int, int> tab2 = new Dictionary<int, int>();
+
+
+            foreach (var item in _userBuildings.GetAll().Where(u=> u.User_ID == uID))
             {
-                int buildingCount = _userBuildings.GetAll().Where(u => u.User_ID == uID).Count();
+                int BuildLvl = item.Lvl;
+                int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;
+                int Percent_per_lvl = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl / 100;
 
-                int Product_per_lvl = _buildings.GetAll().First(p => p.Product_ID == pID).Product_per_sec;
-                int Percent_per_lvl = _buildings.GetAll().First(p => p.Product_ID == pID).Percent_product_per_lvl;
-                int BuildLvl = _userBuildings.GetAll().First(b => b.Buildings.Product_ID == pID).Lvl;
-
-                AddProduct.Add(item.Product_ID, (int)((Product_per_lvl * (Percent_per_lvl * 0.01) * BuildLvl)*buildingCount));
+                if (tab2.Keys.Contains(item.Buildings.Product_ID))
+                {
+                    tab2[item.Buildings.Product_ID] += Product_per_sec * Percent_per_lvl * BuildLvl;
+                }
+                else
+                {
+                    tab2[item.Buildings.Product_ID] = Product_per_sec * Percent_per_lvl * BuildLvl;
+                }
             }
-            return AddProduct;
+
+            foreach(var item in _userProducts.GetAll().Where(p => !tab2.Keys.Contains(p.Products.ID)))
+            {
+                AddProduct.Add(new int[] { item.Product_ID, 0, item.Value});
+            }
+
+            foreach (var item in tab2)
+            {
+                var productValue = _userProducts.GetAll().First(u => u.Products.ID == item.Key).Value;
+                AddProduct.Add(new int[] { item.Key, item.Value, productValue});
+            }
+
+            return AddProduct.ToArray<int[]>();
         }
     }
 }

@@ -43,19 +43,22 @@ namespace Game.Service
         {
             int uID = _user.GetAll().First(u => u.Login == User).ID;
 
-
             int dateSubstract = (int)DateTime.Now.Subtract((DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update)).TotalSeconds;
 
             if (_user.GetAll().First(u => u.ID == uID).Last_Update == null)
             {
                 _user.GetAll().First(u => u.ID == uID).Last_Update = _user.GetAll().First(u => u.ID == uID).Registration_Date;
             }
-            foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID))
+            foreach (var itemBuilding in _userBuilding.GetAll().Where(b => b.User_ID == uID))
             {
-                int pID = item.Product_ID;
-                foreach (var item2 in _buildingHelper.AddProductValue(uID, pID).Where(b => b.Key == pID))
+                int bID = itemBuilding.Buildings.Product_ID;
+                foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                 {
-                    item.Value += (Convert.ToInt32(item2.Value * dateSubstract));
+                    int pID = item.Product_ID;
+                    foreach (var item2 in _buildingHelper.AddProductValue(User))
+                    {
+                        item.Value += (Convert.ToInt32(item2[1] * dateSubstract));
+                    }
                 }
             }
 

@@ -19,6 +19,7 @@ namespace Game.Service
         private IRepository<Dolars> _dolars;
         private IRepository<Buildings> _buildings;
         private IRepository<Users> _users;
+        private IProductService _productService;
         private IBuildingHelper _buildingHelper;
         private IUnitOfWork _unitOfWork;
 

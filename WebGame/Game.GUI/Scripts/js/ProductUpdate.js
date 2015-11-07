@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    setInterval(addProducts, 10000);
     addProducts();
 });
 
