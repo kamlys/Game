@@ -11,5 +11,7 @@ namespace Game.Service.Interfaces
     public interface IUserBuildingService
     {
         bool Build(int id, int col, int row, string user);
+        bool Destroy(string user, int ID);
+
     }
 }

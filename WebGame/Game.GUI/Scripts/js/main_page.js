@@ -22,15 +22,41 @@ function canBuild(col, row) {
     return true;
 }
 
-function budujAjax(col, row, id)
-{
+function budujAjax(col, row, id) {
     var data = { id: id, col: col, row: row };
     console.log(data);
+    var me = $(this);
+
+    if (me.data('requestRunning')) {
+        return;
+    }
+
+    me.data('requestRunning', true);
+
     $.ajax({
         type: "POST",
         url: 'ajax/build',
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ a : data } ),
+        data: JSON.stringify({ a: data }),
+        dataType: "json",
+        success: function (data) {
+            location.reload();
+        },
+        complete: function () {
+            me.data('requestRunning', false);
+        }
+
+    });
+}
+
+
+function burzAjax(id) {
+    var data = { id: id };
+    $.ajax({
+        type: "POST",
+        url: 'ajax/destroy',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ a: data }),
         dataType: "json",
         success: function (data) {
             location.reload();
@@ -56,8 +82,7 @@ $(document).ready(function () {
 
     $('body').contextmenu(function (ev) {
         console.log(budowanie);
-        if (budowanie)
-        {
+        if (budowanie) {
             $('.map-tile').removeClass('canbuild');
             $('.map-tile').removeClass('cantbuild');
             budowanie = false;
@@ -66,21 +91,19 @@ $(document).ready(function () {
     });
 
     $('.map-tile').hover(function () {
-        if(budowanie)
-        {
+        if (budowanie) {
             $('.map-tile').removeClass('canbuild');
             $('.map-tile').removeClass('cantbuild');
             var col = $(this).data('col');
             var row = $(this).data('row');
             acanBuild = canBuild(col, row);
             var klasa = '';
-            if(acanBuild)
-            {
+            if (acanBuild) {
                 klasa = 'canbuild';
                 $(this).click(function (ev) {
                     budujAjax($(this).data('col'), $(this).data('row'), budowanie_id);
                 });
-            }else {
+            } else {
                 klasa = 'cantbuild';
             }
             for (var i = col; i < col + budowanie_szer; i++) {
@@ -88,7 +111,14 @@ $(document).ready(function () {
                     $('.tile-' + j.toString() + i.toString()).addClass(klasa);
                 }
             }
-           
+
         }
+    });
+
+    $('div[name=remove]').click(function () {
+        var ID = $(this).data("buildingid");
+
+        burzAjax(ID);
+
     });
 });

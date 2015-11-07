@@ -1,5 +1,4 @@
 ﻿using Game.Core.DTO;
-using Game.Core.DTO.Helpers;
 using Game.Service;
 using Game.Service.Interfaces;
 using System;
@@ -13,10 +12,12 @@ namespace Game.GUI.Controllers
     public class BuildingController : Controller
     {
         private IBuildingHelper _buildingService;
+        private IUserBuildingService _userBuilding;
 
-        public BuildingController(IBuildingHelper buildingService)
+        public BuildingController(IBuildingHelper buildingService, IUserBuildingService userBuilding)
         {
             _buildingService = buildingService;
+            _userBuilding = userBuilding;
         }
         // GET: Building
         public ActionResult Index()
@@ -30,11 +31,12 @@ namespace Game.GUI.Controllers
             return View(buildings);
         }
 
-        public ActionResult _UserBuildingsList()
-        {
-            List<UserBuildingDtoHelper> userBuildigns = _buildingService.GetUserBuildings(User.Identity.Name);
-            return View(userBuildigns);
-        }
+        //public ActionResult _UserBuildingsList()
+        //{
+        //    List<UserBuildingDtoHelper> userBuildigns = _buildingService.GetUserBuildings(User.Identity.Name);
+        //    return View(userBuildigns);
+        //}
+
 
     }
 }
