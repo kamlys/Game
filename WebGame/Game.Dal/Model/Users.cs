@@ -13,6 +13,8 @@ namespace Game.Dal.Model
         {
             Admins = new HashSet<Admins>();
             Bans = new HashSet<Bans>();
+            BuildingQueue = new HashSet<BuildingQueue>();
+            Dolars = new HashSet<Dolars>();
             Maps = new HashSet<Maps>();
             UserBuildings = new HashSet<UserBuildings>();
             UserProducts = new HashSet<UserProducts>();
@@ -47,6 +49,12 @@ namespace Game.Dal.Model
         public virtual ICollection<Bans> Bans { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BuildingQueue> BuildingQueue { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dolars> Dolars { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Maps> Maps { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -54,8 +62,5 @@ namespace Game.Dal.Model
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserProducts> UserProducts { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Dolars> Dolars { get; set; }
     }
 }

@@ -27,6 +27,8 @@ namespace Game.Dal.Model
         [StringLength(50)]
         public string Unit { get; set; }
 
+        [Required]
+        [StringLength(100)]
         public string Alias { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

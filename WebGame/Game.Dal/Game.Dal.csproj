@@ -55,6 +55,7 @@
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Model\Admins.cs" />
     <Compile Include="Model\Bans.cs" />
+    <Compile Include="Model\BuildingQueue.cs" />
     <Compile Include="Model\Buildings.cs" />
     <Compile Include="Model\Dolars.cs" />
     <Compile Include="Model\gameDbContext.cs" />
