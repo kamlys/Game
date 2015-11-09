@@ -3,6 +3,7 @@
     Layout = null;
     var map = Model.Map;
     var userBuildings = Model.UserBuildings;
+    var userProducts = Model.UserProducts;
 }
 
 <div class="map">
@@ -32,3 +33,16 @@
         </div>
     }
 </div>
+
+
+
+
+
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="~/Scripts/js/ProductShow.js"></script>
+<script>
+    $(document).ready(function () {
+        fillWithData(@userProducts);
+        setInterval(function () { updateProduct(@userProducts); }, 1000);
+    });
+</script>

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Game.GUI.ViewModels.Map
 {
@@ -10,5 +11,6 @@ namespace Game.GUI.ViewModels.Map
     {
         public MapDto Map;
         public List<UserBuildings.UserBuildingsViewModel> UserBuildings;
+        public String UserProducts;
     }
 }

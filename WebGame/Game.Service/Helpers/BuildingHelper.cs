@@ -152,14 +152,14 @@ namespace Game.Service
                 }
             }
 
-            foreach(var item in _userProducts.GetAll().Where(p => !tab2.Keys.Contains(p.Products.ID)))
+            foreach (var item in _userProducts.GetAll().Where(p => (!tab2.Keys.Contains(p.Products.ID) && p.User_ID == uID)))
             {
                 AddProduct.Add(new int[] { item.Product_ID, 0, item.Value});
             }
 
             foreach (var item in tab2)
             {
-                var productValue = _userProducts.GetAll().First(u => u.Products.ID == item.Key).Value;
+                var productValue = _userProducts.GetAll().First(u => u.Products.ID == item.Key && u.User_ID == uID).Value;
                 AddProduct.Add(new int[] { item.Key, item.Value, productValue});
             }
 
