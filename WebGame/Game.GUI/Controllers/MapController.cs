@@ -49,6 +49,8 @@ namespace Game.GUI.Controllers
                 });
             }
             vm.UserBuildings = ubv;
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            vm.UserProducts = serializer.Serialize(_buildingsHelper.AddProductValue(User.Identity.Name));
             return View(vm);
         }
     }
