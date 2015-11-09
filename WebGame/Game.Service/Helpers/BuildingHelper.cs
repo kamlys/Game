@@ -140,8 +140,7 @@ namespace Game.Service
 
             Dictionary<int, int> tab2 = new Dictionary<int, int>();
 
-
-            foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID))
+            foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID && u.Status.Contains("gotowy")))
             {
                 int BuildLvl = item.Lvl;
                 int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;

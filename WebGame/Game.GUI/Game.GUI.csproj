@@ -205,6 +205,7 @@
     <Content Include="Scripts\js\main_page.js" />
     <Content Include="Scripts\js\ProductShow.js" />
     <Content Include="Scripts\js\ProductUpdate.js" />
+    <Content Include="Scripts\js\ProgressCircle.js" />
     <Content Include="Styles\Map.css">
       <DependentUpon>Map.scss</DependentUpon>
     </Content>
