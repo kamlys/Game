@@ -16,6 +16,7 @@ namespace Game.Service
         private IRepository<Buildings> _buildings;
         private IRepository<UserBuildings> _userBuildings;
         private IRepository<UserProducts> _userProducts;
+        private IRepository<BuildingQueue> _buildingQueue;
         private IRepository<Maps> _maps;
         private IRepository<Dolars> _dolars;
         private IRepository<Users> _users;
@@ -26,15 +27,17 @@ namespace Game.Service
             IRepository<Buildings> buildings,
             IRepository<UserBuildings> userBuildings,
             IRepository<UserProducts> userProducts,
+            IRepository<BuildingQueue> buildingQueue,
             IRepository<Maps> maps,
-        IRepository<Dolars> dolars,
-        IRepository<Users> users,
-        //IProductService productService,
-        IUnitOfWork unitOfWork)
+            IRepository<Dolars> dolars,
+            IRepository<Users> users,
+            //IProductService productService,
+            IUnitOfWork unitOfWork)
         {
             _buildings = buildings;
             _userBuildings = userBuildings;
             _userProducts = userProducts;
+            _buildingQueue = buildingQueue;
             _maps = maps;
             _dolars = dolars;
             _users = users;
@@ -59,7 +62,9 @@ namespace Game.Service
                     Percent_product_per_lvl = item.Percent_product_per_lvl,
                     Product_ID = item.Product_ID,
                     Product_per_sec = item.Product_per_sec,
-                    Alias = item.Alias
+                    Alias = item.Alias,
+                    BuildingTime = item.BuildingTime,
+                    DestructionTime = item.DestructionTime
                 });
             }
             return buildingsDto;
@@ -136,7 +141,7 @@ namespace Game.Service
             Dictionary<int, int> tab2 = new Dictionary<int, int>();
 
 
-            foreach (var item in _userBuildings.GetAll().Where(u=> u.User_ID == uID))
+            foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID))
             {
                 int BuildLvl = item.Lvl;
                 int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;
@@ -152,18 +157,39 @@ namespace Game.Service
                 }
             }
 
-            foreach(var item in _userProducts.GetAll().Where(p => !tab2.Keys.Contains(p.Products.ID)))
+            foreach (var item in _userProducts.GetAll().Where(p => !tab2.Keys.Contains(p.Products.ID)))
             {
-                AddProduct.Add(new int[] { item.Product_ID, 0, item.Value});
+                AddProduct.Add(new int[] { item.Product_ID, 0, item.Value });
             }
 
             foreach (var item in tab2)
             {
                 var productValue = _userProducts.GetAll().First(u => u.Products.ID == item.Key).Value;
-                AddProduct.Add(new int[] { item.Key, item.Value, productValue});
+                AddProduct.Add(new int[] { item.Key, item.Value, productValue });
             }
 
             return AddProduct.ToArray<int[]>();
+        }
+
+        public void ChangeStatus(string User)
+        {
+            int uID = _users.GetAll().First(u => u.Login == User).ID;
+
+            foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID))
+            {
+                if (item.Status.Contains("budowa") && item.BuildingQueue.All(i => i.UserBuilding_ID == item.ID && DateTime.Now.CompareTo(i.FinishTime)>0))
+                {
+                    item.Status = item.BuildingQueue.First(i => i.UserBuilding_ID == item.ID).NewStatus;
+                    _buildingQueue.Delete(i => i.UserBuilding_ID == item.ID);
+                    _unitOfWork.Commit();
+                }
+                else if(item.Status.Contains("burzenie") && item.BuildingQueue.All(i => i.UserBuilding_ID == item.ID && DateTime.Now.CompareTo(i.FinishTime) > 0))
+                {
+                    _buildingQueue.Delete(i => i.UserBuilding_ID == item.ID);
+                    _userBuildings.Delete(u => u.User_ID == uID && u.ID == item.ID);
+                    _unitOfWork.Commit();
+                }
+            }
         }
     }
 }

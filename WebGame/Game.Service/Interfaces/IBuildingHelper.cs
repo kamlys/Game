@@ -14,6 +14,7 @@ namespace Game.Service.Interfaces
         List<UserBuildingDto> GetBuildings(string User);
         bool BuildingValidation(int id, int col, int row, string user);
         int[][] AddProductValue(string User);
+        void ChangeStatus(string User);
 
     }
 }

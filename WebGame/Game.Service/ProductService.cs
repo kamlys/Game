@@ -41,6 +41,8 @@ namespace Game.Service
 
         public void UpdateUserProduct(string User)
         {
+            _buildingHelper.ChangeStatus(User);
+
             int uID = _user.GetAll().First(u => u.Login == User).ID;
 
             int dateSubstract = (int)DateTime.Now.Subtract((DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update)).TotalSeconds;
@@ -49,7 +51,7 @@ namespace Game.Service
             {
                 _user.GetAll().First(u => u.ID == uID).Last_Update = _user.GetAll().First(u => u.ID == uID).Registration_Date;
             }
-            foreach (var itemBuilding in _userBuilding.GetAll().Where(b => b.User_ID == uID))
+            foreach (var itemBuilding in _userBuilding.GetAll().Where(b => b.User_ID == uID && b.Status.Contains("gotowy")))
             {
                 int bID = itemBuilding.Buildings.Product_ID;
                 foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
