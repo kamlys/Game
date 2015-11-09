@@ -25,7 +25,7 @@ function fillWithData(dataProduct) {
 }
 
 $(document).ready(function () {
-    //TakeValues();
+//TakeValues();
 })
 
 function TakeValues() {

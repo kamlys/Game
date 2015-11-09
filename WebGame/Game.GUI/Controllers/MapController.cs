@@ -15,11 +15,13 @@ namespace Game.GUI.Controllers
     {
         private IMapService _mapService;
         private IBuildingHelper _buildingsHelper;
+        private IProductService _productService;
 
-        public MapController(IMapService mapService, IBuildingHelper buildings)
+        public MapController(IMapService mapService, IBuildingHelper buildings, IProductService productService)
         {
             _mapService = mapService;
             _buildingsHelper = buildings;
+            _productService = productService;
         }
         // GET: Building
         public ActionResult Index()
@@ -29,6 +31,7 @@ namespace Game.GUI.Controllers
 
         public ActionResult _UserMap()
         {
+            _productService.UpdateUserProduct(User.Identity.Name);
             MapViewModel vm = new MapViewModel();
             vm.Map = _mapService.GetMap(User.Identity.Name);
             var ub = _buildingsHelper.GetBuildings(User.Identity.Name);
