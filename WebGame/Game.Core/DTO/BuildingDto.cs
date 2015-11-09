@@ -19,6 +19,8 @@ namespace Game.Core.DTO
         public int Percent_product_per_lvl { get; set; }
         public int Product_ID { get; set; }
         public string Alias { get; set; }
+        public int BuildingTime { get; set; }
+        public int DestructionTime { get; set; }
 
     }
 }

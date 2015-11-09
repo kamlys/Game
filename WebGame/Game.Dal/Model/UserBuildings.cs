@@ -8,6 +8,12 @@ namespace Game.Dal.Model
 
     public partial class UserBuildings
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserBuildings()
+        {
+            BuildingQueue = new HashSet<BuildingQueue>();
+        }
+
         public int ID { get; set; }
 
         public int User_ID { get; set; }
@@ -19,6 +25,13 @@ namespace Game.Dal.Model
         public int Lvl { get; set; }
 
         public int Building_ID { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Status { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BuildingQueue> BuildingQueue { get; set; }
 
         public virtual Buildings Buildings { get; set; }
 

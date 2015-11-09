@@ -19,7 +19,7 @@ namespace Game.Service
         private IRepository<Dolars> _dolars;
         private IRepository<Buildings> _buildings;
         private IRepository<Users> _users;
-        private IProductService _productService;
+        private IRepository<BuildingQueue> _buildingQueue;
         private IBuildingHelper _buildingHelper;
         private IUnitOfWork _unitOfWork;
 
@@ -30,7 +30,8 @@ namespace Game.Service
             IRepository<Buildings> buildings,
             IRepository<Products> products,
             IRepository<Dolars> dolars,
-            IBuildingHelper buildingHelper,
+        IRepository<BuildingQueue> buildingQueue,
+        IBuildingHelper buildingHelper,
             IUnitOfWork unitOfWork)
         {
             _userBuildings = userBuildings;
@@ -39,6 +40,7 @@ namespace Game.Service
             _buildings = buildings;
             _products = products;
             _userProducts = userProducts;
+            _buildingQueue = buildingQueue;
             _dolars = dolars;
             _buildingHelper = buildingHelper;
         }
@@ -58,9 +60,22 @@ namespace Game.Service
                 Lvl = 1,
                 X_pos = col,
                 Y_pos = row,
-                User_ID = uID
+                User_ID = uID,
+                Status = "budowa"
             });
             _dolars.GetAll().First(u => u.User_ID == uID).Value -= buildPrice;
+
+            _unitOfWork.Commit();
+
+            var userBuildingID = _userBuildings.GetAll().OrderByDescending(i => i.ID).First(u => u.User_ID == uID && u.Building_ID == id && u.Status.Contains("budowa")).ID;
+
+            _buildingQueue.Add(new BuildingQueue
+            {
+                User_ID = uID,
+                UserBuilding_ID = userBuildingID,
+                FinishTime = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime),
+                NewStatus = "gotowy"
+            });
 
             _unitOfWork.Commit();
 
@@ -87,15 +102,23 @@ namespace Game.Service
             return true;
         }
 
-        public bool Destroy(string user, int ID)
+        public void Destroy(string user, int ID)
         {
             int uID = _users.GetAll().First(a => a.Login == user).ID;
 
-            _userBuildings.Delete(u => u.User_ID == uID && u.ID == ID);
+            var buildingID = _userBuildings.Get(ID).Building_ID;
+
+            _userBuildings.Get(ID).Status = "burzenie";
+
+            _buildingQueue.Add(new BuildingQueue
+            {
+                User_ID = uID,
+                UserBuilding_ID = ID,
+                FinishTime = DateTime.Now.AddSeconds(_buildings.Get(buildingID).DestructionTime),
+                NewStatus = "wyburzony"
+            });
+
             _unitOfWork.Commit();
-
-            return true;
         }
-
     }
 }

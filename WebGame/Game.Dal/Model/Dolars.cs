@@ -1,4 +1,4 @@
-﻿namespace Game.Dal.Model
+namespace Game.Dal.Model
 {
     using System;
     using System.Collections.Generic;
