@@ -175,13 +175,13 @@ html, body {
 .buildingList {
     margin: 30px 0 0 30px;
     background-color: $secondColor;
-    text-align: center;
     color: white;
     display: inline-block;
     float:left;
+    text-align:center;
 
     .buildingButton {
-        width: 200px;
+        width:200px;
     }
 
     .buildButton{

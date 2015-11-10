@@ -10,12 +10,11 @@
 </head>
 <body class="uk-height-1-1">
     <div class="uk-navbar">
-        <ul class="uk-navbar-nav">
 
-            <li><a href='@Url.Action("Index", "Home")'><i class="uk-icon-home uk-icon-medium"></i></a></li>
-
-            @if (!User.Identity.IsAuthenticated)
-            {
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <ul class="uk-navbar-nav" style="width: 500px">
+                <li><a href='@Url.Action("Index", "Home")'><i class="uk-icon-home uk-icon-medium"></i></a></li>
                 <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
 
                 <li><a href='@Url.Action("##", "##")'>Jak grać</a></li>
@@ -23,10 +22,12 @@
                 <li><a href='@Url.Action("##", "##")'>Support</a></li>
 
                 <li><a href='@Url.Action("Login", "User")'>Zaloguj</a></li>
-            }
-            else
-            {
-
+            </ul>
+        }
+        else
+        {
+            <ul class="uk-navbar-nav">
+                <li><a href='@Url.Action("Index", "Home")'><i class="uk-icon-home uk-icon-medium"></i></a></li>
                 <li><a href='@Url.Action("##", "##")'>Wiadomości</a></li>
 
                 <li><a href='@Url.Action("##", "##")'>Kontakty</a></li>
@@ -40,9 +41,10 @@
                 <li><a href='@Url.Action("##", "##")'><i class="uk-icon-envelope uk-icon-medium"></i></a></li>
 
                 <li><a href='@Url.Action("##", "##")'><i class="uk-icon-cog uk-icon-medium"></i></a></li>
-            }
-        </ul>
-            </div>
+            </ul>
+        }
+
+    </div>
     <div class=".uk-container-center">
         @RenderBody()
         <footer>
@@ -53,7 +55,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/uikit")
     @if (User.Identity.IsAuthenticated)
-    {
+            {
         @Scripts.Render("~/Scripts/js")
     }
     @RenderSection("scripts", required: false)

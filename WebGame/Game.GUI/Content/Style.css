@@ -115,10 +115,10 @@ html, body {
 .buildingList {
   margin: 30px 0 0 30px;
   background-color: #2f3b46;
-  text-align: center;
   color: white;
   display: inline-block;
-  float: left; }
+  float: left;
+  text-align: center; }
   .buildingList .buildingButton {
     width: 200px; }
   .buildingList .buildButton {
