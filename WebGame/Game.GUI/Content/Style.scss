@@ -1,0 +1,232 @@
+﻿//color:
+$firstColor: #2c3e50;
+$secondColor: #2f3b46;
+$logColor: #9b59b6;
+$regColor: #66cccc;
+
+
+
+html, body {
+    background-color: $firstColor;
+}
+/*Jakieś artykuły*/
+#homeArticle {
+    color: #becbd6;
+    font-size: 20px;
+    padding: 20px 20px 20px 20px;
+}
+
+
+/*Panel logowania*/
+.loginForm {
+    #Login, #Password {
+        background-color: $logColor;
+        border: none;
+        color: white;
+        padding-left: 30px;
+    }
+
+    border-top: 5px solid $logColor;
+    width: 400px;
+    min-height: 300px;
+    background-color: $secondColor;
+    margin-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    .loginTopText {
+        .logowanieText {
+            float: left;
+            display: inline-block;
+            color: white;
+            font-size: 30px;
+            margin: 10px 0 40px 0;
+            text-align: left;
+        }
+
+        .kontoText {
+            display: inline-block;
+            float: right;
+            padding: 15px;
+
+            a {
+                color: white;
+                font-size: 15px;
+                margin: 10px 0 40px 0;
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: $logColor;
+            }
+        }
+    }
+
+    .loginButton {
+        .logowanieButton {
+            display: inline-block;
+            float: left;
+            width: auto;
+
+            #logButton {
+                margin-top: 30px;
+                background-color: #222222;
+                color: $logColor;
+                float: left;
+                border: none;
+                width: 100px;
+            }
+
+            #logButton:hover {
+                background-color: $logColor;
+                color: #222222;
+            }
+        }
+
+        .forgetPassword {
+            margin-top: 30px;
+            display: inline-block;
+            float: right;
+
+            a {
+                color: white;
+                font-size: 15px;
+                margin: 10px 0 40px 0;
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: $logColor;
+            }
+        }
+    }
+
+    .uk-form-danger {
+        color: red !important;
+        background-color: $secondColor !important;
+
+        .logError {
+            list-style-type: none;
+        }
+    }
+}
+/*Panel rejestracji*/
+.registerForm {
+
+    #Login, #Password, #Email, #comparePassword {
+        background-color: $regColor;
+        border: none;
+        color: white;
+        padding-left: 30px;
+    }
+
+    border-top: 5px solid $regColor;
+    width: 400px;
+    min-height: 300px;
+    background-color: $secondColor;
+    margin-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    .regTopText {
+        .registerText {
+            float: left;
+            display: inline-block;
+            color: white;
+            font-size: 30px;
+            margin: 10px 0 40px 0;
+            text-align: left;
+        }
+    }
+
+    .regButton {
+        .registerButton {
+            display: inline-block;
+            width: auto;
+
+            #logButton {
+                margin-top: 30px;
+                background-color: #222222;
+                color: $regColor;
+                float: left;
+                border: none;
+                width: 140px;
+            }
+
+            #logButton:hover {
+                background-color: $regColor;
+                color: #222222;
+            }
+        }
+    }
+
+    .uk-form-danger {
+        color: red !important;
+        background-color: $secondColor !important;
+
+        .logError {
+            list-style-type: none;
+        }
+    }
+}
+
+
+/*Lista budynków do budowy*/
+.buildingList {
+    margin: 30px 0 0 30px;
+    background-color: $secondColor;
+    text-align: center;
+    color: white;
+    display: inline-block;
+    float:left;
+
+    .buildingButton {
+        width: 200px;
+    }
+
+    .buildButton{
+        width: 200px;
+    }
+}
+
+.mapBox {
+    margin-top: 30px;
+    margin-left: 70px;
+    padding: 20px 20px 20px 20px;
+    background-color: #2f3b46;
+    width: 40%;
+    display: inline-block;
+    float: none;
+}
+
+.chatBox{
+    margin: 30px 30px 0 0;
+    padding-top: 0;
+    background-color: #2f3b46;
+    /* text-align: center; */
+    color: white;
+    display: inline-block;
+    width: 250px;
+    min-height: 300px;
+     float: right; 
+}
+
+.productList{
+    display: block;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 20px 20px 20px;
+    background-color: #2f3b46;
+    width: 50%;
+    text-align: center;
+    margin-top: 30px;
+
+    .productItem{
+        display: inline-block;
+        color: white;
+        margin-right: 20px;
+    }
+}
+
+

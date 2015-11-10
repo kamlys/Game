@@ -19,17 +19,22 @@ namespace Game.GUI
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //          "~/Scripts/bootstrap.js",
+            //          "~/Scripts/respond.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/uikit").Include(
+                "~/Scripts/js/uikit.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/js").Include(
                     "~/Scripts/js/main_page.js",
-                    "~/Scripts/js/ProductShow.js"
-                    /*"~/Scripts/js/ProductUpdate.js"*/));
+                    "~/Scripts/js/ProductShow.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/uikit.css",
+                      "~/Content/Style.scss",
+                      "~/Content/Style.css",
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Styles").Include(

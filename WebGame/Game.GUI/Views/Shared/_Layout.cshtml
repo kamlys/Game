@@ -8,45 +8,53 @@
     @Styles.Render("~/Styles")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Witaj "+User.Identity.Name, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<body class="uk-height-1-1">
+    <div class="uk-navbar">
+        <ul class="uk-navbar-nav">
+
+            <li><a href='@Url.Action("Index", "Home")'><i class="uk-icon-home uk-icon-medium"></i></a></li>
+
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
+
+                <li><a href='@Url.Action("##", "##")'>Jak grać</a></li>
+
+                <li><a href='@Url.Action("##", "##")'>Support</a></li>
+
+                <li><a href='@Url.Action("Login", "User")'>Zaloguj</a></li>
+            }
+            else
+            {
+
+                <li><a href='@Url.Action("##", "##")'>Wiadomości</a></li>
+
+                <li><a href='@Url.Action("##", "##")'>Kontakty</a></li>
+
+                <li><a href='@Url.Action("##", "##")'>Moje konto</a></li>
+
+                <li><a href='@Url.Action("##", "##")'>Kasyno</a></li>
+
+                <li><a href='@Url.Action("Logout", "User")'>Wyloguj</a></li>
+
+                <li><a href='@Url.Action("##", "##")'><i class="uk-icon-envelope uk-icon-medium"></i></a></li>
+
+                <li><a href='@Url.Action("##", "##")'><i class="uk-icon-cog uk-icon-medium"></i></a></li>
+            }
+        </ul>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Login", "Login", "User")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Wyloguj", "Logout", "User")</li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
+    <div class=".uk-container-center">
         @RenderBody()
-        <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/uikit")
     @if (User.Identity.IsAuthenticated)
     {
-    @Scripts.Render("~/Scripts/js")
+        @Scripts.Render("~/Scripts/js")
     }
     @RenderSection("scripts", required: false)
 </body>

@@ -1,0 +1,161 @@
+﻿@charset "UTF-8";
+html, body {
+  background-color: #2c3e50; }
+
+/*Jakieś artykuły*/
+#homeArticle {
+  color: #becbd6;
+  font-size: 20px;
+  padding: 20px 20px 20px 20px; }
+
+/*Panel logowania*/
+.loginForm {
+  border-top: 5px solid #9b59b6;
+  width: 400px;
+  min-height: 300px;
+  background-color: #2f3b46;
+  margin-top: 100px;
+  padding-left: 50px;
+  padding-right: 50px; }
+  .loginForm #Login, .loginForm #Password {
+    background-color: #9b59b6;
+    border: none;
+    color: white;
+    padding-left: 30px; }
+  .loginForm .loginTopText .logowanieText {
+    float: left;
+    display: inline-block;
+    color: white;
+    font-size: 30px;
+    margin: 10px 0 40px 0;
+    text-align: left; }
+  .loginForm .loginTopText .kontoText {
+    display: inline-block;
+    float: right;
+    padding: 15px; }
+    .loginForm .loginTopText .kontoText a {
+      color: white;
+      font-size: 15px;
+      margin: 10px 0 40px 0;
+      text-decoration: none; }
+    .loginForm .loginTopText .kontoText a:hover {
+      color: #9b59b6; }
+  .loginForm .loginButton .logowanieButton {
+    display: inline-block;
+    float: left;
+    width: auto; }
+    .loginForm .loginButton .logowanieButton #logButton {
+      margin-top: 30px;
+      background-color: #222222;
+      color: #9b59b6;
+      float: left;
+      border: none;
+      width: 100px; }
+    .loginForm .loginButton .logowanieButton #logButton:hover {
+      background-color: #9b59b6;
+      color: #222222; }
+  .loginForm .loginButton .forgetPassword {
+    margin-top: 30px;
+    display: inline-block;
+    float: right; }
+    .loginForm .loginButton .forgetPassword a {
+      color: white;
+      font-size: 15px;
+      margin: 10px 0 40px 0;
+      text-decoration: none; }
+    .loginForm .loginButton .forgetPassword a:hover {
+      color: #9b59b6; }
+  .loginForm .uk-form-danger {
+    color: red !important;
+    background-color: #2f3b46 !important; }
+    .loginForm .uk-form-danger .logError {
+      list-style-type: none; }
+
+/*Panel rejestracji*/
+.registerForm {
+  border-top: 5px solid #66cccc;
+  width: 400px;
+  min-height: 300px;
+  background-color: #2f3b46;
+  margin-top: 100px;
+  padding-left: 50px;
+  padding-right: 50px; }
+  .registerForm #Login, .registerForm #Password, .registerForm #Email, .registerForm #comparePassword {
+    background-color: #66cccc;
+    border: none;
+    color: white;
+    padding-left: 30px; }
+  .registerForm .regTopText .registerText {
+    float: left;
+    display: inline-block;
+    color: white;
+    font-size: 30px;
+    margin: 10px 0 40px 0;
+    text-align: left; }
+  .registerForm .regButton .registerButton {
+    display: inline-block;
+    width: auto; }
+    .registerForm .regButton .registerButton #logButton {
+      margin-top: 30px;
+      background-color: #222222;
+      color: #66cccc;
+      float: left;
+      border: none;
+      width: 140px; }
+    .registerForm .regButton .registerButton #logButton:hover {
+      background-color: #66cccc;
+      color: #222222; }
+  .registerForm .uk-form-danger {
+    color: red !important;
+    background-color: #2f3b46 !important; }
+    .registerForm .uk-form-danger .logError {
+      list-style-type: none; }
+
+/*Lista budynków do budowy*/
+.buildingList {
+  margin: 30px 0 0 30px;
+  background-color: #2f3b46;
+  text-align: center;
+  color: white;
+  display: inline-block;
+  float: left; }
+  .buildingList .buildingButton {
+    width: 200px; }
+  .buildingList .buildButton {
+    width: 200px; }
+
+.mapBox {
+  margin-top: 30px;
+  margin-left: 70px;
+  padding: 20px 20px 20px 20px;
+  background-color: #2f3b46;
+  width: 40%;
+  display: inline-block;
+  float: none; }
+
+.chatBox {
+  margin: 30px 30px 0 0;
+  padding-top: 0;
+  background-color: #2f3b46;
+  /* text-align: center; */
+  color: white;
+  display: inline-block;
+  width: 250px;
+  min-height: 300px;
+  float: right; }
+
+.productList {
+  display: block;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 20px 20px 20px;
+  background-color: #2f3b46;
+  width: 50%;
+  text-align: center;
+  margin-top: 30px; }
+  .productList .productItem {
+    display: inline-block;
+    color: white;
+    margin-right: 20px; }
+
