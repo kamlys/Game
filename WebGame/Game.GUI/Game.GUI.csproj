@@ -343,6 +343,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\AdminScripts.js" />
     <Content Include="Scripts\js\components\accordion.js" />
     <Content Include="Scripts\js\components\accordion.min.js" />
     <Content Include="Scripts\js\components\autocomplete.js" />
@@ -433,6 +434,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -463,6 +465,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Map\_UserMap.cshtml" />
     <Content Include="Styles\Map.scss" />
+    <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\Admin\_UserList.cshtml" />
+    <Content Include="Views\Admin\_AdminList.cshtml" />
+    <Content Include="Views\Admin\_BanList.cshtml" />
+    <Content Include="Views\Admin\_BuildingQueueList.cshtml" />
+    <Content Include="Views\Admin\_BuildingList.cshtml" />
+    <Content Include="Views\Admin\_DolarList.cshtml" />
+    <Content Include="Views\Admin\_MapList.cshtml" />
+    <Content Include="Views\Admin\_ProductList.cshtml" />
+    <Content Include="Views\Admin\_UserBuildingList.cshtml" />
+    <Content Include="Views\Admin\_UserProductList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

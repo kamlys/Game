@@ -1,0 +1,40 @@
+﻿@model List<Game.Core.DTO.MapDto>
+@{
+    Layout = null;
+}
+<div id="administrationList">
+    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+        <caption>Mapy<div class="uk-button">Dodaj nowy</div></caption>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID użytkownika</th>
+                <th>Szerokość</th>
+                <th>Wysokość</th>
+                <th>Wysokość</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Map_ID</td>
+                    <td>@item.User_ID</td>
+                    <td>@item.Width</td>
+                    <td>@item.Height</td>
+                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
+                            Menu <span class="caret"></span>
+                        </button>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><div class="button btn-build buildButton" onclick="update(@item.Map_ID)">Edytuj</div></li>
+                                <li><div class="button btn-build buildButton" onclick="delet(@item.Map_ID)">Usuń</div></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

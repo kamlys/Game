@@ -11,5 +11,6 @@ namespace Game.Service.Interfaces
         string GetPassword(string message);
         string GeneratePassword(string password);
         bool ValidationPassword(string password, string hashPassword);
+        string DescryptPassword(string pass);
     }
 }

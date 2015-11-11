@@ -1,0 +1,41 @@
+﻿@model List<Game.Core.DTO.ProductDto>
+@{
+    Layout = null;
+}
+<div id="administrationList">
+    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+        <caption>Produkty<div class="uk-button">Dodaj nowy</div></caption>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+                <th>Wartość jednostki</th>
+                <th>Jednostka</th>
+                <th>Alias</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                    <td>@item.Price_per_unit</td>
+                    <td>@item.Unit</td>
+                    <td>@item.Alias</td>
+                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
+                            Menu <span class="caret"></span>
+                        </button>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
+                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -48,7 +48,13 @@
     <div class=".uk-container-center">
         @RenderBody()
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>
+                &copy; @DateTime.Now.Year - My ASP.NET Application
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href='@Url.Action("Admin", "Admin")'><i class="uk-icon-gears uk-icon-small"></i></a>
+                }
+            </p>
         </footer>
     </div>
 

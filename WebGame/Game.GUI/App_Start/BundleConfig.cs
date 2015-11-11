@@ -29,7 +29,8 @@ namespace Game.GUI
 
             bundles.Add(new ScriptBundle("~/Scripts/js").Include(
                     "~/Scripts/js/main_page.js",
-                    "~/Scripts/js/ProductShow.js"));
+                    "~/Scripts/js/ProductShow.js",
+                    "~/Scripts/js/AdminScripts.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/uikit.css",

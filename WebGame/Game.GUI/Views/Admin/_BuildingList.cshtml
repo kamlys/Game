@@ -1,0 +1,58 @@
+﻿@model List<Game.Core.DTO.BuildingDto>
+@{
+    Layout = null;
+}
+<div id="administrationList">
+    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+        <caption>Budynki<div class="uk-button">Dodaj nowy</div></caption>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+                <th>Cena</th>
+                <th>Cena za level</th>
+                <th>Szerokość</th>
+                <th>Wysokość</th>
+                <th>Produkcja/s</th>
+                <th>Cena wyburzenia</th>
+                <th>Produkcja co level</th>
+                <th>ID Produktu</th>
+                <th>Alias</th>
+                <th>Czas budowy</th>
+                <th>Czas wyburzenia</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Percent_price_per_lvl</td>
+                    <td>@item.Width</td>
+                    <td>@item.Height</td>
+                    <td>@item.Product_per_sec</td>
+                    <td>@item.Dest_price</td>
+                    <td>@item.Percent_product_per_lvl</td>
+                    <td>@item.Product_ID</td>
+                    <td>@item.Alias</td>
+                    <td>@item.BuildingTime</td>
+                    <td>@item.Dest_price</td>
+                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
+                            Menu <span class="caret"></span>
+                        </button>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
+                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
