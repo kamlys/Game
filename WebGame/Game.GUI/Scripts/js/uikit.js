@@ -2764,8 +2764,8 @@
 
 
     UI.modal.labels = {
-        'Ok': 'Ok',
-        'Cancel': 'Cancel'
+        'Ok': 'Tak',
+        'Cancel': 'Nie'
     };
 
 
