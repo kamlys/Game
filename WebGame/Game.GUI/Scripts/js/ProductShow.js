@@ -17,7 +17,7 @@
 function fillWithData(dataProduct) {
     for (var item in dataProduct) {
         try {
-            $("#products").append("<div id='product_label_" +  dataProduct[item][0] + "'>:</div><div id='product_" + dataProduct[item][0] + "'>"+parseInt(dataProduct[item][2]) + "</div>");
+            $("#products").append("<div class='productItem' id='product_label_" + dataProduct[item][0] + "'>:</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div>");
         } catch (e) {
 
         }
