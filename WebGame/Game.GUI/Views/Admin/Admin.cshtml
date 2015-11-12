@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="uk-grid" style="background-color: #fff">
+    <div class="uk-width-medium-1-10">
+        <!-- This is the vertical tabbed navigation containing the toggling elements -->
+        <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#my-id'}">
+            <li><a href="">Użytkownicy</a></li>
+            <li><a href="">Admini</a></li>
+            <li><a href="">Bany</a></li>
+            <li><a href="">Pieniądze</a></li>
+            <li><a href="">Mapy</a></li>
+            <li><a href="">Produkty</a></li>
+            <li><a href="">Budynki</a></li>
+            <li><a href="">Budynki użytkownika</a></li>
+            <li><a href="">Produkty użytkownika</a></li>
+            <li><a href="">Kolejka budowy</a></li>
+
+
+        </ul>
+    </div>
+    <div class="uk-width-medium-9-10">
+        <!-- This is the container of the content items -->
+        <ul id="my-id" class="uk-switcher">
+            <li>@Html.Action("_UserList", "Admin")</li>
+            <li>@Html.Action("_AdminList", "Admin")</li>
+            <li>@Html.Action("_BanList", "Admin")</li>
+            <li>@Html.Action("_DolarList", "Admin")</li>
+            <li>@Html.Action("_MapList", "Admin")</li>
+            <li>@Html.Action("_ProductList", "Admin")</li>
+            <li>@Html.Action("_BuildingList", "Admin")</li>
+            <li>@Html.Action("_UserBuildingList", "Admin")</li>
+            <li>@Html.Action("_UserProductList", "Admin")</li>
+            <li>@Html.Action("_BuildingQueueList", "Admin")</li>
+
+        </ul>
+    </div>
+</div>

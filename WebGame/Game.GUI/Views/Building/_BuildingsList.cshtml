@@ -3,18 +3,25 @@
     Layout = null;
 }
 
-<div>
+<div id="buildingList">
+
     @foreach (var item in Model)
     {
-        <div class="btn-group">
-             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="uk-button-dropdown" data-uk-dropdown>
+
+            <!-- This is the button toggling the dropdown -->
+            <button class="uk-button buildingButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 @item.Alias <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
-                <li>Cena: @item.Price</li>
-                <li><div class="button btn-build" onclick="buduj(@item.ID, @item.Width, @item.Height)">Buduj</div></li>
-            </ul>
-       </div>
-       <br/><br/>
+
+            <!-- This is the dropdown -->
+            <div class="uk-dropdown uk-dropdown-small">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li><div class="button btn-build buildButton" onclick="buduj(@item.ID, @item.Width, @item.Height)">Buduj</div></li>
+                </ul>
+            </div>
+
+        </div>
+        <br /><br />
     }
 </div>

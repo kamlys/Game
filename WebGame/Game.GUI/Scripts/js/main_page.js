@@ -118,7 +118,9 @@ $(document).ready(function () {
     $('div[name=remove]').click(function () {
         var ID = $(this).data("buildingid");
 
-        burzAjax(ID);
+        UIkit.modal.confirm("Na pewno chcesz zburzyć ten budynek?", function () {
+            burzAjax(ID);
+        });
 
     });
 });

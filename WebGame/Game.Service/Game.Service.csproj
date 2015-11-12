@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminService.cs" />
     <Compile Include="Helpers\BuildingHelper.cs" />
     <Compile Include="Helpers\HashPass.cs" />
+    <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IBuildingHelper.cs" />
     <Compile Include="Interfaces\IHashPass.cs" />
     <Compile Include="Interfaces\IMapService.cs" />

@@ -27,6 +27,7 @@ namespace Game.Service.Helpers
             return Convert.ToBase64String(resultBytes);
         }
 
+        
         public bool ValidationPassword(string password, string hashPassword)
         {
             string finalString = password;

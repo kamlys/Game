@@ -39,6 +39,8 @@ namespace Game.Resolver
             builder.RegisterType<MapService>().As<IMapService>();
             builder.RegisterType<UserBuildingService>().As<IUserBuildingService>();
             builder.RegisterType<ProductService>().As<IProductService>();
+            builder.RegisterType<AdminService>().As<IAdminService>();
+
 
 
         }
