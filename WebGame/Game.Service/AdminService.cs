@@ -99,7 +99,7 @@ namespace Game.Service
                     {
                         ID = item.ID,
                         Login = item.Login,
-                        Password = _hassPass.DescryptPassword(item.Password),
+                        Password = item.Password,
                         Email = item.Email,
                         Last_Log = (DateTime)item.Last_Log,
                         Last_Update = (DateTime)item.Last_Update,

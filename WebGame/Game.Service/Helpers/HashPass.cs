@@ -27,14 +27,7 @@ namespace Game.Service.Helpers
             return Convert.ToBase64String(resultBytes);
         }
 
-        public string DescryptPassword(string pass)
-        {
-            UTF8Encoding encoder = new UTF8Encoding();
-            SHA256Managed sha256hasher = new SHA256Managed();
-            byte[] hashedDataBytes = sha256hasher.ComputeHash(encoder.GetBytes(pass));
-            return Convert.ToBase64String(hashedDataBytes);
-        }
-
+        
         public bool ValidationPassword(string password, string hashPassword)
         {
             string finalString = password;
