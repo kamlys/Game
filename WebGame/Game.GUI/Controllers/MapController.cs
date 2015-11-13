@@ -54,6 +54,15 @@ namespace Game.GUI.Controllers
             vm.UserBuildings = ubv;
             var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             vm.UserProducts = serializer.Serialize(_buildingsHelper.AddProductValue(User.Identity.Name));
+            var buildingsArray = new int[ub.Count][];
+            int i = 0;
+            foreach(var a in ubv)
+            {
+                var building = new int[4] { a.x_left, a.x_right, a.y_top, a.y_bottom };
+                buildingsArray[i] = building;
+                i++;
+            }
+            vm.BuildingsArray = serializer.Serialize(buildingsArray);
             return View(vm);
         }
     }

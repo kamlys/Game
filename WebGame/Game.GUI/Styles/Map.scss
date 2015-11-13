@@ -1,17 +1,19 @@
 .map {
-    .map-tile {
-        float: left;
-        width: 50px;
-        height: 50px;
-        border: 1px solid rgba(0,0,0,0.2);
-        &.free {
-            background-color: #78AB91;
-        }
-        &.taken {
-            background-color: #9d6b1c; 
-            border: none;
-        }
+    background-color: #61b600;
+    position: relative;
+    .building {
+        background: #808080;
+        color: white;
+        display: block;
+        position: absolute;
     }
+}
+
+.fake-building {
+    display: none;
+    position:absolute;
+    background: white;
+    z-index: 1;
 }
 
 .btn-build {
@@ -24,12 +26,4 @@
 
 .buduj {
     cursor: url(http://curling.pl/assets/hammer-c6f60aa86a5adea0cf4ec2f38c64d79a.png), pointer;
-}
-
-.canbuild {
-    background: #61b600 !important;
-}
-
-.cantbuild {
-    background: #9d0000 !important;
 }
