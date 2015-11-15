@@ -1,10 +1,29 @@
-﻿@model List<Game.Core.DTO.BanDto>
+﻿@model List<Game.GUI.ViewModels.TableViewModel>
 @{
     Layout = null;
 }
-<div id="administrationList">
+
+<div id="banAdd" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <section class="uk-panel uk-panel-box uk-form">
+            @using (Html.BeginForm("Add", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.TextBox("User_ID", null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.TextArea("Description", null, new { @class = "uk-width-1-1 uk-form-large" })
+                <input type="text" id="Start_Date" name="Start_Date" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                <input type="text" id="Finish_Date" name="Finish_Date" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+
+                <input type="submit" value="Submit" />
+            }
+        </section>
+    </div>
+</div>
+
+
+<div id="tableList">
     <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Bany<div class="uk-button">Dodaj nowy</div></caption>
+        <caption>Bany <button class="uk-button" data-uk-modal="{target:'#banAdd'}">Dodaj nowy</button></caption>
         <thead>
             <tr>
                 <th>ID</th>

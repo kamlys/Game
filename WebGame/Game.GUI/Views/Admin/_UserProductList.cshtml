@@ -1,4 +1,4 @@
-﻿@model List<Game.Core.DTO.UserProductDto>
+﻿@model List<Game.GUI.ViewModels.TableViewModel>
 @{
     Layout = null;
 }
@@ -20,7 +20,7 @@
                 <tr>
                     <td>@item.ID</td>
                     <td>@item.User_ID</td>
-                    <td>@item.Product_Name</td>
+                    <td>@item.Name</td>
                     <td>@item.Value</td>
                     <td>@item.Product_ID</td>
                     <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">

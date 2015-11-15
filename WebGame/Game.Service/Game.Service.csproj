@@ -43,14 +43,34 @@
     <Compile Include="Helpers\BuildingHelper.cs" />
     <Compile Include="Helpers\HashPass.cs" />
     <Compile Include="Interfaces\IAdminService.cs" />
+    <Compile Include="Interfaces\TableInterface\IAdminTableService.cs" />
     <Compile Include="Interfaces\IBuildingHelper.cs" />
     <Compile Include="Interfaces\IHashPass.cs" />
     <Compile Include="Interfaces\IMapService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\IUserBuildingService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Interfaces\TableInterface\IBanTableService.cs" />
+    <Compile Include="Interfaces\TableInterface\IBuildingTableService.cs" />
+    <Compile Include="Interfaces\TableInterface\IDolarTableService.cs" />
+    <Compile Include="Interfaces\TableInterface\IMapTableService.cs" />
+    <Compile Include="Interfaces\TableInterface\IProductTableService.cs" />
+    <Compile Include="Interfaces\TableInterface\IQueueTableService.cs" />
+    <Compile Include="Interfaces\TableInterface\IUserBuildingTableService.cs" />
+    <Compile Include="Interfaces\TableInterface\IUserProductTableService.cs" />
+    <Compile Include="Interfaces\TableInterface\IUserTableService.cs" />
     <Compile Include="MapService.cs" />
     <Compile Include="ProductService.cs" />
+    <Compile Include="Table\AdminTableService.cs" />
+    <Compile Include="Table\BanTableService.cs" />
+    <Compile Include="Table\BuildingTableService.cs" />
+    <Compile Include="Table\DolarTableService.cs" />
+    <Compile Include="Table\MapTableService.cs" />
+    <Compile Include="Table\ProductTableService.cs" />
+    <Compile Include="Table\QueueTableService.cs" />
+    <Compile Include="Table\UserBuildingTableService.cs" />
+    <Compile Include="Table\UserProductTableService.cs" />
+    <Compile Include="Table\UserTableService.cs" />
     <Compile Include="UserBuildingService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +85,7 @@
       <Name>Game.Dal</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

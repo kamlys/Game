@@ -1,7 +1,9 @@
 ﻿using Game.Core.DTO;
+using Game.GUI.ViewModels;
 using Game.GUI.ViewModels.User;
 using Game.Service;
 using Game.Service.Interfaces;
+using Game.Service.Interfaces.TableInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +17,12 @@ namespace Game.GUI.Controllers
     public class UserController : Controller
     {
         private IUserService _userService;
+        private IUserTableService _userTable;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IUserTableService userTable)
         {
             _userService = userService;
+            _userTable = userTable;
         }
 
         [HttpGet]
@@ -84,5 +88,46 @@ namespace Game.GUI.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+
+        public ActionResult _UserList()
+        {
+            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+
+            foreach (var item in _userTable.GetUser())
+            {
+                adminViewModel.Add(new TableViewModel
+                {
+                    ID = item.ID,
+                    Login = item.Login,
+                    Password = item.Password,
+                    Email = item.Email,
+                    Last_Update = item.Last_Update,
+                    Registration_Date = item.Registration_Date,
+                    Last_Log = item.Last_Log
+                });
+            }
+
+
+            return View("~/Views/Admin/_UserList.cshtml", adminViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Add(string Login, string Password, string Email, DateTime Last_Log, DateTime Registration_Date, DateTime Last_Update)
+        {
+            UserDto _userDto = new UserDto();
+
+            _userDto.Login = Login;
+            _userDto.Password = Password;
+            _userDto.Email = Email;
+            _userDto.Last_Log = Last_Log;
+            _userDto.Registration_Date = Registration_Date;
+            _userDto.Last_Update = Last_Update;
+
+            _userTable.Add(_userDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
     }
 }

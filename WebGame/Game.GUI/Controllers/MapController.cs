@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Game.GUI.ViewModels.UserBuildings;
+using Game.GUI.ViewModels;
+using Game.Service.Interfaces.TableInterface;
 
 namespace Game.GUI.Controllers
 {
@@ -16,12 +18,15 @@ namespace Game.GUI.Controllers
         private IMapService _mapService;
         private IBuildingHelper _buildingsHelper;
         private IProductService _productService;
+        private IMapTableService _mapTable;
 
-        public MapController(IMapService mapService, IBuildingHelper buildings, IProductService productService)
+
+        public MapController(IMapService mapService, IBuildingHelper buildings, IProductService productService, IMapTableService mapTable)
         {
             _mapService = mapService;
             _buildingsHelper = buildings;
             _productService = productService;
+            _mapTable = mapTable;
         }
         // GET: Building
         public ActionResult Index()
@@ -64,6 +69,41 @@ namespace Game.GUI.Controllers
             }
             vm.BuildingsArray = serializer.Serialize(buildingsArray);
             return View(vm);
+        }
+
+
+
+        public ActionResult _MapList()
+        {
+            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+
+            foreach (var item in _mapTable.GetMaps())
+            {
+                adminViewModel.Add(new TableViewModel
+                {
+                    ID = item.Map_ID,
+                    User_ID = item.User_ID,
+                    Height = item.Height,
+                    Width = item.Width
+                });
+            }
+
+
+            return View("~/Views/Admin/_MapList.cshtml", adminViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Add(int User_ID, int Width, int Height)
+        {
+            MapDto _mapDto = new MapDto();
+
+            _mapDto.User_ID = User_ID;
+            _mapDto.Height = Height;
+            _mapDto.Width = Width;
+
+            _mapTable.Add(_mapDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
         }
     }
 }

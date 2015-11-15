@@ -1,4 +1,4 @@
-﻿@model List<Game.Core.DTO.MapDto>
+﻿@model List<Game.GUI.ViewModels.TableViewModel>
 @{
     Layout = null;
 }
@@ -18,7 +18,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Map_ID</td>
+                    <td>@item.ID</td>
                     <td>@item.User_ID</td>
                     <td>@item.Width</td>
                     <td>@item.Height</td>
@@ -28,8 +28,8 @@
                         </button>
                         <div class="uk-dropdown uk-dropdown-small">
                             <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="update(@item.Map_ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="delet(@item.Map_ID)">Usuń</div></li>
+                                <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
+                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
                             </ul>
                         </div>
                     </td>

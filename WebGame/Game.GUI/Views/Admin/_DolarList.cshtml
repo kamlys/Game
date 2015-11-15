@@ -1,10 +1,28 @@
-﻿@model List<Game.Core.DTO.DolarDto>
+﻿@model List<Game.GUI.ViewModels.TableViewModel>
 @{
     Layout = null;
 }
-<div id="administrationList">
+
+
+
+<div id="adminAdd" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <section class="uk-panel uk-panel-box uk-form loginForm">
+            @using (Html.BeginForm("Add", "DolarTable", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.TextBox("User_ID", null, new { @class = "uk-width-1-1 uk-form-large" })
+
+                <input type="submit" value="Submit" />
+            }
+        </section>
+    </div>
+</div>
+
+
+<div id="tableList">
     <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Pieniądze <div class="uk-button">Dodaj nowy</div></caption>
+        <caption>Admini <button class="uk-button" data-uk-modal="{target:'#dolarAdd'}">Dodaj nowy</button></caption>
         <thead>
             <tr>
                 <th>ID</th>
