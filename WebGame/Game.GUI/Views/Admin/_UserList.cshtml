@@ -1,11 +1,38 @@
-﻿@model List<Game.GUI.ViewModels.TableViewModel>
+﻿@model Game.GUI.ViewModels.ListTableViewModel
 @{
     Layout = null;
 }
 
-<div id="administrationList">
+<div id="userAdd" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <section class="uk-panel uk-panel-box uk-form">
+            @using (Html.BeginForm("Add", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.Label("Login: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Login, null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Hasło: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Password, null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("E-mail: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Email, null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Ostatnie logowanie: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Last_Log, null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Data rejestracji: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Registration_Date, null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Ostatni update surowców: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Last_Update, null, new { @class = "uk-width-1-1 uk-form-large" })
+
+                <input type="submit" value="Zapisz" class="uk-button-large" />
+            }
+        </section>
+    </div>
+</div>
+
+
+
+<div id="tableList">
     <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Użytkownicy <div class="uk-button">Dodaj nowy</div></caption>
+        <caption>Użytkownicy <button class="uk-button" data-uk-modal="{target:'#userAdd'}">Dodaj nowy</button></caption>
         <thead>
             <tr>
                 <th>ID</th>
@@ -18,7 +45,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.tableList)
             {
                 <tr>
                     <td>@item.ID</td>
@@ -35,7 +62,8 @@
                         <div class="uk-dropdown uk-dropdown-small">
                             <ul class="uk-nav uk-nav-dropdown">
                                 <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
+                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","User", new { id = item.ID })'">Usuń</div></li>
+
                             </ul>
                         </div>
                     </td>

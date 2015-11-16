@@ -37,7 +37,8 @@ namespace Game.Service.Table
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _products.Delete(_products.Get(id));
+            _unitOfWork.Commit();
         }
 
         public List<ProductDto> GetProduct()

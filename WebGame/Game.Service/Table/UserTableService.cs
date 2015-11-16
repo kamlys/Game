@@ -8,18 +8,21 @@ using Game.Core.DTO;
 using Game.Dal.Repository;
 using Game.Dal.Model;
 using Game.Dal;
+using Game.Service.Interfaces;
 
 namespace Game.Service.Table
 {
     public class UserTableService : IUserTableService
     {
         private IRepository<Users> _users;
+        private IHashPass _hashPass;
         private IUnitOfWork _unitOfWork;
         
         
-        public UserTableService(IRepository<Users> users, IUnitOfWork unitOfWork)
+        public UserTableService(IRepository<Users> users, IUnitOfWork unitOfWork, IHashPass hahsPass)
         {
             _users = users;
+            _hashPass = hahsPass;
             _unitOfWork = unitOfWork;
         } 
 
@@ -28,7 +31,7 @@ namespace Game.Service.Table
             _users.Add(new Users
             {
                 Login = user.Login,
-                Password = user.Password,
+                Password = _hashPass.GeneratePassword(user.Password),
                 Email = user.Email,
                 Last_Log = (DateTime)user.Last_Log,
                 Last_Update = (DateTime)user.Last_Update,
@@ -40,7 +43,8 @@ namespace Game.Service.Table
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _users.Delete(_users.Get(id));
+            _unitOfWork.Commit();
         }
 
         public List<UserDto> GetUser()

@@ -38,7 +38,8 @@ namespace Game.Service.Table
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _bans.Delete(_bans.Get(id));
+            _unitOfWork.Commit();
         }
 
         public List<BanDto> GetBan()

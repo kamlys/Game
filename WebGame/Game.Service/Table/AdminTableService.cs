@@ -36,7 +36,8 @@ namespace Game.Service.Table
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _admins.Delete(_admins.Get(id));
+            _unitOfWork.Commit();
         }
 
         public List<AdminDto> GetAdmins()

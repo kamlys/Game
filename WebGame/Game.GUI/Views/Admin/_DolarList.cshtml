@@ -1,19 +1,22 @@
-﻿@model List<Game.GUI.ViewModels.TableViewModel>
+﻿@model Game.GUI.ViewModels.ListTableViewModel
 @{
     Layout = null;
 }
 
 
 
-<div id="adminAdd" class="uk-modal">
+<div id="dolarAdd" class="uk-modal">
     <div class="uk-modal-dialog">
         <a class="uk-modal-close uk-close"></a>
-        <section class="uk-panel uk-panel-box uk-form loginForm">
-            @using (Html.BeginForm("Add", "DolarTable", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        <section class="uk-panel uk-panel-box uk-form">
+            @using (Html.BeginForm("Add", "Dolar", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.TextBox("User_ID", null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m=>m.tableView.User_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Wartość: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Value, null, new { @class = "uk-width-1-1 uk-form-large" })
 
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Zapisz" class="uk-button-large" />
             }
         </section>
     </div>
@@ -31,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.tableList)
             {
                 <tr>
                     <td>@item.ID</td>
@@ -44,7 +47,8 @@
                         <div class="uk-dropdown uk-dropdown-small">
                             <ul class="uk-nav uk-nav-dropdown">
                                 <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
+                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","Dolar", new { id = item.ID })'">Usuń</div></li>
+
                             </ul>
                         </div>
                     </td>

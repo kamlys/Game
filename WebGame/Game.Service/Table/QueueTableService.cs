@@ -39,7 +39,8 @@ namespace Game.Service.Table
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _buildingQueue.Delete(_buildingQueue.Get(id));
+            _unitOfWork.Commit();
         }
 
         public List<BuildingQueueDto> GetQueue()

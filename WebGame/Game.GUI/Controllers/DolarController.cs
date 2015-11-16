@@ -28,11 +28,12 @@ namespace Game.GUI.Controllers
 
         public ActionResult _DolarList()
         {
-            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
 
             foreach (var item in _dolarTableService.GetDolars())
             {
-                adminViewModel.Add(new TableViewModel
+                tableList.tableList.Add(new TableViewModel
                 {
                     User_ID = item.User_ID,
                     Value = item.Value
@@ -40,19 +41,26 @@ namespace Game.GUI.Controllers
             }
 
 
-            return View("~/Views/Admin/_DolarList.cshtml", adminViewModel);
+            return View("~/Views/Admin/_DolarList.cshtml", tableList);
         }
 
         [HttpPost]
-        public ActionResult Add(int User_ID, int Value)
+        public ActionResult Add(ListTableViewModel listView)
         {
             DolarDto _dolarDto = new DolarDto();
 
-            _dolarDto.User_ID = User_ID;
-            _dolarDto.Value = Value;
+            _dolarDto.User_ID = listView.tableView.User_ID;
+            _dolarDto.Value = listView.tableView.Value;
 
             _dolarTableService.Add(_dolarDto);
 
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _dolarTableService.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 

@@ -1,4 +1,4 @@
-﻿@model List<Game.GUI.ViewModels.TableViewModel>
+﻿@model Game.GUI.ViewModels.ListTableViewModel
 @{
     Layout = null;
 }
@@ -7,14 +7,16 @@
     <div class="uk-modal-dialog">
         <a class="uk-modal-close uk-close"></a>
         <section class="uk-panel uk-panel-box uk-form">
-            @using (Html.BeginForm("Add", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Add", "Ban", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.TextBox("User_ID", null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextArea("Description", null, new { @class = "uk-width-1-1 uk-form-large" })
-                <input type="text" id="Start_Date" name="Start_Date" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                <input type="text" id="Finish_Date" name="Finish_Date" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.User_ID, new { @class = "uk-width-1-1 uk-form-large" })
 
-                <input type="submit" value="Submit" />
+                @Html.Label("Opis: ", new { @class = "uk-form-label" })
+                @Html.TextAreaFor(m => m.tableView.Description, new { @class = "uk-width-1-1 uk-form-large" })
+                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                <input type="submit" value="Submit" class="uk-button-large" />
             }
         </section>
     </div>
@@ -34,7 +36,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.tableList)
             {
                 <tr>
                     <td>@item.ID</td>
@@ -49,7 +51,7 @@
                         <div class="uk-dropdown uk-dropdown-small">
                             <ul class="uk-nav uk-nav-dropdown">
                                 <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
+                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","Admin", new { id = item.ID })'">Usuń</div></li>
                             </ul>
                         </div>
                     </td>
@@ -58,4 +60,10 @@
         </tbody>
     </table>
 </div>
+
+
+<script type="text/javascript" src="~/Scripts/js/uikit.js"></script>
+<script type="text/javascript" src="~/Scripts/js/uikit.min.js"></script>
+
+
 

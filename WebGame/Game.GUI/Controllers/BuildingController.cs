@@ -39,11 +39,13 @@ namespace Game.GUI.Controllers
 
         public ActionResult _BuildingList2()
         {
-            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+
 
             foreach (var item in _buildingTable.GetBuilding())
             {
-                adminViewModel.Add(new TableViewModel
+                tableList.tableList.Add(new TableViewModel
                 {
                     Name = item.Name,
                     Price = item.Price,
@@ -62,41 +64,36 @@ namespace Game.GUI.Controllers
             }
 
 
-            return View("~/Views/Admin/_BuildingList2.cshtml", adminViewModel);
+            return View("~/Views/Admin/_BuildingList2.cshtml", tableList);
         }
 
         [HttpPost]
-        public ActionResult Add(string Name,
-            int Price,
-            int Height,
-            int Width,
-            int Dest_price,
-            int Percent_price_per_lvl,
-            int Percent_product_per_lvl,
-            int Product_ID,
-            int Product_per_sec,
-            string Alias,
-            int BuildingTime,
-            int DestructionTime)
+        public ActionResult Add(ListTableViewModel viewModel)
         {
             BuildingDto _buildingDto = new BuildingDto();
 
-            _buildingDto.Name = Name;
-            _buildingDto.Price = Price;
-            _buildingDto.Height = Height;
-            _buildingDto.Width = Width;
-            _buildingDto.Dest_price = (int)Dest_price;
-            _buildingDto.Percent_price_per_lvl = Percent_price_per_lvl;
-            _buildingDto.Percent_product_per_lvl = Percent_product_per_lvl;
-            _buildingDto.Product_ID = Product_ID;
-            _buildingDto.Product_per_sec = Product_per_sec;
-            _buildingDto.Alias = Alias;
-            _buildingDto.BuildingTime = BuildingTime;
-            _buildingDto.DestructionTime = DestructionTime;
-
+            _buildingDto.Name = viewModel.tableView.Name;
+            _buildingDto.Price = viewModel.tableView.Price;
+            _buildingDto.Height = viewModel.tableView.Height;
+            _buildingDto.Width = viewModel.tableView.Width;
+            _buildingDto.Dest_price = (int)viewModel.tableView.Dest_price;
+            _buildingDto.Percent_price_per_lvl = viewModel.tableView.Percent_price_per_lvl;
+            _buildingDto.Percent_product_per_lvl = viewModel.tableView.Percent_product_per_lvl;
+            _buildingDto.Product_ID = viewModel.tableView.Product_ID;
+            _buildingDto.Product_per_sec = viewModel.tableView.Product_per_sec;
+            _buildingDto.Alias = viewModel.tableView.Alias;
+            _buildingDto.BuildingTime = viewModel.tableView.BuildingTime;
+            _buildingDto.DestructionTime = viewModel.tableView.DestructionTime;
 
             _buildingTable.Add(_buildingDto);
 
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _buildingTable.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 

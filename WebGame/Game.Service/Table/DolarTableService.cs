@@ -37,7 +37,8 @@ namespace Game.Service.Table
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _dolars.Delete(_dolars.Get(id));
+            _unitOfWork.Commit();
         }
 
         public List<DolarDto> GetDolars()

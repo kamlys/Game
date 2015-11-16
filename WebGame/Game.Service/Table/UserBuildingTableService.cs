@@ -40,7 +40,8 @@ namespace Game.Service.Table
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _userBuildings.Delete(_userBuildings.Get(id));
+            _unitOfWork.Commit();
         }
 
         public List<UserBuildingDto> GetUserBuilding()

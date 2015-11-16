@@ -37,7 +37,7 @@ namespace Game.Service.Table
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _maps.Delete(_maps.Get(id));
         }
 
         public List<MapDto> GetMaps()

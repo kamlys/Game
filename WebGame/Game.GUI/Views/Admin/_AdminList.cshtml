@@ -1,4 +1,4 @@
-﻿@model List<Game.GUI.ViewModels.TableViewModel>
+﻿@model Game.GUI.ViewModels.ListTableViewModel
 @{
     Layout = null;
 }
@@ -6,12 +6,13 @@
 <div id="adminAdd" class="uk-modal">
     <div class="uk-modal-dialog">
         <a class="uk-modal-close uk-close"></a>
-        <section class="uk-panel uk-panel-box uk-form">
-            @using (Html.BeginForm("Add", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        <section class="uk-panel uk-panel-box uk-form-horizontal">
+            @using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.TextBox("User_ID", null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m=>m.tableView.User_ID, new { @class = "uk-width-1-1 uk-form-large" })
 
-                <input type="submit" value="Submit" />
+                <input type="submit" class="uk-button-large" value="Submit" />
             }
         </section>
     </div>
@@ -28,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.tableList)
             {
                 <tr>
 
@@ -40,7 +41,7 @@
                         </button>
                         <div class="uk-dropdown uk-dropdown-small">
                             <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
+                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","Admin", new { id = item.ID })'">Usuń</div></li>
                             </ul>
                         </div>
                     </td>

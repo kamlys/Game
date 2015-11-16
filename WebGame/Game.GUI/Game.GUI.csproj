@@ -451,6 +451,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ListTableViewModel.cs" />
     <Compile Include="ViewModels\TableViewModel.cs" />
     <Compile Include="ViewModels\Building\AjaxBuildViewModel.cs" />
     <Compile Include="ViewModels\Building\BuildingViewModel.cs" />

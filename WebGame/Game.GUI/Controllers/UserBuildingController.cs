@@ -26,11 +26,12 @@ namespace Game.GUI.Controllers
 
         public ActionResult _UserBuildingList()
         {
-            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
 
             foreach (var item in _userBuildingTable.GetUserBuilding())
             {
-                adminViewModel.Add(new TableViewModel
+                tableList.tableList.Add(new TableViewModel
                 {
                     User_ID = item.User_ID,
                     X_pos = item.X_pos,
@@ -42,23 +43,30 @@ namespace Game.GUI.Controllers
             }
 
 
-            return View("~/Views/Admin/_UserBuildingList.cshtml", adminViewModel);
+            return View("~/Views/Admin/_UserBuildingList.cshtml", tableList);
         }
 
         [HttpPost]
-        public ActionResult Add(int User_ID, int X_pos, int Y_pos, int Lvl, int Building_ID, string Status)
+        public ActionResult Add(ListTableViewModel listView)
         {
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
 
-            _userBuildingDto.User_ID = User_ID;
-            _userBuildingDto.X_pos = X_pos;
-            _userBuildingDto.Y_pos = Y_pos;
-            _userBuildingDto.Lvl = Lvl;
-            _userBuildingDto.Building_ID = Building_ID;
-            _userBuildingDto.Status = Status;
+            _userBuildingDto.User_ID = listView.tableView.User_ID;
+            _userBuildingDto.X_pos = listView.tableView.X_pos;
+            _userBuildingDto.Y_pos = listView.tableView.Y_pos;
+            _userBuildingDto.Lvl = listView.tableView.Lvl;
+            _userBuildingDto.Building_ID = listView.tableView.Building_ID;
+            _userBuildingDto.Status = listView.tableView.Status;
 
             _userBuildingTable.Add(_userBuildingDto);
 
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _userBuildingTable.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 

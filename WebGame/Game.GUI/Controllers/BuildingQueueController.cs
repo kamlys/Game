@@ -26,11 +26,12 @@ namespace Game.GUI.Controllers
 
         public ActionResult _BuildingQueueList()
         {
-            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
 
             foreach (var item in _queueTable.GetQueue())
             {
-                adminViewModel.Add(new TableViewModel
+                tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
                     User_ID = item.User_ID,
@@ -41,21 +42,28 @@ namespace Game.GUI.Controllers
             }
 
 
-            return View("~/Views/Admin/_BuildingQueueList.cshtml", adminViewModel);
+            return View("~/Views/Admin/_BuildingQueueList.cshtml", tableList);
         }
 
         [HttpPost]
-        public ActionResult Add(int User_ID, int UserBuilding_ID, DateTime FinishTime, string NewStatus)
+        public ActionResult Add(ListTableViewModel listView)
         {
             BuildingQueueDto _queueDto = new BuildingQueueDto();
 
-            _queueDto.User_ID = User_ID;
-            _queueDto.UserBuilding_ID = UserBuilding_ID;
-            _queueDto.FinishTime = FinishTime;
-            _queueDto.NewStatus = NewStatus;
+            _queueDto.User_ID = listView.tableView.User_ID;
+            _queueDto.UserBuilding_ID = listView.tableView.UserBuilding_ID;
+            _queueDto.FinishTime = listView.tableView.Finish_Date;
+            _queueDto.NewStatus = listView.tableView.NewStatus;
 
             _queueTable.Add(_queueDto);
 
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _queueTable.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
     }

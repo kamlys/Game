@@ -75,11 +75,12 @@ namespace Game.GUI.Controllers
 
         public ActionResult _MapList()
         {
-            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
 
             foreach (var item in _mapTable.GetMaps())
             {
-                adminViewModel.Add(new TableViewModel
+                tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.Map_ID,
                     User_ID = item.User_ID,
@@ -89,20 +90,27 @@ namespace Game.GUI.Controllers
             }
 
 
-            return View("~/Views/Admin/_MapList.cshtml", adminViewModel);
+            return View("~/Views/Admin/_MapList.cshtml", tableList);
         }
 
         [HttpPost]
-        public ActionResult Add(int User_ID, int Width, int Height)
+        public ActionResult Add(ListTableViewModel listView)
         {
             MapDto _mapDto = new MapDto();
 
-            _mapDto.User_ID = User_ID;
-            _mapDto.Height = Height;
-            _mapDto.Width = Width;
+            _mapDto.User_ID = listView.tableView.User_ID;
+            _mapDto.Height = listView.tableView.Height;
+            _mapDto.Width = listView.tableView.Width;
 
             _mapTable.Add(_mapDto);
 
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _mapTable.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
     }

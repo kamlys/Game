@@ -27,11 +27,12 @@ namespace Game.GUI.Controllers
 
         public ActionResult _UserProductList()
         {
-            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
 
             foreach (var item in _userProductTable.GetUserProduct())
             {
-                adminViewModel.Add(new TableViewModel
+                tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
                     User_ID = item.User_ID,
@@ -42,21 +43,28 @@ namespace Game.GUI.Controllers
             }
 
 
-            return View("~/Views/Admin/_UserProductList.cshtml", adminViewModel);
+            return View("~/Views/Admin/_UserProductList.cshtml", tableList);
         }
 
         [HttpPost]
-        public ActionResult Add(int User_ID, string Product_Name, int Value, int Product_ID)
+        public ActionResult Add(ListTableViewModel listView)
         {
             UserProductDto _userProductDto = new UserProductDto();
 
-            _userProductDto.User_ID = User_ID;
-            _userProductDto.Product_Name = Product_Name;
-            _userProductDto.Value = Value;
-            _userProductDto.Product_ID = Product_ID;
+            _userProductDto.User_ID = listView.tableView.User_ID;
+            _userProductDto.Product_Name = listView.tableView.Name;
+            _userProductDto.Value =  listView.tableView.Value;
+            _userProductDto.Product_ID = listView.tableView.Product_ID;
 
             _userProductTable.Add(_userProductDto);
 
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _userProductTable.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 

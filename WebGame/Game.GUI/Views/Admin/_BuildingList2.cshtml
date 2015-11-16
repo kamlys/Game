@@ -1,4 +1,4 @@
-﻿@model List<Game.GUI.ViewModels.TableViewModel>
+﻿@model Game.GUI.ViewModels.ListTableViewModel
 @{
     Layout = null;
 }
@@ -7,21 +7,33 @@
     <div class="uk-modal-dialog">
         <a class="uk-modal-close uk-close"></a>
         <section class="uk-panel uk-panel-box uk-form">
-            @using (Html.BeginForm("Add", "Building", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Add", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.TextBox("Name", null, new {@placeholder="Nazwa", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Price", null, new { @placeholder = "Cena", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Height", null, new { @placeholder = "Wysokość", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Width", null, new { @placeholder = "Szerokość", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Dest_Price", null, new { @placeholder = "Cena zniszczenia", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Percent_price_per", null, new { @placeholder = "% ceny za lvl", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Percent_product_per_lvl", null, new { @placeholder = "% produktu za lvl", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Product_ID", null, new { @placeholder = "ID produktu", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Product_per_sec", null, new { @placeholder = "Produkcja na sekundę", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("Alias", null, new { @placeholder = "Alias", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("BuildingTime", null, new { @placeholder = "Czas budowy (sec)", @class = "uk-width-1-1 uk-form-large" })
-                @Html.TextBox("DestructionTime", null, new { @placeholder = "Czas burzenia (sec)", @class = "uk-width-1-1 uk-form-large" })
-
+                @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Name, new {@class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Cena: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Price, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Wysokość: ", new { @class = "uk-form-label" })
+                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Height, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Szerokość: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Width, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Koszt wyburzenia: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Dest_price, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Wzrost ceny za level: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Percent_price_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Wzrost produkcji za lvl: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Percent_product_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("ID produktu: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Product_ID, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Produkcja na sekundę: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Product_per_sec, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Alias: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Alias, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Czas budowy: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.BuildingTime, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Czas burzenia: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.DestructionTime, new { @class = "uk-width-1-1 uk-form-large" })
                 <input type="submit" value="Zapis" class="uk-button-large" />
             }
         </section>
@@ -50,7 +62,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.tableList)
             {
                 <tr>
                     <td>@item.ID</td>
@@ -72,8 +84,8 @@
                         </button>
                         <div class="uk-dropdown uk-dropdown-small">
                             <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
+                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","Building", new { id = item.ID })'">Usuń</div></li>
+
                             </ul>
                         </div>
                     </td>

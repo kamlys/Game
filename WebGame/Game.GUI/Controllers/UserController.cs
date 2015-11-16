@@ -92,11 +92,12 @@ namespace Game.GUI.Controllers
 
         public ActionResult _UserList()
         {
-            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
 
             foreach (var item in _userTable.GetUser())
             {
-                adminViewModel.Add(new TableViewModel
+                tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
                     Login = item.Login,
@@ -109,23 +110,30 @@ namespace Game.GUI.Controllers
             }
 
 
-            return View("~/Views/Admin/_UserList.cshtml", adminViewModel);
+            return View("~/Views/Admin/_UserList.cshtml", tableList);
         }
 
         [HttpPost]
-        public ActionResult Add(string Login, string Password, string Email, DateTime Last_Log, DateTime Registration_Date, DateTime Last_Update)
+        public ActionResult Add(ListTableViewModel listView)
         {
             UserDto _userDto = new UserDto();
 
-            _userDto.Login = Login;
-            _userDto.Password = Password;
-            _userDto.Email = Email;
-            _userDto.Last_Log = Last_Log;
-            _userDto.Registration_Date = Registration_Date;
-            _userDto.Last_Update = Last_Update;
+            _userDto.Login = listView.tableView.Login;
+            _userDto.Password = listView.tableView.Password;
+            _userDto.Email = listView.tableView.Email;
+            _userDto.Last_Log = listView.tableView.Last_Log;
+            _userDto.Registration_Date = listView.tableView.Registration_Date;
+            _userDto.Last_Update = listView.tableView.Last_Update;
 
             _userTable.Add(_userDto);
 
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _userTable.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 

@@ -28,11 +28,12 @@ namespace Game.GUI.Controllers
 
         public ActionResult _ProductList()
         {
-            List<TableViewModel> adminViewModel = new List<TableViewModel>();
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
 
             foreach (var item in _productTable.GetProduct())
             {
-                adminViewModel.Add(new TableViewModel
+                tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
                     Name = item.Name,
@@ -43,21 +44,28 @@ namespace Game.GUI.Controllers
             }
 
 
-            return View("~/Views/Admin/_ProductList.cshtml", adminViewModel);
+            return View("~/Views/Admin/_ProductList.cshtml", tableList);
         }
 
         [HttpPost]
-        public ActionResult Add(string Name, int Price_per_unit, string Unit, string Alias)
+        public ActionResult Add(ListTableViewModel listView)
         {
             ProductDto _productDto = new ProductDto();
 
-            _productDto.Name = Name;
-            _productDto.Price_per_unit = Price_per_unit;
-            _productDto.Unit = Unit;
-            _productDto.Alias = Alias;
+            _productDto.Name = listView.tableView.Name;
+            _productDto.Price_per_unit = listView.tableView.Price_per_unit;
+            _productDto.Unit = listView.tableView.Unit;
+            _productDto.Alias = listView.tableView.Alias;
 
             _productTable.Add(_productDto);
 
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _productTable.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 
