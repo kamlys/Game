@@ -1,0 +1,59 @@
+﻿@model Game.GUI.ViewModels.Market.ListMarketViewModel
+@{
+    ViewBag.Title = "Market";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="addOffer" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <section class="uk-panel uk-panel-box uk-form">
+            @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.Label("Nazwa produktu: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.marketView.Product_Name, null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Ilość: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.marketView.Number, null, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Cena za sztukę: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.marketView.Price, null, new { @class = "uk-width-1-1 uk-form-large" })
+                <input type="submit" value="Zapisz" class="uk-button-large" />
+            }
+        </section>
+    </div>
+</div>
+
+
+<div class="uk-panel-box">
+
+    <div class="uk-article-title">Market</div>
+    <input type="button" value="Dodaj ofertę" class="uk-button-large" data-uk-modal="{target:'#addOffer'}">
+    <div id="tableList">
+        <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+            <thead>
+                <tr>
+                    <th>Wystwaiając</th>
+                    <th>Produkt</th>
+                    <th>Ilość</th>
+                    <th>Cena/szt.</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.marketList)
+            {
+                    <tr>
+                        <td>@item.Login</td>
+                        <td>@item.Product_Name</td>
+                        <td>@item.Number</td>
+                        <td>@item.Price</td>
+                        <td>
+                            @Html.TextBoxFor(m => m.marketView.Number, null, new { @class = "uk-width-1-1 uk-form-large" })
+                            @*<input type="number" id="numValue" min="0" max="100" value="1" form="num" class="uk-form-width-mini uk-form-width-medium">*@
+                            <button type="submit" class="button btn-build buildButton" onclick="location.href='@Url.Action("BuyOffer","Market")'">Kup</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

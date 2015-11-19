@@ -1,38 +1,30 @@
 ﻿@model Game.GUI.ViewModels.Map.MapViewModel
 @{
     Layout = null;
+    var tilePx = 50;
     var map = Model.Map;
     var userBuildings = Model.UserBuildings;
     var userProducts = Model.UserProducts;
+    var heightPx = map.Height * tilePx;
+    var widthPx = map.Width * tilePx;
+    var budynkiArray = Model.BuildingsArray;
 }
 
+<div class="fake-building"></div>
+
 <div>
-    <div class="map">
-        @for (int i = 0; i < map.Height; i++)
-        {
-            <div class="clearfix">
-                @for (int j = 0; j < map.Width; j++)
-                {
-                    var done = false;
-                    foreach (var a in userBuildings)
-                    {
-                        if (j >= a.x_left && j <= a.x_right && i >= a.y_top && i <= a.y_bottom)
-                        {
-                            done = true;
-                            <div class="map-tile tile-@i@j taken" data-col="@j" data-row="@i">
-                                <div class="building">@a.name</div>
-                                <div name="remove" data-buildingID="@a.ID">X</div>
-                            </div>
-                            break;
-                        }
-                    }
-                    if (!done)
-                    {
-                        <div class="map-tile tile-@i@j free" data-col="@j" data-row="@i"></div>
-                    }
-                }
-            </div>
-        }
+    <div class="map" id="map" style="width:@(widthPx)px; height:@(heightPx)px">
+          @foreach (var a in userBuildings)
+          {
+              var xPx = (a.x_left * tilePx).ToString() + "px";
+              var yPx = (a.y_top * tilePx).ToString() + "px";
+              var hPx = ((a.y_bottom - a.y_top + 1)*tilePx).ToString() + "px";
+              var wPx = ((a.x_right - a.x_left + 1)*tilePx).ToString() + "px";
+                <div class="building" style="left:@xPx; top:@yPx; height:@hPx; width:@wPx;">@a.name
+                    <div name="remove" data-buildingid="@a.ID">X</div>
+                    <div id="circle"></div>
+                </div>
+          }
     </div>
 </div>
 
@@ -43,6 +35,8 @@
 <script type="text/javascript" src="~/Scripts/js/ProductShow.js"></script>
 <script>
     $(document).ready(function () {
+        setBudynki(@budynkiArray);
+        setMapSize(@map.Width, @map.Height);
         fillWithData(@userProducts);
         setInterval(function () { updateProduct(@userProducts); }, 1000);
     });

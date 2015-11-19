@@ -60,6 +60,7 @@
     <Compile Include="Model\Dolars.cs" />
     <Compile Include="Model\gameDbContext.cs" />
     <Compile Include="Model\Maps.cs" />
+    <Compile Include="Model\Market.cs" />
     <Compile Include="Model\Products.cs" />
     <Compile Include="Model\sysdiagrams.cs" />
     <Compile Include="Model\UserBuildings.cs" />
@@ -77,6 +78,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

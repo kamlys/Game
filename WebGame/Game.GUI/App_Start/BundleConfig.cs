@@ -26,10 +26,12 @@ namespace Game.GUI
 
             bundles.Add(new ScriptBundle("~/bundles/uikit").Include(
                 "~/Scripts/js/uikit.js"));
+                            
 
             bundles.Add(new ScriptBundle("~/Scripts/js").Include(
                     "~/Scripts/js/main_page.js",
                     "~/Scripts/js/ProductShow.js",
+                    "~/Scirpts/js/circle-progress.js",
                     "~/Scripts/js/AdminScripts.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

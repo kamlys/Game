@@ -18,6 +18,7 @@ namespace Game.Dal.Model
         public virtual DbSet<Buildings> Buildings { get; set; }
         public virtual DbSet<Dolars> Dolars { get; set; }
         public virtual DbSet<Maps> Maps { get; set; }
+        public virtual DbSet<Market> Market { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserBuildings> UserBuildings { get; set; }
@@ -80,6 +81,12 @@ namespace Game.Dal.Model
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Maps)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.User_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Market)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
                 .WillCascadeOnDelete(false);

@@ -1,10 +1,32 @@
-﻿@model List<Game.Core.DTO.BuildingQueueDto>
+﻿@model Game.GUI.ViewModels.ListTableViewModel
 @{
     Layout = null;
 }
-<div id="administrationList">
+
+<div id="queueAdd" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <section class="uk-panel uk-panel-box uk-form">
+            @using (Html.BeginForm("Add", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.User_ID, new {@class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("ID budynku: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.UserBuilding_ID, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Data końca", new { @class = "uk-form-label" })
+                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}" />
+                @Html.Label("Nowy status: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.NewStatus, new { @class = "uk-width-1-1 uk-form-large" })
+
+                <input type="submit" value="Zapisz" class="uk-button-large"/>
+            }
+        </section>
+    </div>
+</div>
+
+<div id="tableList">
     <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Kolejka budowania<div class="uk-button">Dodaj nowy</div></caption>
+        <caption>Kolejka budowania <button class="uk-button" data-uk-modal="{target:'#queueAdd'}">Dodaj nowy</button></caption>
         <thead>
             <tr>
                 <th>ID</th>
@@ -15,13 +37,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.tableList)
             {
                 <tr>
                     <td>@item.ID</td>
                     <td>@item.User_ID</td>
                     <td>@item.UserBuilding_ID</td>
-                    <td>@item.FinishTime</td>
+                    <td>@item.Finish_Date</td>
                     <td>@item.NewStatus</td>
                     <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
                         <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
@@ -30,7 +52,8 @@
                         <div class="uk-dropdown uk-dropdown-small">
                             <ul class="uk-nav uk-nav-dropdown">
                                 <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="delet(@item.ID)">Usuń</div></li>
+                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","BuildingQueue", new { id = item.ID })'">Usuń</div></li>
+
                             </ul>
                         </div>
                     </td>
@@ -39,3 +62,4 @@
         </tbody>
     </table>
 </div>
+<script type="text/javascript" src="~/Scripts/js/uikit.js"></script>

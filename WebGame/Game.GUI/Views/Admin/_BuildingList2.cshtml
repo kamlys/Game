@@ -1,0 +1,97 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    Layout = null;
+}
+
+<div id="buildingAdd" class="uk-modal">
+    <div class="uk-modal-dialog">
+        <a class="uk-modal-close uk-close"></a>
+        <section class="uk-panel uk-panel-box uk-form">
+            @using (Html.BeginForm("Add", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Name, new {@class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Cena: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Price, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Wysokość: ", new { @class = "uk-form-label" })
+                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Height, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Szerokość: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Width, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Koszt wyburzenia: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Dest_price, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Wzrost ceny za level: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Percent_price_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Wzrost produkcji za lvl: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Percent_product_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("ID produktu: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Product_ID, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Produkcja na sekundę: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Product_per_sec, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Alias: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.Alias, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Czas budowy: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.BuildingTime, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.Label("Czas burzenia: ", new { @class = "uk-form-label" })
+                @Html.TextBoxFor(m => m.tableView.DestructionTime, new { @class = "uk-width-1-1 uk-form-large" })
+                <input type="submit" value="Zapis" class="uk-button-large" />
+            }
+        </section>
+    </div>
+</div>
+
+
+<div id="tableList">
+    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+        <caption>Budynki <button class="uk-button" data-uk-modal="{target:'#buildingAdd'}">Dodaj nowy</button></caption>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+                <th>Cena</th>
+                <th>Cena za level</th>
+                <th>Szerokość</th>
+                <th>Wysokość</th>
+                <th>Produkcja/s</th>
+                <th>Cena wyburzenia</th>
+                <th>Produkcja co level</th>
+                <th>ID Produktu</th>
+                <th>Alias</th>
+                <th>Czas budowy</th>
+                <th>Czas wyburzenia</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.tableList)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Percent_price_per_lvl</td>
+                    <td>@item.Width</td>
+                    <td>@item.Height</td>
+                    <td>@item.Product_per_sec</td>
+                    <td>@item.Dest_price</td>
+                    <td>@item.Percent_product_per_lvl</td>
+                    <td>@item.Product_ID</td>
+                    <td>@item.Alias</td>
+                    <td>@item.BuildingTime</td>
+                    <td>@item.Dest_price</td>
+                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
+                            Menu <span class="caret"></span>
+                        </button>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","Building", new { id = item.ID })'">Usuń</div></li>
+
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
