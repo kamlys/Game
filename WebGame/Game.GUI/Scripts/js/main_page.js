@@ -23,13 +23,12 @@ function canBuild(colLeft, rowTop) {
         return false;
     }
     var acanBuild = true;
-    for(var a in budynki)
-    {
+    for (var a in budynki) {
         var x_left = budynki[a][0];
         var x_right = budynki[a][1];
         var y_top = budynki[a][2];
         var y_bottom = budynki[a][3];
-        if ((x_left <= colRight && x_right >= colLeft && y_top <= rowBottom  && y_bottom >= rowTop)) {
+        if ((x_left <= colRight && x_right >= colLeft && y_top <= rowBottom && y_bottom >= rowTop)) {
             acanBuild = false;
             break;
         }
@@ -37,13 +36,11 @@ function canBuild(colLeft, rowTop) {
     return acanBuild;
 }
 
-function setBudynki(arr)
-{
+function setBudynki(arr) {
     budynki = arr;
 }
 
-function setMapSize(wys, szer)
-{
+function setMapSize(wys, szer) {
     wys_mapa = wys;
     szer_mapa = szer;
 }
@@ -89,8 +86,7 @@ function burzAjax(id) {
     });
 }
 
-function getColRow()
-{
+function getColRow() {
     var xMap = $('#map').offset().left;
     var yMap = $('#map').offset().top;
     var xBuild = $('.fake-building').offset().left;
@@ -113,7 +109,7 @@ $(document).ready(function () {
         var map = [$('#map').offset().left, $('#map').offset().top];
         var cursor = [pos[0] - map[0], pos[1] - map[1]];
         $('.fake-building').css('display', 'block');
-        $('.fake-building').css('left', (cursor[0] -  cursor[0] % 50));
+        $('.fake-building').css('left', (cursor[0] - cursor[0] % 50));
         $('.fake-building').css('top', (cursor[1] - cursor[1] % 50));
         if (canBuild(getColRow()[0], getColRow()[1])) {
             $('.fake-building').css('background', 'green');
@@ -128,7 +124,7 @@ $(document).ready(function () {
         var yMap = $('#map').offset().top;
         var xBuild = $('.fake-building').offset().left;
         var yBuild = $('.fake-building').offset().top;
-        var col = Math.round(xBuild - xMap)/50;
+        var col = Math.round(xBuild - xMap) / 50;
         var row = Math.round(yBuild - yMap) / 50;
         if (canBuild(col, row)) {
             $('.map-tile').removeClass('canbuild');
@@ -156,7 +152,7 @@ $(document).ready(function () {
         var ID = $(this).data("buildingid");
 
         //UIkit.modal.confirm("Na pewno chcesz zburzyć ten budynek?", function () {
-            burzAjax(ID);
+        burzAjax(ID);
         //});
 
     });
