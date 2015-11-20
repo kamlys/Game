@@ -24,9 +24,9 @@ namespace Game.GUI
             //          "~/Scripts/respond.js"));
 
 
-            bundles.Add(new ScriptBundle("~/bundles/uikit").Include(
-                "~/Scripts/js/uikit.js"));
-                            
+            bundles.Add(new ScriptBundle("~/bundles/materialize").Include(
+                "~/Scripts/materialize.js",
+                "~/Scripts/materialize.min.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/js").Include(
                     "~/Scripts/js/main_page.js",
@@ -34,11 +34,8 @@ namespace Game.GUI
                     "~/Scirpts/js/circle-progress.js",
                     "~/Scripts/js/AdminScripts.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/uikit.css",
-                      "~/Content/Style.scss",
-                      "~/Content/Style.css",
-                      "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css")
+                .IncludeDirectory("~/Content/", "*.css", true));
 
             bundles.Add(new StyleBundle("~/Styles").Include(
               "~/Styles/Map.css"));

@@ -24,15 +24,14 @@
 
 
 <div id="tableList">
-    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Bany <button class="uk-button" data-uk-modal="{target:'#banAdd'}">Dodaj nowy</button></caption>
+    <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>ID użytkownika</th>
-                <th>Opis</th>
-                <th>Początek</th>
-                <th>Koniec</th>
+                <th data-field="id">ID</th>
+                <th data-field="user_id">ID użytkownika</th>
+                <th data-field="opis">Opis</th>
+                <th data-field="poczatek">Początek</th>
+                <th data-field="koniec">Koniec</th>
             </tr>
         </thead>
         <tbody>
@@ -44,26 +43,9 @@
                     <td>@item.Description</td>
                     <td>@item.Start_Date</td>
                     <td>@item.Finish_Date</td>
-                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
-                            Menu <span class="caret"></span>
-                        </button>
-                        <div class="uk-dropdown uk-dropdown-small">
-                            <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","Admin", new { id = item.ID })'">Usuń</div></li>
-                            </ul>
-                        </div>
-                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-
-
-<script type="text/javascript" src="~/Scripts/js/uikit.js"></script>
-<script type="text/javascript" src="~/Scripts/js/uikit.min.js"></script>
-
-
 

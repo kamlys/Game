@@ -3,9 +3,8 @@
     Layout = null;
 }
 
-<div id="adminAdd" class="uk-modal">
-    <div class="uk-modal-dialog">
-        <a class="uk-modal-close uk-close"></a>
+<div id="adminAdd" class="modal bottom-sheet">
+    <div class="modal-content">
         <section class="uk-panel uk-panel-box uk-form-horizontal">
             @using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -20,12 +19,12 @@
 
 
 <div id="tableList">
-    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Admini <button class="uk-button" data-uk-modal="{target:'#adminAdd'}">Dodaj nowy</button></caption>
+    <button data-target="adminAdd" class="btn modal-trigger" href="#adminAdd">Dodaj nowy</button>
+    <table class="responsive-table bordered">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>ID użytkownika</th>
+                <th data-field="id">ID</th>
+                <th data-field="user_id">ID użytkownika</th>
             </tr>
         </thead>
         <tbody>
@@ -35,16 +34,6 @@
 
                     <td>@item.ID</td>
                     <td>@item.User_ID</td>
-                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
-                            Menu <span class="caret"></span>
-                        </button>
-                        <div class="uk-dropdown uk-dropdown-small">
-                            <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","Admin", new { id = item.ID })'">Usuń</div></li>
-                            </ul>
-                        </div>
-                    </td>
                 </tr>
             }
         </tbody>

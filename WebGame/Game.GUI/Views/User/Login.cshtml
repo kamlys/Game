@@ -3,45 +3,43 @@
     ViewBag.Title = "Logowanie";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="uk-vertical-align uk-text-center uk-height-1-1">
-    <div class="uk-vertical-align-middle">
-        <section class="uk-panel uk-panel-box uk-form loginForm">
-            <div class="loginTopText">
-                <div class="logowanieText">@ViewBag.Title</div>
-                <div class="kontoText"><a href='@Url.Action("Register", "User")'>Utwórz konto</a></div>
+<div class="row">
+    <div class="loginForm">
+        <div class="loginTopText">
+            <div class="logowanieText">@ViewBag.Title</div>
+            <div class="kontoText">
+                <a href='@Url.Action("Register", "User")'>Utwórz konto</a>
             </div>
-            @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        </div>
+        @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
+            <form class="col s12">
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "uk-form-danger logError" })
+                @Html.ValidationSummary(true, "", new { @class = "logError" })
 
-                <div class="uk-form-row">
-
-                    @Html.TextBoxFor(m => m.Login, new { @placeholder = "Login", @class = "uk-width-1-1 uk-form-large" })
-                    @Html.ValidationMessageFor(m => m.Login, "", new { @class = "uk-form-danger" })
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.Login, new { @class = "validate" })
+                    <label for="Login">Login</label>
                 </div>
-                <div class="uk-form-row">
-
-                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Hasło", @class = "form-control uk-width-1-1 uk-form-large" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "uk-form-danger" })
+                <div class="input-field col s12">
+                    @Html.PasswordFor(m => m.Password, new { @class = "validate" })
+                    <label for="Password">Password</label>
                 </div>
 
 
-                <div class="uk-form-row loginButton">
+                <div class="loginButton">
                     <div class="logowanieButton">
-                        <input type="submit" value="Zaloguj" class="uk-button uk-button-primary uk-button-large" id="logButton" />
+                        <input type="submit" value="Zaloguj" class="waves-effect waves-light btn-large" />
                     </div>
                     <div class="forgetPassword">
                         <a href='@Url.Action("##", "##")'>Zapomniałeś hasła?</a>
                     </div>
                 </div>
-            }
+            </form>
+        }
 
-        </section>
     </div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
