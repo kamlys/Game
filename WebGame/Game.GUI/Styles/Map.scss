@@ -11,6 +11,7 @@
 
 .fake-building {
     display: none;
+    pointer-events: none;
     position:absolute;
     background: white;
     z-index: 1;
@@ -26,4 +27,15 @@
 
 .buduj {
     cursor: url(http://curling.pl/assets/hammer-c6f60aa86a5adea0cf4ec2f38c64d79a.png), pointer;
+}
+
+.loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: white;
+    padding: 8px;
+    border-radius: 12px;
 }
