@@ -14,11 +14,13 @@ namespace Game.Service
     public class MapService : IMapService
     {
         private IRepository<Maps> _maps;
+        private IRepository<Users> _users;
         private IUnitOfWork _unitOfWork;
 
-        public MapService(IRepository<Maps> maps, IUnitOfWork unitOfWork)
+        public MapService(IRepository<Maps> maps, IRepository<Users> users, IUnitOfWork unitOfWork)
         {
             _maps = maps;
+            _users = users;
             _unitOfWork = unitOfWork;
         }
         public MapDto GetMap(string User)
@@ -32,6 +34,52 @@ namespace Game.Service
             {
                 return null;
             }
+        }
+
+
+        public void Add(MapDto map)
+        {
+            _maps.Add(new Maps
+            {
+                User_ID = _users.GetAll().First(i=> i.ID == map.User_ID).ID,
+                Height = map.Height,
+                Width = map.Width
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public void Delete(int id)
+        {
+            _maps.Delete(_maps.Get(id));
+        }
+
+        public List<MapDto> GetMaps()
+        {
+            List<MapDto> mapDto = new List<MapDto>();
+            foreach (var item in _maps.GetAll())
+            {
+                try
+                {
+                    mapDto.Add(new MapDto
+                    {
+                        Map_ID = item.Map_ID,
+                        User_ID = item.User_ID,
+                        Login = _users.Get(item.User_ID).Login,
+                        Width = item.Width,
+                        Height = item.Height
+                    });
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return mapDto;
+        }
+
+        public void Update(MapDto admin, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

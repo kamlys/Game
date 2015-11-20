@@ -13,13 +13,11 @@ namespace Game.GUI.Controllers
     public class AdminController : Controller
     {
         private IAdminService _adminService;
-        private IAdminTableService _adminTable;
         private IUserService _user;
 
-        public AdminController(IAdminService adminService, IAdminTableService adminTable, IUserService user)
+        public AdminController(IAdminService adminService, IUserService user)
         {
             _adminService = adminService;
-            _adminTable = adminTable;
             _user = user;
         }
         // GET: Building
@@ -40,12 +38,12 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _adminTable.GetAdmins())
+            foreach (var item in _adminService.GetAdmin())
             {
                 tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
-                    User_ID = item.User_ID
+                    Login = item.Login
                 });
             }
 
@@ -58,9 +56,9 @@ namespace Game.GUI.Controllers
         {
             AdminDto _adminDto = new AdminDto();
 
-            _adminDto.User_ID = viewList.tableView.User_ID;
+            _adminDto.Login = viewList.tableView.Login;
 
-            _adminTable.Add(_adminDto);
+            _adminService.Add(_adminDto);
 
             return View("~/Views/Admin/Admin.cshtml");
         }
@@ -68,7 +66,7 @@ namespace Game.GUI.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            _adminTable.Delete(id);
+            _adminService.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 

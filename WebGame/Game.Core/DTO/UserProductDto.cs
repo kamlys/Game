@@ -10,6 +10,7 @@ namespace Game.Core.DTO
     {
         public int ID { get; set; }
         public int User_ID { get; set; }
+        public string Login { get; set; }
         public string Product_Name { get; set; }
         public int Value { get; set; }
         public int Product_ID { get; set; }

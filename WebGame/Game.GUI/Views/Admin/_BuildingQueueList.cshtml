@@ -28,8 +28,9 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>ID użytkownika</th>
+                <th>Login</th>
                 <th>ID budynku użytkownika</th>
+                <th>Budynek</th>
                 <th>Czas końca budowy</th>
                 <th>Nowy status</th>
             </tr>
@@ -39,8 +40,9 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.User_ID</td>
+                    <td>@item.Login</td>
                     <td>@item.UserBuilding_ID</td>
+                    <td>@item.Name</td>
                     <td>@item.Finish_Date</td>
                     <td>@item.NewStatus</td>
                     <td>

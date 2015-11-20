@@ -23,12 +23,12 @@
 
 <div class="tableList">
     <h4>Admini</h4><br />
-    <button data-target="adminAdd" class="btn modal-trigger" href="#adminAdd">Zbanuj</button>
+    <button data-target="banAdd" class="btn modal-trigger" href="#banAdd">Zbanuj</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
                 <th data-field="id">ID</th>
-                <th data-field="user_id">ID użytkownika</th>
+                <th data-field="user_id">Login</th>
                 <th data-field="opis">Opis</th>
                 <th data-field="poczatek">Początek</th>
                 <th data-field="koniec">Koniec</th>
@@ -39,7 +39,7 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.User_ID</td>
+                    <td>@item.Login</td>
                     <td>@item.Description</td>
                     <td>@item.Start_Date</td>
                     <td>@item.Finish_Date</td>

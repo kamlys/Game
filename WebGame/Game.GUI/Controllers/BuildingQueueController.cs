@@ -11,9 +11,9 @@ namespace Game.GUI.Controllers
 {
     public class BuildingQueueController : Controller
     {
-        private IQueueTableService _queueTable;
+        private IQueueService _queueTable;
 
-        public BuildingQueueController(IQueueTableService queueTable)
+        public BuildingQueueController(IQueueService queueTable)
         {
             _queueTable = queueTable;
         }
@@ -35,7 +35,9 @@ namespace Game.GUI.Controllers
                 {
                     ID = item.ID,
                     User_ID = item.User_ID,
+                    Login = item.Login,
                     UserBuilding_ID = item.UserBuilding_ID,
+                    Name = item.BuildingName,
                     Finish_Date = item.FinishTime,
                     NewStatus = item.NewStatus
                 });
@@ -51,6 +53,7 @@ namespace Game.GUI.Controllers
             BuildingQueueDto _queueDto = new BuildingQueueDto();
 
             _queueDto.User_ID = listView.tableView.User_ID;
+            _queueDto.Login = listView.tableView.Login;
             _queueDto.UserBuilding_ID = listView.tableView.UserBuilding_ID;
             _queueDto.FinishTime = listView.tableView.Finish_Date;
             _queueDto.NewStatus = listView.tableView.NewStatus;

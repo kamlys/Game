@@ -12,6 +12,9 @@ namespace Game.Service.Interfaces
     {
         bool Build(int id, int col, int row, string user);
         void Destroy(string user, int ID);
-
+        List<UserBuildingDto> GetUserBuilding();
+        void Add(UserBuildingDto userBuilding);
+        void Update(UserBuildingDto userBuilding, int id);
+        void Delete(int id);
     }
 }

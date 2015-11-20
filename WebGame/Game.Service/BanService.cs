@@ -11,15 +11,18 @@ using Game.Dal.Repository;
 
 namespace Game.Service.Table
 {
-    public class BanTableService : IBanTableService
+    public class BanService : IBanService
     {
         private IRepository<Bans> _bans;
+        private IRepository<Users> _users;
         private IUnitOfWork _unitOfWork;
 
-        public BanTableService(IRepository<Bans> bans,
+        public BanService(IRepository<Bans> bans,
+            IRepository<Users> users,
             IUnitOfWork unitOfWork)
         {
             _bans = bans;
+            _users = users;
             _unitOfWork = unitOfWork;
         }
 
@@ -27,7 +30,7 @@ namespace Game.Service.Table
         {
             _bans.Add(new Bans
             {
-                User_ID = ban.User_ID,
+                User_ID = _users.GetAll().First(i=> i.ID == ban.User_ID).ID,
                 Description = ban.Description,
                 Start_Date = ban.Start_Date,
                 Finish_Date = ban.Finish_Date
@@ -53,6 +56,7 @@ namespace Game.Service.Table
                     {
                         ID = item.ID,
                         User_ID = item.User_ID,
+                        Login = _users.GetAll().First(i=> i.ID == item.User_ID).Login,
                         Description = item.Description,
                         Start_Date = item.Start_Date,
                         Finish_Date = item.Finish_Date

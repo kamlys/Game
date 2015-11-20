@@ -18,15 +18,13 @@ namespace Game.GUI.Controllers
         private IMapService _mapService;
         private IBuildingHelper _buildingsHelper;
         private IProductService _productService;
-        private IMapTableService _mapTable;
 
 
-        public MapController(IMapService mapService, IBuildingHelper buildings, IProductService productService, IMapTableService mapTable)
+        public MapController(IMapService mapService, IBuildingHelper buildings, IProductService productService)
         {
             _mapService = mapService;
             _buildingsHelper = buildings;
             _productService = productService;
-            _mapTable = mapTable;
         }
         // GET: Building
         public ActionResult Index()
@@ -78,12 +76,13 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _mapTable.GetMaps())
+            foreach (var item in _mapService.GetMaps())
             {
                 tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.Map_ID,
                     User_ID = item.User_ID,
+                    Login = item.Login,
                     Height = item.Height,
                     Width = item.Width
                 });
@@ -102,7 +101,7 @@ namespace Game.GUI.Controllers
             _mapDto.Height = listView.tableView.Height;
             _mapDto.Width = listView.tableView.Width;
 
-            _mapTable.Add(_mapDto);
+            _mapService.Add(_mapDto);
 
             return View("~/Views/Admin/Admin.cshtml");
         }
@@ -110,7 +109,7 @@ namespace Game.GUI.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            _mapTable.Delete(id);
+            _mapService.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
     }

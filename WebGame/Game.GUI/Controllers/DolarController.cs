@@ -12,9 +12,9 @@ namespace Game.GUI.Controllers
 {
     public class DolarController : Controller
     {
-        private IDolarTableService _dolarTableService;
+        private IDolarService _dolarTableService;
         private IUserService _user;
-        public DolarController(IDolarTableService dolarTableService, IUserService user)
+        public DolarController(IDolarService dolarTableService, IUserService user)
         {
             _dolarTableService = dolarTableService;
             _user = user;
@@ -35,7 +35,9 @@ namespace Game.GUI.Controllers
             {
                 tableList.tableList.Add(new TableViewModel
                 {
+                    ID = item.ID,
                     User_ID = item.User_ID,
+                    Login = item.Login,
                     Value = item.Value
                 });
             }
@@ -50,6 +52,7 @@ namespace Game.GUI.Controllers
             DolarDto _dolarDto = new DolarDto();
 
             _dolarDto.User_ID = listView.tableView.User_ID;
+            _dolarDto.Login = listView.tableView.Login;
             _dolarDto.Value = listView.tableView.Value;
 
             _dolarTableService.Add(_dolarDto);

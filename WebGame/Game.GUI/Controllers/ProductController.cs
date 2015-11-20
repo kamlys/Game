@@ -1,5 +1,6 @@
 ﻿using Game.Core.DTO;
 using Game.GUI.ViewModels;
+using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace Game.GUI.Controllers
 {
     public class ProductController : Controller
     {
-        private IProductTableService _productTable;
+        private IProductService _productTable;
 
 
-        public ProductController(IProductTableService productTable)
+        public ProductController(IProductService productTable)
         {
             _productTable = productTable;
         }

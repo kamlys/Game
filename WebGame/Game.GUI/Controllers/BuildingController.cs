@@ -15,10 +15,10 @@ namespace Game.GUI.Controllers
     {
         private IBuildingHelper _buildingService;
         private IUserBuildingService _userBuilding;
-        private IBuildingTableService _buildingTable;
+        private IBuildingService _buildingTable;
 
 
-        public BuildingController(IBuildingHelper buildingService, IUserBuildingService userBuilding, IBuildingTableService buildingTable)
+        public BuildingController(IBuildingHelper buildingService, IUserBuildingService userBuilding, IBuildingService buildingTable)
         {
             _buildingService = buildingService;
             _userBuilding = userBuilding;
@@ -56,6 +56,7 @@ namespace Game.GUI.Controllers
                     Percent_price_per_lvl = item.Percent_price_per_lvl,
                     Percent_product_per_lvl = item.Percent_product_per_lvl,
                     Product_ID = item.Product_ID,
+                    Product_Name = item.Product_Name,
                     Product_per_sec = item.Product_per_sec,
                     Alias = item.Alias,
                     BuildingTime = item.BuildingTime,
@@ -80,6 +81,7 @@ namespace Game.GUI.Controllers
             _buildingDto.Percent_price_per_lvl = viewModel.tableView.Percent_price_per_lvl;
             _buildingDto.Percent_product_per_lvl = viewModel.tableView.Percent_product_per_lvl;
             _buildingDto.Product_ID = viewModel.tableView.Product_ID;
+            _buildingDto.Product_Name = viewModel.tableView.Product_Name;
             _buildingDto.Product_per_sec = viewModel.tableView.Product_per_sec;
             _buildingDto.Alias = viewModel.tableView.Alias;
             _buildingDto.BuildingTime = viewModel.tableView.BuildingTime;

@@ -11,5 +11,9 @@ namespace Game.Service.Interfaces
     public interface IMapService
     {
         MapDto GetMap(string User);
+        List<MapDto> GetMaps();
+        void Add(MapDto admin);
+        void Update(MapDto admin, int id);
+        void Delete(int id);
     }
 }

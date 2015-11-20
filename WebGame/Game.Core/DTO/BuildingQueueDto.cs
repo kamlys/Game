@@ -10,7 +10,9 @@ namespace Game.Core.DTO
     {
         public int ID { get; set; }
         public int User_ID { get; set; }
+        public string Login { get; set; }
         public int UserBuilding_ID { get; set; }
+        public string BuildingName { get; set; }
         public DateTime FinishTime { get; set; }
         public string NewStatus { get; set; }
 

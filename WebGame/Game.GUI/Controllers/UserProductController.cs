@@ -11,9 +11,9 @@ namespace Game.GUI.Controllers
 {
     public class UserProductController : Controller
     {
-        private IUserProductTableService _userProductTable;
+        private IUserProductService _userProductTable;
 
-        public UserProductController(IUserProductTableService userProductTable)
+        public UserProductController(IUserProductService userProductTable)
         {
             _userProductTable = userProductTable;
         }
@@ -36,6 +36,7 @@ namespace Game.GUI.Controllers
                 {
                     ID = item.ID,
                     User_ID = item.User_ID,
+                    Login = item.Login,
                     Name = item.Product_Name,
                     Value = item.Value,
                     Product_ID = item.Product_ID
@@ -52,6 +53,7 @@ namespace Game.GUI.Controllers
             UserProductDto _userProductDto = new UserProductDto();
 
             _userProductDto.User_ID = listView.tableView.User_ID;
+            _userProductDto.Login = listView.tableView.Login;
             _userProductDto.Product_Name = listView.tableView.Name;
             _userProductDto.Value =  listView.tableView.Value;
             _userProductDto.Product_ID = listView.tableView.Product_ID;

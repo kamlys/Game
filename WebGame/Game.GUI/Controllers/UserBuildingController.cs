@@ -1,5 +1,6 @@
 ﻿using Game.Core.DTO;
 using Game.GUI.ViewModels;
+using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace Game.GUI.Controllers
 {
     public class UserBuildingController : Controller
     {
-        private IUserBuildingTableService _userBuildingTable;
+        private IUserBuildingService _userBuildingService;
 
-        public UserBuildingController(IUserBuildingTableService userBuildingTable)
+        public UserBuildingController(IUserBuildingService userBuildingService)
         {
-            _userBuildingTable = userBuildingTable;
+            _userBuildingService = userBuildingService;
         }
 
         // GET: UserBuilding
@@ -29,15 +30,17 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _userBuildingTable.GetUserBuilding())
+            foreach (var item in _userBuildingService.GetUserBuilding())
             {
                 tableList.tableList.Add(new TableViewModel
                 {
                     User_ID = item.User_ID,
+                    Login = item.Login,
                     X_pos = item.X_pos,
                     Y_pos = item.Y_pos,
                     Lvl = item.Lvl,
                     Building_ID = item.Building_ID,
+                    Name = item.Building_Name,
                     Status = item.Status
                 });
             }
@@ -52,13 +55,15 @@ namespace Game.GUI.Controllers
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
 
             _userBuildingDto.User_ID = listView.tableView.User_ID;
+            _userBuildingDto.Login = listView.tableView.Login;
             _userBuildingDto.X_pos = listView.tableView.X_pos;
             _userBuildingDto.Y_pos = listView.tableView.Y_pos;
             _userBuildingDto.Lvl = listView.tableView.Lvl;
             _userBuildingDto.Building_ID = listView.tableView.Building_ID;
+            _userBuildingDto.Building_Name = listView.tableView.Name;
             _userBuildingDto.Status = listView.tableView.Status;
 
-            _userBuildingTable.Add(_userBuildingDto);
+            _userBuildingService.Add(_userBuildingDto);
 
             return View("~/Views/Admin/Admin.cshtml");
         }
@@ -66,7 +71,7 @@ namespace Game.GUI.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            _userBuildingTable.Delete(id);
+            _userBuildingService.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 

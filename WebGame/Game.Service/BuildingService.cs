@@ -11,14 +11,16 @@ using Game.Dal.Model;
 
 namespace Game.Service.Table
 {
-    public class BuildingTableService : IBuildingTableService
+    public class BuildingService : IBuildingService
     {
         private IRepository<Buildings> _buildings;
+        private IRepository<Products> _products;
         private IUnitOfWork _unitOfWork;
 
-        public BuildingTableService(IRepository<Buildings> buildings, IUnitOfWork unitOfWork)
+        public BuildingService(IRepository<Buildings> buildings, IRepository<Products> products, IUnitOfWork unitOfWork)
         {
             _buildings = buildings;
+            _products = products;
             _unitOfWork = unitOfWork;
         }
 
@@ -34,7 +36,7 @@ namespace Game.Service.Table
                 Dest_price = building.Dest_price,
                 Percent_price_per_lvl = building.Percent_price_per_lvl,
                 Percent_product_per_lvl = building.Percent_product_per_lvl,
-                Product_ID = building.Product_ID,
+                Product_ID = _products.Get(building.Product_ID).ID,
                 Product_per_sec = building.Product_per_sec,
                 Alias = building.Alias,
                 BuildingTime = building.BuildingTime,
@@ -69,6 +71,7 @@ namespace Game.Service.Table
                         Dest_price = item.Dest_price,
                         Percent_product_per_lvl = item.Percent_product_per_lvl,
                         Product_ID = item.Product_ID,
+                        Product_Name = _products.Get(item.Product_ID).Name,
                         Alias = item.Alias,
                         BuildingTime = item.BuildingTime,
                         DestructionTime = item.DestructionTime

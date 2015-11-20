@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Game.Service.Interfaces.TableInterface
 {
-    public interface IQueueTableService
+    public interface IUserProductService
     {
-        List<BuildingQueueDto> GetQueue();
-        void Add(BuildingQueueDto buildingQueue);
-        void Update(BuildingQueueDto buildingQueue, int id);
+        List<UserProductDto> GetUserProduct();
+        void Add(UserProductDto userProduct);
+        void Update(UserProductDto userProduct, int id);
         void Delete(int id);
     }
 }

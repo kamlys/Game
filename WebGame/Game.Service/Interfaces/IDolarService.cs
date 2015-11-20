@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Game.Service.Interfaces.TableInterface
 {
-    public interface IUserBuildingTableService
+    public interface IDolarService
     {
-        List<UserBuildingDto> GetUserBuilding();
-        void Add(UserBuildingDto userBuilding);
-        void Update(UserBuildingDto userBuilding, int id);
+        List<DolarDto> GetDolars();
+        void Add(DolarDto admin);
+        void Update(DolarDto admin, int id);
         void Delete(int id);
+
     }
 }
