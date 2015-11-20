@@ -3,38 +3,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="uk-grid" style="background-color: #fff">
-    <div class="uk-width-medium-1-10">
-        <!-- This is the vertical tabbed navigation containing the toggling elements -->
-        <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#my-id'}">
-            <li><a href="">Użytkownicy</a></li>
-            <li><a href="">Admini</a></li>
-            <li><a href="">Bany</a></li>
-            <li><a href="">Pieniądze</a></li>
-            <li><a href="">Mapy</a></li>
-            <li><a href="">Produkty</a></li>
-            <li><a href="">Budynki</a></li>
-            <li><a href="">Budynki użytkownika</a></li>
-            <li><a href="">Produkty użytkownika</a></li>
-            <li><a href="">Kolejka budowy</a></li>
 
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s3"><a href="#Użytkownicy">Użytkownicy</a></li>
+            <li class="tab col s3"><a href="#Admini">Admini</a></li>
+            <li class="tab col s3"><a href="#Bany">Bany</a></li>
+            <li class="tab col s3"><a href="#Dolar">Dolar</a></li>
+            <li class="tab col s3"><a href="#Mapy">Mapy</a></li>
+            <li class="tab col s3"><a href="#Produkty">Produkty</a></li>
+            <li class="tab col s3"><a href="#Budynki">Budynki</a></li>
+            <li class="tab col s3"><a href="#Budynki_użytkownika">Budynki użytkownika</a></li>
+            <li class="tab col s3"><a href="#Produkty_użytkownika">Produkty użytkownika</a></li>
+            <li class="tab col s3"><a href="#Kolejka_budowy">Kolejka budowy</a></li>
         </ul>
     </div>
-    <div class="uk-width-medium-9-10">
-        <!-- This is the container of the content items -->
-        <ul id="my-id" class="uk-switcher">
-            <li>@Html.Action("_UserList", "User")</li>
-            <li>@Html.Action("_AdminList", "Admin")</li>
-            <li>@Html.Action("_BanList", "Ban")</li>
-            <li>@Html.Action("_DolarList", "Dolar")</li>
-            <li>@Html.Action("_MapList", "Map")</li>
-            <li>@Html.Action("_ProductList", "Product")</li>
-            <li>@Html.Action("_BuildingList2", "Building")</li>
-            <li>@Html.Action("_UserBuildingList", "UserBuilding")</li>
-            <li>@Html.Action("_UserProductList", "UserProduct")</li>
-            <li>@Html.Action("_BuildingQueueList", "BuildingQueue")</li>
-        </ul>
-    </div>
+    <div id="Użytkownicy" class="col s12">@Html.Action("_UserList", "User")</div>
+    <div id="Admini" class="col s12">@Html.Action("_AdminList", "Admin")</div>
+    <div id="Bany" class="col s12">@Html.Action("_BanList", "Ban")</div>
+    <div id="Dolar" class="col s12">@Html.Action("_DolarList", "Dolar")</div>
+    <div id="Mapy" class="col s12">@Html.Action("_MapList", "Map")</div>
+    <div id="Produkty" class="col s12">@Html.Action("_ProductList", "Product")</div>
+    <div id="Budynki" class="col s12">@Html.Action("_BuildingList2", "Building")</div>
+    <div id="Budynki_użytkownika" class="col s12">@Html.Action("_UserBuildingList", "UserBuilding")</div>
+    <div id="Produkty_użytkownika" class="col s12">@Html.Action("_UserProductList", "UserProduct")</div>
+    <div id="Kolejka_budowy" class="col s12">@Html.Action("_BuildingQueueList", "BuildingQueue")</div>
 </div>
 
-<script type="text/javascript" src="~/Scripts/js/uikit.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('ul.tabs').tabs('select_tab', 'tab_id');
+    });
+</script>

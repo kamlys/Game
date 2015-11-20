@@ -8,13 +8,14 @@
     @Styles.Render("~/Styles")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body class="uk-height-1-1">
-    <div class="uk-navbar">
-
+<body>
+    <nav>
         @if (!User.Identity.IsAuthenticated)
         {
-            <ul class="uk-navbar-nav" style="width: 430px">
-                <li><a href='@Url.Action("Index", "Home")'><i class="uk-icon-home uk-icon-small"></i></a></li>
+            <div class="nav-wrapper" style="width: 360px">
+                <ul class="hide-on-med-and-down">
+                    <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
+
                 <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
 
                 <li><a href='@Url.Action("##", "##")'>Jak grać</a></li>
@@ -23,11 +24,16 @@
 
                 <li><a href='@Url.Action("Login", "User")'>Zaloguj</a></li>
             </ul>
+            </div>
         }
-        else
+
+
+        @if (User.Identity.IsAuthenticated)
         {
-            <ul class="uk-navbar-nav">
-                <li><a href='@Url.Action("Index", "Home")'><i class="uk-icon-home uk-icon-small"></i></a></li>
+            <div class="nav-wrapper">
+                <ul class="hide-on-med-and-down">
+                    <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
+
                 <li><a href='@Url.Action("##", "##")'>Wiadomości</a></li>
 
                 <li><a href='@Url.Action("Index", "Market")'>Market</a></li>
@@ -38,28 +44,30 @@
 
                 <li><a href='@Url.Action("Logout", "User")'>Wyloguj</a></li>
 
-                <li><a href='@Url.Action("##", "##")'><i class="uk-icon-envelope uk-icon-small"></i></a></li>
+                    <li><a href='@Url.Action("##", "##")'><i class="fa fa-envelope"></i></a></li>
 
-                <li><a href='@Url.Action("##", "##")'><i class="uk-icon-cog uk-icon-small"></i></a></li>
+                    <li><a href='@Url.Action("##", "##")'><i class="fa fa-cog"></i></a></li>
             </ul>
+            </div>
         }
 
-    </div>
-    <div class=".uk-container-center">
+
+    </nav>
+    <div class="container">
         @RenderBody()
         <footer>
             <p>
                 &copy; @DateTime.Now.Year - My ASP.NET Application
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <a href='@Url.Action("Admin", "Admin")'><i class="uk-icon-gears uk-icon-small"></i></a>
+                    <a href='@Url.Action("Admin", "Admin")'><i class="fa fa-lock"></i></a>
                 }
             </p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/uikit")
+    @Scripts.Render("~/bundles/materialize")
     @if (User.Identity.IsAuthenticated)
             {
         @Scripts.Render("~/Scripts/js")

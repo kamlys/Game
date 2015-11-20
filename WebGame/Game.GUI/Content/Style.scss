@@ -3,6 +3,8 @@ $firstColor: #2c3e50;
 $secondColor: #2f3b46;
 $logColor: #9b59b6;
 $regColor: #66cccc;
+$greyColor: #9d9d9d;
+$indexColor: #ff7d00;
 
 
 
@@ -16,23 +18,41 @@ html, body {
     padding: 20px 20px 20px 20px;
 }
 
+nav {
+    background-color: $secondColor;
+}
 
 /*Panel logowania*/
 .loginForm {
-    #Login, #Password {
-        background-color: $logColor;
-        border: none;
-        color: white;
-        padding-left: 30px;
-    }
-
     border-top: 5px solid $logColor;
-    width: 400px;
     min-height: 300px;
     background-color: $secondColor;
     margin-top: 100px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 0 30px 0 30px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    #Login, #Password {
+        color: white;
+    }
+
+    .input-field label {
+        color: $greyColor;
+    }
+
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=password]:focus + label {
+        color: $logColor;
+        font-size: 15px;
+    }
+
+    .input-field input[type=text]:focus,
+    .input-field input[type=password]:focus {
+        border-bottom: 3px solid $logColor;
+        box-shadow: none;
+    }
+
 
     .loginTopText {
         .logowanieText {
@@ -40,7 +60,7 @@ html, body {
             display: inline-block;
             color: white;
             font-size: 30px;
-            margin: 10px 0 40px 0;
+            margin: 10px 0 20px 0;
             text-align: left;
         }
 
@@ -68,18 +88,9 @@ html, body {
             float: left;
             width: auto;
 
-            #logButton {
-                margin-top: 30px;
-                background-color: #222222;
-                color: $logColor;
-                float: left;
-                border: none;
-                width: 100px;
-            }
 
-            #logButton:hover {
-                background-color: $logColor;
-                color: #222222;
+            .btn, .btn-large {
+                background-color: $logColor !important;
             }
         }
 
@@ -112,21 +123,42 @@ html, body {
 }
 /*Panel rejestracji*/
 .registerForm {
-
-    #Login, #Password, #Email, #comparePassword {
-        background-color: $regColor;
-        border: none;
-        color: white;
-        padding-left: 30px;
-    }
-
     border-top: 5px solid $regColor;
-    width: 400px;
-    min-height: 300px;
+    min-height: 500px;
     background-color: $secondColor;
     margin-top: 100px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 0 30px 0 30px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    #Login, #Password, #Email, #comparePassword {
+        color: white;
+    }
+
+    .input-field label {
+        color: $greyColor;
+    }
+
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=password]:focus + label,
+    .input-field input[type=email]:focus + label {
+        color: $regColor;
+        font-size: 15px;
+    }
+
+    .input[type=email].invalid + label:after {
+        width: 100px !important;
+    }
+
+    .input-field input[type=text]:focus,
+    .input-field input[type=password]:focus,
+    .input-field input[type=email]:focus {
+        border-bottom: 3px solid $regColor;
+        box-shadow: none;
+    }
+
+
 
     .regTopText {
         .registerText {
@@ -139,24 +171,17 @@ html, body {
         }
     }
 
-    .regButton {
-        .registerButton {
-            display: inline-block;
-            width: auto;
 
-            #logButton {
-                margin-top: 30px;
-                background-color: #222222;
-                color: $regColor;
-                float: left;
-                border: none;
-                width: 140px;
-            }
+    .registerButton {
+        display: inline-block;
+        width: auto;
+        position: relative;
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
 
-            #logButton:hover {
-                background-color: $regColor;
-                color: #222222;
-            }
+        .btn, .btn-large {
+            background-color: $regColor !important;
         }
     }
 
@@ -170,63 +195,181 @@ html, body {
     }
 }
 
-
 /*Lista budynków do budowy*/
 .buildingList {
     margin: 30px 0 0 30px;
     background-color: $secondColor;
     color: white;
     display: inline-block;
-    float:left;
-    text-align:center;
+    float: left !important;
+    text-align: center;
 
-    .buildingButton {
-        width:200px;
+    .btn {
+        background-color: $indexColor;
+        max-width: 190px;
+        width: 100%;
+        font-size: 12px;
+        padding: 0;
+        border-radius: 0;
     }
 
-    .buildButton{
-        width: 200px;
+    .dropdown-content li {
+        background-color: white;
+        top: 40px;
+        left: 30px;
+        border: 1px solid $indexColor;
+        height: 30px;
+        color: $indexColor;
+        text-align: center;
+        line-height: 30px;
     }
 }
 
 .mapBox {
     margin-top: 30px;
-    margin-left: 70px;
+    width: 540px;
+    margin-left: 3%;
     padding: 20px 20px 20px 20px;
     background-color: #2f3b46;
-    width: 40%;
     display: inline-block;
-    float: none;
 }
 
-.chatBox{
-    margin: 30px 30px 0 0;
+.chatBox {
+    margin: 30px 0 0 0;
     padding-top: 0;
     background-color: #2f3b46;
-    /* text-align: center; */
+    text-align: center;
     color: white;
     display: inline-block;
     width: 250px;
     min-height: 300px;
-     float: right; 
+    float: right !important;
 }
 
-.productList{
+.productList {
     display: block;
     width: 60%;
-    margin-left: auto;
+    height: 50px;
+    line-height: 50px;
+    margin-left: auto !important;
     margin-right: auto;
     padding: 20px 20px 20px 20px;
     background-color: #2f3b46;
     width: 50%;
     text-align: center;
     margin-top: 30px;
+    float: none !important;
 
-    .productItem{
+    .productItem {
         display: inline-block;
         color: white;
         margin-right: 20px;
     }
 }
 
+
+/*TabsAdmin*/
+.tabs {
+    margin-top: 30px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    position: relative;
+    height: 48px;
+    background-color: $secondColor;
+    margin: 30px 0 0 0;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.tabs .tab {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    letter-spacing: .8px;
+    width: 15%;
+    min-width: 80px;
+
+    a {
+        color: #fff !important;
+        font-size: 10px;
+    }
+
+    a:hover {
+        color: $indexColor !important;
+    }
+
+    .tab a {
+        color: #fff;
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-transition: color .28s ease;
+        -moz-transition: color .28s ease;
+        -o-transition: color .28s ease;
+        -ms-transition: color .28s ease;
+        transition: color .28s ease;
+    }
+
+    .tab.disabled a {
+        color: #f9c9cb;
+        cursor: default;
+    }
+
+    .indicator {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        background-color: #f6b2b5;
+        will-change: left, right;
+    }
+}
+
+
+.market {
+    background-color: white;
+    margin-top: 30px;
+
+    #numValue {
+        float: left;
+        max-width: 60px;
+        margin-right: 40px;
+    }
+
+    #buyButton {
+        margin-top: 10px;
+    }
+
+    #buyTd {
+        width: 300px;
+    }
+}
+
+.tableList {
+    background-color: white;
+    padding: 20px 20px 20px 20px;
+
+    .table {
+        text-align: center !important;
+        .td, .th{
+            text-align:center !important;
+        }
+    }
+
+}
 

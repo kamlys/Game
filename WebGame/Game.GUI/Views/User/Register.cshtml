@@ -5,42 +5,43 @@
 
 }
 
-<div class="uk-vertical-align uk-text-center uk-height-1-1">
-    <div class="uk-vertical-align-middle">
-        <section class="uk-panel uk-panel-box uk-form registerForm">
-            <div class="regTopText">
-                <div class="registerText">@ViewBag.Title</div>
-            </div>
-            @using (Html.BeginForm("Register", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div class="row">
+    <div class="registerForm">
+        <div class="regTopText">
+            <div class="registerText">@ViewBag.Title</div>
+        </div>
+        @using (Html.BeginForm("Register", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
+            <form class="col s12">
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "uk-form-danger logError" })
 
-                <div class="uk-form-row">
-                    @Html.TextBoxFor(m => m.Login, new { @placeholder = "Login", @class = "uk-width-1-1 uk-form-large" })
-                    @Html.ValidationMessageFor(m => m.Login, "", new { @class = "uk-form-danger" })
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.Login, new { @class = "validate" })
+                    <label for="Login">Login</label>
+
                 </div>
-                <div class="uk-form-row">
-                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "E-mail", @class = "form-control uk-width-1-1 uk-form-large" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "uk-form-danger" })
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "validate" })
+                    <label for="Email" data-error="Coś nie tak">Email</label>
+
                 </div>
-                <div class="uk-form-row">
-                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Hasło", @class = "form-control uk-width-1-1 uk-form-large" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "uk-form-danger" })
+                <div class="input-field col s12">
+                    @Html.PasswordFor(m => m.Password, new { @class = "validate" })
+                    <label for="Password">Password</label>
+
                 </div>
-                <div class="uk-form-row">
-                    @Html.PasswordFor(m => m.comparePassword, new { @placeholder = "Powtórz hasło", @class = "form-control uk-width-1-1 uk-form-large" })
-                    @Html.ValidationMessageFor(m => m.comparePassword, "", new { @class = "uk-form-danger" })
+                <div class="input-field col s12">
+                    @Html.PasswordFor(m => m.comparePassword, new { @class = "validate" })
+                    <label for="comparePassword">Powtórz hasło</label>
+
                 </div>
 
-                <div class="uk-form-row regButton">
-                    <div class="registerButton">
-                        <input type="submit" value="Zarejestruj" class="uk-button uk-button-primary uk-button-large" id="logButton" />
-                    </div>
+                <div class="registerButton">
+                    <input type="submit" value="Zarejestruj" class="waves-effect waves-light btn-large" />
                 </div>
-            }
-
-        </section>
+            </form>
+        }
     </div>
 </div>
 @section Scripts {

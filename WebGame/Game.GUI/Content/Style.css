@@ -8,26 +8,37 @@ html, body {
   font-size: 20px;
   padding: 20px 20px 20px 20px; }
 
+nav {
+  background-color: #2f3b46; }
+
 /*Panel logowania*/
 .loginForm {
   border-top: 5px solid #9b59b6;
-  width: 400px;
   min-height: 300px;
   background-color: #2f3b46;
   margin-top: 100px;
-  padding-left: 50px;
-  padding-right: 50px; }
+  padding: 0 30px 0 30px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto; }
   .loginForm #Login, .loginForm #Password {
-    background-color: #9b59b6;
-    border: none;
-    color: white;
-    padding-left: 30px; }
+    color: white; }
+  .loginForm .input-field label {
+    color: #9d9d9d; }
+  .loginForm .input-field input[type=text]:focus + label,
+  .loginForm .input-field input[type=password]:focus + label {
+    color: #9b59b6;
+    font-size: 15px; }
+  .loginForm .input-field input[type=text]:focus,
+  .loginForm .input-field input[type=password]:focus {
+    border-bottom: 3px solid #9b59b6;
+    box-shadow: none; }
   .loginForm .loginTopText .logowanieText {
     float: left;
     display: inline-block;
     color: white;
     font-size: 30px;
-    margin: 10px 0 40px 0;
+    margin: 10px 0 20px 0;
     text-align: left; }
   .loginForm .loginTopText .kontoText {
     display: inline-block;
@@ -44,16 +55,8 @@ html, body {
     display: inline-block;
     float: left;
     width: auto; }
-    .loginForm .loginButton .logowanieButton #logButton {
-      margin-top: 30px;
-      background-color: #222222;
-      color: #9b59b6;
-      float: left;
-      border: none;
-      width: 100px; }
-    .loginForm .loginButton .logowanieButton #logButton:hover {
-      background-color: #9b59b6;
-      color: #222222; }
+    .loginForm .loginButton .logowanieButton .btn, .loginForm .loginButton .logowanieButton .btn-large {
+      background-color: #9b59b6 !important; }
   .loginForm .loginButton .forgetPassword {
     margin-top: 30px;
     display: inline-block;
@@ -74,17 +77,29 @@ html, body {
 /*Panel rejestracji*/
 .registerForm {
   border-top: 5px solid #66cccc;
-  width: 400px;
-  min-height: 300px;
+  min-height: 500px;
   background-color: #2f3b46;
   margin-top: 100px;
-  padding-left: 50px;
-  padding-right: 50px; }
+  padding: 0 30px 0 30px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto; }
   .registerForm #Login, .registerForm #Password, .registerForm #Email, .registerForm #comparePassword {
-    background-color: #66cccc;
-    border: none;
-    color: white;
-    padding-left: 30px; }
+    color: white; }
+  .registerForm .input-field label {
+    color: #9d9d9d; }
+  .registerForm .input-field input[type=text]:focus + label,
+  .registerForm .input-field input[type=password]:focus + label,
+  .registerForm .input-field input[type=email]:focus + label {
+    color: #66cccc;
+    font-size: 15px; }
+  .registerForm .input[type=email].invalid + label:after {
+    width: 100px !important; }
+  .registerForm .input-field input[type=text]:focus,
+  .registerForm .input-field input[type=password]:focus,
+  .registerForm .input-field input[type=email]:focus {
+    border-bottom: 3px solid #66cccc;
+    box-shadow: none; }
   .registerForm .regTopText .registerText {
     float: left;
     display: inline-block;
@@ -92,19 +107,15 @@ html, body {
     font-size: 30px;
     margin: 10px 0 40px 0;
     text-align: left; }
-  .registerForm .regButton .registerButton {
+  .registerForm .registerButton {
     display: inline-block;
-    width: auto; }
-    .registerForm .regButton .registerButton #logButton {
-      margin-top: 30px;
-      background-color: #222222;
-      color: #66cccc;
-      float: left;
-      border: none;
-      width: 140px; }
-    .registerForm .regButton .registerButton #logButton:hover {
-      background-color: #66cccc;
-      color: #222222; }
+    width: auto;
+    position: relative;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto; }
+    .registerForm .registerButton .btn, .registerForm .registerButton .btn-large {
+      background-color: #66cccc !important; }
   .registerForm .uk-form-danger {
     color: red !important;
     background-color: #2f3b46 !important; }
@@ -117,45 +128,139 @@ html, body {
   background-color: #2f3b46;
   color: white;
   display: inline-block;
-  float: left;
+  float: left !important;
   text-align: center; }
-  .buildingList .buildingButton {
-    width: 200px; }
-  .buildingList .buildButton {
-    width: 200px; }
+  .buildingList .btn {
+    background-color: #ff7d00;
+    max-width: 190px;
+    width: 100%;
+    font-size: 12px;
+    padding: 0;
+    border-radius: 0; }
+  .buildingList .dropdown-content li {
+    background-color: white;
+    top: 40px;
+    left: 30px;
+    border: 1px solid #ff7d00;
+    height: 30px;
+    color: #ff7d00;
+    text-align: center;
+    line-height: 30px; }
 
 .mapBox {
   margin-top: 30px;
-  margin-left: 70px;
+  width: 540px;
+  margin-left: 3%;
   padding: 20px 20px 20px 20px;
   background-color: #2f3b46;
-  width: 40%;
-  display: inline-block;
-  float: none; }
+  display: inline-block; }
 
 .chatBox {
-  margin: 30px 30px 0 0;
+  margin: 30px 0 0 0;
   padding-top: 0;
   background-color: #2f3b46;
-  /* text-align: center; */
+  text-align: center;
   color: white;
   display: inline-block;
   width: 250px;
   min-height: 300px;
-  float: right; }
+  float: right !important; }
 
 .productList {
   display: block;
   width: 60%;
-  margin-left: auto;
+  height: 50px;
+  line-height: 50px;
+  margin-left: auto !important;
   margin-right: auto;
   padding: 20px 20px 20px 20px;
   background-color: #2f3b46;
   width: 50%;
   text-align: center;
-  margin-top: 30px; }
+  margin-top: 30px;
+  float: none !important; }
   .productList .productItem {
     display: inline-block;
     color: white;
     margin-right: 20px; }
+
+/*TabsAdmin*/
+.tabs {
+  margin-top: 30px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  height: 48px;
+  background-color: #2f3b46;
+  margin: 30px 0 0 0;
+  width: 100%;
+  white-space: nowrap; }
+
+.tabs .tab {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: block;
+  float: left;
+  text-align: center;
+  line-height: 48px;
+  height: 48px;
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  letter-spacing: .8px;
+  width: 15%;
+  min-width: 80px; }
+  .tabs .tab a {
+    color: #fff !important;
+    font-size: 10px; }
+  .tabs .tab a:hover {
+    color: #ff7d00 !important; }
+  .tabs .tab .tab a {
+    color: #fff;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-transition: color .28s ease;
+    -moz-transition: color .28s ease;
+    -o-transition: color .28s ease;
+    -ms-transition: color .28s ease;
+    transition: color .28s ease; }
+  .tabs .tab .tab.disabled a {
+    color: #f9c9cb;
+    cursor: default; }
+  .tabs .tab .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #f6b2b5;
+    will-change: left, right; }
+
+.market {
+  background-color: white;
+  margin-top: 30px; }
+  .market #numValue {
+    float: left;
+    max-width: 60px;
+    margin-right: 40px; }
+  .market #buyButton {
+    margin-top: 10px; }
+  .market #buyTd {
+    width: 300px; }
+
+.tableList {
+  background-color: white;
+  padding: 20px 20px 20px 20px; }
+  .tableList .table {
+    text-align: center !important; }
+    .tableList .table .td, .tableList .table .th {
+      text-align: center !important; }
 

@@ -4,39 +4,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (!User.Identity.IsAuthenticated)
-{
-    <article class="uk-article" id="homeArticle">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dapibus ligula ex, eget cursus lorem finibus vel.
-        Sed faucibus justo magna, ut ullamcorper ex euismod et. Ut at ullamcorper sapien. Morbi vitae gravida purus. Nullam
-        volutpat est justo, eu posuere augue iaculis in. Nullam lorem mi, pretium ut enim et, egestas mattis est. Nulla auctor
-        nibh vel ultrices cursus. Integer cursus, elit nec hendrerit tristique, ex augue posuere libero, non vehicula ligula magna
-        id urna. Nullam pulvinar ullamcorper magna ac tincidunt. Cras eu vestibulum nisl. Mauris ultricies metus vel fringilla
-        venenatis. In a luctus velit. Proin consequat nibh nulla, vel lacinia dolor volutpat vel. Fusce est nibh, viverra in
-        bibendum vel, hendrerit sit amet leo.
+<div class="row">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <article class="uk-article" id="homeArticle">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dapibus ligula ex, eget cursus lorem finibus vel.
+            Sed faucibus justo magna, ut ullamcorper ex euismod et. Ut at ullamcorper sapien. Morbi vitae gravida purus. Nullam
+            volutpat est justo, eu posuere augue iaculis in. Nullam lorem mi, pretium ut enim et, egestas mattis est. Nulla auctor
+            nibh vel ultrices cursus. Integer cursus, elit nec hendrerit tristique, ex augue posuere libero, non vehicula ligula magna
+            id urna. Nullam pulvinar ullamcorper magna ac tincidunt. Cras eu vestibulum nisl. Mauris ultricies metus vel fringilla
+            venenatis. In a luctus velit. Proin consequat nibh nulla, vel lacinia dolor volutpat vel. Fusce est nibh, viverra in
+            bibendum vel, hendrerit sit amet leo.
 
-        Quisque sagittis mi ut justo vulputate placerat. Praesent malesuada dui quis velit eleifend ultrices. Nullam porta,
-        dui at eleifend sodales, ante lacus vehicula nulla, et tempus orci neque tincidunt mauris. Curabitur et auctor justo,
-        id sodales ipsum. Quisque laoreet lacus odio. Suspendisse consequat tincidunt risus, sed pulvinar tortor venenatis sit
-        amet. Praesent ultrices sapien erat, ut dapibus tortor luctus et. Nam viverra, lectus a viverra blandit, mi erat lobortis
-        urna, ut cursus felis lacus non augue.
-    </article>
-}
-else
-{
-    <div class="uk-panel-box uk-width-6-10 productList">
-        <div id="products">
+            Quisque sagittis mi ut justo vulputate placerat. Praesent malesuada dui quis velit eleifend ultrices. Nullam porta,
+            dui at eleifend sodales, ante lacus vehicula nulla, et tempus orci neque tincidunt mauris. Curabitur et auctor justo,
+            id sodales ipsum. Quisque laoreet lacus odio. Suspendisse consequat tincidunt risus, sed pulvinar tortor venenatis sit
+            amet. Praesent ultrices sapien erat, ut dapibus tortor luctus et. Nam viverra, lectus a viverra blandit, mi erat lobortis
+            urna, ut cursus felis lacus non augue.
+        </article>
+    }
+    else
+    {
+        <div class="IndexDiv">
+            <div class="productList col l5 card">
+                <div id="products">
 
+                </div>
+            </div>
+            <div class="col l3 buildingList card">
+                <div>Buduj:</div>
+                @Html.Action("_BuildingsList", "Building")
+            </div>
+            <div class="mapBox card">
+                @Html.Action("_UserMap", "Map")
+            </div>
+            <div class="col l3 chatBox card">
+                Czat
+            </div>
         </div>
-    </div>
-    <div class="uk-panel-box uk-width-2-10 buildingList">
-        <div>Buduj:</div>
-        @Html.Action("_BuildingsList", "Building")
-    </div>
-    <div class="uk-panel-box mapBox">
-        @Html.Action("_UserMap", "Map")
-    </div>
-    <div class="uk-panel-box uk-width-2-10 chatBox">
-        Czat
-    </div>
-}
+    }
+</div>

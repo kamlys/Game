@@ -3,31 +3,28 @@
     Layout = null;
 }
 
-<div id="uproductAdd" class="uk-modal">
-    <div class="uk-modal-dialog">
-        <a class="uk-modal-close uk-close"></a>
-        <section class="uk-panel uk-panel-box uk-form">
-            @using (Html.BeginForm("Add", "UserProduct", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div id="uproductAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Add", "UserProduct", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.User_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Name, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Wartość: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Value, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("ID produktu: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Product_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.User_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Name, null, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Wartość: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Value, null, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("ID produktu: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Product_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
 
-                <input type="submit" value="Zapisz" class="uk-button-large" />
-            }
-        </section>
+            <input type="submit" value="Zapisz" class="uk-button-large" />
+        }
     </div>
 </div>
 
-
-<div id="administrationList">
-    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Produkty użytkownika<button class="uk-button" data-uk-modal="{target:'#uproductAdd'}">Dodaj nowy</button></caption>
+<div class="tableList">
+    <h4>Produkty użytkownika</h4><br />
+    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Dodaj produkt użytkownikowi</a>
+    <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
                 <th>ID</th>
@@ -46,15 +43,14 @@
                     <td>@item.Name</td>
                     <td>@item.Value</td>
                     <td>@item.Product_ID</td>
-                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
-                            Menu <span class="caret"></span>
-                        </button>
-                        <div class="uk-dropdown uk-dropdown-small">
-                            <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","UserProduct", new { id = item.ID })'">Usuń</div></li>
-
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn-floating btn-large red">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "UserProuct", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>
