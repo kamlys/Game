@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 html, body {
   background-color: #2c3e50; }
 
@@ -152,7 +152,6 @@ nav {
   width: 540px;
   margin-left: 11.5%;
   margin-right: auto;
-  padding: 20px 20px 20px 20px;
   background-color: #2f3b46;
   display: inline-block; }
 
@@ -245,3 +244,4 @@ nav {
     background-color: #f6b2b5;
     will-change: left, right; }
 
+/*# sourceMappingURL=Style.css.map */

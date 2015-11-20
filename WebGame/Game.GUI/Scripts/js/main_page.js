@@ -10,6 +10,8 @@ function buduj(id, width, height) {
     budowanie = true;
     budowanie_szer = width;
     budowanie_wys = height;
+    $('.fake-building').css('width', budowanie_szer * 50);
+    $('.fake-building').css('height', budowanie_wys * 50);
     budowanie_id = id;
     $('body').addClass('buduj');
 }
@@ -73,6 +75,7 @@ function budujAjax(col, row, id) {
 }
 
 function burzAjax(id) {
+    $('.loader').show();
     var data = { id: id };
     $.ajax({
         type: "POST",
@@ -110,10 +113,8 @@ $(document).ready(function () {
         var map = [$('#map').offset().left, $('#map').offset().top];
         var cursor = [pos[0] - map[0], pos[1] - map[1]];
         $('.fake-building').css('display', 'block');
-        $('.fake-building').css('left', (map[0] + cursor[0] -  cursor[0] % 50));
-        $('.fake-building').css('top', (map[1] + cursor[1] - cursor[1] % 50));
-        $('.fake-building').css('width', budowanie_szer * 50);
-        $('.fake-building').css('height', budowanie_wys * 50);
+        $('.fake-building').css('left', (cursor[0] -  cursor[0] % 50));
+        $('.fake-building').css('top', (cursor[1] - cursor[1] % 50));
         if (canBuild(getColRow()[0], getColRow()[1])) {
             $('.fake-building').css('background', 'green');
         } else {
@@ -121,7 +122,8 @@ $(document).ready(function () {
         }
     });
 
-    $('.fake-building').click(function (ev) {
+    $('#map').click(function (ev) {
+        if (!budowanie) return;
         var xMap = $('#map').offset().left;
         var yMap = $('#map').offset().top;
         var xBuild = $('.fake-building').offset().left;
@@ -129,6 +131,13 @@ $(document).ready(function () {
         var col = Math.round(xBuild - xMap)/50;
         var row = Math.round(yBuild - yMap) / 50;
         if (canBuild(col, row)) {
+            $('.map-tile').removeClass('canbuild');
+            $('.map-tile').removeClass('cantbuild');
+            $('.fake-building').css('display', 'none');
+            budowanie = false;
+            $('body').removeClass('buduj');
+            $('.loader').show();
+
             budujAjax(col, row, budowanie_id);
         }
     });
@@ -146,9 +155,9 @@ $(document).ready(function () {
     $('div[name=remove]').click(function () {
         var ID = $(this).data("buildingid");
 
-        UIkit.modal.confirm("Na pewno chcesz zburzyć ten budynek?", function () {
+        //UIkit.modal.confirm("Na pewno chcesz zburzyć ten budynek?", function () {
             burzAjax(ID);
-        });
+        //});
 
     });
 });

@@ -11,7 +11,20 @@
 }
 
 <div class="fake-building"></div>
+<div class="loader" style="display:none;">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
 
+</div>
 <div>
     <div class="map" id="map" style="width:@(widthPx)px; height:@(heightPx)px">
           @foreach (var a in userBuildings)
