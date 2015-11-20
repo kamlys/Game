@@ -3,47 +3,45 @@
     Layout = null;
 }
 
-<div id="buildingAdd" class="uk-modal">
-    <div class="uk-modal-dialog">
-        <a class="uk-modal-close uk-close"></a>
-        <section class="uk-panel uk-panel-box uk-form">
-            @using (Html.BeginForm("Add", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div id="buildingAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Add", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Name, new {@class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Cena: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Price, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Wysokość: ", new { @class = "uk-form-label" })
-                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Height, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Szerokość: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Width, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Koszt wyburzenia: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Dest_price, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Wzrost ceny za level: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Percent_price_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Wzrost produkcji za lvl: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Percent_product_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("ID produktu: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Product_ID, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Produkcja na sekundę: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Product_per_sec, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Alias: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Alias, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Czas budowy: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.BuildingTime, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Czas burzenia: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.DestructionTime, new { @class = "uk-width-1-1 uk-form-large" })
-                <input type="submit" value="Zapis" class="uk-button-large" />
-            }
-        </section>
+            @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Name, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Cena: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Price, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Wysokość: ", new { @class = "uk-form-label" })
+            @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Height, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Szerokość: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Width, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Koszt wyburzenia: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Dest_price, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Wzrost ceny za level: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Percent_price_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Wzrost produkcji za lvl: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Percent_product_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("ID produktu: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Product_ID, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Produkcja na sekundę: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Product_per_sec, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Alias: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.Alias, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Czas budowy: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.BuildingTime, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Czas burzenia: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.tableView.DestructionTime, new { @class = "uk-width-1-1 uk-form-large" })
+            <input type="submit" value="Zapis" class="uk-button-large" />
+        }
     </div>
 </div>
 
 
-<div id="tableList">
-    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Budynki <button class="uk-button" data-uk-modal="{target:'#buildingAdd'}">Dodaj nowy</button></caption>
+<div class="tableList">
+    <h4>Budynki</h4><br />
+    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Dodaj budynek</a>
+    <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
                 <th>ID</th>
@@ -77,15 +75,15 @@
                     <td>@item.Product_ID</td>
                     <td>@item.Alias</td>
                     <td>@item.BuildingTime</td>
-                    <td>@item.Dest_price</td>
-                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
-                            Menu <span class="caret"></span>
-                        </button>
-                        <div class="uk-dropdown uk-dropdown-small">
-                            <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","Building", new { id = item.ID })'">Usuń</div></li>
-
+                    <td>@item.DestructionTime</td>
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn-floating btn-large red">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Building", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

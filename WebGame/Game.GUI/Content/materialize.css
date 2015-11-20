@@ -5132,7 +5132,7 @@ nav ul a span.badge {
       left: 33.33333%; }
     .row .col.s5 {
       width: 41.66667%;
-      margin-left: 0; }
+      /*margin-left: 0;*/ }
     .row .col.offset-s5 {
       margin-left: 41.66667%; }
     .row .col.pull-s5 {
@@ -5177,7 +5177,7 @@ nav ul a span.badge {
       left: 75%; }
     .row .col.s10 {
       width: 83.33333%;
-      /*margin-left: 0;*/ }
+      margin-left: 0; }
     .row .col.offset-s10 {
       margin-left: 83.33333%; }
     .row .col.pull-s10 {
@@ -5923,7 +5923,7 @@ small {
     position: absolute;
     bottom: 0;
     height: 2px;
-    background-color: #f6b2b5;
+    background-color: #ff7d00;
     will-change: left, right; }
 
 .hide-tab-scrollbar {

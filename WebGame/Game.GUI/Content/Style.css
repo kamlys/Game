@@ -150,8 +150,7 @@ nav {
 .mapBox {
   margin-top: 30px;
   width: 540px;
-  margin-left: 11.5%;
-  margin-right: auto;
+  margin-left: 3%;
   padding: 20px 20px 20px 20px;
   background-color: #2f3b46;
   display: inline-block; }
@@ -172,7 +171,7 @@ nav {
   width: 60%;
   height: 50px;
   line-height: 50px;
-  margin-left: auto;
+  margin-left: auto !important;
   margin-right: auto;
   padding: 20px 20px 20px 20px;
   background-color: #2f3b46;
@@ -186,7 +185,7 @@ nav {
     margin-right: 20px; }
 
 /*TabsAdmin*/
-.tabAdmin {
+.tabs {
   margin-top: 30px;
   display: -webkit-box;
   display: -moz-box;
@@ -200,7 +199,7 @@ nav {
   width: 100%;
   white-space: nowrap; }
 
-.tabAdmin .tab {
+.tabs .tab {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -218,12 +217,12 @@ nav {
   letter-spacing: .8px;
   width: 15%;
   min-width: 80px; }
-  .tabAdmin .tab a {
+  .tabs .tab a {
     color: #fff !important;
     font-size: 10px; }
-  .tabAdmin .tab a:hover {
+  .tabs .tab a:hover {
     color: #ff7d00 !important; }
-  .tabAdmin .tab .tab a {
+  .tabs .tab .tab a {
     color: #fff;
     display: block;
     width: 100%;
@@ -235,13 +234,33 @@ nav {
     -o-transition: color .28s ease;
     -ms-transition: color .28s ease;
     transition: color .28s ease; }
-  .tabAdmin .tab .tab.disabled a {
+  .tabs .tab .tab.disabled a {
     color: #f9c9cb;
     cursor: default; }
-  .tabAdmin .tab .indicator {
+  .tabs .tab .indicator {
     position: absolute;
     bottom: 0;
     height: 2px;
     background-color: #f6b2b5;
     will-change: left, right; }
+
+.market {
+  background-color: white;
+  margin-top: 30px; }
+  .market #numValue {
+    float: left;
+    max-width: 60px;
+    margin-right: 40px; }
+  .market #buyButton {
+    margin-top: 10px; }
+  .market #buyTd {
+    width: 300px; }
+
+.tableList {
+  background-color: white;
+  padding: 20px 20px 20px 20px; }
+  .tableList .table {
+    text-align: center !important; }
+    .tableList .table .td, .tableList .table .th {
+      text-align: center !important; }
 

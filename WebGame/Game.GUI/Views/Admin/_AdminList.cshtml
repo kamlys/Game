@@ -3,24 +3,22 @@
     Layout = null;
 }
 
-<div id="adminAdd" class="modal bottom-sheet">
+<div id="adminAdd" class="modal">
     <div class="modal-content">
-        <section class="uk-panel uk-panel-box uk-form-horizontal">
             @using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m=>m.tableView.User_ID, new { @class = "uk-width-1-1 uk-form-large" })
+                @Html.TextBoxFor(m => m.tableView.User_ID, new { @class = "uk-width-1-1 uk-form-large" })
 
                 <input type="submit" class="uk-button-large" value="Submit" />
             }
-        </section>
     </div>
 </div>
 
-
-<div id="tableList">
-    <button data-target="adminAdd" class="btn modal-trigger" href="#adminAdd">Dodaj nowy</button>
-    <table class="responsive-table bordered">
+<div class="tableList">
+    <h4>Admini</h4><br />
+    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Dodaj admina</a>
+    <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
                 <th data-field="id">ID</th>
@@ -34,8 +32,25 @@
 
                     <td>@item.ID</td>
                     <td>@item.User_ID</td>
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn-floating btn-large red">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function () {
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').leanModal();
+});</script>

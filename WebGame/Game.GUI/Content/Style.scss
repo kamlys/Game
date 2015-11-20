@@ -228,8 +228,7 @@ nav {
 .mapBox {
     margin-top: 30px;
     width: 540px;
-    margin-left: 11.5%;
-    margin-right: auto;
+    margin-left: 3%;
     padding: 20px 20px 20px 20px;
     background-color: #2f3b46;
     display: inline-block;
@@ -252,7 +251,7 @@ nav {
     width: 60%;
     height: 50px;
     line-height: 50px;
-    margin-left: auto;
+    margin-left: auto !important;
     margin-right: auto;
     padding: 20px 20px 20px 20px;
     background-color: #2f3b46;
@@ -270,7 +269,7 @@ nav {
 
 
 /*TabsAdmin*/
-.tabAdmin {
+.tabs {
     margin-top: 30px;
     display: -webkit-box;
     display: -moz-box;
@@ -285,7 +284,7 @@ nav {
     white-space: nowrap;
 }
 
-.tabAdmin .tab {
+.tabs .tab {
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
     -ms-flex-positive: 1;
@@ -340,3 +339,37 @@ nav {
         will-change: left, right;
     }
 }
+
+
+.market {
+    background-color: white;
+    margin-top: 30px;
+
+    #numValue {
+        float: left;
+        max-width: 60px;
+        margin-right: 40px;
+    }
+
+    #buyButton {
+        margin-top: 10px;
+    }
+
+    #buyTd {
+        width: 300px;
+    }
+}
+
+.tableList {
+    background-color: white;
+    padding: 20px 20px 20px 20px;
+
+    .table {
+        text-align: center !important;
+        .td, .th{
+            text-align:center !important;
+        }
+    }
+
+}
+

@@ -3,10 +3,9 @@
     Layout = null;
 }
 
-<div id="banAdd" class="uk-modal">
-    <div class="uk-modal-dialog">
+<div id="banAdd" class="modal">
+    <div class="modal-content">
         <a class="uk-modal-close uk-close"></a>
-        <section class="uk-panel uk-panel-box uk-form">
             @using (Html.BeginForm("Add", "Ban", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
@@ -18,13 +17,14 @@
                 <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
                 <input type="submit" value="Submit" class="uk-button-large" />
             }
-        </section>
     </div>
 </div>
 
 
-<div id="tableList">
-    <table>
+<div class="tableList">
+    <h4>Admini</h4><br />
+    <button data-target="adminAdd" class="btn modal-trigger" href="#adminAdd">Zbanuj</button>
+    <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
                 <th data-field="id">ID</th>
@@ -43,6 +43,17 @@
                     <td>@item.Description</td>
                     <td>@item.Start_Date</td>
                     <td>@item.Finish_Date</td>
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn-floating btn-large red">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Ban", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
