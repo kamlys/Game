@@ -85,5 +85,32 @@ namespace Game.Service
             }
             return marketDto;
         }
+
+
+        public void Add(MarketDto user)
+        {
+            _market.Add(new Market
+            {
+                User_ID = _user.Get(user.ID).ID,
+                Product_ID = _product.Get(user.Product_ID).ID,
+                Number = user.Number,
+                Price = user.Price
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public void Delete(int id)
+        {
+            _user.Delete(_user.Get(id));
+            _unitOfWork.Commit();
+        }
+
+        
+
+        public void Update(MarketDto market, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

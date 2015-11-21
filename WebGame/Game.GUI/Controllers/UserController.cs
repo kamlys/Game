@@ -17,12 +17,10 @@ namespace Game.GUI.Controllers
     public class UserController : Controller
     {
         private IUserService _userService;
-        private IUserTableService _userTable;
 
-        public UserController(IUserService userService, IUserTableService userTable)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _userTable = userTable;
         }
 
         [HttpGet]
@@ -95,7 +93,7 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _userTable.GetUser())
+            foreach (var item in _userService.GetUser())
             {
                 tableList.tableList.Add(new TableViewModel
                 {
@@ -125,7 +123,7 @@ namespace Game.GUI.Controllers
             _userDto.Registration_Date = listView.tableView.Registration_Date;
             _userDto.Last_Update = listView.tableView.Last_Update;
 
-            _userTable.Add(_userDto);
+            _userService.Add(_userDto);
 
             return View("~/Views/Admin/Admin.cshtml");
         }
@@ -133,7 +131,7 @@ namespace Game.GUI.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            _userTable.Delete(id);
+            _userService.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 

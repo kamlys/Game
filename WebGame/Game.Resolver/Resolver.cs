@@ -31,7 +31,10 @@ namespace Game.Resolver
             builder.RegisterType<Repository<BuildingQueue>>().As<IRepository<BuildingQueue>>();
             builder.RegisterType<Repository<Market>>().As<IRepository<Market>>();
             builder.RegisterType<BanService>().As<IBanService>();
-
+            builder.RegisterType<DolarService>().As<IDolarService>();
+            builder.RegisterType<BuildingService>().As<IBuildingService>();
+            builder.RegisterType<QueueService>().As<IQueueService>();
+            builder.RegisterType<UserProductService>().As<IUserProductService>();
 
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
@@ -47,11 +50,7 @@ namespace Game.Resolver
             builder.RegisterType<MarketService>().As<IMarketService>();
             builder.RegisterType<AdminService>().As<IAdminService>();
 
-            builder.RegisterType<DolarService>().As<IDolarService>();
-            builder.RegisterType<BuildingService>().As<IBuildingService>();
-            builder.RegisterType<QueueService>().As<IQueueService>();
-            builder.RegisterType<UserProductService>().As<IUserProductService>();
-            builder.RegisterType<UserTableService>().As<IUserTableService>();
+
 
 
 

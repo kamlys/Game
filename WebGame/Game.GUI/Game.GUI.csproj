@@ -304,6 +304,7 @@
     <Content Include="Views\Admin\_UserList.cshtml" />
     <Content Include="Views\Admin\_UserProductList.cshtml" />
     <Content Include="Views\Market\Index.cshtml" />
+    <Content Include="Views\Admin\_MarketList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

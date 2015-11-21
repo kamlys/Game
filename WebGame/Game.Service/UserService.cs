@@ -94,5 +94,58 @@ namespace Game.Service
             }
             return false;
         }
+
+        public void Add(UserDto user)
+        {
+            _user.Add(new Users
+            {
+                Login = user.Login,
+                Password = _hassPass.GeneratePassword(user.Password),
+                Email = user.Email,
+                Last_Log = (DateTime)user.Last_Log,
+                Last_Update = (DateTime)user.Last_Update,
+                Registration_Date = (DateTime)user.Registration_Date
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public void Delete(int id)
+        {
+            _user.Delete(_user.Get(id));
+            _unitOfWork.Commit();
+        }
+
+        public List<UserDto> GetUser()
+        {
+            List<UserDto> userDto = new List<UserDto>();
+            foreach (var item in _user.GetAll())
+            {
+                try
+                {
+                    userDto.Add(new UserDto
+                    {
+                        ID = item.ID,
+                        Login = item.Login,
+                        Password = item.Password,
+                        Email = item.Email,
+                        Last_Log = (DateTime)item.Last_Log,
+                        Last_Update = (DateTime)item.Last_Update,
+                        Registration_Date = (DateTime)item.Registration_Date
+
+                    });
+                }
+                catch (Exception)
+                {
+                }
+
+            }
+            return userDto;
+        }
+
+        public void Update(UserDto admin, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

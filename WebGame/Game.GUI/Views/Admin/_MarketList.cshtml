@@ -1,0 +1,56 @@
+﻿@model Game.GUI.ViewModels.Market.ListMarketViewModel
+@{
+    Layout = null;
+}
+
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            @Html.Label("Nazwa produktu: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.marketView.Product_Name, null, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Ilość: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.marketView.Number, null, new { @class = "uk-width-1-1 uk-form-large" })
+            @Html.Label("Cena za sztukę: ", new { @class = "uk-form-label" })
+            @Html.TextBoxFor(m => m.marketView.Price, null, new { @class = "uk-width-1-1 uk-form-large" })
+            <input type="submit" value="Zapisz" class="uk-button-large" />
+        }
+    </div>
+</div>
+
+<div class="tableList">
+    <h4>Market</h4><br />
+    <button data-target="banAdd" class="btn modal-trigger" href="#banAdd">Dodaj ofertę</button>
+    <table class="highlight bordered responsive-table centered">
+        <thead>
+            <tr>
+                <th>Wystwaiający</th>
+                <th>Produkt</th>
+                <th>Ilość</th>
+                <th>Cena/szt.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.marketList)
+            {
+                <tr>
+                    <td>@item.Login</td>
+                    <td>@item.Product_Name</td>
+                    <td>@item.Number</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn-floating btn-large red">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Market", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -55,7 +55,6 @@
     <Compile Include="Interfaces\IDolarService.cs" />
     <Compile Include="Interfaces\IQueueService.cs" />
     <Compile Include="Interfaces\IUserProductService.cs" />
-    <Compile Include="Interfaces\TableInterface\IUserTableService.cs" />
     <Compile Include="MapService.cs" />
     <Compile Include="MarketService.cs" />
     <Compile Include="ProductService.cs" />
@@ -64,7 +63,6 @@
     <Compile Include="DolarService.cs" />
     <Compile Include="QueueService.cs" />
     <Compile Include="UserProductService.cs" />
-    <Compile Include="Table\UserTableService.cs" />
     <Compile Include="UserBuildingService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
