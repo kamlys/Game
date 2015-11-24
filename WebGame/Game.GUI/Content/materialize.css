@@ -6268,7 +6268,9 @@ a.waves-effect .waves-ripple {
   margin: auto;
   overflow-y: auto;
   border-radius: 2px;
-  will-change: top, opacity; }
+  will-change: top, opacity; 
+  padding-bottom: 15px;
+}
   @media only screen and (max-width : 992px) {
     .modal {
       width: 80%; } }

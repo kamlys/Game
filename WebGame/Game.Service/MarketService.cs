@@ -112,5 +112,59 @@ namespace Game.Service
         {
             throw new NotImplementedException();
         }
+
+        public bool BuyOffer(MarketDto market, string User)
+        {
+            int uID = _user.GetAll().First(u => u.Login == User).ID;
+            int totalPrice = (market.Price * market.Number);
+            int userDolar = _dolar.GetAll().First(u => u.User_ID == uID).Value;
+            bool succes = false; // Czy user już ma taki produkt
+
+
+            if(userDolar>=totalPrice)
+            {
+                foreach (var item in _userProduct.GetAll().Where(i => i.User_ID == uID && i.Product_ID == market.Product_ID))
+                {
+                    if (item.Product_ID == market.Product_ID)
+                    {
+                        succes = true;
+                    }
+                }
+
+                if(succes)
+                {
+                    _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == market.Product_ID).Value += market.Number;
+                    _dolar.GetAll().First(i => i.User_ID == uID).Value -= totalPrice;
+                    _unitOfWork.Commit();
+                }
+                else
+                {
+                    _userProduct.Add(new UserProducts
+                    {
+                        User_ID = uID,
+                        Product_ID = market.Product_ID,
+                        Product_Name = _product.GetAll().First(n=> n.ID == market.Product_ID).Name,
+                        Value = market.Number
+                    });
+                    _dolar.GetAll().First(i => i.User_ID == uID).Value -= totalPrice;
+                    _unitOfWork.Commit();
+                }
+
+                _dolar.GetAll().First(i => i.User_ID == market.User_ID).Value += totalPrice;
+
+                if(_market.Get(market.ID).Number == market.Number)
+                {
+                    _market.Delete(_market.Get(market.ID));
+                }
+                else
+                {
+                    _market.Get(market.ID).Number -= market.Number;
+                }
+                _unitOfWork.Commit();
+
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -7,16 +7,29 @@
     <div class="modal-content">
         @using (Html.BeginForm("Add", "Product", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Name, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Cena za jednostkę: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Price_per_unit, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Jednostka: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Unit, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Alias: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Alias, null, new { @class = "uk-width-1-1 uk-form-large" })
 
-            <input type="submit" value="Zapisz" class="uk-button-large" />
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Name, new { placeholder = "", @class = "validate" })
+                <label for="Name">Nazwa produktu</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Price_per_unit, new { placeholder = "", @class = "validate" })
+                <label for="Price_per_unit">Cena za sztukę</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Unit, new { placeholder = "", @class = "validate" })
+                <label for="Unit">Jednostka</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Alias, new { placeholder = "", @class = "validate" })
+                <label for="Alias">Alias</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+
         }
     </div>
 </div>
@@ -24,7 +37,7 @@
 
 <div class="tableList">
     <h4>Produkty</h4><br />
-    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Dodaj produkty</a>
+    <button data-target="productAdd" class="btn modal-trigger productAdd">Dodaj produkt</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -60,3 +73,10 @@
         </tbody>
     </table>
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.productAdd').leanModal();
+});</script>

@@ -7,27 +7,45 @@
     <div class="modal-content">
         @using (Html.BeginForm("Add", "UserProduct", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.User_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Pozycja X: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.X_pos, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Pozyja Y: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Y_pos, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Lvl: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Lvl, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("ID bydynku: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Building_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Statu: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Status, null, new { @class = "uk-width-1-1 uk-form-large" })
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
 
-            <input type="submit" value="Zapisz" class="uk-button-large" />
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Name, new { placeholder = "", @class = "validate" })
+                <label for="Name">Nazwa budynku</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.X_pos, new { placeholder = "", @class = "validate" })
+                <label for="X_pos">Pozycja X</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Y_pos, new { placeholder = "", @class = "validate" })
+                <label for="Y_pos">Pozycja Y</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Lvl, new { placeholder = "", @class = "validate" })
+                <label for="Lvl">Lvl budynku</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Status, new { placeholder = "", @class = "validate" })
+                <label for="Status">Status</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+
         }
     </div>
 </div>
 
 <div class="tableList">
     <h4>Budynki użytkownika</h4><br />
-    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Dodaj budynek użytkownikowi</a>
+    <button data-target="ubuildingAdd" class="btn modal-trigger ubuildingAdd">Dodaj budynek użytkownika</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -67,3 +85,10 @@
         </tbody>
     </table>
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.ubuildingAdd').leanModal();
+});</script>

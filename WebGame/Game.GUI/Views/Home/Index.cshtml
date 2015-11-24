@@ -8,6 +8,14 @@
     @if (!User.Identity.IsAuthenticated)
     {
         <article class="uk-article" id="homeArticle">
+            <a class="waves-effect waves-light btn modal-trigger" id="testModal" href="#uproductAdd">Dodaj produkt użytkownikowi</a>
+            <div id="uproductAdd" class="modal">
+                <div class="modal-content">
+                    aefaefeafaegfreag
+                </div>
+            </div>
+
+
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dapibus ligula ex, eget cursus lorem finibus vel.
             Sed faucibus justo magna, ut ullamcorper ex euismod et. Ut at ullamcorper sapien. Morbi vitae gravida purus. Nullam
             volutpat est justo, eu posuere augue iaculis in. Nullam lorem mi, pretium ut enim et, egestas mattis est. Nulla auctor
@@ -44,3 +52,10 @@
         </div>
     }
 </div>
+
+
+<script type="text/javascript">
+                $(document).ready(function () {
+                    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                    $('#testModal').leanModal();
+                });</script>

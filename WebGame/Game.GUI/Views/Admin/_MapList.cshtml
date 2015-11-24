@@ -5,20 +5,25 @@
 
 <div id="mapAdd" class="modal">
     <div class="modal-content">
-        <a class="uk-modal-close uk-close"></a>
-        <section class="uk-panel uk-panel-box uk-form">
-            @using (Html.BeginForm("Add", "Map", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("Add", "Map", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.User_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Szerokość: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Width, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Wysokość: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Height, null, new { @class = "uk-width-1-1 uk-form-large" })
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
 
-                <input type="submit" value="Zapisz" class="uk-button-large" />
-            }
-        </section>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Height, new { placeholder = "", @class = "validate" })
+                <label for="Height">Wysokość</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Width, new { placeholder = "", @class = "validate" })
+                <label for="Weight">Szerokość</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
     </div>
 </div>
 
@@ -26,7 +31,7 @@
 
 <div class="tableList">
     <h4>Mapy</h4><br />
-    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Mapy</a>
+    <button data-target="mapAdd" class="btn modal-trigger mapAdd">Dodaj mapę</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -60,3 +65,10 @@
         </tbody>
     </table>
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.mapAdd').leanModal();
+    });</script>

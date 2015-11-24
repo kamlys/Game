@@ -7,23 +7,27 @@
     <div class="modal-content">
         @using (Html.BeginForm("Add", "UserProduct", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.User_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Name, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Wartość: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Value, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("ID produktu: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Product_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Product_Name, new { placeholder = "", @class = "validate" })
+                <label for="Product_Name">Nazwa produktu</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate" })
+                <label for="Value">Ilość</label>
+            </div>
 
-            <input type="submit" value="Zapisz" class="uk-button-large" />
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
         }
     </div>
 </div>
 
 <div class="tableList">
     <h4>Produkty użytkownika</h4><br />
-    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Dodaj produkt użytkownikowi</a>
+    <button data-target="uproductAdd" class="btn modal-trigger uproductAdd">Dodaj produkt</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -48,7 +52,7 @@
                             </button>
                             <ul>
                                 <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "UserProuct", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "UserProduct", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>
@@ -58,3 +62,9 @@
     </table>
 </div>
 
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.uproductAdd').leanModal();
+    });
+</script>

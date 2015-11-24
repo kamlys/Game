@@ -5,33 +5,43 @@
 
 <div id="banAdd" class="modal">
     <div class="modal-content">
-        <a class="uk-modal-close uk-close"></a>
-            @using (Html.BeginForm("Add", "Ban", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("Add", "Ban", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.User_ID, new { @class = "uk-width-1-1 uk-form-large" })
 
-                @Html.Label("Opis: ", new { @class = "uk-form-label" })
-                @Html.TextAreaFor(m => m.tableView.Description, new { @class = "uk-width-1-1 uk-form-large" })
-                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                <input type="submit" value="Submit" class="uk-button-large" />
-            }
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
+            
+            <div class="input-field col s12">
+                @Html.TextAreaFor(m => m.tableView.Description, new { placeholder = "", @class = "materialize-textarea" })
+                <label for="Description">Opis</label>
+            </div>
+            
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Finish_Date, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                <label for="Finish_Date">Data końca</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+
+        }
     </div>
 </div>
 
 
 <div class="tableList">
-    <h4>Admini</h4><br />
-    <button data-target="banAdd" class="btn modal-trigger" href="#banAdd">Zbanuj</button>
+    <h4>Bany</h4><br />
+    <button data-target="banAdd" class="btn modal-trigger banAdd">Zbanuj</button>
+
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
-                <th data-field="id">ID</th>
-                <th data-field="user_id">Login</th>
-                <th data-field="opis">Opis</th>
-                <th data-field="poczatek">Początek</th>
-                <th data-field="koniec">Koniec</th>
+                <th>ID</th>
+                <th>Login</th>
+                <th>Opis</th>
+                <th>Początek</th>
+                <th>Koniec</th>
             </tr>
         </thead>
         <tbody>
@@ -60,3 +70,15 @@
     </table>
 </div>
 
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.banAdd').leanModal();
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+    });</script>

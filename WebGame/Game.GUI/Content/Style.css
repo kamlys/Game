@@ -1,6 +1,9 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 html, body {
   background-color: #2c3e50; }
+
+.container {
+  min-height: 500px; }
 
 /*Jakieś artykuły*/
 #homeArticle {
@@ -151,7 +154,8 @@ nav {
   margin-top: 30px;
   width: 540px;
   margin-left: 3%;
-  padding: 20px 20px 20px 20px;
+  /*padding: 20px 20px 20px 20px;*/
+  border: 20px solid #2f3b46;
   background-color: #2f3b46;
   display: inline-block; }
 
@@ -247,7 +251,7 @@ nav {
 .market {
   background-color: white;
   margin-top: 30px; }
-  .market #numValue {
+  .market .numValue {
     float: left;
     max-width: 60px;
     margin-right: 40px; }
@@ -255,6 +259,12 @@ nav {
     margin-top: 10px; }
   .market #buyTd {
     width: 300px; }
+  .market #Price {
+    width: 49%;
+    float: right; }
+  .market #Number {
+    width: 49%;
+    float: left; }
 
 .tableList {
   background-color: white;
@@ -264,4 +274,7 @@ nav {
     .tableList .table .td, .tableList .table .th {
       text-align: center !important; }
 
-/*# sourceMappingURL=Style.css.map */
+/*Przycisk dodający - AdminPanel*/
+.addButton {
+  float: right; }
+

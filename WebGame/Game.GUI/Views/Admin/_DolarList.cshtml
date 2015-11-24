@@ -9,12 +9,17 @@
     <div class="modal-content">
         @using (Html.BeginForm("Add", "Dolar", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.User_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Wartość: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Value, null, new { @class = "uk-width-1-1 uk-form-large" })
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
 
-            <input type="submit" value="Zapisz" class="uk-button-large" />
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate" })
+                <label for="Value">Wartość</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
         }
     </div>
 </div>
@@ -22,7 +27,7 @@
 
 <div class="tableList">
     <h4>Monety</h4><br />
-    <button data-target="adminAdd" class="btn modal-trigger" href="#adminAdd">Dodaj monety</button>
+    <button data-target="dolarAdd" class="btn modal-trigger" href="#dolarAdd">Dodaj monety</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -54,3 +59,10 @@
         </tbody>
     </table>
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.dolarAdd').leanModal();
+});</script>

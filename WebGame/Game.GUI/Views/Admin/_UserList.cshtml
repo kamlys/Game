@@ -7,20 +7,39 @@
     <div class="modal-content">
         @using (Html.BeginForm("Add", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            @Html.Label("Login: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Login, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Hasło: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Password, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("E-mail: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Email, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Ostatnie logowanie: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Last_Log, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Data rejestracji: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Registration_Date, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Ostatni update surowców: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Last_Update, null, new { @class = "uk-width-1-1 uk-form-large" })
 
-            <input type="submit" value="Zapisz" class="uk-button-large" />
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.PasswordFor(m => m.tableView.Password, new { placeholder = "", @class = "validate" })
+                <label for="Password">Hasło</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Email, new { placeholder = "", @class = "validate" })
+                <label for="Email">Email</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Last_Log, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                <label for="Last_Log">Ostatnie logowanie</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Registration_Date, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                <label for="Registration_Date">Data rejestracji</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Last_Update, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                <label for="Last_update">Ostatni update surowców</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+
         }
     </div>
 </div>
@@ -29,7 +48,7 @@
 
 <div class="tableList">
     <h4>Użytkownicy</h4><br />
-    <a class="waves-effect waves-light btn modal-trigger add" id="Add" href="#userAdd">Dodaj użytkownika</a>
+    <button data-target="userAdd" class="btn modal-trigger userAdd">Dodaj użytkownika</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -71,9 +90,9 @@
 
 </div>
 
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script>
- $(document).ready(function(){
+    $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-     $('.add').leanModal();
- });
-</script>
+        $('.userAdd').leanModal();
+});</script>

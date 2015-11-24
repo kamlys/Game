@@ -11,6 +11,13 @@ $indexColor: #ff7d00;
 html, body {
     background-color: $firstColor;
 }
+
+
+.container{
+    min-height: 500px;
+}
+
+
 /*Jakieś artykuły*/
 #homeArticle {
     color: #becbd6;
@@ -229,7 +236,8 @@ nav {
     margin-top: 30px;
     width: 540px;
     margin-left: 3%;
-    padding: 20px 20px 20px 20px;
+    /*padding: 20px 20px 20px 20px;*/
+    border: 20px solid $secondColor;
     background-color: #2f3b46;
     display: inline-block;
 }
@@ -345,7 +353,7 @@ nav {
     background-color: white;
     margin-top: 30px;
 
-    #numValue {
+    .numValue {
         float: left;
         max-width: 60px;
         margin-right: 40px;
@@ -357,6 +365,16 @@ nav {
 
     #buyTd {
         width: 300px;
+    }
+    
+    #Price{
+        width: 49%;
+        float: right;
+    }
+
+    #Number{
+        width: 49%;
+        float: left;
     }
 }
 
@@ -373,3 +391,7 @@ nav {
 
 }
 
+/*Przycisk dodający - AdminPanel*/
+.addButton{
+    float: right;
+}

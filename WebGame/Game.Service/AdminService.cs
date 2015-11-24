@@ -93,7 +93,7 @@ namespace Game.Service
         {
             _admins.Add(new Admins
             {
-                User_ID = _users.GetAll().First(i => i.ID == admin.User_ID).ID
+                User_ID = _users.GetAll().First(i => i.Login == admin.Login).ID
             });
 
             _unitOfWork.Commit();

@@ -31,10 +31,10 @@ namespace Game.Service.Table
         {
             _userProducts.Add(new UserProducts
             {
-                User_ID = _user.Get(userProduct.User_ID).ID,
+                User_ID = _user.GetAll().First(i => i.Login == userProduct.Login).ID,
                 Product_Name = userProduct.Product_Name,
                 Value = userProduct.Value,
-                Product_ID = userProduct.Product_ID
+                Product_ID = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).ID
             });
 
             _unitOfWork.Commit();

@@ -52,11 +52,9 @@ namespace Game.GUI.Controllers
         {
             UserProductDto _userProductDto = new UserProductDto();
 
-            _userProductDto.User_ID = listView.tableView.User_ID;
             _userProductDto.Login = listView.tableView.Login;
             _userProductDto.Product_Name = listView.tableView.Name;
             _userProductDto.Value =  listView.tableView.Value;
-            _userProductDto.Product_ID = listView.tableView.Product_ID;
 
             _userProductTable.Add(_userProductDto);
 

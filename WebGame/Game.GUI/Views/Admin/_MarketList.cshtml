@@ -3,24 +3,33 @@
     Layout = null;
 }
 
-<div id="modal1" class="modal">
+<div id="offerAdd" class="modal">
     <div class="modal-content">
         @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            @Html.Label("Nazwa produktu: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.marketView.Product_Name, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Ilość: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.marketView.Number, null, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Cena za sztukę: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.marketView.Price, null, new { @class = "uk-width-1-1 uk-form-large" })
-            <input type="submit" value="Zapisz" class="uk-button-large" />
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Product_Name, new { placeholder = "", @class = "validate" })
+                <label for="Product_Name">Login</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Number, new { placeholder = "", @class = "validate" })
+                <label for="Number">Ilość</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Price, new { placeholder = "", @class = "validate" })
+                <label for="Price">Cena/szt</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
         }
     </div>
 </div>
 
 <div class="tableList">
     <h4>Market</h4><br />
-    <button data-target="banAdd" class="btn modal-trigger" href="#banAdd">Dodaj ofertę</button>
+    <button data-target="offerAdd" class="btn modal-trigger offerAdd">Dodaj oferę</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -54,3 +63,10 @@
         </tbody>
     </table>
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.offerAdd').leanModal();
+});</script>

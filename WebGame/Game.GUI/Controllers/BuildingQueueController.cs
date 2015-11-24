@@ -52,11 +52,10 @@ namespace Game.GUI.Controllers
         {
             BuildingQueueDto _queueDto = new BuildingQueueDto();
 
-            _queueDto.User_ID = listView.tableView.User_ID;
             _queueDto.Login = listView.tableView.Login;
             _queueDto.UserBuilding_ID = listView.tableView.UserBuilding_ID;
-            _queueDto.FinishTime = listView.tableView.Finish_Date;
             _queueDto.NewStatus = listView.tableView.NewStatus;
+            _queueDto.FinishTime = DateTime.Now.AddSeconds(listView.tableView.Value);
 
             _queueTable.Add(_queueDto);
 

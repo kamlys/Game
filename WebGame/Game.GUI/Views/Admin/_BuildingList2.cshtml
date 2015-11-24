@@ -7,32 +7,67 @@
     <div class="modal-content">
         @using (Html.BeginForm("Add", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            @Html.Label("Nazwa: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Name, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Cena: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Price, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Wysokość: ", new { @class = "uk-form-label" })
-            @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Height, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Szerokość: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Width, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Koszt wyburzenia: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Dest_price, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Wzrost ceny za level: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Percent_price_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Wzrost produkcji za lvl: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Percent_product_per_lvl, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("ID produktu: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Product_ID, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Produkcja na sekundę: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Product_per_sec, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Alias: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.Alias, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Czas budowy: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.BuildingTime, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Czas burzenia: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.DestructionTime, new { @class = "uk-width-1-1 uk-form-large" })
-            <input type="submit" value="Zapis" class="uk-button-large" />
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Name, new { placeholder = "", @class = "validate" })
+                <label for="Name">Nazwa</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Price, new { placeholder = "", @class = "validate" })
+                <label for="Price">Cena</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Percent_price_per_lvl, new { placeholder = "", @class = "validate" })
+                <label for="Percent_price_per_lvl">% ceny za lvl</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Width, new { placeholder = "", @class = "validate" })
+                <label for="Width">Szerokość</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Height, new { placeholder = "", @class = "validate" })
+                <label for="Height">Wysokość</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Product_per_sec, new { placeholder = "", @class = "validate" })
+                <label for="Product_per_sec">Produkcja na sekundę</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Dest_price, new { placeholder = "", @class = "validate" })
+                <label for="Dest_price">Koszt wyburzenia</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Percent_product_per_lvl, new { placeholder = "", @class = "validate" })
+                <label for="Percent_product_per_lvl">% proukcji za lvl</label>
+            </div>
+            
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Product_Name, new { placeholder = "", @class = "validate" })
+                <label for="Nazwa produktu">Nazwa produktu</label>
+            </div>
+            
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Alias, new { placeholder = "", @class = "validate" })
+                <label for="Alias">Alias</label>
+            </div>
+            
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.BuildingTime, new { placeholder = "", @class = "validate" })
+                <label for="BuildingTime">Czas budowy [s]</label>
+            </div>
+            
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.DestructionTime, new { placeholder = "", @class = "validate" })
+                <label for="DestructionTime">Czas burzenia [s]</label>
+            </div>
+            
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+
         }
     </div>
 </div>
@@ -40,7 +75,8 @@
 
 <div class="tableList">
     <h4>Budynki</h4><br />
-    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Dodaj budynek</a>
+    <button data-target="buildingAdd" class="btn modal-trigger buildingAdd">Dodaj budynek</button>
+
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -93,3 +129,10 @@
     </table>
 </div>
 
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.buildingAdd').leanModal();
+    });</script>

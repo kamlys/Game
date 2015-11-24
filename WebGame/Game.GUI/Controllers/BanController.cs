@@ -52,7 +52,6 @@ namespace Game.GUI.Controllers
             _banDto.Login = viewList.tableView.Login;
             _banDto.Description = viewList.tableView.Description;
             _banDto.Finish_Date = viewList.tableView.Finish_Date;
-            _banDto.Start_Date = viewList.tableView.Start_Date;
 
             _banTable.Add(_banDto);
 

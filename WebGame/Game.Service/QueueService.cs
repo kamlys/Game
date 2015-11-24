@@ -38,9 +38,9 @@ namespace Game.Service.Table
         {
             _buildingQueue.Add(new BuildingQueue
             {
-                User_ID = _user.Get(buildingQueue.ID).ID,
-                UserBuilding_ID = _usersBuilding.GetAll().First(i => i.Buildings.Name == buildingQueue.BuildingName).ID,
-                FinishTime = (DateTime)buildingQueue.FinishTime,
+                User_ID = _user.GetAll().First(i => i.Login == buildingQueue.Login).ID,
+                UserBuilding_ID = buildingQueue.UserBuilding_ID,
+                FinishTime = buildingQueue.FinishTime,
                 NewStatus = buildingQueue.NewStatus
             });
 

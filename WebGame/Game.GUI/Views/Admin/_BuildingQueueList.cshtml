@@ -7,23 +7,34 @@
     <div class="modal-content">
         @using (Html.BeginForm("Add", "BuildingQueue", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.User_ID, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("ID budynku: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.UserBuilding_ID, new { @class = "uk-width-1-1 uk-form-large" })
-            @Html.Label("Data końca", new { @class = "uk-form-label" })
-            <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}" />
-            @Html.Label("Nowy status: ", new { @class = "uk-form-label" })
-            @Html.TextBoxFor(m => m.tableView.NewStatus, new { @class = "uk-width-1-1 uk-form-large" })
 
-            <input type="submit" value="Zapisz" class="uk-button-large" />
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.UserBuilding_ID, new { placeholder = "", @class = "validate" })
+                <label for="UserBuilding_ID">ID budynku użytkownika</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate" })
+                <label for="Value">Czas budowy</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.NewStatus, new { placeholder = "", @class = "validate" })
+                <label for="NewStatus">Nowy status</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
         }
     </div>
 </div>
 
 <div class="tableList">
     <h4>Kolejka budowania</h4><br />
-    <a class="waves-effect waves-light btn modal-trigger" href="#adminAdd">Dodaj budynek do kolejki</a>
+    <button data-target="queueAdd" class="btn modal-trigger queueAdd">Dodaj budynek</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
@@ -61,3 +72,10 @@
         </tbody>
     </table>
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.queueAdd').leanModal();
+});</script>

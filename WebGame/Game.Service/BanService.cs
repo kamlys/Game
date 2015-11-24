@@ -30,9 +30,9 @@ namespace Game.Service.Table
         {
             _bans.Add(new Bans
             {
-                User_ID = _users.GetAll().First(i=> i.ID == ban.User_ID).ID,
+                User_ID = _users.GetAll().First(i=> i.Login == ban.Login).ID,
                 Description = ban.Description,
-                Start_Date = ban.Start_Date,
+                Start_Date = DateTime.Now,
                 Finish_Date = ban.Finish_Date
             });
 

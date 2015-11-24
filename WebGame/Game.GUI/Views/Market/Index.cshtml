@@ -5,25 +5,34 @@
 }
 
 <div class="market">
-    <button data-target="modal1" class="btn modal-trigger">Modal</button>
 
-    <div id="modal1" class="modal">
+    <div id="offerAdd" class="modal">
         <div class="modal-content">
             @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.Label("Nazwa produktu: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.marketView.Product_Name, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Ilość: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.marketView.Number, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Cena za sztukę: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.marketView.Price, null, new { @class = "uk-width-1-1 uk-form-large" })
-                <input type="submit" value="Zapisz" class="uk-button-large" />
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.marketView.Product_Name, new { @placeholder = "", @class = "validate" })
+                    <label for="Product_Name">Nazwa produktu</label>
+                </div>
+
+                <div class="input-field col s6" id="Number">
+                    @Html.TextBoxFor(m => m.marketView.Number, new { @type = "number", @placeholder = "", @class = "validate" })
+                    <label for="Number">Ilość</label>
+                </div>
+
+                <div class="input-field col s6" id="Price">
+                    @Html.TextBoxFor(m => m.marketView.Price, new { @type = "number", @placeholder = "", @class = "validate" })
+                    <label for="Price">Cena za sztukę</label>
+                </div>
+
+                <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
             }
         </div>
     </div>
 
-
+    <button data-target="offerAdd" class="btn modal-trigger offerAdd">Sprzedaj produkt</button>
     <table class="highlight bordered responsive-table centered market">
+
         <thead>
             <tr>
                 <th>Wystwaiający</th>
@@ -41,11 +50,19 @@
                     <td>@item.Number</td>
                     <td>@item.Price</td>
                     <td id="buyTd">
-                        <input type="number" id="numValue" min="0" max="100" value="1">
-                        <button type="submit" class="waves-effect waves-light btn" id="buyButton" onclick="location.href='@Url.Action("BuyOffer","Market")'">Kup</button>
+                        <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="0" max="100" value="1">
+                        <button type="submit" class="waves-effect waves-light btn" id="buyButton" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price)">Kup</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/Market.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.offerAdd').leanModal();
+    });
+</script>

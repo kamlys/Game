@@ -35,7 +35,10 @@ namespace Game.GUI.Controllers
             {
                 marketList.marketList.Add(new MarketViewModel
                 {
+                    ID = item.ID,
                     Login = item.Login,
+                    User_ID = item.User_ID,
+                    Product_ID = item.Product_ID,
                     Product_Name = item.Product_Name,
                     Number = item.Number,
                     Price = item.Price
@@ -62,11 +65,25 @@ namespace Game.GUI.Controllers
             return View("~/Views/Market/Index.cshtml", GetOfferList());
         }
 
-
-        public ActionResult BuyOffer(ListMarketViewModel marketList)
+        [HttpPost]
+        public JsonResult BuyOffer(MarketViewModel a)
         {
-            int a = marketList.marketView.Number;
-            return View("~/Views/Market/Index.cshtml", GetOfferList());
+            MarketDto marketDto = new MarketDto();
+
+            marketDto.ID = a.ID;
+            marketDto.Number = a.Number;
+            marketDto.Price = a.Price;
+            marketDto.Product_ID = a.Product_ID;
+            marketDto.User_ID = a.User_ID;
+
+            if (_marketService.BuyOffer(marketDto, User.Identity.Name))
+            {
+                return new JsonResult { Data = true };
+            }
+            else
+            {
+                return new JsonResult { Data = false };
+            }
         }
 
 
@@ -86,7 +103,7 @@ namespace Game.GUI.Controllers
                     Price = item.Price
                 });
             }
-            return View("~/Views/Admin/_MarketList.cshtml", marketList);
+            return this.Index();
         }
 
 
