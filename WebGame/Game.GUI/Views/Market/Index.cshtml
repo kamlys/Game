@@ -50,8 +50,15 @@
                     <td>@item.Number</td>
                     <td>@item.Price</td>
                     <td id="buyTd">
-                        <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="0" max="100" value="1">
-                        <button type="submit" class="waves-effect waves-light btn" id="buyButton" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price)">Kup</button>
+                        @if (User.Identity.Name != item.Login)
+                        {
+                            <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="0" max="100" value="1">
+                            <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton_@item.Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price)">Kup</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
+                        }
                     </td>
                 </tr>
             }

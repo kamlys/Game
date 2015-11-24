@@ -103,7 +103,7 @@ namespace Game.GUI.Controllers
                     Price = item.Price
                 });
             }
-            return this.Index();
+            return View("~/Views/Admin/_MarketList.cshtml", marketList);
         }
 
 
@@ -123,13 +123,18 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult DeleteOffer(int id)
         {
             _marketService.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
 
-
+        [HttpGet]
+        public ActionResult DeleteOfferAdmin(int id)
+        {
+            _marketService.Delete(id);
+            return View("~/Views/Admin/Admin.cshtml");
+        }
 
     }
 }

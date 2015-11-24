@@ -102,7 +102,7 @@ namespace Game.Service
 
         public void Delete(int id)
         {
-            _user.Delete(_user.Get(id));
+            _market.Delete(_market.Get(id));
             _unitOfWork.Commit();
         }
 
