@@ -16,6 +16,19 @@
     </div>
 </div>
 
+<div id="adminUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Update", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { @value= m.tableView.Login , @placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
 <div class="tableList">
     <h4>Admini</h4><br />
     <button data-target="adminAdd" class="btn modal-trigger adminAdd">Dodaj admina</button>
@@ -35,11 +48,11 @@
                     <td>@item.Login</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
-                            <button class="btn-floating btn-large red">
+                            <button class="btn-floating btn-large">
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="adminUpdate" class="btn-floating #00695c teal darken-3 modal-trigger adminUpdate" onclick="update(@item.ID)"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
@@ -55,5 +68,8 @@
 <script>
     $(document).ready(function () {
         $('.adminAdd').leanModal();
+        $('.adminUpdate').leanModal();
+
+
     });
 </script>

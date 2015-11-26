@@ -17,6 +17,7 @@ namespace Game.Core.DTO
         public int Building_ID { get; set; }
         public string Building_Name { get; set; }
         public string Status { get; set; }
+        public int Produkcja { get; set; }
 
     }
 }

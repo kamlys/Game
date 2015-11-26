@@ -127,7 +127,7 @@ namespace Game.Service
         {
             _userBuildings.Add(new UserBuildings
             {
-                User_ID = _users.GetAll().First(i=> i.ID == userBuilding.User_ID).ID,
+                User_ID = _users.GetAll().First(i => i.ID == userBuilding.User_ID).ID,
                 X_pos = userBuilding.X_pos,
                 Y_pos = userBuilding.Y_pos,
                 Lvl = userBuilding.Lvl,
@@ -149,6 +149,10 @@ namespace Game.Service
             List<UserBuildingDto> userBuildingsDto = new List<UserBuildingDto>();
             foreach (var item in _userBuildings.GetAll())
             {
+                int BuildLvl = item.Lvl;
+                int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;
+                int Percent_per_lvl = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl / 100;
+
                 try
                 {
                     userBuildingsDto.Add(new UserBuildingDto
@@ -161,7 +165,8 @@ namespace Game.Service
                         Lvl = item.Lvl,
                         Building_ID = item.Building_ID,
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
-                        Status = item.Status
+                        Status = item.Status,
+                        Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl
                     });
                 }
                 catch (Exception)

@@ -105,9 +105,16 @@ namespace Game.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(AdminDto admin, int id)
+        public AdminDto TakeToUpdate(int id)
         {
-            throw new NotImplementedException();
+            AdminDto adminDto = new AdminDto();
+
+            foreach (var item in _admins.GetAll().Where(i => i.ID == id))
+            {
+                adminDto.Login = item.Users.Login;
+            }
+
+            return adminDto;
         }
     }
 }

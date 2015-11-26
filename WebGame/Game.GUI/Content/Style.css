@@ -13,6 +13,18 @@ html, body {
 
 nav {
   background-color: #2f3b46; }
+  nav #userLogin {
+    margin: -53px 40px 0 0;
+    min-width: 80px;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+    background: #2c3e50;
+    color: #9d9d9d;
+    border-radius: 0; }
+    nav #userLogin .fa {
+      font-size: 150%; }
 
 /*Panel logowania*/
 .loginForm {
@@ -277,4 +289,46 @@ nav {
 /*Przycisk dodający - AdminPanel*/
 .addButton {
   float: right; }
+
+/*Biuro*/
+.office {
+  margin-top: 30px; }
+  .office #uBuildingList {
+    background-color: #2f3b46;
+    min-height: 300px;
+    display: inline-block;
+    color: #FFB100;
+    float: left;
+    padding: 20px 20px 20px 20px; }
+    .office #uBuildingList .collapsible-header {
+      background-color: #FFB100;
+      color: #000; }
+      .office #uBuildingList .collapsible-header #lvlUp {
+        margin-top: 5.5px;
+        background-color: #26A69A;
+        color: #000; }
+        .office #uBuildingList .collapsible-header #lvlUp i {
+          line-height: 2rem; }
+      .office #uBuildingList .collapsible-header #lvlUp:hover {
+        background-color: green; }
+  .office #uProductList {
+    float: right;
+    background-color: #2f3b46;
+    color: #EA4067;
+    min-height: 300px;
+    padding: 20px 20px 20px 20px; }
+    .office #uProductList #officeProduct {
+      background-color: #EA4067;
+      color: #000;
+      border: 1px solid #DDDDDD;
+      height: 50px;
+      line-height: 50px;
+      padding-left: 20px; }
+      .office #uProductList #officeProduct .name {
+        float: left; }
+      .office #uProductList #officeProduct .officeOfferAdd {
+        margin: 5px 5px 0 0;
+        float: right; }
+        .office #uProductList #officeProduct .officeOfferAdd .input {
+          width: 80px; }
 

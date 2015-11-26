@@ -1,0 +1,43 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    Layout = null;
+}
+
+<ul class="collapsible" data-collapsible="accordion">
+    @foreach (var item in Model.tableList)
+    {
+        <li>
+            <div class="collapsible-header">
+                @item.Name
+                    <div class="chip right btn" id="lvlUp">
+                        <i class="fa fa-arrow-up"></i> Level UP
+                    </div>
+                @if (item.Status != "gotowy")
+                {
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                }
+            </div>
+            <div class="collapsible-body">
+                <p>
+                    Lvl: @item.Lvl<br />
+                    Produkcja: @item.Value<br />
+                    Status: @item.Status
+                </p>
+            </div>
+        </li>
+    }
+</ul>
+
+
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.collapsible').collapsible({
+            accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
+    });
+
+</script>

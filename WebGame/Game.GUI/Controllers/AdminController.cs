@@ -63,6 +63,18 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public JsonResult Update(int id)
+        {
+            TableViewModel tableModel = new TableViewModel();
+
+            tableModel.Login = _adminService.TakeToUpdate(id).Login;
+
+            return null;
+            
+        }
+
+
         [HttpGet]
         public ActionResult Delete(int id)
         {

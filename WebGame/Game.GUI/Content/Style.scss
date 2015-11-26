@@ -13,7 +13,7 @@ html, body {
 }
 
 
-.container{
+.container {
     min-height: 500px;
 }
 
@@ -27,6 +27,22 @@ html, body {
 
 nav {
     background-color: $secondColor;
+
+    #userLogin {
+        margin: -53px 40px 0 0;
+        min-width: 80px;
+        text-align: center;
+        height: 45px;
+        line-height: 45px;
+        font-size: 18px;
+        background: $firstColor;
+        color: $greyColor;
+        border-radius: 0;
+
+        .fa {
+            font-size: 150%;
+        }
+    }
 }
 
 /*Panel logowania*/
@@ -357,7 +373,7 @@ nav {
         float: left;
         max-width: 60px;
         margin-right: 40px;
-}
+    }
 
     #buyButton {
         margin-top: 10px;
@@ -366,13 +382,13 @@ nav {
     #buyTd {
         width: 300px;
     }
-    
-    #Price{
+
+    #Price {
         width: 49%;
         float: right;
     }
 
-    #Number{
+    #Number {
         width: 49%;
         float: left;
     }
@@ -384,14 +400,80 @@ nav {
 
     .table {
         text-align: center !important;
-        .td, .th{
-            text-align:center !important;
+
+        .td, .th {
+            text-align: center !important;
         }
     }
-
 }
 
 /*Przycisk dodający - AdminPanel*/
-.addButton{
+.addButton {
     float: right;
+}
+
+
+
+/*Biuro*/
+.office {
+    margin-top: 30px;
+
+    #uBuildingList {
+        background-color: $secondColor;
+        min-height: 300px;
+        display: inline-block;
+        color: #FFB100;
+        float: left;
+        padding: 20px 20px 20px 20px;
+
+        .collapsible-header {
+            background-color: #FFB100;
+            color: #000;
+
+            #lvlUp {
+                margin-top: 5.5px;
+                background-color: #26A69A;
+                color: #000;
+
+                i {
+                    line-height: 2rem;
+                }
+            }
+
+            #lvlUp:hover {
+                background-color: green;
+            }
+        }
+    }
+
+    #uProductList {
+        float: right;
+        background-color: $secondColor;
+        color: #EA4067;
+        min-height: 300px;
+        padding: 20px 20px 20px 20px;
+
+
+        #officeProduct {
+            background-color: #EA4067;
+            color: #000;
+            border: 1px solid #DDDDDD;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 20px;
+
+            .name {
+                float: left;
+            }
+
+            .officeOfferAdd {
+                margin: 5px 5px 0 0;
+                float: right;
+
+                .input {
+                    width: 80px;
+                }
+            }
+        }
+    }
 }
