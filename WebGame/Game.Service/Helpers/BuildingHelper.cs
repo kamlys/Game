@@ -190,5 +190,28 @@ namespace Game.Service
                 }
             }
         }
+
+        public int BuildingTimeLeft(string User, int building_id)
+        {
+            var ub = _userBuildings.GetAll().Where(a => a.ID == building_id).First();
+            if(ub.Status == "gotowy")
+            {
+                return 0;
+            }
+            var b = ub.Buildings;
+
+            var fTime = _buildingQueue.GetAll().Where(a => a.UserBuilding_ID == ub.ID).First().FinishTime;
+            return (int)(fTime - DateTime.Now).GetValueOrDefault().TotalSeconds;
+
+        }
+
+        public int BuildingPercent(string User, int building_id)
+        {
+            var bTime = _userBuildings.GetAll().Where(a => a.ID == building_id).First().Buildings.BuildingTime;
+            var left = BuildingTimeLeft(User, building_id);
+
+            return (int)(100 * ((float)left / (float)bTime));
+        }
+
     }
 }

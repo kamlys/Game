@@ -89,6 +89,18 @@ function burzAjax(id) {
     });
 }
 
+function progressBar() 
+{
+    $('.progress-bar').each(function () {
+        if ($(this) / width() == '100%')
+        {
+            document.location.reload();
+        }
+        var add = parseFloat($(this).data('pps').replace(",", "."));
+        $(this).width(parseInt($(this).width() + add)  + '%');
+    });
+}
+
 function getColRow()
 {
     var xMap = $('#map').offset().left;

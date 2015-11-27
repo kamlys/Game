@@ -53,7 +53,11 @@ namespace Game.GUI.Controllers
                     x_right = a.X_pos + building.Width - 1,
                     y_top = a.Y_pos,
                     y_bottom = a.Y_pos + building.Height - 1,
-                    ID = a.ID
+                    ID = a.ID,
+                    Status = a.Status,
+                    BuildTimeLeft = _buildingsHelper.BuildingTimeLeft(User.Identity.Name, a.ID),
+                    BuildPercent = _buildingsHelper.BuildingPercent(User.Identity.Name, a.ID),
+                    PercentPerSecond = (1 / (float)building.BuildingTime) * 100
                 });
             }
             vm.UserBuildings = ubv;

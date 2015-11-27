@@ -27,6 +27,7 @@
 </div>
 <div>
     <div class="map" id="map" style="width:@(widthPx)px; height:@(heightPx)px">
+        @{ var startTimer = false; }
           @foreach (var a in userBuildings)
           {
               var xPx = (a.x_left * tilePx).ToString() + "px";
@@ -35,9 +36,17 @@
               var wPx = ((a.x_right - a.x_left + 1)*tilePx).ToString() + "px";
                 <div class="building" style="left:@xPx; top:@yPx; height:@hPx; width:@wPx;">@a.name
                     <div name="remove" data-buildingid="@a.ID">X</div>
-                    <div id="circle"></div>
+                    @if (a.BuildTimeLeft > 0)
+                    {
+                        var v = 100 - a.BuildPercent;
+                        <div class="progress">
+                            <div class="determinate progress-bar" data-pps="@a.PercentPerSecond" id="percent_@{@a.ID} " style="width: @{@v}%"></div>
+                            @startTimer = true;
+                        </div>
+                    }
                 </div>
           }
+        }
     </div>
 </div>
 
@@ -52,5 +61,6 @@
         setMapSize(@map.Width, @map.Height);
         fillWithData(@userProducts);
         setInterval(function () { updateProduct(@userProducts); }, 1000);
+        setInterval(progressBar, 1000);
     });
 </script>

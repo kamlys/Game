@@ -15,6 +15,7 @@ namespace Game.Service.Interfaces
         bool BuildingValidation(int id, int col, int row, string user);
         int[][] AddProductValue(string User);
         void ChangeStatus(string User);
-
+        int BuildingTimeLeft(string user, int building_id);
+        int BuildingPercent(string User, int building_id);
     }
 }
