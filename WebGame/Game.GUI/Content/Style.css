@@ -25,6 +25,15 @@ nav {
     border-radius: 0; }
     nav #userLogin .fa {
       font-size: 150%; }
+    nav #userLogin .logOut {
+      width: auto;
+      position: absolute;
+      top: 64px;
+      left: 1170px !important;
+      opacity: 1;
+      display: block; }
+      nav #userLogin .logOut .dropdown-content .active {
+        width: 500px; }
 
 /*Panel logowania*/
 .loginForm {

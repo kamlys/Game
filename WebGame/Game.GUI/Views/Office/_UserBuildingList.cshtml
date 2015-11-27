@@ -9,9 +9,9 @@
         <li>
             <div class="collapsible-header">
                 @item.Name
-                    <div class="chip right btn" id="lvlUp">
+                    <button class="chip right btn" id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
                         <i class="fa fa-arrow-up"></i> Level UP
-                    </div>
+                    </button>
                 @if (item.Status != "gotowy")
                 {
                     <div class="progress">

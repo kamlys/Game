@@ -34,6 +34,7 @@ namespace Game.GUI.Controllers
             {
                 tableList.tableList.Add(new TableViewModel
                 {
+                    ID = item.ID,
                     User_ID = item.User_ID,
                     Login = item.Login,
                     X_pos = item.X_pos,
@@ -75,6 +76,11 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
-
+        [HttpGet]
+        public ActionResult LvlUp(int id)
+        {
+            _userBuildingService.LvlUp(id, User.Identity.Name);
+            return View("~/Views/Office/Index.cshtml");
+        }
     }
 }

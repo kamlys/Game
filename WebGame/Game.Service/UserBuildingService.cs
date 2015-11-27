@@ -176,9 +176,76 @@ namespace Game.Service
             return userBuildingsDto;
         }
 
+        public List<UserBuildingDto> GetUserBuildingList(string User)
+        {
+            int uID = _users.GetAll().First(i => i.Login == User).ID;
+
+            List<UserBuildingDto> userBuildingsDto = new List<UserBuildingDto>();
+            foreach (var item in _userBuildings.GetAll().Where(i => i.User_ID == uID))
+            {
+                int BuildLvl = item.Lvl;
+                int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;
+                int Percent_per_lvl = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl / 100;
+
+                try
+                {
+                    userBuildingsDto.Add(new UserBuildingDto
+                    {
+                        ID = item.ID,
+                        User_ID = item.User_ID,
+                        Login = _users.Get(item.User_ID).Login,
+                        X_pos = item.X_pos,
+                        Y_pos = item.Y_pos,
+                        Lvl = item.Lvl,
+                        Building_ID = item.Building_ID,
+                        Building_Name = _buildings.Get(item.Building_ID).Alias,
+                        Status = item.Status,
+                        Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl
+                    });
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return userBuildingsDto;
+        }
+
         public void Update(UserBuildingDto userBuilding, int id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool LvlUp(int id, string User)
+        {
+            int uID = _users.GetAll().First(i => i.Login == User).ID;
+            int temp = _userBuildings.Get(id).Building_ID;
+            int buildingTime = _buildings.GetAll().First(i => i.ID == temp).BuildingTime;
+            int userDolars = _dolars.GetAll().First(i => i.User_ID == uID).Value;
+            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Percent_price_per_lvl/100;
+            int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
+            int lvlPrice = percentPricePerLvl * buildingPrice;
+
+            if (userDolars >= lvlPrice)
+            {
+                _buildingQueue.Add(
+                    new BuildingQueue
+                    {
+                        UserBuilding_ID = id,
+                        User_ID = uID,
+                        FinishTime = DateTime.Now.AddSeconds(buildingTime),
+                        NewStatus = "gotowy"
+                    });
+
+                _userBuildings.Get(id).Status = "rozbudowa";
+                _userBuildings.Get(id).Lvl += 1;
+
+                _dolars.GetAll().First(i => i.User_ID == uID).Value -= lvlPrice;
+
+                _unitOfWork.Commit();
+
+                return true;
+            }
+            return true;
         }
     }
 }

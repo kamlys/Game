@@ -38,10 +38,11 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _userBuildingService.GetUserBuilding())
+            foreach (var item in _userBuildingService.GetUserBuildingList(User.Identity.Name))
             {
                 tableList.tableList.Add(new TableViewModel
                 {
+                    ID = item.ID,
                     User_ID = item.User_ID,
                     Login = item.Login,
                     X_pos = item.X_pos,
@@ -65,11 +66,10 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _userProductService.GetUserProduct())
+            foreach (var item in _userProductService.GetUserProductList(User.Identity.Name))
             {
                 tableList.tableList.Add(new TableViewModel
                 {
-                    ID = item.ID,
                     User_ID = item.User_ID,
                     Login = item.Login,
                     Name = item.Product_Name,
