@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Game.Service.Interfaces.TableInterface
 {
-    public interface IBanTableService
+    public interface IDolarService
     {
-        List<BanDto> GetBan();
-        void Add(BanDto admin);
-        void Update(BanDto admin, int id);
+        List<DolarDto> GetDolars();
+        void Add(DolarDto admin);
+        void Update(DolarDto admin, int id);
         void Delete(int id);
+
     }
 }

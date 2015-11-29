@@ -11,15 +11,25 @@ using Game.Dal;
 
 namespace Game.Service.Table
 {
-    public class QueueTableService : IQueueTableService
+    public class QueueService : IQueueService
     {
 
         private IRepository<BuildingQueue> _buildingQueue;
+        private IRepository<UserBuildings> _usersBuilding;
+        private IRepository<Buildings> _building;
+        private IRepository<Users> _user;
         private IUnitOfWork _unitOfWork;
 
-        public QueueTableService(IRepository<BuildingQueue> buildingQueue, IUnitOfWork unitOfWork)
+        public QueueService(IRepository<BuildingQueue> buildingQueue, 
+            IRepository<UserBuildings> userBuilding, 
+            IRepository<Users> user,
+            IRepository<Buildings> building,
+            IUnitOfWork unitOfWork)
         {
             _buildingQueue = buildingQueue;
+            _usersBuilding = userBuilding;
+            _user = user;
+            _building = building;
             _unitOfWork = unitOfWork;
         }
 
@@ -28,9 +38,9 @@ namespace Game.Service.Table
         {
             _buildingQueue.Add(new BuildingQueue
             {
-                User_ID = buildingQueue.User_ID,
+                User_ID = _user.GetAll().First(i => i.Login == buildingQueue.Login).ID,
                 UserBuilding_ID = buildingQueue.UserBuilding_ID,
-                FinishTime = (DateTime)buildingQueue.FinishTime,
+                FinishTime = buildingQueue.FinishTime,
                 NewStatus = buildingQueue.NewStatus
             });
 
@@ -53,8 +63,10 @@ namespace Game.Service.Table
                     buildingQueueDto.Add(new BuildingQueueDto
                     {
                         ID = item.ID,
+                        Login = _user.Get(item.User_ID).Login,
                         User_ID = item.User_ID,
                         UserBuilding_ID = item.UserBuilding_ID,
+                        BuildingName = _building.GetAll().First(i=> i.ID == item.UserBuildings.Buildings.ID).Alias,
                         FinishTime = (DateTime)item.FinishTime,
                         NewStatus = item.NewStatus
                     });

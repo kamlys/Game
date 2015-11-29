@@ -11,9 +11,9 @@ namespace Game.GUI.Controllers
 {
     public class BanController : Controller
     {
-        private IBanTableService _banTable;
+        private IBanService _banTable;
 
-        public BanController(IBanTableService banTable)
+        public BanController(IBanService banTable)
         {
             _banTable = banTable;
         }
@@ -33,7 +33,10 @@ namespace Game.GUI.Controllers
                 tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
-                    User_ID = item.User_ID
+                    Login = item.Login,
+                    Description = item.Description,
+                    Start_Date = item.Start_Date,
+                    Finish_Date = item.Finish_Date
                 });
             }
 
@@ -46,10 +49,9 @@ namespace Game.GUI.Controllers
         {
             BanDto _banDto = new BanDto();
 
-            _banDto.User_ID = viewList.tableView.User_ID;
+            _banDto.Login = viewList.tableView.Login;
             _banDto.Description = viewList.tableView.Description;
             _banDto.Finish_Date = viewList.tableView.Finish_Date;
-            _banDto.Start_Date = viewList.tableView.Start_Date;
 
             _banTable.Add(_banDto);
 

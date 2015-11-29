@@ -1,0 +1,72 @@
+﻿@model Game.GUI.ViewModels.Market.ListMarketViewModel
+@{
+    Layout = null;
+}
+
+<div id="offerAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Product_Name, new { placeholder = "", @class = "validate" })
+                <label for="Product_Name">Login</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Number, new { placeholder = "", @class = "validate" })
+                <label for="Number">Ilość</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Price, new { placeholder = "", @class = "validate" })
+                <label for="Price">Cena/szt</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div class="tableList">
+    <h4>Market</h4><br />
+    <button data-target="offerAdd" class="btn modal-trigger offerAdd">Dodaj oferę</button>
+    <table class="highlight bordered responsive-table centered">
+        <thead>
+            <tr>
+                <th>Wystwaiający</th>
+                <th>Produkt</th>
+                <th>Ilość</th>
+                <th>Cena/szt.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.marketList)
+            {
+                <tr>
+                    <td>@item.Login</td>
+                    <td>@item.Product_Name</td>
+                    <td>@item.Number</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn-floating btn-large red">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteOfferAdmin", "Market", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.offerAdd').leanModal();
+    });</script>

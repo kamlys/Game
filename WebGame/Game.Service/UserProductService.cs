@@ -11,15 +11,19 @@ using Game.Dal;
 
 namespace Game.Service.Table
 {
-    public class UserProductTableService : IUserProductTableService
+    public class UserProductService : IUserProductService
     {
 
         private IRepository<UserProducts> _userProducts;
+        private IRepository<Products> _product;
+        private IRepository<Users> _user;
         private IUnitOfWork _unitOfWork;
 
-        public UserProductTableService(IRepository<UserProducts> userProducts, IUnitOfWork unitOfWork)
+        public UserProductService(IRepository<UserProducts> userProducts, IRepository<Users> user, IRepository<Products> product, IUnitOfWork unitOfWork)
         {
             _userProducts = userProducts;
+            _product = product;
+            _user = user;
             _unitOfWork = unitOfWork;
         }
 
@@ -27,10 +31,10 @@ namespace Game.Service.Table
         {
             _userProducts.Add(new UserProducts
             {
-                User_ID = userProduct.User_ID,
+                User_ID = _user.GetAll().First(i => i.Login == userProduct.Login).ID,
                 Product_Name = userProduct.Product_Name,
                 Value = userProduct.Value,
-                Product_ID = userProduct.Product_ID
+                Product_ID = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).ID
             });
 
             _unitOfWork.Commit();
@@ -53,6 +57,7 @@ namespace Game.Service.Table
                     {
                         ID = item.ID,
                         User_ID = item.User_ID,
+                        Login = _user.GetAll().First(i => i.ID == item.User_ID).Login,
                         Product_Name = item.Product_Name,
                         Value = item.Value,
                         Product_ID = item.Product_ID

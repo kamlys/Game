@@ -8,6 +8,7 @@
     var heightPx = map.Height * tilePx;
     var widthPx = map.Width * tilePx;
     var budynkiArray = Model.BuildingsArray;
+    var productNames = Model.ProductNames;
 }
 
 <div class="fake-building"></div>
@@ -34,19 +35,20 @@
               var yPx = (a.y_top * tilePx).ToString() + "px";
               var hPx = ((a.y_bottom - a.y_top + 1)*tilePx).ToString() + "px";
               var wPx = ((a.x_right - a.x_left + 1)*tilePx).ToString() + "px";
-                <div class="building" style="left:@xPx; top:@yPx; height:@hPx; width:@wPx;">@a.name
-                    <div name="remove" data-buildingid="@a.ID">X</div>
-                    @if (a.BuildTimeLeft > 0)
+                <div class="building" style="left:@xPx; top:@yPx; height:@hPx; width:@wPx;">
+                    <div class="building-name">@a.Alias</div>
+                    <div name="remove" class="building-remove" data-buildingid="@a.ID">X</div>
+                    @if (a.Status != "gotowy")
                     {
-                        var v = 100 - a.BuildPercent;
-                        <div class="progress">
-                            <div class="determinate progress-bar" data-pps="@a.PercentPerSecond" id="percent_@{@a.ID} " style="width: @{@v}%"></div>
-                            @startTimer = true;
+                        <div class="progress demo-wrapper html5-progress-bar">
+                                <progress class="progress-bar" style="width:100%" max="@a.BuildTime" value="@a.BuildDone"></progress>
+                                @startTimer = true;
+                                <span class="progress-value">34%</span>
                         </div>
                     }
                 </div>
           }
-        }
+        
     </div>
 </div>
 
@@ -59,7 +61,7 @@
     $(document).ready(function () {
         setBudynki(@budynkiArray);
         setMapSize(@map.Width, @map.Height);
-        fillWithData(@userProducts);
+        fillWithData(@userProducts, @Html.Raw(productNames));
         setInterval(function () { updateProduct(@userProducts); }, 1000);
         setInterval(progressBar, 1000);
     });

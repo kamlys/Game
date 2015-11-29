@@ -16,6 +16,6 @@ namespace Game.Service.Interfaces
         int[][] AddProductValue(string User);
         void ChangeStatus(string User);
         int BuildingTimeLeft(string user, int building_id);
-        int BuildingPercent(string User, int building_id);
+        string[][] ProductNames(string User);
     }
 }

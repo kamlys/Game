@@ -11,6 +11,13 @@ $indexColor: #ff7d00;
 html, body {
     background-color: $firstColor;
 }
+
+
+.container {
+    min-height: 500px;
+}
+
+
 /*Jakieś artykuły*/
 #homeArticle {
     color: #becbd6;
@@ -20,6 +27,22 @@ html, body {
 
 nav {
     background-color: $secondColor;
+
+    #userLogin {
+        margin: -53px 40px 0 0;
+        min-width: 80px;
+        text-align: center;
+        height: 45px;
+        line-height: 45px;
+        font-size: 18px;
+        background: $firstColor;
+        color: $greyColor;
+        border-radius: 0;
+
+        .fa {
+            font-size: 150%;
+        }
+    }
 }
 
 /*Panel logowania*/
@@ -228,9 +251,9 @@ nav {
 .mapBox {
     margin-top: 30px;
     width: 540px;
-    margin-left: 11.5%;
-    margin-right: auto;
-   // padding: 20px 20px 20px 20px;
+    margin-left: 3%;
+    /*padding: 20px 20px 20px 20px;*/
+    border: 20px solid $secondColor;
     background-color: #2f3b46;
     display: inline-block;
 }
@@ -252,7 +275,7 @@ nav {
     width: 60%;
     height: 50px;
     line-height: 50px;
-    margin-left: auto;
+    margin-left: auto !important;
     margin-right: auto;
     padding: 20px 20px 20px 20px;
     background-color: #2f3b46;
@@ -270,7 +293,7 @@ nav {
 
 
 /*TabsAdmin*/
-.tabAdmin {
+.tabs {
     margin-top: 30px;
     display: -webkit-box;
     display: -moz-box;
@@ -285,7 +308,7 @@ nav {
     white-space: nowrap;
 }
 
-.tabAdmin .tab {
+.tabs .tab {
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
     -ms-flex-positive: 1;
@@ -338,5 +361,119 @@ nav {
         height: 2px;
         background-color: #f6b2b5;
         will-change: left, right;
+    }
+}
+
+
+.market {
+    background-color: white;
+    margin-top: 30px;
+
+    .numValue {
+        float: left;
+        max-width: 60px;
+        margin-right: 40px;
+    }
+
+    #buyButton {
+        margin-top: 10px;
+    }
+
+    #buyTd {
+        width: 300px;
+    }
+
+    #Price {
+        width: 49%;
+        float: right;
+    }
+
+    #Number {
+        width: 49%;
+        float: left;
+    }
+}
+
+.tableList {
+    background-color: white;
+    padding: 20px 20px 20px 20px;
+
+    .table {
+        text-align: center !important;
+
+        .td, .th {
+            text-align: center !important;
+        }
+    }
+}
+
+/*Przycisk dodający - AdminPanel*/
+.addButton {
+    float: right;
+}
+
+
+
+/*Biuro*/
+.office {
+    margin-top: 30px;
+
+    #uBuildingList {
+        background-color: $secondColor;
+        min-height: 300px;
+        display: inline-block;
+        color: #FFB100;
+        float: left;
+        padding: 20px 20px 20px 20px;
+
+        .collapsible-header {
+            background-color: #FFB100;
+            color: #000;
+
+            #lvlUp {
+                margin-top: 5.5px;
+                background-color: #26A69A;
+                color: #000;
+
+                i {
+                    line-height: 2rem;
+                }
+            }
+
+            #lvlUp:hover {
+                background-color: green;
+            }
+        }
+    }
+
+    #uProductList {
+        float: right;
+        background-color: $secondColor;
+        color: #EA4067;
+        min-height: 300px;
+        padding: 20px 20px 20px 20px;
+
+
+        #officeProduct {
+            background-color: #EA4067;
+            color: #000;
+            border: 1px solid #DDDDDD;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 20px;
+
+            .name {
+                float: left;
+            }
+
+            .officeOfferAdd {
+                margin: 5px 5px 0 0;
+                float: right;
+
+                .input {
+                    width: 80px;
+                }
+            }
+        }
     }
 }

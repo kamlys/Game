@@ -18,15 +18,13 @@ namespace Game.GUI.Controllers
         private IMapService _mapService;
         private IBuildingHelper _buildingsHelper;
         private IProductService _productService;
-        private IMapTableService _mapTable;
 
 
-        public MapController(IMapService mapService, IBuildingHelper buildings, IProductService productService, IMapTableService mapTable)
+        public MapController(IMapService mapService, IBuildingHelper buildings, IProductService productService)
         {
             _mapService = mapService;
             _buildingsHelper = buildings;
             _productService = productService;
-            _mapTable = mapTable;
         }
         // GET: Building
         public ActionResult Index()
@@ -45,6 +43,15 @@ namespace Game.GUI.Controllers
             foreach (var a in ub)
             {
                 var building = _buildingsHelper.GetBuildings().Where(b => b.ID == a.Building_ID).First();
+                var bTime = 0;
+                if(a.Status == "budowa")
+                {
+                    bTime = building.BuildingTime;
+                }
+                else if (a.Status == "burzenie")
+                {
+                    bTime = building.DestructionTime;
+                }
                 ubv.Add(new UserBuildingsViewModel {
                     BuildingID = a.Building_ID,
                     level = a.Lvl,
@@ -55,14 +62,17 @@ namespace Game.GUI.Controllers
                     y_bottom = a.Y_pos + building.Height - 1,
                     ID = a.ID,
                     Status = a.Status,
-                    BuildTimeLeft = _buildingsHelper.BuildingTimeLeft(User.Identity.Name, a.ID),
-                    BuildPercent = _buildingsHelper.BuildingPercent(User.Identity.Name, a.ID),
-                    PercentPerSecond = (1 / (float)building.BuildingTime) * 100
+                    BuildTime = bTime,
+                    BuildDone = bTime - _buildingsHelper.BuildingTimeLeft(User.Identity.Name, a.ID),
+                    Alias = building.Alias
                 });
             }
             vm.UserBuildings = ubv;
             var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             vm.UserProducts = serializer.Serialize(_buildingsHelper.AddProductValue(User.Identity.Name));
+            var abc = _buildingsHelper.ProductNames(User.Identity.Name);
+            var names = serializer.Serialize(abc);
+            vm.ProductNames = names;
             var buildingsArray = new int[ub.Count][];
             int i = 0;
             foreach(var a in ubv)
@@ -82,12 +92,13 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _mapTable.GetMaps())
+            foreach (var item in _mapService.GetMaps())
             {
                 tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.Map_ID,
                     User_ID = item.User_ID,
+                    Login = item.Login,
                     Height = item.Height,
                     Width = item.Width
                 });
@@ -106,7 +117,7 @@ namespace Game.GUI.Controllers
             _mapDto.Height = listView.tableView.Height;
             _mapDto.Width = listView.tableView.Width;
 
-            _mapTable.Add(_mapDto);
+            _mapService.Add(_mapDto);
 
             return View("~/Views/Admin/Admin.cshtml");
         }
@@ -114,7 +125,7 @@ namespace Game.GUI.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            _mapTable.Delete(id);
+            _mapService.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
     }

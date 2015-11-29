@@ -26,21 +26,28 @@
     else
     {
         <div class="IndexDiv">
-            <div class="productList col s10 card">
+            <div class="productList col s12 card">
                 <div id="products">
 
                 </div>
             </div>
-            <div class="col s2 buildingList card">
+            <div class="col l3 buildingList card">
                 <div>Buduj:</div>
                 @Html.Action("_BuildingsList", "Building")
             </div>
             <div class="mapBox card">
                 @Html.Action("_UserMap", "Map")
             </div>
-            <div class="col s2 chatBox card">
+            <div class="col l3 chatBox card">
                 Czat
             </div>
         </div>
     }
 </div>
+
+
+<script type="text/javascript">
+                $(document).ready(function () {
+                    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                    $('#testModal').leanModal();
+                });</script>

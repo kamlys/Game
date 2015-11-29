@@ -1,4 +1,5 @@
-﻿using Game.Dal;
+﻿using Game.Core.DTO;
+using Game.Dal;
 using Game.Dal.Model;
 using Game.Dal.Repository;
 using Game.Service.Interfaces;
@@ -67,6 +68,54 @@ namespace Game.Service
             _user.GetAll().First(u => u.ID == uID).Last_Update = DateTime.Now;
 
             _unitOfWork.Commit();
+        }
+
+
+        public void Add(ProductDto product)
+        {
+            _product.Add(new Products
+            {
+                Name = product.Name,
+                Price_per_unit = product.Price_per_unit,
+                Unit = product.Unit,
+                Alias = product.Alias
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public void Delete(int id)
+        {
+            _product.Delete(_product.Get(id));
+            _unitOfWork.Commit();
+        }
+
+        public List<ProductDto> GetProduct()
+        {
+            List<ProductDto> productDto = new List<ProductDto>();
+            foreach (var item in _product.GetAll())
+            {
+                try
+                {
+                    productDto.Add(new ProductDto
+                    {
+                        ID = item.ID,
+                        Name = item.Name,
+                        Price_per_unit = item.Price_per_unit,
+                        Unit = item.Unit,
+                        Alias = item.Alias
+                    });
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return productDto;
+        }
+
+        public void Update(ProductDto product, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

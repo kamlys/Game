@@ -1,6 +1,9 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 html, body {
   background-color: #2c3e50; }
+
+.container {
+  min-height: 500px; }
 
 /*Jakieś artykuły*/
 #homeArticle {
@@ -10,6 +13,18 @@ html, body {
 
 nav {
   background-color: #2f3b46; }
+  nav #userLogin {
+    margin: -53px 40px 0 0;
+    min-width: 80px;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+    background: #2c3e50;
+    color: #9d9d9d;
+    border-radius: 0; }
+    nav #userLogin .fa {
+      font-size: 150%; }
 
 /*Panel logowania*/
 .loginForm {
@@ -150,8 +165,9 @@ nav {
 .mapBox {
   margin-top: 30px;
   width: 540px;
-  margin-left: 11.5%;
-  margin-right: auto;
+  margin-left: 3%;
+  /*padding: 20px 20px 20px 20px;*/
+  border: 20px solid #2f3b46;
   background-color: #2f3b46;
   display: inline-block; }
 
@@ -171,7 +187,7 @@ nav {
   width: 60%;
   height: 50px;
   line-height: 50px;
-  margin-left: auto;
+  margin-left: auto !important;
   margin-right: auto;
   padding: 20px 20px 20px 20px;
   background-color: #2f3b46;
@@ -185,7 +201,7 @@ nav {
     margin-right: 20px; }
 
 /*TabsAdmin*/
-.tabAdmin {
+.tabs {
   margin-top: 30px;
   display: -webkit-box;
   display: -moz-box;
@@ -199,7 +215,7 @@ nav {
   width: 100%;
   white-space: nowrap; }
 
-.tabAdmin .tab {
+.tabs .tab {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -217,12 +233,12 @@ nav {
   letter-spacing: .8px;
   width: 15%;
   min-width: 80px; }
-  .tabAdmin .tab a {
+  .tabs .tab a {
     color: #fff !important;
     font-size: 10px; }
-  .tabAdmin .tab a:hover {
+  .tabs .tab a:hover {
     color: #ff7d00 !important; }
-  .tabAdmin .tab .tab a {
+  .tabs .tab .tab a {
     color: #fff;
     display: block;
     width: 100%;
@@ -234,14 +250,85 @@ nav {
     -o-transition: color .28s ease;
     -ms-transition: color .28s ease;
     transition: color .28s ease; }
-  .tabAdmin .tab .tab.disabled a {
+  .tabs .tab .tab.disabled a {
     color: #f9c9cb;
     cursor: default; }
-  .tabAdmin .tab .indicator {
+  .tabs .tab .indicator {
     position: absolute;
     bottom: 0;
     height: 2px;
     background-color: #f6b2b5;
     will-change: left, right; }
 
-/*# sourceMappingURL=Style.css.map */
+.market {
+  background-color: white;
+  margin-top: 30px; }
+  .market .numValue {
+    float: left;
+    max-width: 60px;
+    margin-right: 40px; }
+  .market #buyButton {
+    margin-top: 10px; }
+  .market #buyTd {
+    width: 300px; }
+  .market #Price {
+    width: 49%;
+    float: right; }
+  .market #Number {
+    width: 49%;
+    float: left; }
+
+.tableList {
+  background-color: white;
+  padding: 20px 20px 20px 20px; }
+  .tableList .table {
+    text-align: center !important; }
+    .tableList .table .td, .tableList .table .th {
+      text-align: center !important; }
+
+/*Przycisk dodający - AdminPanel*/
+.addButton {
+  float: right; }
+
+/*Biuro*/
+.office {
+  margin-top: 30px; }
+  .office #uBuildingList {
+    background-color: #2f3b46;
+    min-height: 300px;
+    display: inline-block;
+    color: #FFB100;
+    float: left;
+    padding: 20px 20px 20px 20px; }
+    .office #uBuildingList .collapsible-header {
+      background-color: #FFB100;
+      color: #000; }
+      .office #uBuildingList .collapsible-header #lvlUp {
+        margin-top: 5.5px;
+        background-color: #26A69A;
+        color: #000; }
+        .office #uBuildingList .collapsible-header #lvlUp i {
+          line-height: 2rem; }
+      .office #uBuildingList .collapsible-header #lvlUp:hover {
+        background-color: green; }
+  .office #uProductList {
+    float: right;
+    background-color: #2f3b46;
+    color: #EA4067;
+    min-height: 300px;
+    padding: 20px 20px 20px 20px; }
+    .office #uProductList #officeProduct {
+      background-color: #EA4067;
+      color: #000;
+      border: 1px solid #DDDDDD;
+      height: 50px;
+      line-height: 50px;
+      padding-left: 20px; }
+      .office #uProductList #officeProduct .name {
+        float: left; }
+      .office #uProductList #officeProduct .officeOfferAdd {
+        margin: 5px 5px 0 0;
+        float: right; }
+        .office #uProductList #officeProduct .officeOfferAdd .input {
+          width: 80px; }
+

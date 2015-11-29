@@ -236,7 +236,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\AdminScripts.js" />
+    <Content Include="Scripts\js\InitModal.js" />
     <Content Include="Scripts\js\main_page.js" />
+    <Content Include="Scripts\js\Market.js" />
     <Content Include="Scripts\materialize.js" />
     <Content Include="Scripts\materialize.min.js" />
     <Content Include="Scripts\js\ProductShow.js" />
@@ -258,6 +260,8 @@
     <Compile Include="Controllers\DolarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\MarketController.cs" />
+    <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserBuildingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -267,6 +271,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ListTableViewModel.cs" />
+    <Compile Include="ViewModels\Market\ListMarketViewModel.cs" />
+    <Compile Include="ViewModels\Market\MarketViewModel.cs" />
     <Compile Include="ViewModels\TableViewModel.cs" />
     <Compile Include="ViewModels\Building\AjaxBuildViewModel.cs" />
     <Compile Include="ViewModels\Building\BuildingViewModel.cs" />
@@ -300,6 +306,11 @@
     <Content Include="Views\Admin\_UserBuildingList.cshtml" />
     <Content Include="Views\Admin\_UserList.cshtml" />
     <Content Include="Views\Admin\_UserProductList.cshtml" />
+    <Content Include="Views\Market\Index.cshtml" />
+    <Content Include="Views\Admin\_MarketList.cshtml" />
+    <Content Include="Views\Office\Index.cshtml" />
+    <Content Include="Views\Office\_UserBuildingList.cshtml" />
+    <Content Include="Views\Office\_UserProductList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

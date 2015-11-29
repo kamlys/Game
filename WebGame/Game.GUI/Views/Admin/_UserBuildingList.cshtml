@@ -3,42 +3,58 @@
     Layout = null;
 }
 
-<div id="ubuildingAdd" class="uk-modal">
-    <div class="uk-modal-dialog">
-        <a class="uk-modal-close uk-close"></a>
-        <section class="uk-panel uk-panel-box uk-form">
-            @using (Html.BeginForm("Add", "UserProduct", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div id="ubuildingAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Add", "UserProduct", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.User_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Pozycja X: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.X_pos, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Pozyja Y: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Y_pos, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Lvl: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Lvl, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("ID bydynku: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Building_ID, null, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Statu: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.Status, null, new { @class = "uk-width-1-1 uk-form-large" })
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
 
-                <input type="submit" value="Zapisz" class="uk-button-large" />
-            }
-        </section>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Name, new { placeholder = "", @class = "validate" })
+                <label for="Name">Nazwa budynku</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.X_pos, new { placeholder = "", @class = "validate" })
+                <label for="X_pos">Pozycja X</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Y_pos, new { placeholder = "", @class = "validate" })
+                <label for="Y_pos">Pozycja Y</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Lvl, new { placeholder = "", @class = "validate" })
+                <label for="Lvl">Lvl budynku</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Status, new { placeholder = "", @class = "validate" })
+                <label for="Status">Status</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+
+        }
     </div>
 </div>
 
-<div id="tableList">
-    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Budynki użytkownika<button class="uk-button" data-uk-modal="{target:'#ubuildingAdd'}">Dodaj nowy</button></caption>
+<div class="tableList">
+    <h4>Budynki użytkownika</h4><br />
+    <button data-target="ubuildingAdd" class="btn modal-trigger ubuildingAdd">Dodaj budynek użytkownika</button>
+    <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>ID użytkownika</th>
+                <th>Login</th>
                 <th>Pozycja X</th>
                 <th>Pozycja Y</th>
                 <th>Level</th>
-                <th>ID Budynku</th>
+                <th>Budynek</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -47,21 +63,20 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.User_ID</td>
+                    <td>@item.Login</td>
                     <td>@item.X_pos</td>
                     <td>@item.Y_pos</td>
                     <td>@item.Lvl</td>
-                    <td>@item.Building_ID</td>
+                    <td>@item.Name</td>
                     <td>@item.Status</td>
-                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
-                            Menu <span class="caret"></span>
-                        </button>
-                        <div class="uk-dropdown uk-dropdown-small">
-                            <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","UserBuilding", new { id = item.ID })'">Usuń</div></li>
-
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn-floating btn-large red">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "UserBuilding", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>
@@ -70,3 +85,10 @@
         </tbody>
     </table>
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.ubuildingAdd').leanModal();
+});</script>

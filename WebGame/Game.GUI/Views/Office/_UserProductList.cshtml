@@ -1,0 +1,42 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model.tableList)
+{
+    <div id="officeOfferAdd" class="modal">
+        <div class="modal-content">
+            @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.tableView.Product_Name, new { @Value = item.Name, @placeholder = "", @class = "validate" })
+                    <label for="Product_Name">Nazwa produktu</label>
+                </div>
+
+                <div class="input-field col s6" id="Number">
+                    @Html.TextBoxFor(m => m.tableView.Number, new { @type = "number", @placeholder = "", @class = "validate" })
+                    <label for="Number">Ilość</label>
+                </div>
+
+                <div class="input-field col s6" id="Price">
+                    @Html.TextBoxFor(m => m.tableView.Price, new { @type = "number", @placeholder = "", @class = "validate" })
+                    <label for="Price">Cena za sztukę</label>
+                </div>
+
+                <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+            }
+        </div>
+    </div>
+
+    <div id="officeProduct">
+        <span class="name">@item.Name: @item.Value</span>
+        <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="">Sprzedaj produkt</button>
+    </div>
+}
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.officeOfferAdd').leanModal();
+    });
+</script>

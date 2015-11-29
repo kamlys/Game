@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Game.Service.Interfaces.TableInterface
 {
-    public interface IQueueTableService
+    public interface IQueueService
     {
         List<BuildingQueueDto> GetQueue();
         void Add(BuildingQueueDto buildingQueue);

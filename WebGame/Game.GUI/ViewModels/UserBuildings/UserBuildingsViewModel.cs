@@ -16,9 +16,8 @@ namespace Game.GUI.ViewModels.UserBuildings
         public int BuildingID;
         public int ID;
         public int BuildTime;
-        public int BuildTimeLeft;
         public string Status;
-        public int BuildPercent;
-        public float PercentPerSecond;
+        public int BuildDone;
+        public string Alias { get; set; }
     }
 }

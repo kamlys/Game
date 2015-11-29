@@ -34,44 +34,66 @@
                 <ul class="hide-on-med-and-down">
                     <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
 
+                    <li><a href='@Url.Action("Index", "Office")'>Biuro</a></li>
+
                     <li><a href='@Url.Action("##", "##")'>Wiadomości</a></li>
 
-                    <li><a href='@Url.Action("##", "##")'>Kontakty</a></li>
-
-                    <li><a href='@Url.Action("##", "##")'>Moje konto</a></li>
+                    <li><a href='@Url.Action("Index", "Market")'>Market</a></li>
 
                     <li><a href='@Url.Action("##", "##")'>Kasyno</a></li>
-
-                    <li><a href='@Url.Action("Logout", "User")'>Wyloguj</a></li>
 
                     <li><a href='@Url.Action("##", "##")'><i class="fa fa-envelope"></i></a></li>
 
                     <li><a href='@Url.Action("##", "##")'><i class="fa fa-cog"></i></a></li>
+
+
                 </ul>
             </div>
+            <div class="chip right dropdown-button btn" id="userLogin" data-activates='logOut'>
+                <i class="fa fa-user"></i>
+                @User.Identity.Name
+            </div>
+
+            <ul id='logOut' class='dropdown-content'>
+                <li><a href='@Url.Action("##", "##")'>Ustawienai konta</a></li>
+                <li><a href='@Url.Action("Logout", "User")'>Wyloguj</a></li>
+            </ul>
         }
 
 
-    </nav>
-    <div class="container">
-        @RenderBody()
-        <footer>
-            <p>
-                &copy; @DateTime.Now.Year - My ASP.NET Application
-                @if (User.Identity.IsAuthenticated)
-            {
-                    <a href='@Url.Action("Admin", "Admin")'><i class="fa fa-lock"></i></a>
-                }
-            </p>
-        </footer>
-    </div>
+        </nav>
+        <div class="container">
+            @RenderBody()
+            <footer>
+                <p>
+                    &copy; @DateTime.Now.Year - My ASP.NET Application
+                    @if (User.Identity.IsAuthenticated)
+                {
+                        <a href='@Url.Action("Admin", "Admin")'><i class="fa fa-lock"></i></a>
+                    }
+                </p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/materialize")
-    @if (User.Identity.IsAuthenticated)
+        @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/materialize")
+            @if (User.Identity.IsAuthenticated)
             {
-        @Scripts.Render("~/Scripts/js")
-    }
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+                @Scripts.Render("~/Scripts/js")
+            }
+            @RenderSection("scripts", required: false)
+
+    <script>
+        $('.dropdown-button').dropdown({
+            inDuration: 300,
+            outDuration: 225,
+            constrain_width: false, // Does not change width of dropdown to that of the activator
+            hover: false, // Activate on hover
+            gutter: 0, // Spacing from edge
+            belowOrigin: false, // Displays dropdown below the button
+            alignment: 'left' // Displays dropdown with edge aligned to the left of button
+        }
+ );
+    </script>
+        </body>
+    </html>

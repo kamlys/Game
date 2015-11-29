@@ -12,15 +12,18 @@ using Game.Service.Interfaces.TableInterface;
 
 namespace Game.Service.Table
 {
-    public class DolarTableService : IDolarTableService
+    public class DolarService : IDolarService
     {
         private IRepository<Dolars> _dolars;
+        private IRepository<Users> _users;
         private IUnitOfWork _unitOfWork;
 
-        public DolarTableService(IRepository<Dolars> dolars,
+        public DolarService(IRepository<Dolars> dolars,
+            IRepository<Users> users,
             IUnitOfWork unitOfWork)
         {
             _dolars = dolars;
+            _users = users;
             _unitOfWork = unitOfWork;
         }
 
@@ -28,7 +31,7 @@ namespace Game.Service.Table
         {
             _dolars.Add(new Dolars
             {
-                User_ID = dolar.User_ID,
+                User_ID = _users.GetAll().First(i=> i.ID == dolar.User_ID).ID,
                 Value = dolar.Value
             });
 
@@ -51,7 +54,9 @@ namespace Game.Service.Table
                     dolarDto.Add(new DolarDto
                     {
                         ID = item.ID,
-                        User_ID = item.User_ID
+                        User_ID = item.User_ID,
+                        Login = _users.Get(item.User_ID).Login,
+                        Value = item.Value
                     });
                 }
                 catch (Exception)

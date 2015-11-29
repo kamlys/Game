@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Game.Service.Interfaces.TableInterface
 {
-    public interface IMapTableService
+    public interface IBuildingService
     {
-        List<MapDto> GetMaps();
-        void Add(MapDto admin);
-        void Update(MapDto admin, int id);
+        List<BuildingDto> GetBuilding();
+        void Add(BuildingDto building);
+        void Update(BuildingDto building, int id);
         void Delete(int id);
     }
 }

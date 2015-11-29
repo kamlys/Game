@@ -3,35 +3,45 @@
     Layout = null;
 }
 
-<div id="queueAdd" class="uk-modal">
-    <div class="uk-modal-dialog">
-        <a class="uk-modal-close uk-close"></a>
-        <section class="uk-panel uk-panel-box uk-form">
-            @using (Html.BeginForm("Add", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div id="queueAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Add", "BuildingQueue", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.Label("ID użytkownika: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.User_ID, new {@class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("ID budynku: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.UserBuilding_ID, new { @class = "uk-width-1-1 uk-form-large" })
-                @Html.Label("Data końca", new { @class = "uk-form-label" })
-                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}" />
-                @Html.Label("Nowy status: ", new { @class = "uk-form-label" })
-                @Html.TextBoxFor(m => m.tableView.NewStatus, new { @class = "uk-width-1-1 uk-form-large" })
 
-                <input type="submit" value="Zapisz" class="uk-button-large"/>
-            }
-        </section>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.UserBuilding_ID, new { placeholder = "", @class = "validate" })
+                <label for="UserBuilding_ID">ID budynku użytkownika</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate" })
+                <label for="Value">Czas budowy</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.NewStatus, new { placeholder = "", @class = "validate" })
+                <label for="NewStatus">Nowy status</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
     </div>
 </div>
 
-<div id="tableList">
-    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption>Kolejka budowania <button class="uk-button" data-uk-modal="{target:'#queueAdd'}">Dodaj nowy</button></caption>
+<div class="tableList">
+    <h4>Kolejka budowania</h4><br />
+    <button data-target="queueAdd" class="btn modal-trigger queueAdd">Dodaj budynek</button>
+    <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>ID użytkownika</th>
+                <th>Login</th>
                 <th>ID budynku użytkownika</th>
+                <th>Budynek</th>
                 <th>Czas końca budowy</th>
                 <th>Nowy status</th>
             </tr>
@@ -41,19 +51,19 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.User_ID</td>
+                    <td>@item.Login</td>
                     <td>@item.UserBuilding_ID</td>
+                    <td>@item.Name</td>
                     <td>@item.Finish_Date</td>
                     <td>@item.NewStatus</td>
-                    <td class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
-                        <button class="uk-button" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
-                            Menu <span class="caret"></span>
-                        </button>
-                        <div class="uk-dropdown uk-dropdown-small">
-                            <ul class="uk-nav uk-nav-dropdown">
-                                <li><div class="button btn-build buildButton" onclick="update(@item.ID)">Edytuj</div></li>
-                                <li><div class="button btn-build buildButton" onclick="location.href='@Url.Action("Delete","BuildingQueue", new { id = item.ID })'">Usuń</div></li>
-
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn-floating btn-large red">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "BuildingQueue", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>
@@ -62,4 +72,10 @@
         </tbody>
     </table>
 </div>
-<script type="text/javascript" src="~/Scripts/js/uikit.js"></script>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.queueAdd').leanModal();
+});</script>

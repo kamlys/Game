@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Game.Service.Interfaces.TableInterface
 {
-    public interface IUserTableService
+    public interface IUserProductService
     {
-        List<UserDto> GetUser();
-        void Add(UserDto admin);
-        void Update(UserDto admin, int id);
+        List<UserProductDto> GetUserProduct();
+        void Add(UserProductDto userProduct);
+        void Update(UserProductDto userProduct, int id);
         void Delete(int id);
     }
 }

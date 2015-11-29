@@ -120,5 +120,65 @@ namespace Game.Service
 
             _unitOfWork.Commit();
         }
+
+
+
+        public void Add(UserBuildingDto userBuilding)
+        {
+            _userBuildings.Add(new UserBuildings
+            {
+                User_ID = _users.GetAll().First(i => i.ID == userBuilding.User_ID).ID,
+                X_pos = userBuilding.X_pos,
+                Y_pos = userBuilding.Y_pos,
+                Lvl = userBuilding.Lvl,
+                Building_ID = _buildings.Get(userBuilding.Building_ID).ID,
+                Status = userBuilding.Status
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public void Delete(int id)
+        {
+            _userBuildings.Delete(_userBuildings.Get(id));
+            _unitOfWork.Commit();
+        }
+
+        public List<UserBuildingDto> GetUserBuilding()
+        {
+            List<UserBuildingDto> userBuildingsDto = new List<UserBuildingDto>();
+            foreach (var item in _userBuildings.GetAll())
+            {
+                int BuildLvl = item.Lvl;
+                int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;
+                int Percent_per_lvl = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl / 100;
+
+                try
+                {
+                    userBuildingsDto.Add(new UserBuildingDto
+                    {
+                        ID = item.ID,
+                        User_ID = item.User_ID,
+                        Login = _users.Get(item.User_ID).Login,
+                        X_pos = item.X_pos,
+                        Y_pos = item.Y_pos,
+                        Lvl = item.Lvl,
+                        Building_ID = item.Building_ID,
+                        Building_Name = _buildings.Get(item.Building_ID).Alias,
+                        Status = item.Status,
+                        Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl
+                    });
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return userBuildingsDto;
+        }
+
+        public void Update(UserBuildingDto userBuilding, int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
