@@ -70,6 +70,31 @@ namespace Game.Service.Table
             return userProductsDto;
         }
 
+        public List<UserProductDto> GetUserProductList(string User)
+        {
+            int uID = _user.GetAll().First(i => i.Login == User).ID;
+            List<UserProductDto> userProductsDto = new List<UserProductDto>();
+            foreach (var item in _userProducts.GetAll().Where(i=> i.User_ID == uID))
+            {
+                try
+                {
+                    userProductsDto.Add(new UserProductDto
+                    {
+                        ID = item.ID,
+                        User_ID = item.User_ID,
+                        Login = _user.GetAll().First(i => i.ID == item.User_ID).Login,
+                        Product_Name = item.Product_Name,
+                        Value = item.Value,
+                        Product_ID = item.Product_ID
+                    });
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return userProductsDto;
+        }
+
         public void Update(UserProductDto userProduct, int id)
         {
             throw new NotImplementedException();

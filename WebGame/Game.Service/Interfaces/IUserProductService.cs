@@ -10,6 +10,7 @@ namespace Game.Service.Interfaces.TableInterface
     public interface IUserProductService
     {
         List<UserProductDto> GetUserProduct();
+        List<UserProductDto> GetUserProductList(string User);
         void Add(UserProductDto userProduct);
         void Update(UserProductDto userProduct, int id);
         void Delete(int id);

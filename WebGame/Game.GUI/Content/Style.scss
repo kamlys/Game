@@ -42,6 +42,18 @@ nav {
         .fa {
             font-size: 150%;
         }
+
+        .logOut{
+            width: auto; 
+            position: absolute; 
+            top: 64px; 
+            left: 1170px !important; 
+            opacity: 1; 
+            display: block;
+            .dropdown-content .active{
+                width: 500px;
+            }
+        }
     }
 }
 

@@ -207,6 +207,12 @@ namespace Game.Service
                     _userBuildings.Delete(u => u.User_ID == uID && u.ID == item.ID);
                     _unitOfWork.Commit();
                 }
+                else if(item.Status.Contains("burzenie") && item.BuildingQueue.All(i => i.UserBuilding_ID == item.ID && DateTime.Now.CompareTo(i.FinishTime) > 0))
+                {
+                    item.Status = item.BuildingQueue.First(i => i.UserBuilding_ID == item.ID).NewStatus;
+                    _buildingQueue.Delete(i => i.UserBuilding_ID == item.ID);
+                    _unitOfWork.Commit();
+                }
             }
         }
 
