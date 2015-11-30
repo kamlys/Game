@@ -8,6 +8,7 @@
     var heightPx = map.Height * tilePx;
     var widthPx = map.Width * tilePx;
     var budynkiArray = Model.BuildingsArray;
+    var productNames = Model.ProductNames;
 }
 
 <div class="fake-building"></div>
@@ -27,17 +28,27 @@
 </div>
 <div>
     <div class="map" id="map" style="width:@(widthPx)px; height:@(heightPx)px">
+        @{ var startTimer = false; }
           @foreach (var a in userBuildings)
           {
               var xPx = (a.x_left * tilePx).ToString() + "px";
               var yPx = (a.y_top * tilePx).ToString() + "px";
               var hPx = ((a.y_bottom - a.y_top + 1)*tilePx).ToString() + "px";
               var wPx = ((a.x_right - a.x_left + 1)*tilePx).ToString() + "px";
-                <div class="building" style="left:@xPx; top:@yPx; height:@hPx; width:@wPx;">@a.name
-                    <div name="remove" data-buildingid="@a.ID">X</div>
-                    <div id="circle"></div>
+                <div class="building" style="left:@xPx; top:@yPx; height:@hPx; width:@wPx;">
+                    <div class="building-name">@a.Alias</div>
+                    <div name="remove" class="building-remove" data-buildingid="@a.ID">X</div>
+                    @if (a.Status != "gotowy")
+                    {
+                        <div class="progress demo-wrapper html5-progress-bar">
+                                <progress class="progress-bar" style="width:100%" max="@a.BuildTime" value="@a.BuildDone"></progress>
+                                @startTimer = true;
+                                <span class="progress-value">34%</span>
+                        </div>
+                    }
                 </div>
           }
+        
     </div>
 </div>
 
@@ -47,10 +58,11 @@
 <script type="text/javascript" src="~/Scripts/jquery-2.1.4.js"></script>
 <script type="text/javascript" src="~/Scripts/js/ProductShow.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function () { 
         setBudynki(@budynkiArray);
         setMapSize(@map.Width, @map.Height);
-        fillWithData(@userProducts);
+        fillWithData(@userProducts, @Html.Raw(productNames));
         setInterval(function () { updateProduct(@userProducts); }, 1000);
+        setInterval(progressBar, 1000);
     });
 </script>

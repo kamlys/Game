@@ -43,6 +43,15 @@ namespace Game.GUI.Controllers
             foreach (var a in ub)
             {
                 var building = _buildingsHelper.GetBuildings().Where(b => b.ID == a.Building_ID).First();
+                var bTime = 0;
+                if(a.Status == "budowa")
+                {
+                    bTime = building.BuildingTime;
+                }
+                else if (a.Status == "burzenie")
+                {
+                    bTime = building.DestructionTime;
+                }
                 ubv.Add(new UserBuildingsViewModel {
                     BuildingID = a.Building_ID,
                     level = a.Lvl,
@@ -51,12 +60,19 @@ namespace Game.GUI.Controllers
                     x_right = a.X_pos + building.Width - 1,
                     y_top = a.Y_pos,
                     y_bottom = a.Y_pos + building.Height - 1,
-                    ID = a.ID
+                    ID = a.ID,
+                    Status = a.Status,
+                    BuildTime = bTime,
+                    BuildDone = bTime - _buildingsHelper.BuildingTimeLeft(User.Identity.Name, a.ID),
+                    Alias = building.Alias
                 });
             }
             vm.UserBuildings = ubv;
             var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             vm.UserProducts = serializer.Serialize(_buildingsHelper.AddProductValue(User.Identity.Name));
+            var abc = _buildingsHelper.ProductNames(User.Identity.Name);
+            var names = serializer.Serialize(abc);
+            vm.ProductNames = names;
             var buildingsArray = new int[ub.Count][];
             int i = 0;
             foreach(var a in ubv)

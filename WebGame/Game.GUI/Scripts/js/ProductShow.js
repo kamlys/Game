@@ -14,10 +14,19 @@
 
 }
 
-function fillWithData(dataProduct) {
+function fillWithData(dataProduct, productNames) {
     for (var item in dataProduct) {
         try {
-            $("#products").append("<div class='productItem' id='product_label_" + dataProduct[item][0] + "'>:</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div>");
+            var n = "";
+            var id = dataProduct[item][0];
+            for (var name in productNames)
+            {
+                if(productNames[name][0] == id)
+                {
+                    n = productNames[name][1];
+                }
+            }
+            $("#products").append("<div class='productItem' id='product_label_" + dataProduct[item][0] + "'>" + n + ":</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div>");
         } catch (e) {
 
         }

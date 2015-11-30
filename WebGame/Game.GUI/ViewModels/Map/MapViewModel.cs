@@ -12,6 +12,7 @@ namespace Game.GUI.ViewModels.Map
         public MapDto Map;
         public List<UserBuildings.UserBuildingsViewModel> UserBuildings;
         public String UserProducts;
+        public String ProductNames;
         public String BuildingsArray;
     }
 }

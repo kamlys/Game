@@ -96,6 +96,31 @@ function getColRow() {
     return [col, row];
 }
 
+function canReload()
+{
+    return true;
+}
+
+function ClearAllIntervals() {
+    for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
+}
+
+function progressBar()
+{
+    $('.progress-bar').each(function () {
+        $(this).val($(this).val() + 1);
+        if($(this).val() == $(this).attr('max'))
+        {
+            if(canReload)
+            {
+                ClearAllIntervals();
+                location.reload(true);
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
     $("body").mousedown(function (ev) {
         if (ev.which == 3) {

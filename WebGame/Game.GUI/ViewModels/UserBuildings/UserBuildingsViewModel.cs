@@ -15,5 +15,9 @@ namespace Game.GUI.ViewModels.UserBuildings
         public int level;
         public int BuildingID;
         public int ID;
+        public int BuildTime;
+        public string Status;
+        public int BuildDone;
+        public string Alias { get; set; }
     }
 }
