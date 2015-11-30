@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="office">
+        <div class="col s12 m6 l5" id="uBuildingList">
+            <h5>Lista zabudowań</h5>
+            @Html.Action("_UserBuildingList", "Office")
+        </div>
+
+        <div class="col s12 m6 l6" id="uProductList">
+            <h5>Magazyn</h5>
+            @Html.Action("_UserProductList", "Office")
+        </div>
+
+    </div>
+
+</div>
+
