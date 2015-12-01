@@ -82,15 +82,15 @@ namespace Game.GUI.Controllers
             return View(tableList);
         }
 
-        [HttpGet]
-        public ActionResult AddOffer(string name, int number, int price)
+        [HttpPost]
+        public ActionResult AddOffer(ListTableViewModel tableList)
         {
             MarketDto _marketDto = new MarketDto();
 
             _marketDto.Login = User.Identity.Name;
-            _marketDto.Product_Name = name;
-            _marketDto.Number = number;
-            _marketDto.Price = price;
+            _marketDto.Product_Name = tableList.tableView.Product_Name;
+            _marketDto.Number = tableList.tableView.Number;
+            _marketDto.Price = tableList.tableView.Price;
 
             _marketService.AddOffer(_marketDto);
 

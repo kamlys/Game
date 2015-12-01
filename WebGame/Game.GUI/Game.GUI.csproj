@@ -179,6 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Pickaxe.png" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -243,8 +244,11 @@
     <Content Include="Scripts\materialize.min.js" />
     <Content Include="Scripts\js\ProductShow.js" />
     <Content Include="Scripts\js\ProductUpdate.js" />
-    <Content Include="Styles\Map.css">
+    <Content Include="Content\Map.css">
       <DependentUpon>Map.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Map.min.css">
+      <DependentUpon>Map.css</DependentUpon>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -294,7 +298,7 @@
     <Content Include="Views\Building\_BuildingsList.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Map\_UserMap.cshtml" />
-    <Content Include="Styles\Map.scss" />
+    <Content Include="Content\Map.scss" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\Admin\_AdminList.cshtml" />
     <Content Include="Views\Admin\_BanList.cshtml" />
@@ -321,6 +325,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Styles\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.Core\Game.Core.csproj">

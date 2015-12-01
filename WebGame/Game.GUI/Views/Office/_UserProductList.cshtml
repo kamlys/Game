@@ -2,20 +2,17 @@
 @{
     Layout = null;
 }
-
-@foreach (var item in Model.tableList)
-{
-    <div id="officeOfferAdd" class="modal">
-        <div class="modal-content">
-            @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div id="officeOfferAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddOffer", "Office", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.tableView.Product_Name, new { @Value = item.Name, @placeholder = "", @class = "validate" })
-                    <label for="Product_Name">Nazwa produktu</label>
-                </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Product_Name, new {  @placeholder = "", @class = "validate inputProductName" })
+                <label for="Product_Name">Nazwa produktu</label>
+            </div>
 
                 <div class="input-field col s6" id="Number">
-                    @Html.TextBoxFor(m => m.tableView.Number, new { @type = "number", @placeholder = "", @class = "validate" })
+                    @Html.TextBoxFor(m => m.tableView.Number, new {  @type = "number", @min="0", @placeholder = "", @class = "validate inputNumber" })
                     <label for="Number">Ilość</label>
                 </div>
 
@@ -25,18 +22,40 @@
                 </div>
 
                 <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
-            }
-        </div>
+        }
     </div>
+</div>
+
+@foreach (var item in Model.tableList)
+{
+    
 
     <div id="officeProduct">
         <span class="name">@item.Name: @item.Value</span>
-        <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="">Sprzedaj produkt</button>
+        <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Name',@item.Value)">Sprzedaj produkt</button>
     </div>
 }
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+@*<script>
+    //var name;
+    //function init(Name) {
+    //    console.log(Name);
+    //        $('.officeOfferAdd_'+Name).leanModal();
+    //}
+</script>*@
 <script>
+    function fillData(Name, Number)
+    {
+        console.log(Name);
+        console.log(Number);
+        $(".inputProductName").val(Name);
+        $(".inputNumber").val(0);
+        $(".inputNumber").attr("max",Number);
+
+
+    }
     $(document).ready(function () {
         $('.officeOfferAdd').leanModal();
+        
     });
 </script>

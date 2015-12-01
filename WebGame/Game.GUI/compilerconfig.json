@@ -2,5 +2,13 @@
   {
     "outputFile": "Content/Style.css",
     "inputFile": "Content/Style.scss"
+  },
+  {
+    "outputFile": "Styles/Map.css",
+    "inputFile": "Styles/Map.scss"
+  },
+  {
+    "outputFile": "Content/Map.css",
+    "inputFile": "Content/Map.scss"
   }
 ]
