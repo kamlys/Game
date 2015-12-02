@@ -11,7 +11,7 @@ namespace Game.Service.Interfaces.TableInterface
     {
         List<DolarDto> GetDolars();
         void Add(DolarDto admin);
-        void Update(DolarDto admin, int id);
+        void Update(DolarDto admin);
         void Delete(int id);
 
     }

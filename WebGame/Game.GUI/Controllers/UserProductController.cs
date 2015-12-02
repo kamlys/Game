@@ -53,10 +53,25 @@ namespace Game.GUI.Controllers
             UserProductDto _userProductDto = new UserProductDto();
 
             _userProductDto.Login = listView.tableView.Login;
-            _userProductDto.Product_Name = listView.tableView.Name;
+            _userProductDto.Product_Name = listView.tableView.Product_Name;
             _userProductDto.Value =  listView.tableView.Value;
 
             _userProductTable.Add(_userProductDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel listView)
+        {
+            UserProductDto _userProductDto = new UserProductDto();
+
+            _userProductDto.ID = listView.tableView.ID;
+            _userProductDto.Login = listView.tableView.Login;
+            _userProductDto.Product_Name = listView.tableView.Product_Name;
+            _userProductDto.Value = listView.tableView.Value;
+
+            _userProductTable.Update(_userProductDto);
 
             return View("~/Views/Admin/Admin.cshtml");
         }

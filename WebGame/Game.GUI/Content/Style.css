@@ -309,15 +309,16 @@ nav {
     color: #FFB100;
     float: left;
     padding: 20px 20px 20px 20px; }
+    .office #uBuildingList #lvlUp {
+      margin-top: 7.5px;
+      margin-right: 5px;
+      background-color: #26A69A;
+      color: #000; }
+      .office #uBuildingList #lvlUp i {
+        line-height: 2rem; }
     .office #uBuildingList .collapsible-header {
       background-color: #FFB100;
       color: #000; }
-      .office #uBuildingList .collapsible-header #lvlUp {
-        margin-top: 5.5px;
-        background-color: #26A69A;
-        color: #000; }
-        .office #uBuildingList .collapsible-header #lvlUp i {
-          line-height: 2rem; }
       .office #uBuildingList .collapsible-header #lvlUp:hover {
         background-color: green; }
   .office #uProductList {
@@ -337,7 +338,6 @@ nav {
         float: left; }
       .office #uProductList #officeProduct .officeOfferAdd {
         margin: 5px 5px 0 0;
-        float: right; }
-        .office #uProductList #officeProduct .officeOfferAdd .input {
-          width: 80px; }
+        float: right;
+        border-radius: 10px !important; }
 

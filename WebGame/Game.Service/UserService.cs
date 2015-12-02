@@ -143,9 +143,19 @@ namespace Game.Service
             return userDto;
         }
 
-        public void Update(UserDto admin, int id)
+        public void Update(UserDto user)
         {
-            throw new NotImplementedException();
+            foreach (var item in _user.GetAll().Where(i => i.ID == user.ID))
+            {
+                item.Login = user.Login;
+                item.Password = _hassPass.GeneratePassword(user.Password);
+                item.Email = user.Email;
+                item.Last_Log = user.Last_Log;
+                item.Registration_Date = user.Registration_Date;
+                item.Last_Update = user.Last_Update;
+            }
+
+            _unitOfWork.Commit();
         }
     }
 }

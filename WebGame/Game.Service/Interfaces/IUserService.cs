@@ -12,8 +12,8 @@ namespace Game.Service.Interfaces
         bool RegisterUser(UserDto user);
         bool LoginUser(UserDto user);
         List<UserDto> GetUser();
-        void Add(UserDto admin);
-        void Update(UserDto admin, int id);
+        void Add(UserDto user);
+        void Update(UserDto user);
         void Delete(int id);
     }
 }

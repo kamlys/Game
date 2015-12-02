@@ -92,6 +92,30 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel viewModel)
+        {
+            BuildingDto _buildingDto = new BuildingDto();
+
+            _buildingDto.Name = viewModel.tableView.Name;
+            _buildingDto.Price = viewModel.tableView.Price;
+            _buildingDto.Height = viewModel.tableView.Height;
+            _buildingDto.Width = viewModel.tableView.Width;
+            _buildingDto.Dest_price = (int)viewModel.tableView.Dest_price;
+            _buildingDto.Percent_price_per_lvl = viewModel.tableView.Percent_price_per_lvl;
+            _buildingDto.Percent_product_per_lvl = viewModel.tableView.Percent_product_per_lvl;
+            _buildingDto.Product_ID = viewModel.tableView.Product_ID;
+            _buildingDto.Product_Name = viewModel.tableView.Product_Name;
+            _buildingDto.Product_per_sec = viewModel.tableView.Product_per_sec;
+            _buildingDto.Alias = viewModel.tableView.Alias;
+            _buildingDto.BuildingTime = viewModel.tableView.BuildingTime;
+            _buildingDto.DestructionTime = viewModel.tableView.DestructionTime;
+
+            _buildingTable.Add(_buildingDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {

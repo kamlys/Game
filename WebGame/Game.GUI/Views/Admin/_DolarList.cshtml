@@ -24,6 +24,29 @@
     </div>
 </div>
 
+<div id="dolarUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Update", "Dolar", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.ID, new { placeholder = "", @class = "validate inputID" })
+                <label for="ID">ID</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate inputLogin" })
+                <label for="Login">Login</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate inputValue" })
+                <label for="Value">Wartość</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
 
 <div class="tableList">
     <h4>Monety</h4><br />
@@ -49,7 +72,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="adminUpdate" class="btn-floating #00695c teal darken-3 modal-trigger adminUpdate" onclick="updaterow(['inputID','inputLogin','inputValue'], ['@item.ID','@item.Login','@item.Value'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Dolar", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
@@ -65,4 +88,5 @@
     $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.dolarAdd').leanModal();
+        $('.dolarUpdate').leanModal();
 });</script>

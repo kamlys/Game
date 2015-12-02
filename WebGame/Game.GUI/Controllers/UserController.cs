@@ -128,6 +128,24 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel listView)
+        {
+            UserDto _userDto = new UserDto();
+
+            _userDto.ID = listView.tableView.ID;
+            _userDto.Login = listView.tableView.Login;
+            _userDto.Password = listView.tableView.Password;
+            _userDto.Email = listView.tableView.Email;
+            _userDto.Last_Log = listView.tableView.Last_Log;
+            _userDto.Registration_Date = listView.tableView.Registration_Date;
+            _userDto.Last_Update = listView.tableView.Last_Update;
+
+            _userService.Update(_userDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {

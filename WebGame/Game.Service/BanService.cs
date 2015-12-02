@@ -69,9 +69,16 @@ namespace Game.Service.Table
             return banDto;
         }
 
-        public void Update(BanDto admin, int id)
+        public void Update(BanDto ban)
         {
-            throw new NotImplementedException();
+            foreach (var item in _bans.GetAll().Where(i => i.ID == ban.ID))
+            {
+                item.User_ID = _users.GetAll().First(i => i.Login == ban.Login).ID;
+                item.Description = ban.Description;
+                item.Finish_Date = ban.Finish_Date;
+            }
+
+            _unitOfWork.Commit();
         }
     }
 }

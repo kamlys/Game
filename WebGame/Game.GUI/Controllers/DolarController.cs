@@ -60,6 +60,21 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel listView)
+        {
+            DolarDto _dolarDto = new DolarDto();
+
+            _dolarDto.ID = listView.tableView.ID;
+            _dolarDto.User_ID = listView.tableView.User_ID;
+            _dolarDto.Login = listView.tableView.Login;
+            _dolarDto.Value = listView.tableView.Value;
+
+            _dolarTableService.Update(_dolarDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {

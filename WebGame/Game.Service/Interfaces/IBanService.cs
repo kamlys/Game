@@ -11,7 +11,7 @@ namespace Game.Service.Interfaces.TableInterface
     {
         List<BanDto> GetBan();
         void Add(BanDto admin);
-        void Update(BanDto admin, int id);
+        void Update(BanDto admin);
         void Delete(int id);
     }
 }

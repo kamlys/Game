@@ -11,7 +11,7 @@ namespace Game.Service.Interfaces.TableInterface
     {
         List<BuildingDto> GetBuilding();
         void Add(BuildingDto building);
-        void Update(BuildingDto building, int id);
+        void Update(BuildingDto building);
         void Delete(int id);
     }
 }

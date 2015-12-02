@@ -12,7 +12,7 @@ namespace Game.Service.Interfaces
         bool ifAdmin(string User);
         List<AdminDto> GetAdmin();
         void Add(AdminDto admin);
-        AdminDto TakeToUpdate(int id);
+        void Update(AdminDto admin);
         void Delete(int id);
 
     }

@@ -78,9 +78,17 @@ namespace Game.Service.Table
             return buildingQueueDto;
         }
 
-        public void Update(BuildingQueueDto buildingQueue, int id)
+        public void Update(BuildingQueueDto buildingQueue)
         {
-            throw new NotImplementedException();
+            foreach (var item in _buildingQueue.GetAll().Where(i => i.ID == buildingQueue.ID))
+            {
+                item.User_ID = _user.GetAll().First(i => i.Login == buildingQueue.Login).ID;
+                item.UserBuilding_ID = buildingQueue.UserBuilding_ID;
+                item.FinishTime = buildingQueue.FinishTime;
+                item.NewStatus = buildingQueue.NewStatus;
+            }
+
+            _unitOfWork.Commit();
         }
     }
 }

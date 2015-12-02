@@ -43,14 +43,15 @@ nav {
             font-size: 150%;
         }
 
-        .logOut{
-            width: auto; 
-            position: absolute; 
-            top: 64px; 
-            left: 1170px !important; 
-            opacity: 1; 
+        .logOut {
+            width: auto;
+            position: absolute;
+            top: 64px;
+            left: 1170px !important;
+            opacity: 1;
             display: block;
-            .dropdown-content .active{
+
+            .dropdown-content .active {
                 width: 500px;
             }
         }
@@ -438,19 +439,22 @@ nav {
         float: left;
         padding: 20px 20px 20px 20px;
 
+        #lvlUp {
+            margin-top: 7.5px;
+            margin-right: 5px;
+            background-color: #26A69A;
+            color: #000;
+
+            i {
+                line-height: 2rem;
+            }
+        }
+
         .collapsible-header {
             background-color: #FFB100;
             color: #000;
 
-            #lvlUp {
-                margin-top: 5.5px;
-                background-color: #26A69A;
-                color: #000;
 
-                i {
-                    line-height: 2rem;
-                }
-            }
 
             #lvlUp:hover {
                 background-color: green;
@@ -481,10 +485,7 @@ nav {
             .officeOfferAdd {
                 margin: 5px 5px 0 0;
                 float: right;
-
-                .input {
-                    width: 80px;
-                }
+                border-radius: 10px !important;
             }
         }
     }

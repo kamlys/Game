@@ -12,7 +12,7 @@ namespace Game.Service.Interfaces.TableInterface
         List<UserProductDto> GetUserProduct();
         List<UserProductDto> GetUserProductList(string User);
         void Add(UserProductDto userProduct);
-        void Update(UserProductDto userProduct, int id);
+        void Update(UserProductDto userProduct);
         void Delete(int id);
     }
 }

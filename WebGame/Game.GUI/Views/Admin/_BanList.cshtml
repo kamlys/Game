@@ -29,6 +29,36 @@
     </div>
 </div>
 
+<div id="banUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Update", "Ban", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.ID, new { placeholder = "", @class = "validate inputID" })
+                <label for="Login">Login</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate inputLogin" })
+                <label for="Login">Login</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextAreaFor(m => m.tableView.Description, new { placeholder = "", @class = "materialize-textarea inputDescription" })
+                <label for="Description">Opis</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Finish_Date, new { placeholder = "", @type = "date", @class = "validate datepicker inputFinishDate" })
+                <label for="Finish_Date">Data końca</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+
+        }
+    </div>
+</div>
+
+
 
 <div class="tableList">
     <h4>Bany</h4><br />
@@ -59,7 +89,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="banUpdate" class="btn-floating #00695c teal darken-3 modal-trigger banUpdate" onclick="updaterow(['inputID','inputLogin','inputDescription','inputFinishDate'], ['@item.ID','@item.Login','@item.Description','@item.Finish_Date'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Ban", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
@@ -77,6 +107,7 @@
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.banAdd').leanModal();
+        $('.banUpdate').leanModal();
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year

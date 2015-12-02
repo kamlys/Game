@@ -105,16 +105,14 @@ namespace Game.Service
             _unitOfWork.Commit();
         }
 
-        public AdminDto TakeToUpdate(int id)
+        public void Update(AdminDto admin)
         {
-            AdminDto adminDto = new AdminDto();
-
-            foreach (var item in _admins.GetAll().Where(i => i.ID == id))
+            foreach (var item in _admins.GetAll().Where(i => i.ID == admin.ID))
             {
-                adminDto.Login = item.Users.Login;
+                item.User_ID = _users.GetAll().First(i=> i.Login == admin.Login).ID;
             }
 
-            return adminDto;
+            _unitOfWork.Commit();
         }
     }
 }

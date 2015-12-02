@@ -64,14 +64,16 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Update(int id)
+        public ActionResult Update(ListTableViewModel viewList)
         {
-            TableViewModel tableModel = new TableViewModel();
+            AdminDto _adminDto = new AdminDto();
 
-            tableModel.Login = _adminService.TakeToUpdate(id).Login;
+            _adminDto.ID = viewList.tableView.ID;
+            _adminDto.Login = viewList.tableView.Login;
 
-            return null;
-            
+            _adminService.Update(_adminDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
         }
 
 

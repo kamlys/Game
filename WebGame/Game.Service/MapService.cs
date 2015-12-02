@@ -77,9 +77,16 @@ namespace Game.Service
             return mapDto;
         }
 
-        public void Update(MapDto admin, int id)
+        public void Update(MapDto map)
         {
-            throw new NotImplementedException();
+            foreach (var item in _maps.GetAll().Where(i => i.Map_ID == map.Map_ID))
+            {
+                item.User_ID = _users.GetAll().First(i => i.Login == map.Login).ID;
+                item.Height = map.Height;
+                item.Width = map.Width;
+            }
+
+            _unitOfWork.Commit();
         }
     }
 }

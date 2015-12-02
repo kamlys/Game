@@ -83,9 +83,24 @@ namespace Game.Service.Table
             return buildingDto;
         }
 
-        public void Update(BuildingDto building, int id)
+        public void Update(BuildingDto building)
         {
-            throw new NotImplementedException();
+            foreach (var item in _buildings.GetAll().Where(i => i.ID == building.ID))
+            {
+                item.Name = building.Name;
+                item.Price = building.Price;
+                item.Percent_price_per_lvl = building.Percent_price_per_lvl;
+                item.Width = building.Width;
+                item.Height = building.Height;
+                item.Product_per_sec = building.Product_per_sec;
+                item.Dest_price = building.Dest_price;
+                item.Percent_product_per_lvl = building.Percent_product_per_lvl;
+                item.Product_ID = _products.GetAll().First(i => i.Name == building.Name).ID;
+                item.Alias = building.Alias;
+                item.BuildingTime = building.BuildingTime;
+                item.DestructionTime = building.DestructionTime;
+            }
+            _unitOfWork.Commit();
         }
     }
 }

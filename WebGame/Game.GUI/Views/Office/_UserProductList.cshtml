@@ -28,34 +28,15 @@
 
 @foreach (var item in Model.tableList)
 {
-    
-
     <div id="officeProduct">
         <span class="name">@item.Name: @item.Value</span>
-        <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Name',@item.Value)">Sprzedaj produkt</button>
+        <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Name',@item.Value)"><i class="fa fa-shopping-cart"></i></button>
     </div>
 }
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-@*<script>
-    //var name;
-    //function init(Name) {
-    //    console.log(Name);
-    //        $('.officeOfferAdd_'+Name).leanModal();
-    //}
-</script>*@
+<script src="~/Scripts/js/UpdateRow.js"></script>
 <script>
-    function fillData(Name, Number)
-    {
-        console.log(Name);
-        console.log(Number);
-        $(".inputProductName").val(Name);
-        $(".inputNumber").val(0);
-        $(".inputNumber").attr("max",Number);
-
-
-    }
     $(document).ready(function () {
         $('.officeOfferAdd').leanModal();
-        
     });
 </script>

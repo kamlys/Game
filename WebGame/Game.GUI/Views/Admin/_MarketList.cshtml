@@ -7,9 +7,15 @@
     <div class="modal-content">
         @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Login, new { placeholder = "", @class = "validate" })
+                <label for="Login">Login</label>
+            </div>
+
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.marketView.Product_Name, new { placeholder = "", @class = "validate" })
-                <label for="Product_Name">Login</label>
+                <label for="Product_Name">Nazwa produktu</label>
             </div>
 
             <div class="input-field col s12">
@@ -19,6 +25,40 @@
 
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.marketView.Price, new { placeholder = "", @class = "validate" })
+                <label for="Price">Cena/szt</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div id="offerUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Update", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.ID, new { placeholder = "", @class = "validate inputID" })
+                <label for="ID">ID</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Login, new { placeholder = "", @class = "validate inputLogin" })
+                <label for="Login">Login</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Product_Name, new { placeholder = "", @class = "validate inputProductName" })
+                <label for="Product_Name">Nazwa produktu</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Number, new { placeholder = "", @class = "validate inputNumber" })
+                <label for="Number">Ilość</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.marketView.Price, new { placeholder = "", @class = "validate inputPrice" })
                 <label for="Price">Cena/szt</label>
             </div>
 
@@ -53,7 +93,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="offerUpdate" class="btn-floating #00695c teal darken-3 modal-trigger offerUpdate" onclick="updaterow(['inputID','inputLogin','inputProductName','inputNumber','inputPrice'], ['@item.ID','@item.Login','@item.Product_Name','@item.Number','@item.Price'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteOfferAdmin", "Market", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
@@ -69,4 +109,5 @@
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.offerAdd').leanModal();
+        $('.offerUpdate').leanModal();
     });</script>

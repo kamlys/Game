@@ -58,6 +58,22 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel viewList)
+        {
+            BanDto _banDto = new BanDto();
+
+            _banDto.ID = viewList.tableView.ID;
+            _banDto.Login = viewList.tableView.Login;
+            _banDto.Description = viewList.tableView.Description;
+            _banDto.Finish_Date = viewList.tableView.Finish_Date;
+
+            _banTable.Update(_banDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {

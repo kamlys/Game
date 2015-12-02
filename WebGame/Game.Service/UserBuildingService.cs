@@ -210,9 +210,19 @@ namespace Game.Service
             return userBuildingsDto;
         }
 
-        public void Update(UserBuildingDto userBuilding, int id)
+        public void Update(UserBuildingDto userBuilding)
         {
-            throw new NotImplementedException();
+            foreach (var item in _userBuildings.GetAll().Where(i => i.ID == userBuilding.ID))
+            {
+                item.User_ID = _users.GetAll().First(i => i.Login == userBuilding.Login).ID;
+                item.Building_ID = _buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).ID;
+                item.X_pos = userBuilding.X_pos;
+                item.Y_pos = userBuilding.Y_pos;
+                item.Lvl = userBuilding.Lvl;
+                item.Status = userBuilding.Status;
+            }
+
+            _unitOfWork.Commit();
         }
 
         public bool LvlUp(int id, string User)

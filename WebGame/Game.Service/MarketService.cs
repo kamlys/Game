@@ -50,7 +50,7 @@ namespace Game.Service
                 _market.Add(new Market
                 {
                     User_ID = _user.GetAll().First(i => i.Login == offer.Login).ID,
-                    Product_ID = ProductID,
+                    Product_ID = _product.GetAll().First(i=> i.Name == offer.Product_Name).ID,
                     Number = offer.Number,
                     Price = offer.Price
                 });
@@ -87,14 +87,14 @@ namespace Game.Service
         }
 
 
-        public void Add(MarketDto user)
+        public void Add(MarketDto market)
         {
             _market.Add(new Market
             {
-                User_ID = _user.Get(user.ID).ID,
-                Product_ID = _product.Get(user.Product_ID).ID,
-                Number = user.Number,
-                Price = user.Price
+                User_ID = _user.Get(market.ID).ID,
+                Product_ID = _product.GetAll().First(i => i.Name == market.Product_Name).ID,
+                Number = market.Number,
+                Price = market.Price
             });
 
             _unitOfWork.Commit();
@@ -108,9 +108,17 @@ namespace Game.Service
 
         
 
-        public void Update(MarketDto market, int id)
+        public void Update(MarketDto market)
         {
-            throw new NotImplementedException();
+            foreach (var item in _market.GetAll().Where(i => i.ID == market.ID))
+            {
+                item.User_ID = _user.GetAll().First(i => i.Login == market.Login).ID;
+                item.Product_ID = _product.GetAll().First(i => i.Name == i.Name).ID;
+                item.Number = market.Number;
+                item.Price = market.Number;
+            }
+
+            _unitOfWork.Commit();
         }
 
         public bool BuyOffer(MarketDto market, string User)

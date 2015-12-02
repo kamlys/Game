@@ -11,7 +11,7 @@ namespace Game.Service.Interfaces.TableInterface
     {
         List<BuildingQueueDto> GetQueue();
         void Add(BuildingQueueDto buildingQueue);
-        void Update(BuildingQueueDto buildingQueue, int id);
+        void Update(BuildingQueueDto buildingQueue);
         void Delete(int id);
     }
 }

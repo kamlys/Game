@@ -95,9 +95,16 @@ namespace Game.Service.Table
             return userProductsDto;
         }
 
-        public void Update(UserProductDto userProduct, int id)
+        public void Update(UserProductDto userProduct)
         {
-            throw new NotImplementedException();
+            foreach (var item in _userProducts.GetAll().Where(i => i.ID == userProduct.ID))
+            {
+                item.User_ID = _user.GetAll().First(i => i.Login == userProduct.Login).ID;
+                item.Product_ID = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).ID;
+                item.Value = userProduct.Value;
+            }
+
+            _unitOfWork.Commit();
         }
     }
 }

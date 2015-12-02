@@ -122,6 +122,21 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel listView)
+        {
+            MapDto _mapDto = new MapDto();
+
+            _mapDto.Map_ID = listView.tableView.ID;
+            _mapDto.User_ID = listView.tableView.User_ID;
+            _mapDto.Height = listView.tableView.Height;
+            _mapDto.Width = listView.tableView.Width;
+
+            _mapService.Add(_mapDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {

@@ -34,6 +34,40 @@
     </div>
 </div>
 
+<div id="productUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("Update", "Product", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.ID, new { placeholder = "", @class = "validate inputID" })
+                <label for="ID">ID</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Name, new { placeholder = "", @class = "validate inputName" })
+                <label for="Name">Nazwa produktu</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Price_per_unit, new { placeholder = "", @class = "validate inputPrice_per_unit" })
+                <label for="Price_per_unit">Cena za sztukę</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Unit, new { placeholder = "", @class = "validate inputUnit" })
+                <label for="Unit">Jednostka</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Alias, new { placeholder = "", @class = "validate inputAlias" })
+                <label for="Alias">Alias</label>
+            </div>
+
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+
+        }
+    </div>
+</div>
 
 <div class="tableList">
     <h4>Produkty</h4><br />
@@ -63,7 +97,8 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button class="btn-floating #00695c teal darken-3"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="productUpdate" class="btn-floating #00695c teal darken-3 modal-trigger productUpdate" onclick="updaterow(['inputID','inputName','inputPrice_per_unit','inputUnit','inputAlias'],
+                                             ['@item.ID','@item.Name','@item.Price_per_unit','@item.Unit','@item.Alias'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Product", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
@@ -79,4 +114,5 @@
     $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.productAdd').leanModal();
+        $('.productUpdate').leanModal();
 });</script>

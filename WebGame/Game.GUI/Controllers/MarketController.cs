@@ -114,6 +114,7 @@ namespace Game.GUI.Controllers
             MarketDto _marketDto = new MarketDto();
 
             _marketDto.Login = listView.tableView.Login;
+            _marketDto.Product_Name = listView.tableView.Product_Name;
             _marketDto.Number = listView.tableView.Number;
             _marketDto.Price = listView.tableView.Price;
 
@@ -122,11 +123,27 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel listView)
+        {
+            MarketDto _marketDto = new MarketDto();
+
+            _marketDto.Login = listView.tableView.Login;
+            _marketDto.Product_Name = listView.tableView.Product_Name;
+            _marketDto.Number = listView.tableView.Number;
+            _marketDto.Price = listView.tableView.Price;
+
+            _marketService.Update(_marketDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+
         [HttpGet]
         public ActionResult DeleteOffer(int id)
         {
             _marketService.Delete(id);
-            return View("~/Views/Admin/Admin.cshtml");
+            return View("~/Views/Market/Index.cshtml");
         }
 
         [HttpGet]

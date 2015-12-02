@@ -15,7 +15,7 @@ namespace Game.Service.Interfaces
         List<UserBuildingDto> GetUserBuilding();
         List<UserBuildingDto> GetUserBuildingList(string User);
         void Add(UserBuildingDto userBuilding);
-        void Update(UserBuildingDto userBuilding, int id);
+        void Update(UserBuildingDto userBuilding);
         void Delete(int id);
         bool LvlUp(int id, string User);
     }

@@ -66,9 +66,15 @@ namespace Game.Service.Table
             return dolarDto;
         }
 
-        public void Update(DolarDto dolar, int id)
+        public void Update(DolarDto dolar)
         {
-            throw new NotImplementedException();
+            foreach (var item in _dolars.GetAll().Where(i => i.ID == dolar.ID))
+            {
+                item.User_ID = _users.GetAll().First(i => i.Login == dolar.Login).ID;
+                item.Value = dolar.Value;
+            }
+
+            _unitOfWork.Commit();
         }
     }
 }

@@ -7,11 +7,12 @@
     @foreach (var item in Model.tableList)
     {
         <li>
+            <button class="chip right btn" id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
+                <i class="fa fa-arrow-up"></i> Level UP
+            </button>
             <div class="collapsible-header">
                 @item.Name
-                    <button class="chip right btn" id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
-                        <i class="fa fa-arrow-up"></i> Level UP
-                    </button>
+
                 @if (item.Status != "gotowy")
                 {
                     <div class="progress">

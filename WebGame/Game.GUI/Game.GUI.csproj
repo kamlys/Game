@@ -237,7 +237,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\AdminScripts.js" />
-    <Content Include="Scripts\js\InitModal.js" />
+    <Content Include="Scripts\js\UpdateRow.js" />
     <Content Include="Scripts\js\main_page.js" />
     <Content Include="Scripts\js\Market.js" />
     <Content Include="Scripts\materialize.js" />

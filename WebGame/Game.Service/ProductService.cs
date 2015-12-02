@@ -113,9 +113,17 @@ namespace Game.Service
             return productDto;
         }
 
-        public void Update(ProductDto product, int id)
+        public void Update(ProductDto product)
         {
-            throw new NotImplementedException();
+            foreach (var item in _product.GetAll().Where(i => i.ID == product.ID))
+            {
+                item.Name = product.Name;
+                item.Price_per_unit = product.Price_per_unit;
+                item.Unit = product.Unit;
+                item.Alias = product.Alias;
+            }
+
+            _unitOfWork.Commit();
         }
     }
 }

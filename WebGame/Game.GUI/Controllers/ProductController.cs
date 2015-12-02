@@ -63,6 +63,22 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel listView)
+        {
+            ProductDto _productDto = new ProductDto();
+
+            _productDto.ID = listView.tableView.ID;
+            _productDto.Name = listView.tableView.Name;
+            _productDto.Price_per_unit = listView.tableView.Price_per_unit;
+            _productDto.Unit = listView.tableView.Unit;
+            _productDto.Alias = listView.tableView.Alias;
+
+            _productTable.Add(_productDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {

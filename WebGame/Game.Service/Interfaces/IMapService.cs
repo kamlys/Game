@@ -13,7 +13,7 @@ namespace Game.Service.Interfaces
         MapDto GetMap(string User);
         List<MapDto> GetMaps();
         void Add(MapDto admin);
-        void Update(MapDto admin, int id);
+        void Update(MapDto map);
         void Delete(int id);
     }
 }

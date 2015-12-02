@@ -69,6 +69,27 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel listView)
+        {
+            UserBuildingDto _userBuildingDto = new UserBuildingDto();
+
+            _userBuildingDto.ID = listView.tableView.ID;
+            _userBuildingDto.User_ID = listView.tableView.User_ID;
+            _userBuildingDto.Login = listView.tableView.Login;
+            _userBuildingDto.X_pos = listView.tableView.X_pos;
+            _userBuildingDto.Y_pos = listView.tableView.Y_pos;
+            _userBuildingDto.Lvl = listView.tableView.Lvl;
+            _userBuildingDto.Building_ID = listView.tableView.Building_ID;
+            _userBuildingDto.Building_Name = listView.tableView.Name;
+            _userBuildingDto.Status = listView.tableView.Status;
+
+            _userBuildingService.Update(_userBuildingDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
+
         [HttpGet]
         public ActionResult Delete(int id)
         {

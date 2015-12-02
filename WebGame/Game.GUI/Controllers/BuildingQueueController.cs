@@ -62,6 +62,19 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        [HttpPost]
+        public ActionResult Update(ListTableViewModel viewList)
+        {
+            BuildingQueueDto _buildingQueueDto = new BuildingQueueDto();
+
+            _buildingQueueDto.ID = viewList.tableView.ID;
+            _buildingQueueDto.Login = viewList.tableView.Login;
+
+            _queueTable.Update(_buildingQueueDto);
+
+            return View("~/Views/Admin/Admin.cshtml");
+        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {
