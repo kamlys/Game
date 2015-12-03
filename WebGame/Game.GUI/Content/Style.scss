@@ -513,7 +513,10 @@ nav {
     margin-top: 40px;
     padding: 5px 20px 20px 20px;
     min-height: 500px;
-
+    h4{
+            color: #fff;
+            display: inline-block;
+        }
     h2 {
         color: #4dd0e1;
         text-transform: capitalize;
@@ -545,6 +548,13 @@ nav {
                 font-size: 18px;
             }
         }
+        
+        .btn-large{
+            display: inline-block;
+            margin: 0 0 20px 0 !important;
+        }
+
+        
     }
 
     #right {
@@ -562,6 +572,9 @@ nav {
         .btn{
             background-color: #4dd0e1;
         }
+
+        
+
         input[type=text],textarea.materialize-textarea{
             color: #fff !important;
         }

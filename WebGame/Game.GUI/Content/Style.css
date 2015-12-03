@@ -355,6 +355,9 @@ nav {
   margin-top: 40px;
   padding: 5px 20px 20px 20px;
   min-height: 500px; }
+  .profil h4 {
+    color: #fff;
+    display: inline-block; }
   .profil h2 {
     color: #4dd0e1;
     text-transform: capitalize;
@@ -376,6 +379,9 @@ nav {
         color: #4dd0e1;
         font-weight: bold;
         font-size: 18px; }
+    .profil #left .btn-large {
+      display: inline-block;
+      margin: 0 0 20px 0 !important; }
   .profil #right {
     float: right;
     display: inline-block;

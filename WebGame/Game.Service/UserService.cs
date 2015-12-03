@@ -173,9 +173,8 @@ namespace Game.Service
         public UserDto Profil(string User)
         {
             UserDto userDto = new UserDto();
-            int uID = _user.GetAll().First(i => i.Login == User).ID;
 
-            foreach (var item in _user.GetAll().Where(i=> i.ID == uID))
+            foreach (var item in _user.GetAll().Where(i=> i.Login == User))
             {
                 userDto.Login = item.Login;
                 userDto.Email = item.Email;
