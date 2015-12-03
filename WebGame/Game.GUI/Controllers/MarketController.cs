@@ -143,7 +143,7 @@ namespace Game.GUI.Controllers
         public ActionResult DeleteOffer(int id)
         {
             _marketService.Delete(id);
-            return View("~/Views/Market/Index.cshtml");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

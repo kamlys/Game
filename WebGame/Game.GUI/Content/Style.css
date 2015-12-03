@@ -306,9 +306,12 @@ nav {
     background-color: #2f3b46;
     min-height: 300px;
     display: inline-block;
-    color: #FFB100;
     float: left;
     padding: 20px 20px 20px 20px; }
+    .office #uBuildingList h5 {
+      color: #FFB100; }
+    .office #uBuildingList p {
+      color: #FFB100; }
     .office #uBuildingList #lvlUp {
       margin-top: 7.5px;
       margin-right: 5px;
@@ -321,14 +324,17 @@ nav {
       color: #000; }
       .office #uBuildingList .collapsible-header #lvlUp:hover {
         background-color: green; }
+      .office #uBuildingList .collapsible-header #lvlUp:hover:before {
+        content: "test"; }
   .office #uProductList {
     float: right;
     background-color: #2f3b46;
-    color: #EA4067;
     min-height: 300px;
     padding: 20px 20px 20px 20px; }
+    .office #uProductList h5 {
+      color: #B840EA; }
     .office #uProductList #officeProduct {
-      background-color: #EA4067;
+      background-color: #B840EA;
       color: #000;
       border: 1px solid #DDDDDD;
       height: 50px;
@@ -340,4 +346,47 @@ nav {
         margin: 5px 5px 0 0;
         float: right;
         border-radius: 10px !important; }
+        .office #uProductList #officeProduct .officeOfferAdd .input[type=text].valid {
+          color: #000 !important; }
+
+/*Profil*/
+.profil {
+  background-color: #2f3b46;
+  margin-top: 40px;
+  padding: 5px 20px 20px 20px;
+  min-height: 500px; }
+  .profil h2 {
+    color: #4dd0e1;
+    text-transform: capitalize;
+    display: inline-block; }
+  .profil i {
+    color: #fff;
+    font-size: 15px;
+    display: inline-block;
+    margin-left: 15px; }
+  .profil .fa-envelope:before {
+    color: #4dd0e1; }
+  .profil #left {
+    float: left;
+    display: inline-block; }
+    .profil #left .info {
+      color: #fff;
+      display: block; }
+      .profil #left .info .num {
+        color: #4dd0e1;
+        font-weight: bold;
+        font-size: 18px; }
+  .profil #right {
+    float: right;
+    display: inline-block;
+    width: 50%;
+    margin: 0 20px 0 0; }
+    .profil #right h3 {
+      margin-bottom: 50px;
+      color: #4dd0e1;
+      font-size: 20px; }
+    .profil #right .btn {
+      background-color: #4dd0e1; }
+    .profil #right input[type=text], .profil #right textarea.materialize-textarea {
+      color: #fff !important; }
 

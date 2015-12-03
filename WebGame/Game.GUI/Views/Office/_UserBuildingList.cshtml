@@ -7,9 +7,13 @@
     @foreach (var item in Model.tableList)
     {
         <li>
-            <button class="chip right btn" id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
-                <i class="fa fa-arrow-up"></i> Level UP
-            </button>
+            @if (item.ifCan == true)
+            {
+                <button class="chip right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
+                        id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
+                    <i class="fa fa-arrow-up"></i> Level UP
+                </button>
+            }
             <div class="collapsible-header">
                 @item.Name
 

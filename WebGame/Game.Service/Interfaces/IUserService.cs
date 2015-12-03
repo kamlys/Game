@@ -15,5 +15,7 @@ namespace Game.Service.Interfaces
         void Add(UserDto user);
         void Update(UserDto user);
         void Delete(int id);
+        DolarDto UserDolar();
+        UserDto Profil(string User);
     }
 }

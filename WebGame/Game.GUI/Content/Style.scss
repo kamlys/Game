@@ -435,9 +435,16 @@ nav {
         background-color: $secondColor;
         min-height: 300px;
         display: inline-block;
-        color: #FFB100;
         float: left;
         padding: 20px 20px 20px 20px;
+
+        h5 {
+            color: #FFB100;
+        }
+
+        p {
+            color: #FFB100;
+        }
 
         #lvlUp {
             margin-top: 7.5px;
@@ -459,19 +466,25 @@ nav {
             #lvlUp:hover {
                 background-color: green;
             }
+
+            #lvlUp:hover:before {
+                content: "test";
+            }
         }
     }
 
     #uProductList {
         float: right;
         background-color: $secondColor;
-        color: #EA4067;
         min-height: 300px;
         padding: 20px 20px 20px 20px;
 
+        h5 {
+            color: #B840EA;
+        }
 
         #officeProduct {
-            background-color: #EA4067;
+            background-color: #B840EA;
             color: #000;
             border: 1px solid #DDDDDD;
             height: 50px;
@@ -486,7 +499,71 @@ nav {
                 margin: 5px 5px 0 0;
                 float: right;
                 border-radius: 10px !important;
+
+                .input[type=text].valid {
+                    color: #000 !important;
+                }
             }
+        }
+    }
+}
+/*Profil*/
+.profil {
+    background-color: $secondColor;
+    margin-top: 40px;
+    padding: 5px 20px 20px 20px;
+    min-height: 500px;
+
+    h2 {
+        color: #4dd0e1;
+        text-transform: capitalize;
+        display: inline-block;
+    }
+
+    i {
+        color: #fff;
+        font-size: 15px;
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    .fa-envelope:before {
+        color: #4dd0e1;
+    }
+
+    #left {
+        float: left;
+        display: inline-block;
+
+        .info {
+            color: #fff;
+            display: block;
+
+            .num {
+                color: #4dd0e1;
+                font-weight: bold;
+                font-size: 18px;
+            }
+        }
+    }
+
+    #right {
+        float: right;
+        display: inline-block;
+        width: 50%;
+        margin: 0 20px 0 0;
+
+        h3 {
+            margin-bottom: 50px;
+            color: #4dd0e1;
+            font-size: 20px;
+        }
+
+        .btn{
+            background-color: #4dd0e1;
+        }
+        input[type=text],textarea.materialize-textarea{
+            color: #fff !important;
         }
     }
 }

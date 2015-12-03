@@ -17,10 +17,14 @@ namespace Game.GUI.Controllers
     public class UserController : Controller
     {
         private IUserService _userService;
+        private IUserProductService _userProductService;
+        private IUserBuildingService _userBuildingService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IUserProductService userProductService, IUserBuildingService userBuildingService)
         {
             _userService = userService;
+            _userProductService = userProductService;
+            _userBuildingService = userBuildingService;
         }
 
         [HttpGet]
@@ -28,7 +32,7 @@ namespace Game.GUI.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Register(RegisterViewModel register)
         {
@@ -65,7 +69,7 @@ namespace Game.GUI.Controllers
             user.Login = modelLogin.Login;
             user.Password = modelLogin.Password;
 
-            if(_userService.LoginUser(user))
+            if (_userService.LoginUser(user))
             {
                 FormsAuthentication.SetAuthCookie(modelLogin.Login, true);
 
@@ -153,5 +157,29 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+
+        [HttpGet]
+        public ActionResult Profil(string User)
+        {
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+            tableList.tableView = new TableViewModel();
+
+            int buildings = 0;
+            var userDto = _userService.Profil(User);
+
+            tableList.tableView.Login = userDto.Login;
+            tableList.tableView.Email = userDto.Email;
+            tableList.tableView.RegDays = (DateTime.Now - userDto.Registration_Date).Days;
+            tableList.tableView.LogDays = (DateTime.Now - userDto.Last_Log).Days;
+
+            foreach (var item in _userBuildingService.GetUserBuildingList(User))
+            {
+                buildings += 1;
+            }
+
+            tableList.tableView.Number = buildings;
+            return View(tableList);
+        }
     }
 }

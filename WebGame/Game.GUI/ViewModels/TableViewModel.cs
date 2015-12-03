@@ -8,6 +8,7 @@ namespace Game.GUI.ViewModels
 {
     public class TableViewModel
     {
+        public bool ifCan { get; set; }
         public int ID { get; set; }
         public int User_ID { get; set; }
         public string Description { get; set; }
@@ -43,6 +44,8 @@ namespace Game.GUI.ViewModels
         public DateTime Last_Log { get; set; }
         public DateTime Registration_Date { get; set; }
         public DateTime Last_Update { get; set; }
+        public int RegDays { get; set; }
+        public int LogDays { get; set; }
 
     }
 }

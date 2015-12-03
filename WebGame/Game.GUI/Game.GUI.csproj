@@ -315,6 +315,7 @@
     <Content Include="Views\Office\Index.cshtml" />
     <Content Include="Views\Office\_UserBuildingList.cshtml" />
     <Content Include="Views\Office\_UserProductList.cshtml" />
+    <Content Include="Views\User\Profil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

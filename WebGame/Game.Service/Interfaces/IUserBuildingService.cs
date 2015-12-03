@@ -17,6 +17,7 @@ namespace Game.Service.Interfaces
         void Add(UserBuildingDto userBuilding);
         void Update(UserBuildingDto userBuilding);
         void Delete(int id);
+        bool ifLvlUp(int id, string User);
         bool LvlUp(int id, string User);
     }
 }

@@ -200,7 +200,9 @@ namespace Game.Service
                         Building_ID = item.Building_ID,
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
                         Status = item.Status,
-                        Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl
+                        Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl,
+                        ProdukcjaLvlUp = Product_per_sec * Percent_per_lvl * (BuildLvl + 1),
+                        PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_price_per_lvl / 10
                     });
                 }
                 catch (Exception)
@@ -225,6 +227,22 @@ namespace Game.Service
             _unitOfWork.Commit();
         }
 
+        public bool ifLvlUp(int id, string User)
+        {
+            int uID = _users.GetAll().First(i => i.Login == User).ID;
+            int temp = _userBuildings.Get(id).Building_ID;
+            int userDolars = _dolars.GetAll().First(i => i.User_ID == uID).Value;
+            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Percent_price_per_lvl/10;
+            int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
+            int lvlPrice = percentPricePerLvl * buildingPrice;
+
+            if(userDolars >= lvlPrice)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool LvlUp(int id, string User)
         {
             int uID = _users.GetAll().First(i => i.Login == User).ID;
@@ -235,7 +253,7 @@ namespace Game.Service
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
             int lvlPrice = percentPricePerLvl * buildingPrice;
 
-            if (userDolars >= lvlPrice)
+            if (ifLvlUp(id,User))
             {
                 _buildingQueue.Add(
                     new BuildingQueue

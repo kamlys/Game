@@ -51,8 +51,10 @@ namespace Game.GUI.Controllers
                     Building_ID = item.Building_ID,
                     Name = item.Building_Name,
                     Status = item.Status,
-                    Value = item.Produkcja
-                    
+                    Value = item.Produkcja,
+                    ifCan = _userBuildingService.ifLvlUp(item.ID, User.Identity.Name),
+                    Percent_price_per_lvl = item.PriceLvlUp,
+                    Percent_product_per_lvl = item.ProdukcjaLvlUp
                 });
             }
 

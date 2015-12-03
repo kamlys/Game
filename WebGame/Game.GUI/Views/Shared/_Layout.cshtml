@@ -55,7 +55,7 @@
             </div>
 
             <ul id='logOut' class='dropdown-content logOut'>
-                <li><a href='@Url.Action("##", "##")'>Ustawienia konta</a></li>
+                <li><a href='@Url.Action("Profil", "User", new {User= User.Identity.Name})'>Profil</a></li>
                 <li><a href='@Url.Action("Logout", "User")'>Wyloguj</a></li>
             </ul>
         }

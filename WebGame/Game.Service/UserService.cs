@@ -157,5 +157,33 @@ namespace Game.Service
 
             _unitOfWork.Commit();
         }
+
+        public DolarDto UserDolar()
+        {
+            DolarDto dolar = new DolarDto();
+
+            foreach (var item in _user.GetAll().Where(i => i.ID == dolar.User_ID))
+            {
+                dolar.Value = _dolar.GetAll().First(i => i.User_ID == item.ID).Value;
+            }
+
+            return dolar;
+        }
+
+        public UserDto Profil(string User)
+        {
+            UserDto userDto = new UserDto();
+            int uID = _user.GetAll().First(i => i.Login == User).ID;
+
+            foreach (var item in _user.GetAll().Where(i=> i.ID == uID))
+            {
+                userDto.Login = item.Login;
+                userDto.Email = item.Email;
+                userDto.Registration_Date = (DateTime)item.Registration_Date;
+                userDto.Last_Log = (DateTime)item.Last_Log;
+            }
+
+            return userDto;
+        }
     }
 }

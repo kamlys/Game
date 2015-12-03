@@ -18,6 +18,8 @@ namespace Game.Core.DTO
         public string Building_Name { get; set; }
         public string Status { get; set; }
         public int Produkcja { get; set; }
+        public int ProdukcjaLvlUp { get; set; }
+        public int PriceLvlUp { get; set; }
 
     }
 }

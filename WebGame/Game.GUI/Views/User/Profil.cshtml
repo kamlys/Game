@@ -1,0 +1,46 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="profil">
+    <h2>@Model.tableView.Login</h2> <i class="fa fa-envelope"> Wyślij wiadomość</i>
+    <hr />
+    <div id="left">
+        @if (Model.tableView.RegDays <= 1)
+        {
+            <span class="info">Gra od <span class="num">dzisiaj.</span></span>
+        }
+        else
+        {
+            <span class="info">Gra od <span class="num">@Model.tableView.RegDays</span> dni.</span>
+        }
+        @if (Model.tableView.LogDays <= 1)
+        {
+            <span class="info">Ostatnio logował się <span class="num">dzisiaj.</span></span>
+        }
+        else
+        {
+            <span class="info">Ostatnio logował się <span class="num">@Model.tableView.LogDays</span> dni temu.</span>
+        }
+        <span class="info">Posiada <span class="num">@Model.tableView.Number </span>budynków.</span>
+    </div>
+
+    <div id="right">
+        <h3>Wyślij wiadmość:</h3>
+        @using (Html.BeginForm("##", "##", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Alias, new { placeholder = "", @class = "validate" })
+                <label for="Login">Tytuł:</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextAreaFor(m => m.tableView.Alias, new { placeholder = "", @class = "materialize-textarea" })
+                <label for="Login">Treść:</label>
+            </div>
+            <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
