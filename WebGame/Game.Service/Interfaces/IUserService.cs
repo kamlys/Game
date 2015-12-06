@@ -18,5 +18,7 @@ namespace Game.Service.Interfaces
         DolarDto UserDolar();
         UserDto Profil(string User);
         bool ChangePass(UserDto user, string User);
+        bool ChangeEmail(UserDto user, string User);
+
     }
 }

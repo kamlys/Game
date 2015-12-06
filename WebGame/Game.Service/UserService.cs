@@ -22,9 +22,9 @@ namespace Game.Service
 
         public UserService(
             IRepository<Users> user,
-            IRepository<Dolars> dolar, 
-            IUnitOfWork unitOfWork, 
-            IRepository<Maps> map, 
+            IRepository<Dolars> dolar,
+            IUnitOfWork unitOfWork,
+            IRepository<Maps> map,
             IHashPass hassPass)
         {
             _user = user;
@@ -49,7 +49,7 @@ namespace Game.Service
                     Last_Log = DateTime.Now
                 });
             }
-            if(_unitOfWork.Commit() > 0)
+            if (_unitOfWork.Commit() > 0)
             {
                 success = true;
             }
@@ -174,7 +174,7 @@ namespace Game.Service
         {
             UserDto userDto = new UserDto();
 
-            foreach (var item in _user.GetAll().Where(i=> i.Login == User))
+            foreach (var item in _user.GetAll().Where(i => i.Login == User))
             {
                 userDto.Login = item.Login;
                 userDto.Email = item.Email;
@@ -199,6 +199,26 @@ namespace Game.Service
                 {
                     return false;
                 }
+            }
+            return false;
+        }
+
+        public bool ChangeEmail(UserDto user, string User)
+        {
+            bool temp = false;
+            foreach (var item in _user.GetAll())
+            {
+                if (item.Email == user.Email)
+                {
+                    temp = true;
+                }
+            }
+
+            if (!temp)
+            {
+                _user.GetAll().First(i => i.Login == User).Email = user.Email;
+                _unitOfWork.Commit();
+                return true;
             }
             return false;
         }

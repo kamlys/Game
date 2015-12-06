@@ -101,7 +101,21 @@
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="fa fa-at"></i>Zmień adres e-mail</div>
-                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                    <div class="collapsible-body">
+                        @using (Html.BeginForm("ChangeEmail", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            <form class="col s12">
+                                <div class="input-field col s12">
+                                    @Html.TextBoxFor(m => m.tableView.Email, new { @type = "email", @class = "validate" })
+                                    <label for="Email" data-error="Coś nie tak">Email</label>
+
+                                </div>
+                                <div class="Button">
+                                    <input type="submit" value="Zapisz" class="waves-effect waves-light btn" />
+                                </div>
+                            </form>
+                        }
+                    </div>
                 </li>
             </ul>
         </div>

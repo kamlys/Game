@@ -207,5 +207,31 @@ namespace Game.GUI.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public ActionResult ChangeEmail(ListTableViewModel email)
+        {
+            UserDto user = new UserDto();
+
+            user.Email = email.tableView.Email;
+
+            if (_userService.ChangeEmail(user, User.Identity.Name))
+            {
+                ViewData["changeInfo"] = "Adres E-mail został zmienione";
+                return RedirectToAction("Profil", new
+                {
+                    User = User.Identity.Name
+                });
+            }
+            else
+            {
+                ViewData["changeInfo"] = "Coś poszło nie tak, spróbuj ponownie";
+                return RedirectToAction("Profil", new
+                {
+                    User = User.Identity.Name
+                });
+            }
+        }
+
     }
 }
