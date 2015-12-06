@@ -1,8 +1,71 @@
-﻿
+﻿@model Game.GUI.ViewModels.ListTableViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="Message">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s3"><a href="#Odebrane">Odebrane</a></li>
+            <li class="tab col s3"><a href="#Wyslane">Wysłane</a></li>
+            <li class="tab col s3"><a href="#Usuniete">Usuniete</a></li>
+        </ul>
+    </div>
+    <div id="Odebrane" class="col s12">
+        <table class="bordered centered">
+            <thead>
+                <tr>
+                    <th>Adresat</th>
+                    <th>Temat</th>
+                    <th>Data wysłania</th>
+                </tr>
+            </thead>
 
+            <tbody>
+                @foreach (var item in Model.tableList)
+            {
+                if (item.IfRead == false)
+                {
+                        <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'" class="newMessage">
+                            <td>@item.Sender_Login</td>
+                            <td>@item.Theme</td>
+                            <td>@item.PostDate</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">
+                            <td>@item.Sender_Login</td>
+                            <td>@item.Theme</td>
+                            <td>@item.PostDate</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Wyslane" class="col s12">
+        <table class="bordered centered">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Użytkownik</th>
+                    <th>Kwota</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.tableList)
+            {
+                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'" style="font-weight: bold">
+                        <td>@item.Sender_Login</td>
+                        <td>@item.Theme</td>
+                        <td>@item.PostDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -107,18 +107,25 @@ namespace Game.Service
             int uID = _users.GetAll().First(a => a.Login == user).ID;
 
             var buildingID = _userBuildings.Get(ID).Building_ID;
+            var destroyPrice = _buildings.Get(buildingID).Dest_price;
+            var userDolar = _dolars.GetAll().First(i => i.User_ID == uID).Value;
 
-            _userBuildings.Get(ID).Status = "burzenie";
-
-            _buildingQueue.Add(new BuildingQueue
+            if (userDolar >= destroyPrice)
             {
-                User_ID = uID,
-                UserBuilding_ID = ID,
-                FinishTime = DateTime.Now.AddSeconds(_buildings.Get(buildingID).DestructionTime),
-                NewStatus = "wyburzony"
-            });
+                _userBuildings.Get(ID).Status = "burzenie";
 
-            _unitOfWork.Commit();
+                _buildingQueue.Add(new BuildingQueue
+                {
+                    User_ID = uID,
+                    UserBuilding_ID = ID,
+                    FinishTime = DateTime.Now.AddSeconds(_buildings.Get(buildingID).DestructionTime),
+                    NewStatus = "wyburzony"
+                });
+
+                _dolars.GetAll().First(i => i.User_ID == uID).Value -= (int)destroyPrice;
+
+                _unitOfWork.Commit();
+            }
         }
 
 

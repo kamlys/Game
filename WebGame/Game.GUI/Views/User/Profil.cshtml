@@ -7,7 +7,7 @@
 <div class="profil">
     @if (User.Identity.Name != Model.tableView.Login)
     {
-        <h2>@Model.tableView.Login</h2> 
+        <h2>@Model.tableView.Login</h2>
         <hr />
         <div id="left">
             @if (Model.tableView.RegDays <= 1)
@@ -31,15 +31,16 @@
 
         <div id="right">
             <h3>Wyślij wiadmość:</h3>
-            @using (Html.BeginForm("##", "##", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
+                @Html.HiddenFor(m => m.tableView.Login);
                 <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.tableView.Alias, new { placeholder = "", @class = "validate" })
+                    @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
                     <label for="Login">Tytuł:</label>
                 </div>
 
                 <div class="input-field col s12">
-                    @Html.TextAreaFor(m => m.tableView.Alias, new { placeholder = "", @class = "materialize-textarea" })
+                    @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
                     <label for="Login">Treść:</label>
                 </div>
                 <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton" name="action" />
@@ -88,7 +89,7 @@
                                     @Html.PasswordFor(m => m.tableView.Password, new { @class = "validate" })
                                     <label for="Password">Nowe hasło</label>
                                 </div>
-                                
+
                                 <div class="input-field col s12">
                                     @Html.PasswordFor(m => m.tableView.ComparePassword, new { @class = "validate" })
                                     <label for="ComparePassword">Powtórz hasło</label>
@@ -98,7 +99,7 @@
                                     <input type="submit" value="Zapisz" class="waves-effect waves-light btn" />
                                 </div>
                             </form>
-                        } 
+                        }
                     </div>
                 </li>
                 <li>

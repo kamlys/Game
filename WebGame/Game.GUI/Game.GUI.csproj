@@ -320,6 +320,7 @@
     <Content Include="Views\User\Profil.cshtml" />
     <Content Include="Views\Message\Index.cshtml" />
     <Content Include="Views\Ranking\Index.cshtml" />
+    <Content Include="Views\Message\Content.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
