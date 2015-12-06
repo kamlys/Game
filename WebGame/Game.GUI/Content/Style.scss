@@ -13,7 +13,7 @@ html, body {
 }
 
 
-.container {
+.container, .row {
     min-height: 500px;
 }
 
@@ -28,32 +28,20 @@ html, body {
 nav {
     background-color: $secondColor;
 
-    #userLogin {
+    #userLogout {
         margin: -53px 40px 0 0;
         min-width: 80px;
         text-align: center;
         height: 45px;
         line-height: 45px;
-        font-size: 18px;
+        font-size: 15px;
         background: $firstColor;
         color: $greyColor;
         border-radius: 0;
 
         .fa {
             font-size: 150%;
-        }
-
-        .logOut {
-            width: auto;
-            position: absolute;
-            top: 64px;
-            left: 1170px !important;
-            opacity: 1;
-            display: block;
-
-            .dropdown-content .active {
-                width: 500px;
-            }
+            color: $greyColor;
         }
     }
 }
@@ -512,7 +500,7 @@ nav {
     background-color: $secondColor;
     margin-top: 40px;
     padding: 5px 20px 20px 20px;
-    min-height: 500px;
+    min-height: 600px;
     h4{
             color: #fff;
             display: inline-block;
@@ -573,7 +561,15 @@ nav {
             background-color: #4dd0e1;
         }
 
-        
+        .fa{
+            color: #000;
+        }
+
+        .collapsible-body{
+            .btn{
+                margin-bottom: 15px;
+            }
+        }       
 
         input[type=text],textarea.materialize-textarea{
             color: #fff !important;

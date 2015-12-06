@@ -7,10 +7,6 @@
 
     @foreach (var item in Model)
     {
-        <p class="dropdown-button btn" data-activates='building@{@item.ID}'>@item.Alias</p>
-
-<ul id='building@{@item.ID}' class='dropdown-content'>
-            <li><div class="dropdown-button btn" onclick="buduj(@item.ID, @item.Width, @item.Height)">Buduj</div></li>
-        </ul>
+        <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height)">@item.Alias</p>
     }
 </div>

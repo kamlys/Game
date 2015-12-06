@@ -17,5 +17,6 @@ namespace Game.Service.Interfaces
         void Delete(int id);
         DolarDto UserDolar();
         UserDto Profil(string User);
+        bool ChangePass(UserDto user, string User);
     }
 }

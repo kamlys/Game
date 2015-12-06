@@ -48,8 +48,7 @@
     }
     else
     {
-        <h4>Jesteś zalogowany jako</h4> <h2>@Model.tableView.Login</h2><button class="btn-large">Edytuj dane</button>
-        <button class="btn-large">Zmień hasło</button>
+        <h4>Jesteś zalogowany jako</h4> <h2>@Model.tableView.Login</h2>
         <hr />
         <div id="left">
             @if (Model.tableView.RegDays <= 1)
@@ -69,7 +68,51 @@
                 <span class="info">Ostatnio logowałeś się <span class="num">@Model.tableView.LogDays</span> dni temu.</span>
             }
             <span class="info">Posiadasz <span class="num">@Model.tableView.Number </span>budynków.</span>
+        </div>
+        <div id="right">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><i class="fa fa-unlock-alt"></i>Zmień hasło</div>
+                    <div class="collapsible-body">
+                        @using (Html.BeginForm("ChangePass", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            <form class="col s12">
+                                <div class="input-field col s12">
+                                    @Html.PasswordFor(m => m.tableView.OldPassword, new { @class = "validate" })
+                                    <label for="OldPassword">Stare hasło</label>
+                                </div>
 
+                                <div class="input-field col s12">
+                                    @Html.PasswordFor(m => m.tableView.Password, new { @class = "validate" })
+                                    <label for="Password">Nowe hasło</label>
+                                </div>
+                                
+                                <div class="input-field col s12">
+                                    @Html.PasswordFor(m => m.tableView.ComparePassword, new { @class = "validate" })
+                                    <label for="ComparePassword">Powtórz hasło</label>
+                                </div>
+
+                                <div class="Button">
+                                    <input type="submit" value="Zapisz" class="waves-effect waves-light btn" />
+                                </div>
+                            </form>
+                        } 
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="fa fa-at"></i>Zmień adres e-mail</div>
+                    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                </li>
+            </ul>
         </div>
     }
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.collapsible').collapsible({
+            accordion: true
+        });
+    });
+</script>

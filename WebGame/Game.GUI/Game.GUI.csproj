@@ -265,6 +265,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserBuildingController.cs" />
@@ -316,6 +317,7 @@
     <Content Include="Views\Office\_UserBuildingList.cshtml" />
     <Content Include="Views\Office\_UserProductList.cshtml" />
     <Content Include="Views\User\Profil.cshtml" />
+    <Content Include="Views\Message\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

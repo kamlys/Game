@@ -1,6 +1,7 @@
 ﻿using Game.Core.DTO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -40,6 +41,9 @@ namespace Game.GUI.ViewModels
         public string Status { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public string OldPassword { get; set; }
+        [Compare("Password")]
+        public string ComparePassword { get; set; }
         public string Email { get; set; }
         public DateTime Last_Log { get; set; }
         public DateTime Registration_Date { get; set; }

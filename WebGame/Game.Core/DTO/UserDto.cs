@@ -11,6 +11,7 @@ namespace Game.Core.DTO
         public int ID { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public string OldPassword { get; set; }
         public string Email { get; set; }
         public DateTime Last_Log { get; set; }
         public DateTime Registration_Date { get; set; }

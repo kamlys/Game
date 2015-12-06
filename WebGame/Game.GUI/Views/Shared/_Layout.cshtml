@@ -34,30 +34,20 @@
                 <ul class="hide-on-med-and-down">
                     <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
 
-                    <li><a href='@Url.Action("Index", "Office")'>Biuro</a></li>
+                    <li><a href='@Url.Action("Index", "Office")'><i class="fa fa-building"></i> Biuro</a></li>
 
-                    <li><a href='@Url.Action("##", "##")'>Wiadomości</a></li>
+                    <li><a href='@Url.Action("Index", "Message")'><i class="fa fa-envelope"></i> Wiadomości</a></li>
 
-                    <li><a href='@Url.Action("Index", "Market")'>Market</a></li>
+                    <li><a href='@Url.Action("Index", "Market")'><i class="fa fa-shopping-cart"></i> Market</a></li>
 
                     <li><a href='@Url.Action("##", "##")'>Kasyno</a></li>
 
-                    <li><a href='@Url.Action("##", "##")'><i class="fa fa-envelope"></i></a></li>
-
-                    <li><a href='@Url.Action("##", "##")'><i class="fa fa-cog"></i></a></li>
+                    <li><a href='@Url.Action("Profil", "User", new {User= User.Identity.Name})'><i class="fa fa-cog"></i> Ustawienia</a></li>
 
 
                 </ul>
             </div>
-            <div class="chip right dropdown-button btn" id="userLogin" data-activates='logOut'>
-                <i class="fa fa-user"></i>
-                @User.Identity.Name
-            </div>
-
-            <ul id='logOut' class='dropdown-content logOut'>
-                <li><a href='@Url.Action("Profil", "User", new {User= User.Identity.Name})'>Profil</a></li>
-                <li><a href='@Url.Action("Logout", "User")'>Wyloguj</a></li>
-            </ul>
+                <button class="btn right" id="userLogout" onclick="location.href='@Url.Action("Logout", "User")'"><i class="fa fa-sign-out"></i> Wyloguj</button>
         }
 
 

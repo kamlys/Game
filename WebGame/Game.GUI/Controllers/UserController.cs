@@ -181,5 +181,31 @@ namespace Game.GUI.Controllers
             tableList.tableView.Number = buildings;
             return View(tableList);
         }
+
+        [HttpPost]
+        public ActionResult ChangePass(ListTableViewModel pass)
+        {
+            UserDto user = new UserDto();
+
+            user.OldPassword = pass.tableView.OldPassword;
+            user.Password = pass.tableView.Password;
+
+            if(_userService.ChangePass(user, User.Identity.Name))
+            {
+                ViewData["changeInfo"] = "Hasło zostało zmienione";
+                return RedirectToAction("Profil", new
+                {
+                    User = User.Identity.Name
+                });
+            }
+            else
+            {
+                ViewData["changeInfo"] = "Coś poszło nie tak, spróbuj ponownie";
+                return RedirectToAction("Profil", new
+                {
+                    User = User.Identity.Name
+                });
+            }
+        }
     }
 }

@@ -184,5 +184,23 @@ namespace Game.Service
 
             return userDto;
         }
+
+        public bool ChangePass(UserDto user, string User)
+        {
+            foreach (var item in _user.GetAll().Where(i => i.Login == User))
+            {
+                if (_hassPass.ValidationPassword(user.OldPassword, item.Password))
+                {
+                    _user.GetAll().First(i => i.Login == User).Password = _hassPass.GeneratePassword(user.Password);
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
     }
 }
