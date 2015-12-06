@@ -501,10 +501,12 @@ nav {
     margin-top: 40px;
     padding: 5px 20px 20px 20px;
     min-height: 600px;
-    h4{
-            color: #fff;
-            display: inline-block;
-        }
+
+    h4 {
+        color: #fff;
+        display: inline-block;
+    }
+
     h2 {
         color: #4dd0e1;
         text-transform: capitalize;
@@ -536,13 +538,11 @@ nav {
                 font-size: 18px;
             }
         }
-        
-        .btn-large{
+
+        .btn-large {
             display: inline-block;
             margin: 0 0 20px 0 !important;
         }
-
-        
     }
 
     #right {
@@ -557,22 +557,41 @@ nav {
             font-size: 20px;
         }
 
-        .btn{
+        .btn {
             background-color: #4dd0e1;
         }
 
-        .fa{
+        .fa {
             color: #000;
         }
 
-        .collapsible-body{
-            .btn{
+        .collapsible-body {
+            .btn {
                 margin-bottom: 15px;
             }
-        }       
+        }
 
-        input[type=text],textarea.materialize-textarea{
+        input[type=text], textarea.materialize-textarea {
             color: #fff !important;
+        }
+    }
+}
+
+/*Ranking*/
+.Ranking {
+    background-color: #fff;
+    margin-top: 30px;
+
+    thead {
+        border-bottom: 5px solid #bb0000;
+        font-weight: bold;
+        cursor:default;
+    }
+
+    tbody {
+        tr:hover {
+            background-color: rgba(187, 0, 0, 0.59);
+            cursor: pointer;
         }
     }
 }

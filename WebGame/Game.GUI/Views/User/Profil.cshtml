@@ -76,6 +76,8 @@
                     <div class="collapsible-body">
                         @using (Html.BeginForm("ChangePass", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
+                            @Html.AntiForgeryToken()
+
                             <form class="col s12">
                                 <div class="input-field col s12">
                                     @Html.PasswordFor(m => m.tableView.OldPassword, new { @class = "validate" })

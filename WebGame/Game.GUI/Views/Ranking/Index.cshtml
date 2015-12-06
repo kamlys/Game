@@ -1,0 +1,43 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    ViewBag.Title = "Ranking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int temp = 1;
+}
+
+<div class="Ranking">
+
+    <table class="bordered centered">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Użytkownik</th>
+                <th>Kwota</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.tableList)
+            {
+                if (item.Login == User.Identity.Name)
+                {
+                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'" style="font-weight: bold">
+                        <td>@(temp++).</td>
+                        <td>@item.Login</td>
+                        <td>@item.Value</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">
+                        <td>@(temp++).</td>
+                        <td>@item.Login</td>
+                        <td>@item.Value</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+</div>

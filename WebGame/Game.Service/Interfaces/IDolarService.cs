@@ -10,6 +10,7 @@ namespace Game.Service.Interfaces.TableInterface
     public interface IDolarService
     {
         List<DolarDto> GetDolars();
+        List<DolarDto> GetToRank();
         void Add(DolarDto admin);
         void Update(DolarDto admin);
         void Delete(int id);

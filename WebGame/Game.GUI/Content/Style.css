@@ -392,3 +392,15 @@ nav {
     .profil #right input[type=text], .profil #right textarea.materialize-textarea {
       color: #fff !important; }
 
+/*Ranking*/
+.Ranking {
+  background-color: #fff;
+  margin-top: 30px; }
+  .Ranking thead {
+    border-bottom: 5px solid #bb0000;
+    font-weight: bold;
+    cursor: default; }
+  .Ranking tbody tr:hover {
+    background-color: rgba(187, 0, 0, 0.59);
+    cursor: pointer; }
+

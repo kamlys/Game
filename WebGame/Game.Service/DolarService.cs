@@ -76,5 +76,28 @@ namespace Game.Service.Table
 
             _unitOfWork.Commit();
         }
+
+        public List<DolarDto> GetToRank()
+        {
+            List<DolarDto> dolarDto = new List<DolarDto>();
+            foreach (var item in _dolars.GetAll())
+            {
+                try
+                {
+                    dolarDto.Add(new DolarDto
+                    {
+                        ID = item.ID,
+                        User_ID = item.User_ID,
+                        Login = _users.Get(item.User_ID).Login,
+                        Value = item.Value
+                    });
+
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return dolarDto.OrderByDescending(x=>x.Value).ToList();
+        }
     }
 }
