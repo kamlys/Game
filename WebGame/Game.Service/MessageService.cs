@@ -34,7 +34,7 @@ namespace Game.Service
             throw new NotImplementedException();
         }
 
-        public bool SendMessage(MessageDto message)
+        public bool SentMessage(MessageDto message)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Game.Service
             }
         }
 
-        public List<MessageDto> GetPostMessage(string User)
+        public List<MessageDto> GetSentMessage(string User)
         {
             List<MessageDto> message = new List<MessageDto>();
             int uID = _user.GetAll().First(i => i.Login == User).ID;
@@ -65,6 +65,7 @@ namespace Game.Service
             {
                 message.Add(new MessageDto
                 {
+                    ID = item.ID,
                     Customer_Login = _user.GetAll().First(i => i.ID == item.Sender_ID).Login,
                     Theme = item.Theme,
                     Content = item.Content,

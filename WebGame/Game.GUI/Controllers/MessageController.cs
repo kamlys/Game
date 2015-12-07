@@ -25,7 +25,7 @@ namespace Game.GUI.Controllers
             return View();
         }
 
-        public ActionResult SendMessage(ListTableViewModel messageView)
+        public ActionResult SentMessage(ListTableViewModel messageView)
         {
             MessageDto message = new MessageDto();
 
@@ -34,9 +34,49 @@ namespace Game.GUI.Controllers
             message.Theme = messageView.tableView.Theme;
             message.Content = messageView.tableView.Content;
 
-            _messageService.SendMessage(message);
+            _messageService.SentMessage(message);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult _SentMessage()
+        {
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+
+            foreach (var item in _messageService.GetSentMessage(User.Identity.Name))
+            {
+                tableList.tableList.Add(new TableViewModel
+                {
+                    ID = item.ID,
+                    Customer_Login = item.Customer_Login,
+                    Theme = item.Theme,
+                    Content = item.Content,
+                    PostDate = item.PostDate
+                });
+            }
+
+            return View("~/Views/Message/Index.cshtml",tableList);
+        }
+
+        public ActionResult _ReceivedMessage()
+        {
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+
+            foreach (var item in _messageService.GetReceivedMessages(User.Identity.Name))
+            {
+                tableList.tableList.Add(new TableViewModel
+                {
+                    ID = item.ID,
+                    Customer_Login = item.Customer_Login,
+                    Theme = item.Theme,
+                    Content = item.Content,
+                    PostDate = item.PostDate
+                });
+            }
+
+            return View("~/Views/Message/Index.cshtml", tableList);
         }
 
     }

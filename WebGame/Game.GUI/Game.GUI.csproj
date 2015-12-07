@@ -321,6 +321,8 @@
     <Content Include="Views\Message\Index.cshtml" />
     <Content Include="Views\Ranking\Index.cshtml" />
     <Content Include="Views\Message\Content.cshtml" />
+    <Content Include="Views\Message\_SentMessaage.cshtml" />
+    <Content Include="Views\Message\_ReceivedMessage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,10 +9,10 @@ namespace Game.Service.Interfaces
 {
     public interface IMessageService
     {
-        bool SendMessage(MessageDto message);
+        bool SentMessage(MessageDto message);
         void ReadMessage(MessageDto message);
         bool DeleteMessage(MessageDto message);
-        List<MessageDto> GetPostMessage(string User);
+        List<MessageDto> GetSentMessage(string User);
         List<MessageDto> GetReceivedMessages(string User);
     }
 }
