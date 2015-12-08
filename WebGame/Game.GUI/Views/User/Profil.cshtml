@@ -31,7 +31,7 @@
 
         <div id="right">
             <h3>Wyślij wiadmość:</h3>
-            @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("SentMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.HiddenFor(m => m.tableView.Login);
                 <div class="input-field col s12">

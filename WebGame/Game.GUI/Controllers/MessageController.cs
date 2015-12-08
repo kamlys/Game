@@ -25,6 +25,10 @@ namespace Game.GUI.Controllers
             return View();
         }
 
+        public ActionResult _NewMessage()
+        {
+            return View();
+        }
         public ActionResult SentMessage(ListTableViewModel messageView)
         {
             MessageDto message = new MessageDto();
@@ -37,6 +41,20 @@ namespace Game.GUI.Controllers
             _messageService.SentMessage(message);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult SentMessageProfile(ListTableViewModel messageView)
+        {
+            MessageDto message = new MessageDto();
+
+            message.Sender_Login = User.Identity.Name;
+            message.Customer_Login = messageView.tableView.Login;
+            message.Theme = messageView.tableView.Theme;
+            message.Content = messageView.tableView.Content;
+
+            _messageService.SentMessage(message);
+
+            return RedirectToAction("Profil", "User", new { User = message.Customer_Login });
         }
 
         public ActionResult _SentMessage()
@@ -55,8 +73,7 @@ namespace Game.GUI.Controllers
                     PostDate = item.PostDate
                 });
             }
-
-            return View("~/Views/Message/Index.cshtml",tableList);
+            return View("~/Views/Message/_SentMessage.cshtml", tableList);
         }
 
         public ActionResult _ReceivedMessage()
@@ -69,14 +86,31 @@ namespace Game.GUI.Controllers
                 tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
-                    Customer_Login = item.Customer_Login,
+                    Sender_Login = item.Sender_Login,
                     Theme = item.Theme,
                     Content = item.Content,
-                    PostDate = item.PostDate
+                    PostDate = item.PostDate,
+                    IfRead = item.IfRead
                 });
             }
 
-            return View("~/Views/Message/Index.cshtml", tableList);
+            return View("~/Views/Message/_ReceivedMessage.cshtml", tableList);
+        }
+
+        public ActionResult Content(int MessageID)
+        {
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableView = new TableViewModel();
+
+            var temp = _messageService.ConentMessage(MessageID, User.Identity.Name);
+
+            tableList.tableView.Customer_Login = temp.Customer_Login;
+            tableList.tableView.Sender_Login = temp.Sender_Login;
+            tableList.tableView.Theme = temp.Theme;
+            tableList.tableView.Content = temp.Content;
+            tableList.tableView.PostDate = (DateTime)temp.PostDate;
+
+            return View(tableList);
         }
 
     }

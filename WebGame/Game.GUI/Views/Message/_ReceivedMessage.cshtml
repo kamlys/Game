@@ -15,11 +15,22 @@
     <tbody>
         @foreach (var item in Model.tableList)
         {
-            <tr onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
-                <td>@item.Sender_Login</td>
-                <td>@item.Theme</td>
-                <td>@item.PostDate</td>
-            </tr>
+            if (item.IfRead == false)
+            {
+                <tr id="newMessage" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
+                    <td>@item.Sender_Login</td>
+                    <td>@item.Theme</td>
+                    <td>@item.PostDate</td>
+                </tr>
+            }
+            else if (item.IfRead == true)
+            {
+                <tr style="font-weight: normal" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
+                    <td>@item.Sender_Login</td>
+                    <td>@item.Theme</td>
+                    <td>@item.PostDate</td>
+                </tr>
+            }
         }
     </tbody>
 </table>

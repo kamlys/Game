@@ -7,20 +7,13 @@
 <div class="Message">
     <div class="col s12">
         <ul class="tabs">
-            <li class="tab col s3"><a href="#Odebrane">Odebrane</a></li>
+            <li class="tab col s3"><a href="#Nowa">Nowa wiadomość</a></li>
+            <li class="tab col s3"><a class="active" href="#Odebrane">Odebrane</a></li>
             <li class="tab col s3"><a href="#Wyslane">Wysłane</a></li>
-            <li class="tab col s3"><a href="#Usuniete">Usunięte</a></li>
         </ul>
     </div>
-    <div id="Odebrane" class="col s12">
-        <div id="Odebrane" class="col s12">@Html.Action("_SentMessage", "Message")</div>
-    </div>
+    <div id="Nowa" class="col s12">@Html.Action("_NewMessage", "Message")</div>
+    <div id="Odebrane" class="col s12">@Html.Action("_ReceivedMessage", "Message")</div>
+    <div id="Wyslane" class="col s12">@Html.Action("_SentMessage", "Message")</div>
 
-    <div id="Wyslane" class="col s12">
-       <div id="Wyslane" class="col s12">@Html.Action("_ReceivedMessage", "Message")</div>
-    </div>
-
-    <div id="Usuniete" class="col s12">
-        <div id="Wyslane" class="col s12">@Html.Action("###", "###")</div>
-    </div>
 </div>

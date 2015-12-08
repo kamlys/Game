@@ -404,3 +404,11 @@ nav {
     background-color: rgba(187, 0, 0, 0.59);
     cursor: pointer; }
 
+/*Wiadomości*/
+.Message {
+  background-color: #fff; }
+
+#newMessage {
+  border-left: 3px solid #c40000;
+  font-weight: bold; }
+
