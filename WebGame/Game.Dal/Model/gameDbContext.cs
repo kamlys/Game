@@ -17,6 +17,7 @@ namespace Game.Dal.Model
         public virtual DbSet<BuildingQueue> BuildingQueue { get; set; }
         public virtual DbSet<Buildings> Buildings { get; set; }
         public virtual DbSet<Dolars> Dolars { get; set; }
+        public virtual DbSet<Friends> Friends { get; set; }
         public virtual DbSet<Maps> Maps { get; set; }
         public virtual DbSet<Market> Market { get; set; }
         public virtual DbSet<Messages> Messages { get; set; }
@@ -37,6 +38,10 @@ namespace Game.Dal.Model
                 .WithRequired(e => e.Buildings)
                 .HasForeignKey(e => e.Building_ID)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Messages>()
+                .Property(e => e.PostDate)
+                .HasPrecision(0);
 
             modelBuilder.Entity<Products>()
                 .HasMany(e => e.Buildings)
@@ -77,6 +82,18 @@ namespace Game.Dal.Model
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Dolars)
                 .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.User_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Friends)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.Friend_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Friends1)
+                .WithRequired(e => e.Users1)
                 .HasForeignKey(e => e.User_ID)
                 .WillCascadeOnDelete(false);
 

@@ -17,19 +17,22 @@ namespace Game.Service
         private IRepository<Users> _user;
         private IRepository<Dolars> _dolar;
         private IRepository<Maps> _map;
+        private IRepository<Friends> _friend;
         private IUnitOfWork _unitOfWork;
         private IHashPass _hassPass;
 
         public UserService(
             IRepository<Users> user,
             IRepository<Dolars> dolar,
-            IUnitOfWork unitOfWork,
             IRepository<Maps> map,
+            IRepository<Friends> friend,
+            IUnitOfWork unitOfWork,
             IHashPass hassPass)
         {
             _user = user;
             _map = map;
             _dolar = dolar;
+            _friend = friend;
             _unitOfWork = unitOfWork;
             _hassPass = hassPass;
         }
@@ -221,6 +224,26 @@ namespace Game.Service
                 return true;
             }
             return false;
+        }
+
+        public List<FriendDto> GetFriendList(string User)
+        {
+            List<FriendDto> friend = new List<FriendDto>();
+            int uID = _user.GetAll().First(i => i.Login == User).ID;
+
+            foreach (var item in _friend.GetAll().Where(i=> i.User_ID == uID))
+            {
+                friend.Add(new FriendDto
+                {
+                    ID = item.Id,
+                    User_ID = item.User_ID,
+                    User_Login = _user.Get(item.User_ID).Login,
+                    Friend_ID = item.Friend_ID,
+                    Friend_Login = _user.Get(item.Friend_ID).Login,
+                    OrAccepted = item.OrAccepted
+                });
+            }
+            return friend;
         }
     }
 }

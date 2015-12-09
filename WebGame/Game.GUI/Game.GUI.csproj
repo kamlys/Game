@@ -324,6 +324,7 @@
     <Content Include="Views\Message\_SentMessage.cshtml" />
     <Content Include="Views\Message\_ReceivedMessage.cshtml" />
     <Content Include="Views\Message\_NewMessage.cshtml" />
+    <Content Include="Views\User\_FriendList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

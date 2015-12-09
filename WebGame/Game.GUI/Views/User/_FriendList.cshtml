@@ -1,0 +1,23 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    Layout = null;
+}
+
+    @foreach (var item in Model.tableList)
+    {
+        if (item.OrAccepted)
+        {
+            <div id="friend" style="background-color: #206b80; margin-top: 10px; border-bottom: 3px solid #ff6a00; height: 45px; line-height: 45px;" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">
+
+                <span class="login" style="float: left; margin-left: 20px; text-transform: capitalize; cursor: pointer;">@item.Friend_Login</span>
+                <span class="icon" style="float: right; margin-right:30px; color: white"><i class="fa fa-comments"></i></span>
+            </div>
+        }
+        else
+        {
+            <div id="friend" class="disabled" style=" background-color: #808080; margin-top: 10px; border-bottom: 3px solid #ff6a00; height: 45px; line-height: 45px;" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">
+                <span class="login" style="float: left; margin-left: 20px; text-transform: capitalize; cursor: pointer;">@item.Friend_Login</span>
+                <span class="icon" style="float: right; margin-right:30px; color: white"><i class="fa fa-comments"></i></span>
+            </div>
+        }
+    }

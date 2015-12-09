@@ -233,5 +233,25 @@ namespace Game.GUI.Controllers
             }
         }
 
+
+        public ActionResult _FriendList()
+        {
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+
+            foreach (var item in _userService.GetFriendList(User.Identity.Name))
+            {
+                tableList.tableList.Add(new TableViewModel
+                {
+                    ID = item.ID,
+                    Friend_ID = item.Friend_ID,
+                    Friend_Login = item.Friend_Login,
+                    OrAccepted = item.OrAccepted
+                });
+            }
+
+            return View(tableList);
+        }
+
     }
 }

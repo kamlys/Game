@@ -58,6 +58,7 @@
     <Compile Include="Model\BuildingQueue.cs" />
     <Compile Include="Model\Buildings.cs" />
     <Compile Include="Model\Dolars.cs" />
+    <Compile Include="Model\Friends.cs" />
     <Compile Include="Model\gameDbContext.cs" />
     <Compile Include="Model\Maps.cs" />
     <Compile Include="Model\Market.cs" />

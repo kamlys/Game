@@ -60,5 +60,8 @@ namespace Game.GUI.ViewModels
         public string Content { get; set; }
         public DateTime PostDate { get; set; }
         public bool IfRead { get; set; }
+        public int Friend_ID { get; set; }
+        public string Friend_Login { get; set; }
+        public bool OrAccepted { get; set; }
     }
 }

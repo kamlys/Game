@@ -31,6 +31,8 @@ namespace Game.Resolver
             builder.RegisterType<Repository<BuildingQueue>>().As<IRepository<BuildingQueue>>();
             builder.RegisterType<Repository<Market>>().As<IRepository<Market>>();
             builder.RegisterType<Repository<Messages>>().As<IRepository<Messages>>();
+            builder.RegisterType<Repository<Friends>>().As<IRepository<Friends>>();
+
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();

@@ -44,6 +44,7 @@
     <Compile Include="DTO\BuildingDto.cs" />
     <Compile Include="DTO\BuildingQueueDto.cs" />
     <Compile Include="DTO\DolarDto.cs" />
+    <Compile Include="DTO\FriendDto.cs" />
     <Compile Include="DTO\MapDto.cs" />
     <Compile Include="DTO\MarketDto.cs" />
     <Compile Include="DTO\MessageDto.cs" />

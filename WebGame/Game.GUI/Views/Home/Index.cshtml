@@ -38,8 +38,15 @@
             <div class="mapBox card">
                 @Html.Action("_UserMap", "Map")
             </div>
-            <div class="col l3 chatBox card">
-                <div>Powiadomienia</div>
+            <div class="col l3 infoBox card">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a href="#Friend">Znajomi</a></li>
+                        <li class="tab col s3"><a href="#Notification">Powiadomienia</a></li>
+                    </ul>
+                </div>
+                <div id="Friend" class="col s12">@Html.Action("_FriendList", "User")</div>
+                <div id="Notification" class="col s12">afefeamfeamfeafeaf</div>
             </div>
         </div>
     }
@@ -47,7 +54,7 @@
 
 
 <script type="text/javascript">
-                $(document).ready(function () {
-                    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-                    $('#testModal').leanModal();
-                });</script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('#testModal').leanModal();
+    });</script>
