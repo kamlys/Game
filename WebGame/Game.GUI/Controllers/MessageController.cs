@@ -12,11 +12,12 @@ namespace Game.GUI.Controllers
     public class MessageController : Controller
     {
         private IMessageService _messageService;
+        private INotificationService _notificationService;
 
-
-        public MessageController(IMessageService messageService)
+        public MessageController(IMessageService messageService, INotificationService notificationSerwice)
         {
             _messageService = messageService;
+            _notificationService = notificationSerwice;
         }
 
         // GET: Message
@@ -34,12 +35,16 @@ namespace Game.GUI.Controllers
             MessageDto message = new MessageDto();
 
             message.Sender_Login = User.Identity.Name;
-            message.Customer_Login = messageView.tableView.Login;
+            message.Customer_Login = messageView.tableView.Customer_Login;
             message.Theme = messageView.tableView.Theme;
             message.Content = messageView.tableView.Content;
 
             _messageService.SentMessage(message);
-
+            _notificationService.SentNotification(new NotificationDto
+            {
+                User_Login = message.Customer_Login,
+                Description = "Nowa wiadomość",
+            });
             return RedirectToAction("Index");
         }
 
@@ -53,7 +58,11 @@ namespace Game.GUI.Controllers
             message.Content = messageView.tableView.Content;
 
             _messageService.SentMessage(message);
-
+            _notificationService.SentNotification(new NotificationDto
+            {
+                User_Login = message.Customer_Login,
+                Description = "Nowa wiadomość",
+            });
             return RedirectToAction("Profil", "User", new { User = message.Customer_Login });
         }
 

@@ -32,6 +32,8 @@ namespace Game.Resolver
             builder.RegisterType<Repository<Market>>().As<IRepository<Market>>();
             builder.RegisterType<Repository<Messages>>().As<IRepository<Messages>>();
             builder.RegisterType<Repository<Friends>>().As<IRepository<Friends>>();
+            builder.RegisterType<Repository<Notifications>>().As<IRepository<Notifications>>();
+
 
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
@@ -52,6 +54,8 @@ namespace Game.Resolver
             builder.RegisterType<QueueService>().As<IQueueService>();
             builder.RegisterType<UserProductService>().As<IUserProductService>();
             builder.RegisterType<MessageService>().As<IMessageService>();
+            builder.RegisterType<NotificationService>().As<INotificationService>();
+
 
 
 

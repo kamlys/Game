@@ -48,6 +48,7 @@
     <Compile Include="Interfaces\IHashPass.cs" />
     <Compile Include="Interfaces\IMapService.cs" />
     <Compile Include="Interfaces\IMessageService.cs" />
+    <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\IUserBuildingService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
@@ -56,9 +57,11 @@
     <Compile Include="Interfaces\IDolarService.cs" />
     <Compile Include="Interfaces\IQueueService.cs" />
     <Compile Include="Interfaces\IUserProductService.cs" />
+    <Compile Include="IUnitOfwork.cs" />
     <Compile Include="MapService.cs" />
     <Compile Include="MarketService.cs" />
     <Compile Include="MessageService.cs" />
+    <Compile Include="NotificationService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="BanService.cs" />
     <Compile Include="BuildingService.cs" />

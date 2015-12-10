@@ -36,7 +36,7 @@
 
                     <li><a href='@Url.Action("Index", "Office")'><i class="fa fa-building"></i> Biuro</a></li>
 
-                    <li><a href='@Url.Action("Index", "Message")'><i class="fa fa-envelope"></i> Wiadomości</a></li>
+                    <li><a href='@Url.Action("Index", "Message")' id="message"><i class="fa fa-envelope"></i> Wiadomości</a></li>
 
                     <li><a href='@Url.Action("Index", "Market")'><i class="fa fa-shopping-cart"></i> Market</a></li>
 
@@ -49,31 +49,34 @@
 
                 </ul>
             </div>
-                <button class="btn right" id="userLogout" onclick="location.href='@Url.Action("Logout", "User")'"><i class="fa fa-sign-out"></i> Wyloguj</button>
+            <button class="btn right" id="userLogout" onclick="location.href='@Url.Action("Logout", "User")'"><i class="fa fa-sign-out"></i> Wyloguj</button>
         }
 
 
-        </nav>
-        <div class="container">
-            @RenderBody()
-            <footer>
-                <p>
-                    &copy; @DateTime.Now.Year - My ASP.NET Application
-                    @if (User.Identity.IsAuthenticated)
+    </nav>
+    <div class="container">
+        @RenderBody()
+        <footer>
+            <p>
+                &copy; @DateTime.Now.Year - My ASP.NET Application
+                @if (User.Identity.IsAuthenticated)
                 {
-                        <a href='@Url.Action("Admin", "Admin")'><i class="fa fa-lock"></i></a>
-                    }
-                </p>
-            </footer>
-        </div>
+                    <a href='@Url.Action("Admin", "Admin")'><i class="fa fa-lock"></i></a>
+                }
+            </p>
+        </footer>
+    </div>
 
-        @Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/materialize")
-            @if (User.Identity.IsAuthenticated)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/materialize")
+    @Scripts.Render("~/bundles/signalr")
+    <script src="~/signalr/hubs"></script>
+    @if (User.Identity.IsAuthenticated)
             {
-                @Scripts.Render("~/Scripts/js")
-            }
-            @RenderSection("scripts", required: false)
+        @Scripts.Render("~/Scripts/js")
+    }
+    <script src="~/Scripts/js/newMessage.js"></script>
+    @RenderSection("scripts", required: false)
 
     <script>
         $('.dropdown-button').dropdown({
@@ -87,5 +90,5 @@
         }
  );
     </script>
-        </body>
-    </html>
+</body>
+</html>

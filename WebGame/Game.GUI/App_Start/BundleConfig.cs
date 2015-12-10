@@ -11,6 +11,9 @@ namespace Game.GUI
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
+                        "~/Scripts/jquery.signalR-{version}.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -37,8 +40,6 @@ namespace Game.GUI
             bundles.Add(new StyleBundle("~/Content/css")
                 .IncludeDirectory("~/Content/", "*.css", true));
 
-            bundles.Add(new StyleBundle("~/Styles").Include(
-              "~/Styles/Map.css"));
         }
     }
 }

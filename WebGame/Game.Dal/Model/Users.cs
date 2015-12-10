@@ -21,6 +21,7 @@ namespace Game.Dal.Model
             Market = new HashSet<Market>();
             Messages = new HashSet<Messages>();
             Messages1 = new HashSet<Messages>();
+            Notifications = new HashSet<Notifications>();
             UserBuildings = new HashSet<UserBuildings>();
             UserProducts = new HashSet<UserProducts>();
         }
@@ -76,6 +77,9 @@ namespace Game.Dal.Model
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Messages> Messages1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notifications> Notifications { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBuildings> UserBuildings { get; set; }

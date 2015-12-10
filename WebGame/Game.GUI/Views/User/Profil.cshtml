@@ -34,6 +34,7 @@
             @using (Html.BeginForm("SentMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.HiddenFor(m => m.tableView.Login);
+                @Html.Hidden(User.Identity.Name);
                 <div class="input-field col s12">
                     @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
                     <label for="Login">Tytuł:</label>
@@ -125,7 +126,10 @@
     }
 </div>
 
+
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+<script src="/signalr/hubs"></script>
 <script>
     $(document).ready(function () {
         $('.collapsible').collapsible({

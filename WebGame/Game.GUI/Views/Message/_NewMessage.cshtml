@@ -6,7 +6,10 @@
 <h3>Nowa wiadmość:</h3>
 @using (Html.BeginForm("SentMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    @Html.HiddenFor(m => m.tableView.Login);
+    @Html.HiddenFor(m => User.Identity.Name);
+    <div class="input-field col s12">
+        @Html.Hidden(User.Identity.Name)
+    </div>
     <div class="input-field col s12">
         @Html.TextBoxFor(m => m.tableView.Customer_Login, new { placeholder = "", @class = "validate", length = "150" })
         <label for="Customer_Login">Odbiorca:</label>
@@ -23,3 +26,7 @@
     </div>
     <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton" name="action" />
 }
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+<script src="/signalr/hubs"></script>

@@ -212,6 +212,9 @@ nav {
     letter-spacing: .8px;
     width: 15%;
     min-width: 80px; }
+    .infoBox .tabs .tab .newNotifi a {
+      color: #FFB100 !important;
+      font-weight: 700; }
     .infoBox .tabs .tab a {
       color: #fff !important;
       font-size: 10px; }
