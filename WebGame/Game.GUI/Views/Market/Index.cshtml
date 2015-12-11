@@ -8,7 +8,7 @@
 
     <div id="offerAdd" class="modal">
         <div class="modal-content">
-            @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("AddOffer", "Market", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 <div class="input-field col s12">
                     @Html.DropDownListFor(m => m.marketView.Product_Name, new SelectList(Model.options), new {  @class = "validate" })
