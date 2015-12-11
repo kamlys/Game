@@ -345,17 +345,30 @@ nav {
 /*Powiadomienia*/
 #Notification {
     #notificationList {
+        overflow: auto;
+        height: 300px;
+
         .newNotification {
-            background-color: #b2b2b2;
+            background-color: $firstColor;
             border-radius: 0;
             height: 50px;
             line-height: 50px;
-            width: 100%;
+            width: 95%;
             border-bottom: 3px solid #FFB100;
+            margin-top: 10px;
+            float: left;
+            font-size: 12px;
+            color: #fff;
+            cursor: pointer;
+            .newNotification:hover {
+                -webkit-box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
+                -moz-box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
+                box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
+            }
 
             i {
                 line-height: 50px;
-                font-size: 19px;
+                font-size: 15px;
             }
 
             i:hover {

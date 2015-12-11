@@ -27,6 +27,7 @@ namespace Game.GUI.Controllers
             {
                 tableList.tableList.Add(new TableViewModel
                 {
+                    Login = item.User_Login,
                     Description = item.Description
                 });
             }

@@ -8,7 +8,14 @@
     <ul id="notificationList">
         @foreach (var item in Model.tableList)
         {
-            <li><div class="chip newNotification">@item.Description <i class="material-icons fa fa-times-circle"></i></div></li>
+            if (item.Description.Contains("zaproszenie"))
+            {
+                <li><div class="chip newNotification" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Description <i class="material-icons fa fa-times-circle"></i></div></li>
+            }
+            else
+            {
+                <li><div class="chip newNotification" onclick="location.href='@Url.Action("Index", "Message")'">@item.Description <i class="material-icons fa fa-times-circle"></i></div></li>
+            }
         }
     </ul>
 </div>
