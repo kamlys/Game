@@ -57,7 +57,6 @@
     <Compile Include="Interfaces\IDolarService.cs" />
     <Compile Include="Interfaces\IQueueService.cs" />
     <Compile Include="Interfaces\IUserProductService.cs" />
-    <Compile Include="IUnitOfwork.cs" />
     <Compile Include="MapService.cs" />
     <Compile Include="MarketService.cs" />
     <Compile Include="MessageService.cs" />

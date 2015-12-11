@@ -7,6 +7,7 @@
 <div class="profil">
     @if (User.Identity.Name != Model.tableView.Login)
     {
+        @Html.Hidden("UserLogin", Model.tableView.Login )
         <h2>@Model.tableView.Login</h2> <button class="btn-large addFriend">Dodaj znajomego</button> 
         <hr />
         <div id="left">

@@ -254,7 +254,8 @@ namespace Game.GUI.Controllers
             return View(tableList);
         }
 
-        public ActionResult AddFriend(string a)
+        [HttpPost]
+        public JsonResult AddFriend(string a)
         {
             FriendDto addFriend = new FriendDto();
             addFriend.Friend_Login = a;
@@ -269,7 +270,7 @@ namespace Game.GUI.Controllers
             });
 
 
-            return RedirectToAction("Profil", "User", new { User = a });
+            return new JsonResult { Data = true };
         }
 
     }

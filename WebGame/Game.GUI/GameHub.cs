@@ -17,12 +17,12 @@ namespace Game.GUI
 
         [HubMethodName("sentNotification")]
 
-        public void sentnotification(string user)
+        public void sentnotification(string user, string notification)
         {
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
 
 
-            context.Clients.User(user).shownotification();
+            context.Clients.User(user).shownotification(user, notification);
 
         }
     }
