@@ -46,7 +46,7 @@ $(function () {
 
     };
     $.connection.hub.start().done(function () {
-        $('.addButton').click(function () {
+        $('.sentMessage').click(function () {
             if ($("#tableView_Customer_Login").val() == null) {
                 game.server.sentNotification($("#tableView_Login").val(), notification,pin);
             }
