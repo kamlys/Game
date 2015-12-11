@@ -13,10 +13,12 @@ namespace Game.GUI.Controllers
     public class MarketController : Controller
     {
         private IMarketService _marketService;
+        private IProductService _productService;
 
-        public MarketController(IMarketService marketService)
+        public MarketController(IMarketService marketService, IProductService productServise)
         {
             _marketService = marketService;
+            _productService = productServise;
         }
 
         // GET: Market
@@ -44,6 +46,16 @@ namespace Game.GUI.Controllers
                     Price = item.Price
                 });
             }
+            var prod = _productService.GetProduct();
+            var opts = prod.ToList<ProductDto>();
+            var optsString = new List<string>();
+            foreach(var o in opts)
+            {
+                optsString.Add(o.Name); 
+            }
+
+            marketList.options = optsString.ToArray();
+
             return marketList;
         }
 

@@ -11,7 +11,7 @@
             @using (Html.BeginForm("AddOffer", "Market", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.marketView.Product_Name, new { @placeholder = "", @class = "validate" })
+                    @Html.DropDownListFor(m => m.marketView.Product_Name, new SelectList(Model.options), new {  @class = "validate" })
                     <label for="Product_Name">Nazwa produktu</label>
                 </div>
 
@@ -71,5 +71,6 @@
 <script>
     $(document).ready(function () {
         $('.offerAdd').leanModal();
+        $('select').material_select();
     });
 </script>
