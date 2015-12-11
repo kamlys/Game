@@ -19,7 +19,7 @@ namespace Game.Service.Interfaces
         UserDto Profil(string User);
         bool ChangePass(UserDto user, string User);
         bool ChangeEmail(UserDto user, string User);
-        //bool AddFriend(string User, string Friend);
+        void AddFriend(FriendDto friend);
         List<FriendDto> GetFriendList(string User);
 
 

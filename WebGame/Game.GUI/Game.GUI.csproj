@@ -263,7 +263,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\AdminScripts.js" />
-    <Content Include="Scripts\js\newMessage.js" />
+    <Content Include="Scripts\js\newNotification.js" />
     <Content Include="Scripts\js\UpdateRow.js" />
     <Content Include="Scripts\js\main_page.js" />
     <Content Include="Scripts\js\Market.js" />
@@ -293,6 +293,7 @@
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
@@ -354,7 +355,7 @@
     <Content Include="Views\Message\_ReceivedMessage.cshtml" />
     <Content Include="Views\Message\_NewMessage.cshtml" />
     <Content Include="Views\User\_FriendList.cshtml" />
-    <Content Include="Views\Home\_Notification.cshtml" />
+    <Content Include="Views\Notification\_Notification.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

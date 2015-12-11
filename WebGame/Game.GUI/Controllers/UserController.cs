@@ -19,12 +19,14 @@ namespace Game.GUI.Controllers
         private IUserService _userService;
         private IUserProductService _userProductService;
         private IUserBuildingService _userBuildingService;
+        private INotificationService _notificationService;
 
-        public UserController(IUserService userService, IUserProductService userProductService, IUserBuildingService userBuildingService)
+        public UserController(IUserService userService, IUserProductService userProductService, IUserBuildingService userBuildingService, INotificationService notificationService)
         {
             _userService = userService;
             _userProductService = userProductService;
             _userBuildingService = userBuildingService;
+            _notificationService = notificationService;
         }
 
         [HttpGet]
@@ -239,7 +241,7 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _userService.GetFriendList(User.Identity.Name))
+            foreach (var item in _userService.GetFriendList(User.Identity.Name).Where(i=> i.OrAccepted == true))
             {
                 tableList.tableList.Add(new TableViewModel
                 {
@@ -249,8 +251,25 @@ namespace Game.GUI.Controllers
                     OrAccepted = item.OrAccepted
                 });
             }
-
             return View(tableList);
+        }
+
+        public ActionResult AddFriend(string a)
+        {
+            FriendDto addFriend = new FriendDto();
+            addFriend.Friend_Login = a;
+            addFriend.User_Login = User.Identity.Name;
+
+            _userService.AddFriend(addFriend);
+            
+            _notificationService.SentNotification(new NotificationDto
+            {
+                User_Login = a,
+                Description = "Nowa zaproszenie do znajomych",
+            });
+
+
+            return RedirectToAction("Profil", "User", new { User = a });
         }
 
     }

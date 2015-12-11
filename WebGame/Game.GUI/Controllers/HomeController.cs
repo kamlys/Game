@@ -13,10 +13,5 @@ namespace Game.GUI.Controllers
         {
             return View();
         }
-
-        public ActionResult _Notification()
-        {
-            return View();
-        }
     }
 }

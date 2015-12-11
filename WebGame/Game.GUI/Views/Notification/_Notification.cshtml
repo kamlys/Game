@@ -1,0 +1,14 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    Layout = null;
+}
+
+<div id="Notification">
+
+    <ul id="notificationList">
+        @foreach (var item in Model.tableList)
+        {
+            <li><div class="chip notificationChip">@item.Description <i class="material-icons fa fa-times-circle"></i></div></li>
+        }
+    </ul>
+</div>

@@ -35,5 +35,21 @@ namespace Game.Service
             });
             _unitOfWork.Commit();
         }
+
+        public List<NotificationDto> GetUserNotification(string User)
+        {
+            int uID = _users.GetAll().First(i => i.Login == User).ID;
+            List<NotificationDto> notificationList = new List<NotificationDto>();
+            foreach (var item in _notification.GetAll().Where(i=> i.User_ID == uID))
+            {
+                notificationList.Add(new NotificationDto
+                {
+                    User_Login = _users.Get(item.User_ID).Login,
+                    Description = item.Description
+                });
+            }
+
+            return notificationList;
+        }
     }
 }

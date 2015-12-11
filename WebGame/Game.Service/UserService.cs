@@ -231,7 +231,7 @@ namespace Game.Service
             List<FriendDto> friend = new List<FriendDto>();
             int uID = _user.GetAll().First(i => i.Login == User).ID;
 
-            foreach (var item in _friend.GetAll().Where(i=> i.User_ID == uID))
+            foreach (var item in _friend.GetAll().Where(i => i.User_ID == uID))
             {
                 friend.Add(new FriendDto
                 {
@@ -244,6 +244,18 @@ namespace Game.Service
                 });
             }
             return friend;
+        }
+
+        public void AddFriend(FriendDto friend)
+        {
+            _friend.Add(new Friends
+            {
+                Friend_ID = _user.GetAll().First(i=> i.Login==friend.Friend_Login).ID,
+                User_ID = _user.GetAll().First(i => i.Login == friend.User_Login).ID,
+                OrAccepted = false
+            });
+
+            _unitOfWork.Commit();
         }
     }
 }
