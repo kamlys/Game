@@ -16,6 +16,8 @@ namespace Game.Dal.Model
         public virtual DbSet<Bans> Bans { get; set; }
         public virtual DbSet<BuildingQueue> BuildingQueue { get; set; }
         public virtual DbSet<Buildings> Buildings { get; set; }
+        public virtual DbSet<Deals> Deals { get; set; }
+        public virtual DbSet<DealsBuildings> DealsBuildings { get; set; }
         public virtual DbSet<Dolars> Dolars { get; set; }
         public virtual DbSet<Friends> Friends { get; set; }
         public virtual DbSet<Maps> Maps { get; set; }
@@ -35,9 +37,26 @@ namespace Game.Dal.Model
                 .HasPrecision(0);
 
             modelBuilder.Entity<Buildings>()
+                .HasMany(e => e.Deals)
+                .WithRequired(e => e.Buildings)
+                .HasForeignKey(e => e.Building_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Buildings>()
+                .HasMany(e => e.DealsBuildings)
+                .WithRequired(e => e.Buildings)
+                .HasForeignKey(e => e.Building_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Buildings>()
                 .HasMany(e => e.UserBuildings)
                 .WithRequired(e => e.Buildings)
                 .HasForeignKey(e => e.Building_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Maps>()
+                .HasMany(e => e.Deals)
+                .WithRequired(e => e.Maps)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Messages>()
@@ -76,6 +95,24 @@ namespace Game.Dal.Model
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.BuildingQueue)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.User_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Deals)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.User1_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Deals1)
+                .WithRequired(e => e.Users1)
+                .HasForeignKey(e => e.User2_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.DealsBuildings)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
                 .WillCascadeOnDelete(false);

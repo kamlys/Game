@@ -11,6 +11,8 @@ namespace Game.Dal.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Buildings()
         {
+            Deals = new HashSet<Deals>();
+            DealsBuildings = new HashSet<DealsBuildings>();
             UserBuildings = new HashSet<UserBuildings>();
         }
 
@@ -45,6 +47,12 @@ namespace Game.Dal.Model
         public int DestructionTime { get; set; }
 
         public virtual Products Products { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Deals> Deals { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DealsBuildings> DealsBuildings { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBuildings> UserBuildings { get; set; }

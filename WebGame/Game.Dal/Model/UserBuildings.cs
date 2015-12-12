@@ -30,6 +30,10 @@ namespace Game.Dal.Model
         [StringLength(50)]
         public string Status { get; set; }
 
+        public bool Owner { get; set; }
+
+        public int Percent_product { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuildingQueue> BuildingQueue { get; set; }
 

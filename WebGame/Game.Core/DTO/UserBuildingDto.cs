@@ -20,6 +20,7 @@ namespace Game.Core.DTO
         public int Produkcja { get; set; }
         public int ProdukcjaLvlUp { get; set; }
         public int PriceLvlUp { get; set; }
-
+        public bool Owner { get; set; }
+        public int Percent_Product { get; set; }
     }
 }

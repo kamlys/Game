@@ -8,6 +8,12 @@ namespace Game.Dal.Model
 
     public partial class Maps
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Maps()
+        {
+            Deals = new HashSet<Deals>();
+        }
+
         [Key]
         public int Map_ID { get; set; }
 
@@ -16,6 +22,9 @@ namespace Game.Dal.Model
         public int Width { get; set; }
 
         public int Height { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Deals> Deals { get; set; }
 
         public virtual Users Users { get; set; }
     }
