@@ -2,6 +2,7 @@
 using Game.GUI.ViewModels;
 using Game.GUI.ViewModels.Market;
 using Game.Service.Interfaces;
+using Game.Service.Interfaces.TableInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace Game.GUI.Controllers
     {
         private IMarketService _marketService;
         private IProductService _productService;
+        private IUserProductService _userProductService;
 
-        public MarketController(IMarketService marketService, IProductService productServise)
+        public MarketController(IMarketService marketService, IProductService productServise, IUserProductService userProductService)
         {
             _marketService = marketService;
             _productService = productServise;
+            _userProductService = userProductService;
         }
 
         // GET: Market
@@ -46,12 +49,15 @@ namespace Game.GUI.Controllers
                     Price = item.Price
                 });
             }
-            var prod = _productService.GetProduct();
-            var opts = prod.ToList<ProductDto>();
+            var prod = _userProductService.GetUserProductList(User.Identity.Name);
+            var opts = prod.ToList<UserProductDto>();
             var optsString = new List<string>();
             foreach(var o in opts)
             {
-                optsString.Add(o.Name); 
+                if (!optsString.Contains(o.Product_Name))
+                {
+                    optsString.Add(o.Product_Name);
+                }
             }
 
             marketList.options = optsString.ToArray();

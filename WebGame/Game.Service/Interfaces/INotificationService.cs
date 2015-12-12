@@ -11,5 +11,6 @@ namespace Game.Service.Interfaces
     {
         void SentNotification(NotificationDto not);
         List<NotificationDto> GetUserNotification(string User);
+        bool RemoveNotification(int id, string User);
     }
 }

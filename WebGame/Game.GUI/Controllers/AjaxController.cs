@@ -14,13 +14,15 @@ namespace Game.GUI.Controllers
         private IUserBuildingService _userBuildingsService;
         private IBuildingHelper _buildingsHelper;
         private IProductService _productService;
+        private INotificationService _notificationService;
 
-        public AjaxController(IMapService mapService, IUserBuildingService userBuildingService, IProductService productService, IBuildingHelper buildingsHelper)
+        public AjaxController(IMapService mapService, IUserBuildingService userBuildingService, IProductService productService, IBuildingHelper buildingsHelper, INotificationService notificationService)
         {
             _mapService = mapService;
             _userBuildingsService = userBuildingService;
             _buildingsHelper = buildingsHelper;
             _productService = productService;
+            _notificationService = notificationService;
         }
         [HttpPost]
         public JsonResult Build(AjaxBuildViewModel a)
@@ -49,6 +51,23 @@ namespace Game.GUI.Controllers
         public void ProductUpdate()
         {
             _productService.UpdateUserProduct(User.Identity.Name);
+        }
+
+        public void RemoveNotification(String id)
+        {
+            _notificationService.RemoveNotification(Int32.Parse(id), User.Identity.Name);
+        }
+
+        public string[][] GetNotifications()
+        {
+            var notifs = _notificationService.GetUserNotification(User.Identity.Name);
+            var ret = new List<string[]>();
+            foreach(var n in notifs)
+            {
+                ret.Add(new string [2]{ n.ID.ToString(), n.Description });
+            }
+
+            return ret.ToArray();
         }
 
         public JsonResult ShowProduct()

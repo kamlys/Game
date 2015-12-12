@@ -46,15 +46,19 @@
                     </ul>
                 </div>
                 <div id="Friend" class="col s12">@Html.Action("_FriendList", "User")</div>
-                <div id="Notification" class="col s12">@Html.Action("_Notification", "Notification")</div>
+                <div id="NotificationBox"><div id="Notification" class="col s12">@Html.Action("_Notification", "Notification")</div></div>
             </div>
         </div>
     }
 </div>
 
-
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('#testModal').leanModal();
+        $('ul.tabs').tabs();
+        if ($('#Notification ul li').length >= 1) {
+            $('.infoBox .tabs').tabs('select_tab', 'Notification');
+        }
     });</script>
