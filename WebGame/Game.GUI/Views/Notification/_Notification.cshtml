@@ -3,23 +3,24 @@
     Layout = null;
 }
 
-<div id="Notification">
+<div>
+    <div id="NotificationInner">
 
-    <ul id="notificationList" >
-        @foreach (var item in Model.tableList)
-    {
-        if (item.Description.Contains("zaproszenie"))
-        {
-                <li><div class="chip newNotification" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Description <i class="material-icons fa fa-times-circle" onclick="disableNotification('@item.ID')"></i></div></li>
-            }
-            else
+        <ul id="notificationList">
+            @foreach (var item in Model.tableList)
             {
-                <li><div class="chip newNotification" onclick="location.href='@Url.Action("Index", "Message")'">@item.Description <i class="material-icons fa fa-times-circle" onclick="disableNotification(@item.ID)"></i></div></li>
+                if (item.Description.Contains("zaproszenie"))
+                {
+                    <li><div class="chip newNotification" ><span onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification('@item.ID')"></i></div></li>
+                }
+                else
+                {
+                    <li><div class="chip newNotification" ><span onclick="location.href='@Url.Action("Index", "Message")'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification(@item.ID)"></i></div></li>
+                }
             }
-        }
-    </ul>
+        </ul>
+    </div>
 </div>
-
 <script>
     function disableNotification(id)
     {

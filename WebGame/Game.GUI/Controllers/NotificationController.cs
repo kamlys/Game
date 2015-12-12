@@ -32,7 +32,6 @@ namespace Game.GUI.Controllers
                      ID = item.ID
                 });
             }
-
             return View(tableList);
         }
     }
