@@ -63,5 +63,10 @@ namespace Game.GUI.ViewModels
         public int Friend_ID { get; set; }
         public string Friend_Login { get; set; }
         public bool OrAccepted { get; set; }
+        public int Percent_User1 { get; set; }
+        public int Percent_User2 { get; set; }
+        public bool Owner { get; set; }
+        public bool IsActive { get; set; }
+        public string  User2_Login { get; set; }
     }
 }

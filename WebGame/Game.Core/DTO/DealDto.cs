@@ -19,5 +19,8 @@ namespace Game.Core.DTO
         public string Product_Name { get; set; }
         public int Percent_User1 { get; set; }
         public int Percent_User2 { get; set; }
+        public bool IsActive { get; set; }
+        public bool MyMap { get; set; }
+
     }
 }

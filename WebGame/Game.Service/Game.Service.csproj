@@ -42,6 +42,7 @@
     <Compile Include="AdminService.cs" />
     <Compile Include="Helpers\BuildingHelper.cs" />
     <Compile Include="Helpers\HashPass.cs" />
+    <Compile Include="DealService.cs" />
     <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IMarketService.cs" />
     <Compile Include="Interfaces\IBuildingHelper.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Interfaces\IMapService.cs" />
     <Compile Include="Interfaces\IMessageService.cs" />
     <Compile Include="Interfaces\INotificationService.cs" />
+    <Compile Include="Interfaces\IDealService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\IUserBuildingService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

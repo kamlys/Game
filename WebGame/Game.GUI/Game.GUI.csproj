@@ -356,6 +356,7 @@
     <Content Include="Views\Message\_NewMessage.cshtml" />
     <Content Include="Views\User\_FriendList.cshtml" />
     <Content Include="Views\Notification\_Notification.cshtml" />
+    <Content Include="Views\Office\_UserDealList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

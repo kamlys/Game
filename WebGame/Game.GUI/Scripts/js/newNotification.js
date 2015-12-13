@@ -1,5 +1,4 @@
-﻿var pin;
-
+﻿var user_login;
 $(".addButton").click(function () {
     var sender_login = $("#User_Identity_Name").val();
     var theme = $("#tableView_Theme").val();
@@ -20,9 +19,22 @@ $(".addFriend").click(function () {
             location.reload();
         }
     });
-
 });
 
+$("#acceptDeal").click(function () {
+    console.log(user);
+    user_login = user;
+    pin = "Umowa zaakceptowana";
+});
+
+$("#cancelDeal").click(function () {
+    user_login = user;
+    pin = "Umowa odrzucona";
+})
+
+$("#addDeal").click(function () {
+    pin = "Nowa umowa";
+});
 function getNotifications()
 {
     $.ajax({
@@ -30,6 +42,7 @@ function getNotifications()
         url: 'notification/_Notification',
         contentType: "application/json; charset=utf-8",
         success: function (data) {
+            console.log(data);
             $("#NotificationBox").html($(data).html());
             $('.infoBox .tabs').tabs('select_tab', 'Notification');
         }
@@ -71,8 +84,21 @@ $(document).ready(function () {
                 }
             });
             $('.addFriend').click(function () {
-                game.server.sentNotification($("#UserLogin").val(),pin);
-            })
+                game.server.sentNotification($("#UserLogin").val(), pin);
+            });
+            $('#addDeal').click(function () {
+                game.server.sentNotification($("#tableView_Login").val(), pin);
+            });
+            $('#acceptDeal').click(function () {
+                console.log("User " + user);
+                console.log("UserLogin " + user_login);
+
+                game.server.sentNotification(user_login, pin);
+            });
+            $('#cancelDeal').click(function () {
+                console.log("UserLogin: "+user_login);
+                game.server.sentNotification(user_login, pin);
+            });
 
         });
     });

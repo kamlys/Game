@@ -377,52 +377,84 @@ nav {
 /*Biuro*/
 .office {
   margin-top: 30px; }
-  .office #uBuildingList {
+  .office .uBuildingList {
     background-color: #2f3b46;
     min-height: 300px;
     display: inline-block;
     float: left;
-    padding: 20px 20px 20px 20px; }
-    .office #uBuildingList h5 {
+    padding: 20px 20px 20px 20px;
+    width: 49% !important; }
+    .office .uBuildingList h5 {
       color: #FFB100; }
-    .office #uBuildingList p {
+    .office .uBuildingList p {
       color: #FFB100; }
-    .office #uBuildingList #lvlUp {
+    .office .uBuildingList #lvlUp {
       margin-top: 7.5px;
       margin-right: 5px;
       background-color: #26A69A;
       color: #000; }
-      .office #uBuildingList #lvlUp i {
+      .office .uBuildingList #lvlUp i {
         line-height: 2rem; }
-    .office #uBuildingList .collapsible-header {
+    .office .uBuildingList .collapsible-header {
       background-color: #FFB100;
       color: #000; }
-      .office #uBuildingList .collapsible-header #lvlUp:hover {
+      .office .uBuildingList .collapsible-header #lvlUp:hover {
         background-color: green; }
-      .office #uBuildingList .collapsible-header #lvlUp:hover:before {
+      .office .uBuildingList .collapsible-header #lvlUp:hover:before {
         content: "test"; }
-  .office #uProductList {
+  .office .uProductList {
     float: right;
     background-color: #2f3b46;
     min-height: 300px;
-    padding: 20px 20px 20px 20px; }
-    .office #uProductList h5 {
+    padding: 20px 20px 20px 20px;
+    width: 49% !important; }
+    .office .uProductList h5 {
       color: #B840EA; }
-    .office #uProductList #officeProduct {
+    .office .uProductList .officeProduct {
       background-color: #B840EA;
       color: #000;
       border: 1px solid #DDDDDD;
       height: 50px;
       line-height: 50px;
       padding-left: 20px; }
-      .office #uProductList #officeProduct .name {
+      .office .uProductList .officeProduct .name {
         float: left; }
-      .office #uProductList #officeProduct .officeOfferAdd {
+      .office .uProductList .officeProduct .officeOfferAdd {
         margin: 5px 5px 0 0;
         float: right;
         border-radius: 10px !important; }
-        .office #uProductList #officeProduct .officeOfferAdd .input[type=text].valid {
+        .office .uProductList .officeProduct .officeOfferAdd .input[type=text].valid {
           color: #000 !important; }
+  .office .uDealList {
+    background-color: #2f3b46;
+    margin-top: 30px;
+    min-height: 300px;
+    display: inline-block;
+    float: left;
+    padding: 20px 20px 20px 20px; }
+    .office .uDealList h5 {
+      color: #75bf3b;
+      display: inline-block; }
+    .office .uDealList p {
+      color: #75bf3b; }
+    .office .uDealList .collapsible-header {
+      background-color: #75bf3b;
+      color: #000; }
+    .office .uDealList .disabled {
+      background-color: #9d9d9d; }
+    .office .uDealList .myoffer {
+      background-color: #9d9d9d; }
+    .office .uDealList .officeDealAdd {
+      display: inline-block;
+      margin-left: 10px; }
+    .office .uDealList .officeDealShow {
+      float: right;
+      margin: 4px 20px 0 0;
+      width: 200px; }
+    .office .uDealList .myoffer {
+      float: right;
+      margin: 4px 20px 0 0;
+      width: 200px; }
 
 /*Profil*/
 .profil {

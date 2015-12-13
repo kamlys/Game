@@ -28,7 +28,7 @@
 
 @foreach (var item in Model.tableList)
 {
-    <div id="officeProduct">
+    <div class="officeProduct">
         <span class="name">@item.Name: @item.Value</span>
         <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Name',@item.Value)"><i class="fa fa-shopping-cart"></i></button>
     </div>

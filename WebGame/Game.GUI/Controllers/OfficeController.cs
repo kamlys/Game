@@ -15,15 +15,21 @@ namespace Game.GUI.Controllers
         private IUserBuildingService _userBuildingService;
         private IUserProductService _userProductService;
         private IMarketService _marketService;
+        private INotificationService _notificationService;
+        private IDealService _dealService;
 
 
-        public OfficeController(IUserBuildingService userBuildingService, 
+        public OfficeController(IUserBuildingService userBuildingService,
             IMarketService marketService,
-            IUserProductService userProductService)
+            IUserProductService userProductService,
+            INotificationService notificationService,
+            IDealService dealService)
         {
             _userBuildingService = userBuildingService;
             _userProductService = userProductService;
             _marketService = marketService;
+            _notificationService = notificationService;
+            _dealService = dealService;
         }
 
         // GET: Office
@@ -82,6 +88,84 @@ namespace Game.GUI.Controllers
 
 
             return View(tableList);
+        }
+
+        public ActionResult _UserDealList()
+        {
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+
+            foreach (var item in _dealService.GetUserDeals(User.Identity.Name))
+            {
+                tableList.tableList.Add(new TableViewModel
+                {
+                    ID = item.ID,
+                    Login = item.User1_Login,
+                    User2_Login = item.User2_Login,
+                    Percent_User1 = item.Percent_User1,
+                    Percent_User2 = item.Percent_User2,
+                    Name = item.Building_Name,
+                    IsActive = item.IsActive,
+                    Owner = item.MyMap
+
+                });
+            }
+            return View(tableList);
+        }
+
+        public JsonResult AcceptDeal(int a, string user)
+        {
+            _dealService.AcceptDeal(a, User.Identity.Name);
+            NotificationDto notificationDto = new NotificationDto();
+
+            notificationDto.Description = "Umowa zaakceptowana";
+            notificationDto.User_Login = user;
+
+            _notificationService.SentNotification(notificationDto);
+            return new JsonResult { Data = true };
+        }
+
+        public JsonResult CancelDeal(int a, string user)
+        {
+            _dealService.CancelDeal(a);
+            NotificationDto notificationDto = new NotificationDto();
+
+            notificationDto.Description = "Umowa odrzucona";
+            notificationDto.User_Login = user;
+
+            _notificationService.SentNotification(notificationDto);
+
+            return new JsonResult { Data = true };
+        }
+
+        public ActionResult AddDeal(ListTableViewModel tableList)
+        {
+            DealDto dealDto = new DealDto();
+
+            dealDto.User1_Login = User.Identity.Name;
+            dealDto.User2_Login = tableList.tableView.Login;
+            dealDto.Building_Name = tableList.tableView.Name;
+            if (tableList.tableView.Owner == true)
+            {
+                dealDto.Map_ID = 1;
+            }
+            else
+            {
+                dealDto.Map_ID = 0;
+            }
+
+            dealDto.Percent_User1 = tableList.tableView.Percent_User1;
+
+            _dealService.AddDeal(dealDto);
+
+            NotificationDto notificationDto = new NotificationDto();
+
+            notificationDto.Description = "Nowa umowa";
+            notificationDto.User_Login = tableList.tableView.Login;
+
+            _notificationService.SentNotification(notificationDto);
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

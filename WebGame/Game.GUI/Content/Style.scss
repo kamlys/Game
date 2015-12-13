@@ -360,6 +360,7 @@ nav {
             font-size: 12px;
             color: #fff;
             cursor: pointer;
+
             .newNotification:hover {
                 -webkit-box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
                 -moz-box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
@@ -527,12 +528,13 @@ nav {
 .office {
     margin-top: 30px;
 
-    #uBuildingList {
+    .uBuildingList {
         background-color: $secondColor;
         min-height: 300px;
         display: inline-block;
         float: left;
         padding: 20px 20px 20px 20px;
+        width: 49% !important;
 
         h5 {
             color: #FFB100;
@@ -569,17 +571,18 @@ nav {
         }
     }
 
-    #uProductList {
+    .uProductList {
         float: right;
         background-color: $secondColor;
         min-height: 300px;
         padding: 20px 20px 20px 20px;
+        width: 49% !important;
 
         h5 {
             color: #B840EA;
         }
 
-        #officeProduct {
+        .officeProduct {
             background-color: #B840EA;
             color: #000;
             border: 1px solid #DDDDDD;
@@ -600,6 +603,54 @@ nav {
                     color: #000 !important;
                 }
             }
+        }
+    }
+
+    .uDealList {
+        background-color: $secondColor;
+        margin-top: 30px;
+        min-height: 300px;
+        display: inline-block;
+        float: left;
+        padding: 20px 20px 20px 20px;
+
+        h5 {
+            color: #75bf3b;
+            display: inline-block;
+        }
+
+        p {
+            color: #75bf3b;
+        }
+
+        .collapsible-header {
+            background-color: #75bf3b;
+            color: #000;
+        }
+        
+        .disabled{
+            background-color: $greyColor;
+        }
+
+        .myoffer{
+            background-color: $greyColor;
+        }
+
+        .officeDealAdd {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .officeDealShow{
+            float: right;
+            margin: 4px 20px 0 0;
+            width: 200px;
+        }
+
+        .myoffer{
+            float: right;
+            margin: 4px 20px 0 0;
+            width: 200px;
         }
     }
 }
