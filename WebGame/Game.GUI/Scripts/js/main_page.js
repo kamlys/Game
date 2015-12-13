@@ -24,6 +24,9 @@ function canBuild(colLeft, rowTop) {
     }
     var acanBuild = true;
     for (var a in budynki) {
+        if (!budynki[a]) {
+            continue;
+        }
         var x_left = budynki[a][0];
         var x_right = budynki[a][1];
         var y_top = budynki[a][2];

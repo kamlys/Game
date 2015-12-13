@@ -88,7 +88,8 @@ namespace Game.Service
                         X_pos = a.X_pos,
                         Y_pos = a.Y_pos,
                         Status = a.Status,
-                        Building_Name = a.Buildings.Name
+                        Building_Name = a.Buildings.Name,
+                         Owner = a.Owner
                     }
                 );
             }
@@ -109,6 +110,10 @@ namespace Game.Service
 
             foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID))
             {
+                if(!item.Owner)
+                {
+                    continue;
+                }
                 if (item.X_pos == row && item.Y_pos == col)
                 {
                     freePlace = false;
@@ -159,15 +164,23 @@ namespace Game.Service
             {
                 int BuildLvl = item.Lvl;
                 int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;
-                int Percent_per_lvl = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl / 100;
+                float Percent_per_lvl;
+                if (item.Lvl > 1)
+                {
+                    Percent_per_lvl = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl / 100;
+
+                }else
+                {
+                    Percent_per_lvl = 1;
+                }
 
                 if (tab2.Keys.Contains(item.Buildings.Product_ID))
                 {
-                    tab2[item.Buildings.Product_ID] += Product_per_sec * Percent_per_lvl * BuildLvl;
+                    tab2[item.Buildings.Product_ID] += (int)(Product_per_sec * Percent_per_lvl * BuildLvl * (float)item.Percent_product / 100);
                 }
                 else
                 {
-                    tab2[item.Buildings.Product_ID] = Product_per_sec * Percent_per_lvl * BuildLvl;
+                    tab2[item.Buildings.Product_ID] = (int)(Product_per_sec * Percent_per_lvl * BuildLvl * (float)item.Percent_product / 100);
                 }
             }
 

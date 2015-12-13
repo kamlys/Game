@@ -115,14 +115,22 @@ namespace Game.GUI.Controllers
 
         public JsonResult AcceptDeal(int a, string user)
         {
-            _dealService.AcceptDeal(a, User.Identity.Name);
-            NotificationDto notificationDto = new NotificationDto();
+            var accepted = _dealService.AcceptDeal(a, User.Identity.Name);
+            if(accepted)
+            {
 
-            notificationDto.Description = "Umowa zaakceptowana";
-            notificationDto.User_Login = user;
+                NotificationDto notificationDto = new NotificationDto();
 
-            _notificationService.SentNotification(notificationDto);
-            return new JsonResult { Data = true };
+                notificationDto.Description = "Umowa zaakceptowana";
+                notificationDto.User_Login = user;
+
+                _notificationService.SentNotification(notificationDto);
+                return new JsonResult { Data = true };
+            }else
+            {
+                return new JsonResult { Data = false };
+            }
+
         }
 
         public JsonResult CancelDeal(int a, string user)

@@ -32,6 +32,10 @@ namespace Game.GUI.Controllers
 
             foreach (var item in _userBuildingService.GetUserBuilding())
             {
+                if(!item.Owner)
+                {
+                    continue;
+                }
                 tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,

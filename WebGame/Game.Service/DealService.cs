@@ -19,7 +19,7 @@ namespace Game.Service
         private IRepository<UserBuildings> _userBuildings;
         private IRepository<Maps> _maps;
         private IRepository<Dolars> _dolars;
-
+        private IRepository<DealsBuildings> _dealsBuildings;
         private IUnitOfWork _unitOfWork;
 
         public DealService(IRepository<Deals> deals,
@@ -28,6 +28,7 @@ namespace Game.Service
             IRepository<UserBuildings> userBuildings,
             IRepository<Maps> maps,
             IRepository<Dolars> dolars,
+            IRepository<DealsBuildings> dealsBuildings,
             IUnitOfWork unitOfWork)
         {
             _deals = deals;
@@ -36,6 +37,7 @@ namespace Game.Service
             _userBuildings = userBuildings;
             _maps = maps;
             _dolars = dolars;
+            _dealsBuildings = dealsBuildings; 
             _unitOfWork = unitOfWork;
         }
 
@@ -102,7 +104,7 @@ namespace Game.Service
             _unitOfWork.Commit();
         }
 
-        public void AcceptDeal(int ID, string user)
+        public bool AcceptDeal(int ID, string user)
         {
             int uID = _users.GetAll().First(i => i.Login == user).ID;
             int buildingID = _deals.Get(ID).Building_ID;
@@ -113,9 +115,15 @@ namespace Game.Service
             if (_dolars.GetAll().First(i => i.User_ID == uID).Value >= myPrice)
             {
                 _deals.Get(ID).IsActive = true;
-                
+                _dolars.GetAll().First(i => i.User_ID == uID).Value -= myPrice;
+                var ownerID = _deals.Get(ID).Maps.User_ID;
+                _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = ownerID });
+
                 _unitOfWork.Commit();
+
+                return true;
             }
+            return false;
         }
 
         public void CancelDeal(int ID)

@@ -11,7 +11,7 @@ namespace Game.Service.Interfaces
     {
         List<DealDto> GetUserDeals(string User);
         void AddDeal(DealDto dealDto);
-        void AcceptDeal(int ID, string user);
+        bool AcceptDeal(int ID, string user);
         void CancelDeal(int ID);
 
     }

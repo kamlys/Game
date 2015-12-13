@@ -42,6 +42,10 @@ namespace Game.GUI.Controllers
 
             foreach (var a in ub)
             {
+                if (!a.Owner)
+                {
+                    continue;
+                }
                 var building = _buildingsHelper.GetBuildings().Where(b => b.ID == a.Building_ID).First();
                 var bTime = 0;
                 if(a.Status == "budowa")
@@ -81,6 +85,7 @@ namespace Game.GUI.Controllers
                 buildingsArray[i] = building;
                 i++;
             }
+            if(buildingsArray != null)
             vm.BuildingsArray = serializer.Serialize(buildingsArray);
             return View(vm);
         }
