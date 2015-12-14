@@ -25,11 +25,13 @@ namespace Game.GUI.Controllers
             _buildingTable = buildingTable;
         }
         // GET: Building
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult _BuildingsList()
         {
             List<BuildingDto> buildings = _buildingService.GetBuildings();
@@ -37,6 +39,7 @@ namespace Game.GUI.Controllers
         }
 
 
+        [Authorize]
         public ActionResult _BuildingList2()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -69,6 +72,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel viewModel)
         {
             BuildingDto _buildingDto = new BuildingDto();
@@ -93,6 +97,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel viewModel)
         {
             BuildingDto _buildingDto = new BuildingDto();
@@ -117,6 +122,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _buildingTable.Delete(id);

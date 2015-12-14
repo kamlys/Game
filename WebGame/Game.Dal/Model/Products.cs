@@ -12,6 +12,8 @@ namespace Game.Dal.Model
         public Products()
         {
             Buildings = new HashSet<Buildings>();
+            ProductRequirements = new HashSet<ProductRequirements>();
+            ProductRequirements1 = new HashSet<ProductRequirements>();
             UserProducts = new HashSet<UserProducts>();
         }
 
@@ -33,6 +35,12 @@ namespace Game.Dal.Model
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Buildings> Buildings { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductRequirements> ProductRequirements { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductRequirements> ProductRequirements1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserProducts> UserProducts { get; set; }

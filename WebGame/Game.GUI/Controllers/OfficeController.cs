@@ -32,13 +32,15 @@ namespace Game.GUI.Controllers
             _dealService = dealService;
         }
 
+
+        [Authorize]
         // GET: Office
         public ActionResult Index()
         {
             return View();
         }
 
-
+        [Authorize]
         public ActionResult _UserBuildingList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -68,7 +70,7 @@ namespace Game.GUI.Controllers
             return View(tableList);
         }
 
-
+        [Authorize]
         public ActionResult _UserProductList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -90,6 +92,7 @@ namespace Game.GUI.Controllers
             return View(tableList);
         }
 
+        [Authorize]
         public ActionResult _UserDealList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -113,6 +116,8 @@ namespace Game.GUI.Controllers
             return View(tableList);
         }
 
+
+        [Authorize]
         public JsonResult AcceptDeal(int a, string user)
         {
             var accepted = _dealService.AcceptDeal(a, User.Identity.Name);
@@ -133,6 +138,7 @@ namespace Game.GUI.Controllers
 
         }
 
+        [Authorize]
         public JsonResult CancelDeal(int a, string user)
         {
             _dealService.CancelDeal(a);
@@ -146,6 +152,7 @@ namespace Game.GUI.Controllers
             return new JsonResult { Data = true };
         }
 
+        [Authorize]
         public ActionResult AddDeal(ListTableViewModel tableList)
         {
             DealDto dealDto = new DealDto();
@@ -177,6 +184,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult AddOffer(ListTableViewModel tableList)
         {
             MarketDto _marketDto = new MarketDto();

@@ -23,6 +23,7 @@ namespace Game.GUI.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult _BanList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -44,7 +45,9 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/_BanList.cshtml", tableList);
         }
 
+
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel viewList)
         {
             BanDto _banDto = new BanDto();
@@ -60,6 +63,7 @@ namespace Game.GUI.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel viewList)
         {
             BanDto _banDto = new BanDto();
@@ -75,6 +79,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _banTable.Delete(id);

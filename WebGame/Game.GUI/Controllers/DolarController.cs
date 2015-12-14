@@ -20,12 +20,14 @@ namespace Game.GUI.Controllers
             _user = user;
         }
 
+        [Authorize]
         // GET: DolarTable
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
+        [Authorize]
         public ActionResult _DolarList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -47,6 +49,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel listView)
         {
             DolarDto _dolarDto = new DolarDto();
@@ -61,6 +64,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel listView)
         {
             DolarDto _dolarDto = new DolarDto();
@@ -76,6 +80,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _dolarTableService.Delete(id);

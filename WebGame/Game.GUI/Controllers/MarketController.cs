@@ -25,12 +25,13 @@ namespace Game.GUI.Controllers
         }
 
         // GET: Market
+        [Authorize]
         public ActionResult Index()
         {
             return View(GetOfferList());
         }
 
-
+        [Authorize]
         public ListMarketViewModel GetOfferList()
         {
             ListMarketViewModel marketList = new ListMarketViewModel();
@@ -69,6 +70,7 @@ namespace Game.GUI.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult AddOffer(ListMarketViewModel marketList)
         {
             MarketDto _marketDto = new MarketDto();
@@ -84,6 +86,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult BuyOffer(MarketViewModel a)
         {
             MarketDto marketDto = new MarketDto();
@@ -104,7 +107,7 @@ namespace Game.GUI.Controllers
             }
         }
 
-
+        [Authorize]
         public ActionResult _MarketList()
         {
             ListMarketViewModel marketList = new ListMarketViewModel();
@@ -127,6 +130,7 @@ namespace Game.GUI.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel listView)
         {
             MarketDto _marketDto = new MarketDto();
@@ -142,6 +146,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel listView)
         {
             MarketDto _marketDto = new MarketDto();
@@ -158,6 +163,7 @@ namespace Game.GUI.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult DeleteOffer(int id)
         {
             _marketService.Delete(id);
@@ -165,6 +171,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult DeleteOfferAdmin(int id)
         {
             _marketService.Delete(id);

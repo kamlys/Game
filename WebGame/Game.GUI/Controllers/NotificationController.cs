@@ -17,6 +17,7 @@ namespace Game.GUI.Controllers
             _notificationService = notifciationService;
         }
 
+        [Authorize]
         // GET: Notification
         public ActionResult _Notification()
         {

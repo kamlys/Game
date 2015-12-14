@@ -52,6 +52,7 @@
     <Compile Include="DTO\MessageDto.cs" />
     <Compile Include="DTO\NotificationDto.cs" />
     <Compile Include="DTO\ProductDto.cs" />
+    <Compile Include="DTO\ProductRequirementDto.cs" />
     <Compile Include="DTO\UserBuildingDto.cs" />
     <Compile Include="DTO\UserDto.cs" />
     <Compile Include="DTO\UserProductDto.cs" />

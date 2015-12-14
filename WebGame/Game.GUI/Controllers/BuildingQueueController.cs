@@ -19,11 +19,13 @@ namespace Game.GUI.Controllers
         }
 
         // GET: BuildingQueue
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult _BuildingQueueList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -48,6 +50,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel listView)
         {
             BuildingQueueDto _queueDto = new BuildingQueueDto();
@@ -63,6 +66,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel viewList)
         {
             BuildingQueueDto _buildingQueueDto = new BuildingQueueDto();
@@ -76,6 +80,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _queueTable.Delete(id);

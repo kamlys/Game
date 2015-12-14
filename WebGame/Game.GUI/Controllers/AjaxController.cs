@@ -25,6 +25,7 @@ namespace Game.GUI.Controllers
             _notificationService = notificationService;
         }
         [HttpPost]
+        [Authorize]
         public JsonResult Build(AjaxBuildViewModel a)
         {
             if (_buildingsHelper.BuildingValidation(a.Id, a.Col, a.Row, User.Identity.Name))
@@ -40,6 +41,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult Destroy(AjaxBuildViewModel a)
         {
             ShowProduct();
@@ -48,16 +50,19 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public void ProductUpdate()
         {
             _productService.UpdateUserProduct(User.Identity.Name);
         }
 
+        [Authorize]
         public void RemoveNotification(String id)
         {
             _notificationService.RemoveNotification(Int32.Parse(id), User.Identity.Name);
         }
 
+        [Authorize]
         public string[][] GetNotifications()
         {
             var notifs = _notificationService.GetUserNotification(User.Identity.Name);
@@ -70,6 +75,7 @@ namespace Game.GUI.Controllers
             return ret.ToArray();
         }
 
+        [Authorize]
         public JsonResult ShowProduct()
         {
             ProductUpdate();

@@ -17,6 +17,7 @@ namespace Game.GUI.Controllers
             _dolar = dolar;
         }
         // GET: Ranking
+        [Authorize]
         public ActionResult Index()
         {
             ListTableViewModel tableList = new ListTableViewModel();

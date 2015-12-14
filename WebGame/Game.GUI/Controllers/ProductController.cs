@@ -20,13 +20,14 @@ namespace Game.GUI.Controllers
             _productTable = productTable;
         }
 
+        [Authorize]
         // GET: Product
         public ActionResult Index()
         {
             return View();
         }
 
-
+        [Authorize]
         public ActionResult _ProductList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -49,6 +50,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel listView)
         {
             ProductDto _productDto = new ProductDto();
@@ -64,6 +66,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel listView)
         {
             ProductDto _productDto = new ProductDto();
@@ -80,6 +83,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _productTable.Delete(id);

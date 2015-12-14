@@ -30,12 +30,14 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Register(RegisterViewModel register)
         {
             UserDto user = new UserDto();
@@ -57,6 +59,7 @@ namespace Game.GUI.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -64,6 +67,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Login(LoginViewModel modelLogin, string returnUrl)
         {
             UserDto user = new UserDto();
@@ -85,6 +89,7 @@ namespace Game.GUI.Controllers
             return View(modelLogin);
         }
 
+        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -94,6 +99,7 @@ namespace Game.GUI.Controllers
         }
 
 
+        [Authorize]
         public ActionResult _UserList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -118,6 +124,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel listView)
         {
             UserDto _userDto = new UserDto();
@@ -135,6 +142,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel listView)
         {
             UserDto _userDto = new UserDto();
@@ -153,6 +161,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _userService.Delete(id);
@@ -161,6 +170,7 @@ namespace Game.GUI.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult Profil(string User)
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -185,6 +195,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult ChangePass(ListTableViewModel pass)
         {
             UserDto user = new UserDto();
@@ -211,6 +222,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult ChangeEmail(ListTableViewModel email)
         {
             UserDto user = new UserDto();
@@ -235,7 +247,7 @@ namespace Game.GUI.Controllers
             }
         }
 
-
+        [Authorize]
         public ActionResult _FriendList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -255,6 +267,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult AddFriend(string a)
         {
             FriendDto addFriend = new FriendDto();

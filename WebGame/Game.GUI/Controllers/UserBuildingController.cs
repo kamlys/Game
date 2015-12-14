@@ -20,11 +20,13 @@ namespace Game.GUI.Controllers
         }
 
         // GET: UserBuilding
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult _UserBuildingList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -55,6 +57,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel listView)
         {
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
@@ -74,6 +77,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel listView)
         {
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
@@ -95,6 +99,7 @@ namespace Game.GUI.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _userBuildingService.Delete(id);
@@ -102,6 +107,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult LvlUp(int id)
         {
             _userBuildingService.LvlUp(id, User.Identity.Name);

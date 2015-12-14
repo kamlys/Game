@@ -21,15 +21,19 @@ namespace Game.GUI.Controllers
         }
 
         // GET: Message
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult _NewMessage()
         {
             return View();
         }
+
+        [Authorize]
         public ActionResult SentMessage(ListTableViewModel messageView)
         {
             MessageDto message = new MessageDto();
@@ -48,6 +52,7 @@ namespace Game.GUI.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult SentMessageProfile(ListTableViewModel messageView)
         {
             MessageDto message = new MessageDto();
@@ -66,6 +71,7 @@ namespace Game.GUI.Controllers
             return RedirectToAction("Profil", "User", new { User = message.Customer_Login });
         }
 
+        [Authorize]
         public ActionResult _SentMessage()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -85,6 +91,7 @@ namespace Game.GUI.Controllers
             return View("~/Views/Message/_SentMessage.cshtml", tableList);
         }
 
+        [Authorize]
         public ActionResult _ReceivedMessage()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -106,6 +113,7 @@ namespace Game.GUI.Controllers
             return View("~/Views/Message/_ReceivedMessage.cshtml", tableList);
         }
 
+        [Authorize]
         public ActionResult Content(int MessageID)
         {
             ListTableViewModel tableList = new ListTableViewModel();

@@ -27,11 +27,13 @@ namespace Game.GUI.Controllers
             _productService = productService;
         }
         // GET: Building
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult _UserMap()
         {
             _productService.UpdateUserProduct(User.Identity.Name);
@@ -91,7 +93,7 @@ namespace Game.GUI.Controllers
         }
 
 
-
+        [Authorize]
         public ActionResult _MapList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -114,6 +116,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel listView)
         {
             MapDto _mapDto = new MapDto();
@@ -128,6 +131,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel listView)
         {
             MapDto _mapDto = new MapDto();
@@ -143,6 +147,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _mapService.Delete(id);

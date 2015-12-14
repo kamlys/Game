@@ -21,6 +21,7 @@ namespace Game.GUI.Controllers
             _user = user;
         }
         // GET: Building
+        [Authorize]
         public ActionResult Admin()
         {
             if (_adminService.ifAdmin(User.Identity.Name))
@@ -33,6 +34,7 @@ namespace Game.GUI.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult _AdminList()
         {
             ListTableViewModel tableList = new ListTableViewModel();
@@ -52,6 +54,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(ListTableViewModel viewList)
         {
             AdminDto _adminDto = new AdminDto();
@@ -64,6 +67,7 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Update(ListTableViewModel viewList)
         {
             AdminDto _adminDto = new AdminDto();
@@ -78,6 +82,7 @@ namespace Game.GUI.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             _adminService.Delete(id);

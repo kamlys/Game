@@ -24,6 +24,7 @@ namespace Game.Dal.Model
         public virtual DbSet<Market> Market { get; set; }
         public virtual DbSet<Messages> Messages { get; set; }
         public virtual DbSet<Notifications> Notifications { get; set; }
+        public virtual DbSet<ProductRequirements> ProductRequirements { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserBuildings> UserBuildings { get; set; }
@@ -67,6 +68,18 @@ namespace Game.Dal.Model
                 .HasMany(e => e.Buildings)
                 .WithRequired(e => e.Products)
                 .HasForeignKey(e => e.Product_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Products>()
+                .HasMany(e => e.ProductRequirements)
+                .WithRequired(e => e.Products)
+                .HasForeignKey(e => e.Base_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Products>()
+                .HasMany(e => e.ProductRequirements1)
+                .WithRequired(e => e.Products1)
+                .HasForeignKey(e => e.Require_ID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Products>()
