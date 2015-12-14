@@ -6,8 +6,6 @@ $regColor: #66cccc;
 $greyColor: #9d9d9d;
 $indexColor: #ff7d00;
 
-
-
 html, body {
     background-color: $firstColor;
 }
@@ -221,12 +219,13 @@ nav {
 
 /*Lista budynków do budowy*/
 .buildingList {
-    margin: 30px 0 0 30px;
+    margin: 30px 0 0 0;
     background-color: $secondColor;
     color: white;
     display: inline-block;
     float: left !important;
     text-align: center;
+    min-height: 350px;
 
     .btn {
         background-color: $indexColor;
@@ -267,7 +266,7 @@ nav {
     color: white;
     display: inline-block;
     width: 250px;
-    min-height: 300px;
+    min-height: 350px;
     float: right !important;
 
     .tabs {
@@ -346,7 +345,6 @@ nav {
 #Notification {
     #notificationList {
         overflow: auto;
-        height: 300px;
 
         .newNotification {
             background-color: $firstColor;

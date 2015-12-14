@@ -3,123 +3,126 @@
     Layout = null;
 }
 
-<div id="officeDealAdd" class="modal">
-    <div class="modal-content">
-        @using (Html.BeginForm("AddDeal", "Office", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { @placeholder = "", @class = "validate inputLogin" })
-                <label for="Login">Wspólnik: </label>
-            </div>
-
-            <div class="input-field col s12" id="Number">
-                @Html.TextBoxFor(m => m.tableView.Name, new { @placeholder = "", @class = "validate inputBuildingName" })
-                <label for="BuildingName">Budynek:</label>
-            </div>
-
-            <div class="switch col s6">
-                <label for="Price">Budynek na mojej mapie: </label>
-                <label>
-                    Nie
-                    <input type="checkbox" id="tableView_Owner" name="tableView.Owner" />
-                    @*@Html.CheckBoxFor(m => m.tableView.Owner, new { @type = "checkbox", @placeholder = "", @class = "validate" })*@
-                    <span class="lever"></span>
-                    Tak
-                </label>
-            </div>
-
-            <div class="range-field col s6" id="Number">
-                <label for="Percent_User1">Wkład własny i procent produkcji (%): </label>
-                @Html.TextBoxFor(m => m.tableView.Percent_User1, new { @type = "range", @min = "0", @max = "100", @placeholder = "", @class = "validate inputpercent_user" })
-            </div>
-
-            <input type="submit" value="Złóż ofertę" class="btn waves-effect waves-light addButton" id="addDeal" name="action" />
-        }
-    </div>
-</div>
-
-<div id="officeDealShow" class="modal">
-    <div class="modal-content">
-        <div>Oferta od <span id="login"></span></div>
-        <div>Dotyczy wybudowania <span id="budynek"></span> na <span id="mapa"></span>.</div>
-        <div>Przy twoim wkładzie w wysokości <span id="procent"></span>%.</div>
-        <div><span id="procentproduktu"></span>% wytworzonych produktów będzie przeznaczonych dla dziebie</div>
-
-        <button class="btn-large officeDealAccept" id="acceptDeal">Akceptuje</button> <button class="btn-large" id="cancelDeal">Odrzuć</button>
-    </div>
-</div>
-
-<h5>Umowy</h5>
-<button data-target="officeDealAdd" class="btn modal-trigger officeDealAdd">Złóż oferę</button>
-
-<ul class="collapsible" data-collapsible="accordion">
-    @foreach (var item in Model.tableList)
-    {
-        if (item.IsActive == true)
-        {
-            <li>
-                <div class="collapsible-header">@item.Name</div>
-                <div class="collapsible-body">
-                    <p>
-
-                        @if (item.Login == User.Identity.Name)
-                        {
-                            <span>Wspólnik: @item.User2_Login<br /></span>
-                            <span>Procent produktu dla mnie: @item.Percent_User2</span><br />
-                        }
-                        else
-                        {
-                            <span>Wspólnik: @item.Login<br /></span>
-                            <span>Procent produktu dla mnie: @item.Percent_User1</span><br />
-                        }
-                        @if (item.Owner == true)
-                        {
-                            <span>Budynek stoi na twojej działce</span><br />
-                        }
-                        else
-                        {
-                            <span>Budynek stoi na działce wspólnika</span><br />
-                        }
-                        Aktywna
-                    </p>
+<div id="dealInner">
+    <div id="officeDealAdd" class="modal">
+        <div class="modal-content">
+            @using (Html.BeginForm("AddDeal", "Office", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.tableView.Login, new { @placeholder = "", @class = "validate inputLogin" })
+                    <label for="Login">Wspólnik: </label>
                 </div>
-            </li>
-        }
-        else if (item.IsActive == false)
-        {
-            if (item.Login == User.Identity.Name)
+
+                <div class="input-field col s12" id="Number">
+                    @Html.TextBoxFor(m => m.tableView.Name, new { @placeholder = "", @class = "validate inputBuildingName" })
+                    <label for="BuildingName">Budynek:</label>
+                </div>
+
+                <div class="switch col s6">
+                    <label for="Price">Budynek na mojej mapie: </label>
+                    <label>
+                        Nie
+                        <input type="checkbox" id="tableView_Owner" name="tableView.Owner" />
+                        @*@Html.CheckBoxFor(m => m.tableView.Owner, new { @type = "checkbox", @placeholder = "", @class = "validate" })*@
+                        <span class="lever"></span>
+                        Tak
+                    </label>
+                </div>
+
+                <div class="range-field col s6" id="Number">
+                    <label for="Percent_User1">Wkład własny i procent produkcji (%): </label>
+                    @Html.TextBoxFor(m => m.tableView.Percent_User1, new { @type = "range", @min = "0", @max = "100", @placeholder = "", @class = "validate inputpercent_user" })
+                </div>
+
+                <input type="submit" value="Złóż ofertę" class="btn waves-effect waves-light addButton" id="addDeal" name="action" />
+            }
+        </div>
+    </div>
+
+    <div id="officeDealShow" class="modal">
+        <div class="modal-content">
+            <div>Oferta od <span id="login"></span></div>
+            <div>Dotyczy wybudowania <span id="budynek"></span> na <span id="mapa"></span>.</div>
+            <div>Przy twoim wkładzie w wysokości <span id="procent"></span>%.</div>
+            <div><span id="procentproduktu"></span>% wytworzonych produktów będzie przeznaczonych dla dziebie</div>
+
+            <button class="btn-large officeDealAccept" id="acceptDeal">Akceptuje</button> <button class="btn-large" id="cancelDeal">Odrzuć</button>
+        </div>
+    </div>
+
+    <h5>Umowy</h5>
+    <button data-target="officeDealAdd" class="btn modal-trigger officeDealAdd">Złóż oferę</button>
+
+    <div id="dealList">
+        <ul class="collapsible" data-collapsible="accordion">
+            @foreach (var item in Model.tableList)
             {
-                <li>
-                    <div class="collapsible-header disabled">@item.Name <button class="btn myoffer disabled">Oczekuje</button></div>
-                    <div class="collapsible-body">
-                        <p>
-                            Wspólnik: @item.User2_Login<br />
-                            Produkcja dla mnie: @item.Percent_User2<br />
-                            @if (item.Owner == true)
+                if (item.IsActive == true)
+                {
+                    <li>
+                        <div class="collapsible-header">@item.Name</div>
+                        <div class="collapsible-body">
+                            <p>
+
+                                @if (item.Login == User.Identity.Name)
+                                {
+                                    <span>Wspólnik: @item.User2_Login<br /></span>
+                                    <span>Procent produktu dla mnie: @item.Percent_User2</span><br />
+                                }
+                                else
+                                {
+                                    <span>Wspólnik: @item.Login<br /></span>
+                                    <span>Procent produktu dla mnie: @item.Percent_User1</span><br />
+                                }
+                                @if (item.Owner == true)
+                                {
+                                    <span>Budynek stoi na twojej działce</span><br />
+                                }
+                                else
+                                {
+                                    <span>Budynek stoi na działce wspólnika</span><br />
+                                }
+                                Aktywna
+                            </p>
+                        </div>
+                    </li>
+                }
+                else if (item.IsActive == false)
+                {
+                    if (item.Login == User.Identity.Name)
+                    {
+                        <li>
+                            <div class="collapsible-header disabled">@item.Name <button class="btn myoffer disabled">Oczekuje</button></div>
+                            <div class="collapsible-body">
+                                <p>
+                                    Wspólnik: @item.User2_Login<br />
+                                    Produkcja dla mnie: @item.Percent_User2<br />
+                                    @if (item.Owner == true)
                         {
-                                <span>Budynek stoi na twojej działce</span><br />
-                            }
-                            else
-                            {
-                                <span>Budynek stoi na działce wspólnika</span><br />
-                            }
-                        </p>
-                    </div>
-                </li>
+                                        <span>Budynek stoi na twojej działce</span><br />
+                                    }
+                                    else
+                                    {
+                                        <span>Budynek stoi na działce wspólnika</span><br />
+                                    }
+                                </p>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <div class="collapsible-header disabled">
+                                @item.Name <button data-target="officeDealShow" onclick='showDeal("@item.ID","@item.Login", "@item.Percent_User1", "@item.Name","@item.Owner.ToString()")' class="btn modal-trigger officeDealShow">Zobacz ofertę</button>
+                            </div>
+                        </li>
+                    }
+                }
             }
-            else
-            {
-                <li>
-                    <div class="collapsible-header disabled">
-                        @item.Name <button data-target="officeDealShow" onclick='showDeal("@item.ID","@item.Login", "@item.Percent_User1", "@item.Name","@item.Owner.ToString()")' class="btn modal-trigger officeDealShow">Zobacz ofertę</button>
-                    </div>
-                </li>
-            }
-        }
-    }
-</ul>
+        </ul>
 
-
+    </div>
+</div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -178,7 +181,6 @@
                 location.reload();
             }
         });
-
     });
 
 </script>

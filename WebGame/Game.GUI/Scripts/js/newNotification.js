@@ -22,7 +22,6 @@ $(".addFriend").click(function () {
 });
 
 $("#acceptDeal").click(function () {
-    console.log(user);
     user_login = user;
     pin = "Umowa zaakceptowana";
 });
@@ -35,8 +34,7 @@ $("#cancelDeal").click(function () {
 $("#addDeal").click(function () {
     pin = "Nowa umowa";
 });
-function getNotifications()
-{
+function getNotifications() {
     $.ajax({
         type: "GET",
         url: 'notification/_Notification',
@@ -45,6 +43,20 @@ function getNotifications()
             console.log(data);
             $("#NotificationBox").html($(data).html());
             $('.infoBox .tabs').tabs('select_tab', 'Notification');
+        }
+
+    });
+}
+
+function getDeals() {
+    console.log("getDeals()");
+    $.ajax({
+        type: "GET",
+        url: 'Office/_UserDealList',
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            console.log(data);
+            $("#dealBox").html($(data).html());
         }
 
     });
@@ -67,7 +79,7 @@ $(document).ready(function () {
             //div.style.textDecoration = "underline";
 
             //$("#NotificationBox").load('@(Url.Action("_Notification","Notification"))');
-
+            window.setTimeout(getDeals, 2000);
             window.setTimeout(getNotifications, 2000);
 
             var $toastContent = $('<span>' + pin + '</span>');
@@ -77,10 +89,10 @@ $(document).ready(function () {
         $.connection.hub.start().done(function () {
             $('.sentMessage').click(function () {
                 if ($("#tableView_Customer_Login").val() == null) {
-                    game.server.sentNotification($("#tableView_Login").val(),pin);
+                    game.server.sentNotification($("#tableView_Login").val(), pin);
                 }
                 else {
-                    game.server.sentNotification($("#tableView_Customer_Login").val(),pin);
+                    game.server.sentNotification($("#tableView_Customer_Login").val(), pin);
                 }
             });
             $('.addFriend').click(function () {
@@ -90,13 +102,10 @@ $(document).ready(function () {
                 game.server.sentNotification($("#tableView_Login").val(), pin);
             });
             $('#acceptDeal').click(function () {
-                console.log("User " + user);
-                console.log("UserLogin " + user_login);
-
                 game.server.sentNotification(user_login, pin);
             });
             $('#cancelDeal').click(function () {
-                console.log("UserLogin: "+user_login);
+                console.log("UserLogin: " + user_login);
                 game.server.sentNotification(user_login, pin);
             });
 

@@ -16,10 +16,12 @@
             @Html.Action("_UserProductList", "Office")
         </div>
 
-        <div class="col s12 m6 l12 uDealList">
-            @Html.Action("_UserDealList", "Office")
-        </div>
 
+        <div class="col s12 m6 l12 uDealList">
+            <div id="dealBox">
+                @Html.Action("_UserDealList", "Office")
+            </div>
+        </div>
     </div>
 
 </div>
