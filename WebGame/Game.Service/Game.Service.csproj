@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\IMessageService.cs" />
     <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Interfaces\IDealService.cs" />
+    <Compile Include="Interfaces\IProductRequirementsService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\IUserBuildingService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="MarketService.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="NotificationService.cs" />
+    <Compile Include="ProductRequirementsService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="BanService.cs" />
     <Compile Include="BuildingService.cs" />

@@ -30,14 +30,12 @@ namespace Game.GUI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult Register(RegisterViewModel register)
         {
             UserDto user = new UserDto();
@@ -59,7 +57,6 @@ namespace Game.GUI.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -67,7 +64,6 @@ namespace Game.GUI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult Login(LoginViewModel modelLogin, string returnUrl)
         {
             UserDto user = new UserDto();
@@ -89,7 +85,6 @@ namespace Game.GUI.Controllers
             return View(modelLogin);
         }
 
-        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

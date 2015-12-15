@@ -17,12 +17,14 @@ namespace Game.GUI.Controllers
         private IMarketService _marketService;
         private INotificationService _notificationService;
         private IDealService _dealService;
+        private IProductRequirementsService _productRequirementService;
 
 
         public OfficeController(IUserBuildingService userBuildingService,
             IMarketService marketService,
             IUserProductService userProductService,
             INotificationService notificationService,
+            IProductRequirementsService productRequirementService,
             IDealService dealService)
         {
             _userBuildingService = userBuildingService;
@@ -30,6 +32,7 @@ namespace Game.GUI.Controllers
             _marketService = marketService;
             _notificationService = notificationService;
             _dealService = dealService;
+            _productRequirementService = productRequirementService;
         }
 
 
@@ -116,6 +119,23 @@ namespace Game.GUI.Controllers
             return View(tableList);
         }
 
+        [Authorize]
+        public ActionResult _UserProductRequirementList()
+        {
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+
+            foreach (var item in _productRequirementService.GetCanUserProducts(User.Identity.Name))
+            {
+                tableList.tableList.Add(new TableViewModel
+                {
+                    Base_Name = item.Base_Name,
+                    Require_Name = item.Require_Name,
+                });
+            }
+
+            return View(tableList);
+        }
 
         [Authorize]
         public JsonResult AcceptDeal(int a, string user)

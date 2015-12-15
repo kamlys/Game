@@ -22,6 +22,7 @@ namespace Game.Core.DTO
         public string Alias { get; set; }
         public int BuildingTime { get; set; }
         public int DestructionTime { get; set; }
+        public bool Stock { get; set; }
 
     }
 }

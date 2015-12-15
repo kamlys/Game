@@ -68,5 +68,13 @@ namespace Game.GUI.ViewModels
         public bool Owner { get; set; }
         public bool IsActive { get; set; }
         public string  User2_Login { get; set; }
+
+
+
+        //Produkty do wyprodukowania
+        public int Base_ID{ get; set; }
+        public string Base_Name { get; set; }
+        public int Require_ID { get; set; }
+        public string Require_Name { get; set; }
     }
 }

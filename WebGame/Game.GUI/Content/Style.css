@@ -377,84 +377,116 @@ nav {
 /*Biuro*/
 .office {
   margin-top: 30px; }
-  .office .uBuildingList {
+  .office .firstDiv .uBuildingList {
     background-color: #2f3b46;
     min-height: 300px;
     display: inline-block;
     float: left;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
-    .office .uBuildingList h5 {
+    .office .firstDiv .uBuildingList h5 {
       color: #FFB100; }
-    .office .uBuildingList p {
+    .office .firstDiv .uBuildingList p {
       color: #FFB100; }
-    .office .uBuildingList #lvlUp {
+    .office .firstDiv .uBuildingList #lvlUp {
       margin-top: 7.5px;
       margin-right: 5px;
       background-color: #26A69A;
       color: #000; }
-      .office .uBuildingList #lvlUp i {
+      .office .firstDiv .uBuildingList #lvlUp i {
         line-height: 2rem; }
-    .office .uBuildingList .collapsible-header {
+    .office .firstDiv .uBuildingList .collapsible-header {
       background-color: #FFB100;
       color: #000; }
-      .office .uBuildingList .collapsible-header #lvlUp:hover {
+      .office .firstDiv .uBuildingList .collapsible-header #lvlUp:hover {
         background-color: green; }
-      .office .uBuildingList .collapsible-header #lvlUp:hover:before {
+      .office .firstDiv .uBuildingList .collapsible-header #lvlUp:hover:before {
         content: "test"; }
-  .office .uProductList {
+  .office .firstDiv .uProductList {
     float: right;
     background-color: #2f3b46;
     min-height: 300px;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
-    .office .uProductList h5 {
+    .office .firstDiv .uProductList h5 {
       color: #B840EA; }
-    .office .uProductList .officeProduct {
+    .office .firstDiv .uProductList .officeProduct {
       background-color: #B840EA;
       color: #000;
       border: 1px solid #DDDDDD;
-      height: 50px;
-      line-height: 50px;
+      height: 46px;
+      line-height: 46px;
       padding-left: 20px; }
-      .office .uProductList .officeProduct .name {
+      .office .firstDiv .uProductList .officeProduct .name {
         float: left; }
-      .office .uProductList .officeProduct .officeOfferAdd {
+      .office .firstDiv .uProductList .officeProduct .officeOfferAdd {
         margin: 5px 5px 0 0;
         float: right;
         border-radius: 10px !important; }
-        .office .uProductList .officeProduct .officeOfferAdd .input[type=text].valid {
+        .office .firstDiv .uProductList .officeProduct .officeOfferAdd .input[type=text].valid {
           color: #000 !important; }
-  .office .uDealList {
+  .office .secondDiv .uDealList {
+    background-color: #2f3b46;
+    margin-top: 30px;
+    min-height: 300px;
+    display: inline-block;
+    float: right;
+    padding: 20px 20px 20px 20px;
+    width: 49% !important; }
+    .office .secondDiv .uDealList h5 {
+      color: #75bf3b;
+      display: inline-block; }
+    .office .secondDiv .uDealList p {
+      color: #75bf3b; }
+    .office .secondDiv .uDealList .collapsible-header {
+      background-color: #75bf3b;
+      color: #000; }
+    .office .secondDiv .uDealList .disabled {
+      background-color: #9d9d9d; }
+    .office .secondDiv .uDealList .myoffer {
+      background-color: #9d9d9d; }
+    .office .secondDiv .uDealList .officeDealAdd {
+      display: inline-block;
+      margin-left: 10px; }
+    .office .secondDiv .uDealList .officeDealShow {
+      float: right;
+      margin: 4px 20px 0 0;
+      width: 200px; }
+    .office .secondDiv .uDealList .myoffer {
+      float: right;
+      margin: 4px 20px 0 0;
+      width: 200px; }
+  .office .secondDiv .uProductRequirementList {
     background-color: #2f3b46;
     margin-top: 30px;
     min-height: 300px;
     display: inline-block;
     float: left;
-    padding: 20px 20px 20px 20px; }
-    .office .uDealList h5 {
-      color: #75bf3b;
+    padding: 20px 20px 20px 20px;
+    width: 49% !important; }
+    .office .secondDiv .uProductRequirementList h5 {
+      color: #f4511e;
       display: inline-block; }
-    .office .uDealList p {
-      color: #75bf3b; }
-    .office .uDealList .collapsible-header {
-      background-color: #75bf3b;
-      color: #000; }
-    .office .uDealList .disabled {
-      background-color: #9d9d9d; }
-    .office .uDealList .myoffer {
-      background-color: #9d9d9d; }
-    .office .uDealList .officeDealAdd {
-      display: inline-block;
-      margin-left: 10px; }
-    .office .uDealList .officeDealShow {
-      float: right;
-      margin: 4px 20px 0 0;
-      width: 200px; }
-    .office .uDealList .myoffer {
-      float: right;
-      margin: 4px 20px 0 0;
-      width: 200px; }
+    .office .secondDiv .uProductRequirementList .productRequirementItem {
+      background-color: #f4511e;
+      height: 46px; }
+      .office .secondDiv .uProductRequirementList .productRequirementItem .productName {
+        float: left;
+        display: inline-block;
+        line-height: 46px;
+        margin-left: 15px; }
+      .office .secondDiv .uProductRequirementList .productRequirementItem .inputValue {
+        display: inline-block;
+        float: right;
+        background-color: #9d9d9d;
+        height: 46px;
+        line-height: 46px;
+        padding-left: 15px; }
+        .office .secondDiv .uProductRequirementList .productRequirementItem .inputValue #tableView_Value {
+          width: 50%;
+          display: inline-block;
+          height: 44px;
+          border-bottom: 1px solid #f4511e; }
 
 /*Profil*/
 .profil {

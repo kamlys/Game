@@ -526,129 +526,178 @@ nav {
 .office {
     margin-top: 30px;
 
-    .uBuildingList {
-        background-color: $secondColor;
-        min-height: 300px;
-        display: inline-block;
-        float: left;
-        padding: 20px 20px 20px 20px;
-        width: 49% !important;
+    .firstDiv {
+        .uBuildingList {
+            background-color: $secondColor;
+            min-height: 300px;
+            display: inline-block;
+            float: left;
+            padding: 20px 20px 20px 20px;
+            width: 49% !important;
 
-        h5 {
-            color: #FFB100;
-        }
+            h5 {
+                color: #FFB100;
+            }
 
-        p {
-            color: #FFB100;
-        }
+            p {
+                color: #FFB100;
+            }
 
-        #lvlUp {
-            margin-top: 7.5px;
-            margin-right: 5px;
-            background-color: #26A69A;
-            color: #000;
+            #lvlUp {
+                margin-top: 7.5px;
+                margin-right: 5px;
+                background-color: #26A69A;
+                color: #000;
 
-            i {
-                line-height: 2rem;
+                i {
+                    line-height: 2rem;
+                }
+            }
+
+            .collapsible-header {
+                background-color: #FFB100;
+                color: #000;
+
+
+
+                #lvlUp:hover {
+                    background-color: green;
+                }
+
+                #lvlUp:hover:before {
+                    content: "test";
+                }
             }
         }
 
-        .collapsible-header {
-            background-color: #FFB100;
-            color: #000;
+        .uProductList {
+            float: right;
+            background-color: $secondColor;
+            min-height: 300px;
+            padding: 20px 20px 20px 20px;
+            width: 49% !important;
 
-
-
-            #lvlUp:hover {
-                background-color: green;
+            h5 {
+                color: #B840EA;
             }
 
-            #lvlUp:hover:before {
-                content: "test";
-            }
-        }
-    }
+            .officeProduct {
+                background-color: #B840EA;
+                color: #000;
+                border: 1px solid #DDDDDD;
+                height: 46px;
+                line-height: 46px;
+                padding-left: 20px;
 
-    .uProductList {
-        float: right;
-        background-color: $secondColor;
-        min-height: 300px;
-        padding: 20px 20px 20px 20px;
-        width: 49% !important;
+                .name {
+                    float: left;
+                }
 
-        h5 {
-            color: #B840EA;
-        }
+                .officeOfferAdd {
+                    margin: 5px 5px 0 0;
+                    float: right;
+                    border-radius: 10px !important;
 
-        .officeProduct {
-            background-color: #B840EA;
-            color: #000;
-            border: 1px solid #DDDDDD;
-            height: 50px;
-            line-height: 50px;
-            padding-left: 20px;
-
-            .name {
-                float: left;
-            }
-
-            .officeOfferAdd {
-                margin: 5px 5px 0 0;
-                float: right;
-                border-radius: 10px !important;
-
-                .input[type=text].valid {
-                    color: #000 !important;
+                    .input[type=text].valid {
+                        color: #000 !important;
+                    }
                 }
             }
         }
     }
 
-    .uDealList {
-        background-color: $secondColor;
-        margin-top: 30px;
-        min-height: 300px;
-        display: inline-block;
-        float: left;
-        padding: 20px 20px 20px 20px;
-
-        h5 {
-            color: #75bf3b;
+    .secondDiv {
+        .uDealList {
+            background-color: $secondColor;
+            margin-top: 30px;
+            min-height: 300px;
             display: inline-block;
+            float: right;
+            padding: 20px 20px 20px 20px;
+            width: 49% !important;
+
+
+            h5 {
+                color: #75bf3b;
+                display: inline-block;
+            }
+
+            p {
+                color: #75bf3b;
+            }
+
+            .collapsible-header {
+                background-color: #75bf3b;
+                color: #000;
+            }
+
+            .disabled {
+                background-color: $greyColor;
+            }
+
+            .myoffer {
+                background-color: $greyColor;
+            }
+
+            .officeDealAdd {
+                display: inline-block;
+                margin-left: 10px;
+            }
+
+            .officeDealShow {
+                float: right;
+                margin: 4px 20px 0 0;
+                width: 200px;
+            }
+
+            .myoffer {
+                float: right;
+                margin: 4px 20px 0 0;
+                width: 200px;
+            }
         }
 
-        p {
-            color: #75bf3b;
-        }
-
-        .collapsible-header {
-            background-color: #75bf3b;
-            color: #000;
-        }
-        
-        .disabled{
-            background-color: $greyColor;
-        }
-
-        .myoffer{
-            background-color: $greyColor;
-        }
-
-        .officeDealAdd {
+        .uProductRequirementList {
+            background-color: $secondColor;
+            margin-top: 30px;
+            min-height: 300px;
             display: inline-block;
-            margin-left: 10px;
-        }
+            float: left;
+            padding: 20px 20px 20px 20px;
+            width: 49% !important;
 
-        .officeDealShow{
-            float: right;
-            margin: 4px 20px 0 0;
-            width: 200px;
-        }
+            h5 {
+                color: #f4511e;
+                display: inline-block;
+            }
 
-        .myoffer{
-            float: right;
-            margin: 4px 20px 0 0;
-            width: 200px;
+            .productRequirementItem {
+                background-color: #f4511e;
+                height: 46px;
+
+                .productName {
+                    float: left;
+                    display: inline-block;
+                    line-height: 46px;
+                    margin-left: 15px;
+                }
+
+                .inputValue {
+                    display: inline-block;
+                    float: right;
+                    background-color: $greyColor;
+                    height: 46px;
+                    line-height: 46px;
+                    padding-left: 15px;
+
+                    #tableView_Value {
+                        width: 50%;
+                        display: inline-block;
+                        height: 44px;
+                        border-bottom: 1px solid #f4511e;
+                    }
+                }
+            }
         }
     }
 }

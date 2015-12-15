@@ -1,0 +1,18 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    Layout = null;
+}
+
+
+<h5>Produkuj:</h5>
+
+<ul class="productRequirement">
+    @foreach (var item in Model.tableList)
+    {
+        <li>
+            <div class="productRequirementItem">
+                <span class="productName">@item.Base_Name</span><span class="inputValue">@Html.TextBox("tableView.Value",null, new { @type = "number", @min = "1", @placeholder="Ilość" }) <button class="btn createButton">Produkuj</button></span>
+            </div>
+        </li>
+    }
+</ul>
