@@ -4,8 +4,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>Od: @Model.tableView.Sender_Login
-    Data: @Model.tableView.PostDate</p>
+<div id="answerButton" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("SentMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.Hidden(User.Identity.Name);
 
-<p>@Model.tableView.Content</p>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Customer_Login, new { @placeholder = "", @class = "validate inputLogin" })
+                <label for="Odbiorca">Odbiorca:</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.tableView.Theme, new { @placeholder = "", @class = "validate inputTheme", length = "150" })
+                <label for="Login">Tytuł:</label>
+            </div>
 
+            <div class="input-field col s12">
+                @Html.TextAreaFor(m => m.tableView.Content, new { @placeholder = "", @class = "materialize-textarea inputContent" })
+                <label for="Login">Treść:</label>
+            </div>
+            <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage" name="action" />
+        }
+    </div>
+</div>
+
+
+
+
+@Html.HiddenFor(m => Model.tableView.ID)
+@Html.HiddenFor(m => Model.tableView.Sender_Login)
+@Html.HiddenFor(m => Model.tableView.Theme)
+
+
+<div class="contentMessage">
+
+    <div class="contentButton">
+        @if (Model.tableView.Sender_Login != User.Identity.Name)
+        {
+            <button class="btn answerButton" id="answerButton" data-target="answerButton"><i class="fa fa-retweet"></i>Odpowiedz</button>
+        }
+        <button class="btn deleteMessage"><i class="fa fa-trash"></i>Usuń</button>
+    </div>
+
+    <span class="theme">@Model.tableView.Theme</span>
+    @if (Model.tableView.Sender_Login != User.Identity.Name)
+    {
+        <span class="sender">Od:<span class="login">@Model.tableView.Sender_Login</span> Data: <span class="date">@Model.tableView.PostDate</span></span>
+    }
+    else
+    {
+        <span class="sender">Do:<span class="login">@Model.tableView.Customer_Login</span> Data: <span class="date">@Model.tableView.PostDate</span></span>
+
+    }
+    <span class="content">
+        <span class="contentTitle">Treść:</span>
+        @Model.tableView.Content
+    </span>
+</div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/Message.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.answerButton').leanModal();
+
+        $("#tableView_Customer_Login").val($("#tableView_Sender_Login").val());
+        $(".inputLogin").attr("readonly", true);
+        $("#tableView_Theme").val("Re: " + $("#tableView_Theme").val());
+        $(".inputTheme").attr("readonly", true);
+        $(".inputContent").val("");
+    });
+</script>

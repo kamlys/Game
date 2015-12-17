@@ -4,9 +4,20 @@
 }
 
 <div id="buildingList">
-
+    <span>Buduj: </span><br />
     @foreach (var item in Model)
     {
         <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height)">@item.Alias</p>
     }
 </div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script>
+    $('#buildingList').slimScroll({
+        color: '#ff7d00',
+        size: '10px',
+        height: 'auto',
+        alwaysVisible: false
+    });
+</script>

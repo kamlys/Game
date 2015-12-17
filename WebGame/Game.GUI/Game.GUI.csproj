@@ -263,6 +263,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\AdminScripts.js" />
+    <Content Include="Scripts\js\jquery.slimscroll.js" />
+    <Content Include="Scripts\js\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\js\Message.js" />
     <Content Include="Scripts\js\newNotification.js" />
     <Content Include="Scripts\js\UpdateRow.js" />
     <Content Include="Scripts\js\main_page.js" />

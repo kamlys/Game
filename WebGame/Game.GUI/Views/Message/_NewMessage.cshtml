@@ -3,30 +3,31 @@
     Layout = null;
 }
 
-<h3>Nowa wiadmość:</h3>
-@using (Html.BeginForm("SentMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.HiddenFor(m => User.Identity.Name);
-    <div class="input-field col s12">
-        @Html.Hidden(User.Identity.Name)
-    </div>
-    <div class="input-field col s12">
-        @Html.TextBoxFor(m => m.tableView.Customer_Login, new { placeholder = "", @class = "validate", length = "150" })
-        <label for="Customer_Login">Odbiorca:</label>
-    </div>
+<div class="newMessage">
+    <h5>Nowa wiadmość:</h5>
+    @using (Html.BeginForm("SentMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.HiddenFor(m => User.Identity.Name);
+        <div class="input-field col s12">
+            @Html.Hidden(User.Identity.Name)
+        </div>
+        <div class="input-field col s12 login">
+            @Html.TextBoxFor(m => m.tableView.Customer_Login, new { placeholder = "", @class = "validate inputLogin", length = "150" })
+            <label for="Customer_Login">Odbiorca:</label>
+        </div>
 
-    <div class="input-field col s12">
-        @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
-        <label for="Login">Tytuł:</label>
-    </div>
+        <div class="input-field col s12">
+            @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
+            <label for="Login">Tytuł:</label>
+        </div>
 
-    <div class="input-field col s12">
-        @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
-        <label for="Login">Treść:</label>
-    </div>
-    <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage" name="action" />
-}
-
+        <div class="input-field col s12">
+            @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
+            <label for="Login">Treść:</label>
+        </div>
+        <input type="submit" value="Wyślij" class="btn waves-effect waves-light sentMessage" name="action" />
+    }
+</div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
 <script src="/signalr/hubs"></script>

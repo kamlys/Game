@@ -123,7 +123,10 @@
 
     </div>
 </div>
+
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $('.officeDealAdd').leanModal();
@@ -183,4 +186,10 @@
         });
     });
 
+    $('#dealList').slimScroll({
+        color: '#000',
+        size: '10px',
+        height: '300px',
+        alwaysVisible: false
+    });
 </script>

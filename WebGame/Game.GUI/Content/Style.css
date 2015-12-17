@@ -141,12 +141,12 @@ nav {
 /*Lista budynków do budowy*/
 .buildingList {
   margin: 30px 0 0 0;
+  height: 400px;
   background-color: #2f3b46;
   color: white;
   display: inline-block;
   float: left !important;
-  text-align: center;
-  min-height: 350px; }
+  text-align: center; }
   .buildingList .btn {
     background-color: #ff7d00;
     max-width: 190px;
@@ -181,7 +181,7 @@ nav {
   color: white;
   display: inline-block;
   width: 250px;
-  min-height: 350px;
+  height: 400px;
   float: right !important; }
   .infoBox .tabs {
     display: -webkit-box;
@@ -241,29 +241,27 @@ nav {
       will-change: left, right; }
 
 /*Powiadomienia*/
-#Notification #notificationList {
-  overflow: auto; }
-  #Notification #notificationList .newNotification {
-    background-color: #2c3e50;
-    border-radius: 0;
-    height: 50px;
+#Notification #notificationList .newNotification {
+  background-color: #2c3e50;
+  border-radius: 0;
+  height: 50px;
+  line-height: 50px;
+  width: 95%;
+  border-bottom: 3px solid #FFB100;
+  margin-top: 10px;
+  float: left;
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer; }
+  #Notification #notificationList .newNotification .newNotification:hover {
+    -webkit-box-shadow: 4px 4px 23px 5px #a8a8a8;
+    -moz-box-shadow: 4px 4px 23px 5px #a8a8a8;
+    box-shadow: 4px 4px 23px 5px #a8a8a8; }
+  #Notification #notificationList .newNotification i {
     line-height: 50px;
-    width: 95%;
-    border-bottom: 3px solid #FFB100;
-    margin-top: 10px;
-    float: left;
-    font-size: 12px;
-    color: #fff;
-    cursor: pointer; }
-    #Notification #notificationList .newNotification .newNotification:hover {
-      -webkit-box-shadow: 4px 4px 23px 5px #a8a8a8;
-      -moz-box-shadow: 4px 4px 23px 5px #a8a8a8;
-      box-shadow: 4px 4px 23px 5px #a8a8a8; }
-    #Notification #notificationList .newNotification i {
-      line-height: 50px;
-      font-size: 15px; }
-    #Notification #notificationList .newNotification i:hover {
-      color: #FFB100; }
+    font-size: 15px; }
+  #Notification #notificationList .newNotification i:hover {
+    color: #FFB100; }
 
 /******************/
 .productList {
@@ -377,112 +375,112 @@ nav {
 /*Biuro*/
 .office {
   margin-top: 30px; }
-  .office .firstDiv .uBuildingList {
+  .office .uBuildingList {
     background-color: #2f3b46;
-    min-height: 300px;
+    min-height: 400px;
     display: inline-block;
     float: left;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
-    .office .firstDiv .uBuildingList h5 {
+    .office .uBuildingList h5 {
       color: #FFB100; }
-    .office .firstDiv .uBuildingList p {
+    .office .uBuildingList p {
       color: #FFB100; }
-    .office .firstDiv .uBuildingList #lvlUp {
+    .office .uBuildingList #lvlUp {
       margin-top: 7.5px;
       margin-right: 5px;
       background-color: #26A69A;
       color: #000; }
-      .office .firstDiv .uBuildingList #lvlUp i {
+      .office .uBuildingList #lvlUp i {
         line-height: 2rem; }
-    .office .firstDiv .uBuildingList .collapsible-header {
+    .office .uBuildingList .collapsible-header {
       background-color: #FFB100;
       color: #000; }
-      .office .firstDiv .uBuildingList .collapsible-header #lvlUp:hover {
+      .office .uBuildingList .collapsible-header #lvlUp:hover {
         background-color: green; }
-      .office .firstDiv .uBuildingList .collapsible-header #lvlUp:hover:before {
+      .office .uBuildingList .collapsible-header #lvlUp:hover:before {
         content: "test"; }
-  .office .firstDiv .uProductList {
+  .office .uProductList {
     float: right;
     background-color: #2f3b46;
-    min-height: 300px;
+    min-height: 400px;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
-    .office .firstDiv .uProductList h5 {
+    .office .uProductList h5 {
       color: #B840EA; }
-    .office .firstDiv .uProductList .officeProduct {
+    .office .uProductList .officeProduct {
       background-color: #B840EA;
       color: #000;
       border: 1px solid #DDDDDD;
       height: 46px;
       line-height: 46px;
       padding-left: 20px; }
-      .office .firstDiv .uProductList .officeProduct .name {
+      .office .uProductList .officeProduct .name {
         float: left; }
-      .office .firstDiv .uProductList .officeProduct .officeOfferAdd {
+      .office .uProductList .officeProduct .officeOfferAdd {
         margin: 5px 5px 0 0;
         float: right;
         border-radius: 10px !important; }
-        .office .firstDiv .uProductList .officeProduct .officeOfferAdd .input[type=text].valid {
+        .office .uProductList .officeProduct .officeOfferAdd .input[type=text].valid {
           color: #000 !important; }
-  .office .secondDiv .uDealList {
+  .office .uDealList {
     background-color: #2f3b46;
     margin-top: 30px;
-    min-height: 300px;
+    min-height: 400px;
     display: inline-block;
     float: right;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
-    .office .secondDiv .uDealList h5 {
+    .office .uDealList h5 {
       color: #75bf3b;
       display: inline-block; }
-    .office .secondDiv .uDealList p {
+    .office .uDealList p {
       color: #75bf3b; }
-    .office .secondDiv .uDealList .collapsible-header {
+    .office .uDealList .collapsible-header {
       background-color: #75bf3b;
       color: #000; }
-    .office .secondDiv .uDealList .disabled {
+    .office .uDealList .disabled {
       background-color: #9d9d9d; }
-    .office .secondDiv .uDealList .myoffer {
+    .office .uDealList .myoffer {
       background-color: #9d9d9d; }
-    .office .secondDiv .uDealList .officeDealAdd {
+    .office .uDealList .officeDealAdd {
       display: inline-block;
       margin-left: 10px; }
-    .office .secondDiv .uDealList .officeDealShow {
+    .office .uDealList .officeDealShow {
       float: right;
       margin: 4px 20px 0 0;
       width: 200px; }
-    .office .secondDiv .uDealList .myoffer {
+    .office .uDealList .myoffer {
       float: right;
       margin: 4px 20px 0 0;
       width: 200px; }
-  .office .secondDiv .uProductRequirementList {
+  .office .uProductRequirementList {
     background-color: #2f3b46;
     margin-top: 30px;
-    min-height: 300px;
+    min-height: 400px;
     display: inline-block;
     float: left;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
-    .office .secondDiv .uProductRequirementList h5 {
+    .office .uProductRequirementList h5 {
       color: #f4511e;
       display: inline-block; }
-    .office .secondDiv .uProductRequirementList .productRequirementItem {
+    .office .uProductRequirementList .productRequirementItem {
       background-color: #f4511e;
       height: 46px; }
-      .office .secondDiv .uProductRequirementList .productRequirementItem .productName {
+      .office .uProductRequirementList .productRequirementItem .productName {
         float: left;
         display: inline-block;
         line-height: 46px;
         margin-left: 15px; }
-      .office .secondDiv .uProductRequirementList .productRequirementItem .inputValue {
+      .office .uProductRequirementList .productRequirementItem .inputValue {
         display: inline-block;
         float: right;
         background-color: #9d9d9d;
         height: 46px;
         line-height: 46px;
         padding-left: 15px; }
-        .office .secondDiv .uProductRequirementList .productRequirementItem .inputValue #tableView_Value {
+        .office .uProductRequirementList .productRequirementItem .inputValue #tableView_Value {
           width: 50%;
           display: inline-block;
           height: 44px;
@@ -555,7 +553,65 @@ nav {
 .Message {
   background-color: #fff; }
 
+.newMessage {
+  height: 450px;
+  padding: 10px 30px 30px 30px; }
+  .newMessage .sentMessage {
+    float: right;
+    margin-bottom: 30px; }
+  .newMessage .login {
+    width: 30%; }
+
+.receivedMessage {
+  cursor: pointer; }
+  .receivedMessage tbody tr:hover {
+    background-color: rgba(187, 0, 0, 0.59);
+    cursor: pointer; }
+
 #newMessage {
   border-left: 3px solid #c40000;
   font-weight: bold; }
+
+.sentMessage {
+  cursor: pointer; }
+  .sentMessage tbody tr:hover {
+    background-color: rgba(187, 0, 0, 0.59);
+    cursor: pointer; }
+
+.contentMessage {
+  margin-top: 30px;
+  padding: 10px 30px 30px 30px;
+  background-color: #fff;
+  min-height: 300px; }
+  .contentMessage .theme {
+    display: block;
+    font-weight: bold;
+    font-size: 20px; }
+  .contentMessage .sender {
+    display: block;
+    font-size: 17px;
+    margin-top: 10px;
+    color: rgba(168, 168, 168, 0.61); }
+    .contentMessage .sender .date {
+      color: #000;
+      font-size: 15px;
+      font-style: italic; }
+    .contentMessage .sender .login {
+      margin: 0px 5px 0px 5px;
+      font-style: italic;
+      color: #000; }
+  .contentMessage .content {
+    font-size: 18px;
+    word-wrap: break-word;
+    width: 100%; }
+    .contentMessage .content .contentTitle {
+      display: block;
+      font-size: 17px;
+      margin-top: 10px;
+      color: rgba(168, 168, 168, 0.61); }
+  .contentMessage .contentButton {
+    margin-top: 20px;
+    float: right; }
+    .contentMessage .contentButton i {
+      margin-right: 5px; }
 

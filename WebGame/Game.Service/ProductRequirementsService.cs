@@ -43,21 +43,34 @@ namespace Game.Service
         {
             int uID = _user.GetAll().First(i => i.Login == user).ID;
             bool temp = false;
+            bool temp2 = true;
+            bool temp3 = false;
 
             List<ProductRequirementDto> productRDto = new List<ProductRequirementDto>();
 
             var producks = _productR.GetAll().GroupBy(i => i.Base_ID);
             foreach (var item in producks)
             {
-                foreach(var item2 in item)
+                foreach (var item2 in item)
                 {
-                    if(_userProduct.GetAll().First(i=> i.User_ID==uID && i.Product_ID == item2.Require_ID).Value >= item2.Value)
+                    if (_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value >= item2.Value)
                     {
                         temp = true;
                     }
+                    else
+                    {
+                        temp2 = false;
+                    }
+                    var buildingID = _building.GetAll().FirstOrDefault(p => p.Product_ID == item2.Base_ID).ID;
+                    foreach (var item3 in _userBuilding.GetAll().Where(i => i.User_ID == uID && i.Building_ID == buildingID))
+                    {
+                        temp3 = true;
+                    }
                 }
 
-                if(temp)
+
+
+                if (temp && temp2 && temp3)
                 {
                     productRDto.Add(new ProductRequirementDto
                     {

@@ -121,6 +121,7 @@ namespace Game.GUI.Controllers
 
             var temp = _messageService.ConentMessage(MessageID, User.Identity.Name);
 
+            tableList.tableView.ID = temp.ID;
             tableList.tableView.Customer_Login = temp.Customer_Login;
             tableList.tableView.Sender_Login = temp.Sender_Login;
             tableList.tableView.Theme = temp.Theme;
@@ -129,6 +130,13 @@ namespace Game.GUI.Controllers
 
             return View(tableList);
         }
+
+        [Authorize]
+        public void DeleteMessage(int a)
+       {
+            _messageService.DeleteMessage(a);
+        }
+
 
     }
 }

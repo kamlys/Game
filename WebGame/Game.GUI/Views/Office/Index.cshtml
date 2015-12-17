@@ -6,7 +6,6 @@
 
 <div class="row">
     <div class="office">
-        <div class="firstDiv">
             <div class="col s12 m6 l6 uBuildingList">
                 <h5>Lista zabudowań</h5>
                 @Html.Action("_UserBuildingList", "Office")
@@ -16,9 +15,7 @@
                 <h5>Magazyn</h5>
                 @Html.Action("_UserProductList", "Office")
             </div>
-        </div>
 
-        <div class="secondDiv">
             <div class="col s12 m6 l6 uDealList">
                 <div id="dealBox">
                     @Html.Action("_UserDealList", "Office")
@@ -30,7 +27,6 @@
                     @Html.Action("_UserProductRequirementList", "Office")
                 </div>
             </div>
-        </div>
     </div>
 
 </div>

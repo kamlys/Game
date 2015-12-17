@@ -11,7 +11,7 @@ namespace Game.Service.Interfaces
     {
         bool SentMessage(MessageDto message);
         void ReadMessage(MessageDto message);
-        bool DeleteMessage(MessageDto message);
+        void DeleteMessage(int id);
         MessageDto ConentMessage(int ID, string User);
         List<MessageDto> GetSentMessage(string User);
         List<MessageDto> GetReceivedMessages(string User);

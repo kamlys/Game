@@ -32,7 +32,6 @@
                 </div>
             </div>
             <div class="col l3 buildingList card">
-                <div>Buduj:</div>
                 @Html.Action("_BuildingsList", "Building")
             </div>
             <div class="mapBox card">
@@ -61,4 +60,6 @@
         if ($('#Notification ul li').length >= 1) {
             $('.infoBox .tabs').tabs('select_tab', 'Notification');
         }
-    });</script>
+    });
+
+</script>

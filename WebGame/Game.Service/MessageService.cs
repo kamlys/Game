@@ -24,9 +24,10 @@ namespace Game.Service
             _unitOfWork = unitOfWork;
         }
 
-        public bool DeleteMessage(MessageDto message)
+        public void DeleteMessage(int id)
         {
-            throw new NotImplementedException();
+            _message.Delete(_message.Get(id));
+            _unitOfWork.Commit();
         }
 
         public void ReadMessage(MessageDto message)
@@ -103,6 +104,7 @@ namespace Game.Service
 
             foreach (var item in _message.GetAll().Where(i=> i.ID == ID))
             {
+                message.ID = item.ID;
                 message.Customer_Login = _user.Get(item.Customer_ID).Login;
                 message.Sender_Login = _user.Get(item.Sender_ID).Login;
                 message.Theme = item.Theme;

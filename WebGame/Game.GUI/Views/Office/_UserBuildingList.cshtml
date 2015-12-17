@@ -3,46 +3,53 @@
     Layout = null;
 }
 
-<ul class="collapsible" data-collapsible="accordion">
-    @foreach (var item in Model.tableList)
-    {
-        <li>
-            @if (item.ifCan == true)
-            {
-                <button class="chip right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
-                        id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
-                    <i class="fa fa-arrow-up"></i> Level UP
-                </button>
-            }
-            <div class="collapsible-header">
-                @item.Name
-
-                @if (item.Status != "gotowy")
+<div id="userBuilding">
+    <ul class="collapsible" data-collapsible="accordion">
+        @foreach (var item in Model.tableList)
+        {
+            <li>
+                @if (item.ifCan == true)
                 {
-                    <div class="progress">
-                        <div class="indeterminate"></div>
-                    </div>
+                    <button class="chip right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
+                            id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
+                        <i class="fa fa-arrow-up"></i> Level UP
+                    </button>
                 }
-            </div>
-            <div class="collapsible-body">
-                <p>
-                    Lvl: @item.Lvl<br />
-                    Produkcja: @item.Value<br />
-                    Status: @item.Status
-                </p>
-            </div>
-        </li>
-    }
-</ul>
+                <div class="collapsible-header">
+                    @item.Name
 
+                    @if (item.Status != "gotowy")
+                {
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+                    }
+                </div>
+                <div class="collapsible-body">
+                    <p>
+                        Lvl: @item.Lvl<br />
+                        Produkcja: @item.Value<br />
+                        Status: @item.Status
+                    </p>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
 
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.collapsible').collapsible({
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
     });
-
+    $('#userBuilding').slimScroll({
+        color: '#000',
+        size: '10px',
+        height: '300px',
+        alwaysVisible: false
+    });
 </script>

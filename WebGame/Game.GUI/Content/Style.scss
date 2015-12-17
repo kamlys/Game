@@ -220,12 +220,12 @@ nav {
 /*Lista budynków do budowy*/
 .buildingList {
     margin: 30px 0 0 0;
+    height: 400px;
     background-color: $secondColor;
     color: white;
     display: inline-block;
     float: left !important;
     text-align: center;
-    min-height: 350px;
 
     .btn {
         background-color: $indexColor;
@@ -266,7 +266,7 @@ nav {
     color: white;
     display: inline-block;
     width: 250px;
-    min-height: 350px;
+    height: 400px;
     float: right !important;
 
     .tabs {
@@ -344,7 +344,6 @@ nav {
 /*Powiadomienia*/
 #Notification {
     #notificationList {
-        overflow: auto;
 
         .newNotification {
             background-color: $firstColor;
@@ -526,176 +525,172 @@ nav {
 .office {
     margin-top: 30px;
 
-    .firstDiv {
-        .uBuildingList {
-            background-color: $secondColor;
-            min-height: 300px;
-            display: inline-block;
-            float: left;
-            padding: 20px 20px 20px 20px;
-            width: 49% !important;
+    .uBuildingList {
+        background-color: $secondColor;
+        min-height: 400px;
+        display: inline-block;
+        float: left;
+        padding: 20px 20px 20px 20px;
+        width: 49% !important;
 
-            h5 {
-                color: #FFB100;
-            }
+        h5 {
+            color: #FFB100;
+        }
 
-            p {
-                color: #FFB100;
-            }
+        p {
+            color: #FFB100;
+        }
 
-            #lvlUp {
-                margin-top: 7.5px;
-                margin-right: 5px;
-                background-color: #26A69A;
-                color: #000;
+        #lvlUp {
+            margin-top: 7.5px;
+            margin-right: 5px;
+            background-color: #26A69A;
+            color: #000;
 
-                i {
-                    line-height: 2rem;
-                }
-            }
-
-            .collapsible-header {
-                background-color: #FFB100;
-                color: #000;
-
-
-
-                #lvlUp:hover {
-                    background-color: green;
-                }
-
-                #lvlUp:hover:before {
-                    content: "test";
-                }
+            i {
+                line-height: 2rem;
             }
         }
 
-        .uProductList {
-            float: right;
-            background-color: $secondColor;
-            min-height: 300px;
-            padding: 20px 20px 20px 20px;
-            width: 49% !important;
+        .collapsible-header {
+            background-color: #FFB100;
+            color: #000;
 
-            h5 {
-                color: #B840EA;
+
+
+            #lvlUp:hover {
+                background-color: green;
             }
 
-            .officeProduct {
-                background-color: #B840EA;
-                color: #000;
-                border: 1px solid #DDDDDD;
-                height: 46px;
-                line-height: 46px;
-                padding-left: 20px;
+            #lvlUp:hover:before {
+                content: "test";
+            }
+        }
+    }
 
-                .name {
-                    float: left;
-                }
+    .uProductList {
+        float: right;
+        background-color: $secondColor;
+        min-height: 400px;
+        padding: 20px 20px 20px 20px;
+        width: 49% !important;
 
-                .officeOfferAdd {
-                    margin: 5px 5px 0 0;
-                    float: right;
-                    border-radius: 10px !important;
+        h5 {
+            color: #B840EA;
+        }
 
-                    .input[type=text].valid {
-                        color: #000 !important;
-                    }
+        .officeProduct {
+            background-color: #B840EA;
+            color: #000;
+            border: 1px solid #DDDDDD;
+            height: 46px;
+            line-height: 46px;
+            padding-left: 20px;
+
+            .name {
+                float: left;
+            }
+
+            .officeOfferAdd {
+                margin: 5px 5px 0 0;
+                float: right;
+                border-radius: 10px !important;
+
+                .input[type=text].valid {
+                    color: #000 !important;
                 }
             }
         }
     }
 
-    .secondDiv {
-        .uDealList {
-            background-color: $secondColor;
-            margin-top: 30px;
-            min-height: 300px;
+    .uDealList {
+        background-color: $secondColor;
+        margin-top: 30px;
+        min-height: 400px;
+        display: inline-block;
+        float: right;
+        padding: 20px 20px 20px 20px;
+        width: 49% !important;
+
+
+        h5 {
+            color: #75bf3b;
             display: inline-block;
-            float: right;
-            padding: 20px 20px 20px 20px;
-            width: 49% !important;
-
-
-            h5 {
-                color: #75bf3b;
-                display: inline-block;
-            }
-
-            p {
-                color: #75bf3b;
-            }
-
-            .collapsible-header {
-                background-color: #75bf3b;
-                color: #000;
-            }
-
-            .disabled {
-                background-color: $greyColor;
-            }
-
-            .myoffer {
-                background-color: $greyColor;
-            }
-
-            .officeDealAdd {
-                display: inline-block;
-                margin-left: 10px;
-            }
-
-            .officeDealShow {
-                float: right;
-                margin: 4px 20px 0 0;
-                width: 200px;
-            }
-
-            .myoffer {
-                float: right;
-                margin: 4px 20px 0 0;
-                width: 200px;
-            }
         }
 
-        .uProductRequirementList {
-            background-color: $secondColor;
-            margin-top: 30px;
-            min-height: 300px;
-            display: inline-block;
-            float: left;
-            padding: 20px 20px 20px 20px;
-            width: 49% !important;
+        p {
+            color: #75bf3b;
+        }
 
-            h5 {
-                color: #f4511e;
+        .collapsible-header {
+            background-color: #75bf3b;
+            color: #000;
+        }
+
+        .disabled {
+            background-color: $greyColor;
+        }
+
+        .myoffer {
+            background-color: $greyColor;
+        }
+
+        .officeDealAdd {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .officeDealShow {
+            float: right;
+            margin: 4px 20px 0 0;
+            width: 200px;
+        }
+
+        .myoffer {
+            float: right;
+            margin: 4px 20px 0 0;
+            width: 200px;
+        }
+    }
+
+    .uProductRequirementList {
+        background-color: $secondColor;
+        margin-top: 30px;
+        min-height: 400px;
+        display: inline-block;
+        float: left;
+        padding: 20px 20px 20px 20px;
+        width: 49% !important;
+
+        h5 {
+            color: #f4511e;
+            display: inline-block;
+        }
+
+        .productRequirementItem {
+            background-color: #f4511e;
+            height: 46px;
+
+            .productName {
+                float: left;
                 display: inline-block;
+                line-height: 46px;
+                margin-left: 15px;
             }
 
-            .productRequirementItem {
-                background-color: #f4511e;
+            .inputValue {
+                display: inline-block;
+                float: right;
+                background-color: $greyColor;
                 height: 46px;
+                line-height: 46px;
+                padding-left: 15px;
 
-                .productName {
-                    float: left;
+                #tableView_Value {
+                    width: 50%;
                     display: inline-block;
-                    line-height: 46px;
-                    margin-left: 15px;
-                }
-
-                .inputValue {
-                    display: inline-block;
-                    float: right;
-                    background-color: $greyColor;
-                    height: 46px;
-                    line-height: 46px;
-                    padding-left: 15px;
-
-                    #tableView_Value {
-                        width: 50%;
-                        display: inline-block;
-                        height: 44px;
-                        border-bottom: 1px solid #f4511e;
-                    }
+                    height: 44px;
+                    border-bottom: 1px solid #f4511e;
                 }
             }
         }
@@ -808,7 +803,96 @@ nav {
     background-color: #fff;
 }
 
+.newMessage {
+    height: 450px;
+    padding: 10px 30px 30px 30px;
+
+    .sentMessage {
+        float: right;
+        margin-bottom: 30px;
+    }
+
+    .login {
+        width: 30%;
+    }
+}
+
+.receivedMessage {
+    cursor: pointer;
+
+    tbody {
+        tr:hover {
+            background-color: rgba(187, 0, 0, 0.59);
+            cursor: pointer;
+        }
+    }
+}
+
 #newMessage {
     border-left: 3px solid #c40000;
     font-weight: bold;
+}
+
+.sentMessage {
+    cursor: pointer;
+
+    tbody {
+        tr:hover {
+            background-color: rgba(187, 0, 0, 0.59);
+            cursor: pointer;
+        }
+    }
+}
+
+.contentMessage {
+    margin-top: 30px;
+    padding: 10px 30px 30px 30px;
+    background-color: #fff;
+    min-height: 300px;
+
+    .theme {
+        display: block;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .sender {
+        display: block;
+        font-size: 17px;
+        margin-top: 10px;
+        color: rgba(168, 168, 168, 0.61);
+
+        .date {
+            color: #000;
+            font-size: 15px;
+            font-style: italic;
+        }
+
+        .login {
+            margin: 0px 5px 0px 5px;
+            font-style: italic;
+            color: #000;
+        }
+    }
+
+    .content {
+        font-size: 18px;
+        word-wrap:break-word;
+        width: 100%;
+        .contentTitle {
+            display: block;
+            font-size: 17px;
+            margin-top: 10px;
+            color: rgba(168, 168, 168, 0.61);
+        }
+    }
+
+    .contentButton {
+        margin-top: 20px;
+        float: right;
+
+        i{
+            margin-right: 5px;
+        }
+    }
 }
