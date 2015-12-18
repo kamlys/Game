@@ -2,22 +2,48 @@
 @{
     Layout = null;
 }
-
+<div>
     @foreach (var item in Model.tableList)
     {
+        @Html.HiddenFor(m => item.ID);
+        @Html.Hidden("accept"+item.ID, item.ID, new { id ="accept"+item.ID, value = item.ID });
+        @Html.HiddenFor(m => item.Friend_Login);
+        @Html.HiddenFor(m => item.Login);
+
+
         if (item.OrAccepted)
         {
-            <div id="friend" style="background-color: #206b80; margin-top: 10px; cursor: pointer; border-bottom: 3px solid #ff6a00; height: 45px; line-height: 45px;" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">
-
-                <span class="login" style="float: left; margin-left: 20px; text-transform: capitalize; ">@item.Friend_Login</span>
-                <span class="icon" style="float: right; margin-right:30px; color: white"><i class="fa fa-comments"></i></span>
-            </div>
+            if (item.Login == User.Identity.Name)
+            {
+                <div class="friend">
+                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">@item.Friend_Login</span>
+                    <span class="icon"><i class="fa fa-comments"></i></span>
+                </div>
+            }
+            else
+            {
+                <div class="friend">
+                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Login</span>
+                    <span class="icon"><i class="fa fa-comments"></i></span>
+                </div>
+            }
         }
         else
         {
-            <div id="friend" class="disabled" style=" background-color: #808080; margin-top: 10px; cursor: pointer; border-bottom: 3px solid #ff6a00; height: 45px; line-height: 45px;" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">
-                <span class="login" style="float: left; margin-left: 20px; text-transform: capitalize; ">@item.Friend_Login</span>
-                <span class="icon" style="float: right; margin-right:30px; color: white"><i class="fa fa-comments"></i></span>
-            </div>
+            if (item.Login == User.Identity.Name)
+            {
+                <div class="friend disabled">
+                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">@item.Friend_Login</span>
+                </div>
+            }
+            else
+            {
+                <div class="friend disabled">
+                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Login</span>
+                    <span class="icon disagree" id='dontAcceptFriend'><i class="fa fa-times"></i></span>
+                    <span class="icon agree" id='"accetpFriend' onclick="frienndAccept(@item.ID,'@item.Friend_Login', '@item.Login')"> <i class="fa fa-check"></i></span>
+                </div>
+            }
         }
     }
+</div>

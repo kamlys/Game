@@ -264,6 +264,36 @@ nav {
     color: #FFB100; }
 
 /******************/
+/*List znajomych*/
+.infoBox .friend {
+  background-color: #206b80;
+  margin-top: 10px;
+  cursor: pointer;
+  border-bottom: 3px solid #ff6a00;
+  height: 45px;
+  line-height: 45px; }
+  .infoBox .friend .login {
+    float: left;
+    margin-left: 20px;
+    text-transform: capitalize;
+    font-size: 20px; }
+  .infoBox .friend .login:hover {
+    color: #ff7d00; }
+  .infoBox .friend .icon {
+    float: right;
+    margin-right: 30px;
+    color: #fff;
+    vertical-align: middle;
+    font-size: 20px; }
+  .infoBox .friend .agree:hover {
+    color: green; }
+  .infoBox .friend .disagree:hover {
+    color: red; }
+
+.infoBox .disabled {
+  background-color: #a8a8a8; }
+
+/*****************/
 .productList {
   display: block;
   width: 60%;

@@ -198,7 +198,7 @@ namespace Game.GUI.Controllers
             user.OldPassword = pass.tableView.OldPassword;
             user.Password = pass.tableView.Password;
 
-            if(_userService.ChangePass(user, User.Identity.Name))
+            if (_userService.ChangePass(user, User.Identity.Name))
             {
                 ViewData["changeInfo"] = "Hasło zostało zmienione";
                 return RedirectToAction("Profil", new
@@ -248,11 +248,13 @@ namespace Game.GUI.Controllers
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
 
-            foreach (var item in _userService.GetFriendList(User.Identity.Name).Where(i=> i.OrAccepted == true))
+            foreach (var item in _userService.GetFriendList(User.Identity.Name))
             {
                 tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
+                    Login = item.User_Login,
+                    User_ID = item.User_ID,
                     Friend_ID = item.Friend_ID,
                     Friend_Login = item.Friend_Login,
                     OrAccepted = item.OrAccepted
@@ -270,7 +272,7 @@ namespace Game.GUI.Controllers
             addFriend.User_Login = User.Identity.Name;
 
             _userService.AddFriend(addFriend);
-            
+
             _notificationService.SentNotification(new NotificationDto
             {
                 User_Login = a,
@@ -281,5 +283,9 @@ namespace Game.GUI.Controllers
             return new JsonResult { Data = true };
         }
 
+        public void AcceptFriend(int a)
+        {
+            _userService.AcceptFriend(a);
+        }
     }
 }

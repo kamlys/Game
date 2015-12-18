@@ -377,6 +377,53 @@ nav {
 }
 /******************/
 
+/*List znajomych*/
+.infoBox {
+    .friend {
+        background-color: #206b80;
+        margin-top: 10px;
+        cursor: pointer;
+        border-bottom: 3px solid #ff6a00;
+        height: 45px;
+        line-height: 45px;
+
+        .login {
+            float: left;
+            margin-left: 20px;
+            text-transform: capitalize;
+            font-size: 20px;
+        }
+
+        .login:hover {
+            color: $indexColor;
+        }
+
+
+        .icon {
+            float: right;
+            margin-right: 30px;
+            color: #fff;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+
+        .agree:hover {
+            color: green;
+        }
+
+        .disagree:hover {
+            color: red;
+        }
+    }
+
+    .disabled {
+        background-color: rgba(168,168,168,1);
+    }
+}
+
+/*****************/
+
+
 .productList {
     display: block;
     width: 60%;
@@ -877,8 +924,9 @@ nav {
 
     .content {
         font-size: 18px;
-        word-wrap:break-word;
+        word-wrap: break-word;
         width: 100%;
+
         .contentTitle {
             display: block;
             font-size: 17px;
@@ -891,7 +939,7 @@ nav {
         margin-top: 20px;
         float: right;
 
-        i{
+        i {
             margin-right: 5px;
         }
     }

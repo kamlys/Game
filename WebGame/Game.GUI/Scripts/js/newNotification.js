@@ -1,4 +1,6 @@
 ﻿var user_login;
+var user_friend;
+var friend_user;
 $(".addButton").click(function () {
     var sender_login = $("#User_Identity_Name").val();
     var theme = $("#tableView_Theme").val();
@@ -34,13 +36,43 @@ $("#cancelDeal").click(function () {
 $("#addDeal").click(function () {
     pin = "Nowa umowa";
 });
+
+function frienndAccept(id, friend, user) {
+    pin = "Zaproszenie zaakceptowane";
+    var id = id;
+    console.log(id);
+    $.ajax({
+        type: "POST",
+        url: 'User/AcceptFriend',
+        data: JSON.stringify({ a: id }),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+        }
+    });
+    user_friend = user;
+    friend_user = friend;
+
+    console.log(user_friend, friend_user)
+};
+
+function getFriendList() {
+    $.ajax({
+        type: "GET",
+        url: 'User/_FriendList',
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            $("#FriendBox").html($(data).html());
+        }
+
+    });
+}
+
 function getNotifications() {
     $.ajax({
         type: "GET",
         url: 'notification/_Notification',
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            console.log(data);
             $("#NotificationBox").html($(data).html());
             $('.infoBox .tabs').tabs('select_tab', 'Notification');
         }
@@ -55,7 +87,6 @@ function getDeals() {
         url: 'Office/_UserDealList',
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            console.log(data);
             $("#dealBox").html($(data).html());
         }
 
@@ -80,6 +111,7 @@ $(document).ready(function () {
 
             //$("#NotificationBox").load('@(Url.Action("_Notification","Notification"))');
             window.setTimeout(getDeals, 2000);
+            window.setTimeout(getFriendList(), 2000);
             window.setTimeout(getNotifications, 2000);
 
             var $toastContent = $('<span>' + pin + '</span>');
@@ -108,7 +140,10 @@ $(document).ready(function () {
                 console.log("UserLogin: " + user_login);
                 game.server.sentNotification(user_login, pin);
             });
-
+            $('#acceptFriend').click(function () {
+                window.setTimeout(game.server.sentNotification(user_friend, pin),20000);
+                window.setTimeout(game.server.sentNotification(friend_user, pin), 20000);
+            });
         });
     });
 });

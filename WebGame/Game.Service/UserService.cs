@@ -231,7 +231,7 @@ namespace Game.Service
             List<FriendDto> friend = new List<FriendDto>();
             int uID = _user.GetAll().First(i => i.Login == User).ID;
 
-            foreach (var item in _friend.GetAll().Where(i => i.User_ID == uID))
+            foreach (var item in _friend.GetAll().Where(i => i.User_ID == uID || i.Friend_ID == uID))
             {
                 friend.Add(new FriendDto
                 {
@@ -255,6 +255,12 @@ namespace Game.Service
                 OrAccepted = false
             });
 
+            _unitOfWork.Commit();
+        }
+
+        public void AcceptFriend(int id)
+        {
+            _friend.Get(id).OrAccepted = true;
             _unitOfWork.Commit();
         }
     }

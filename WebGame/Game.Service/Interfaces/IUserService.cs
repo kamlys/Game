@@ -21,6 +21,7 @@ namespace Game.Service.Interfaces
         bool ChangeEmail(UserDto user, string User);
         void AddFriend(FriendDto friend);
         List<FriendDto> GetFriendList(string User);
+        void AcceptFriend(int id);
 
 
     }
