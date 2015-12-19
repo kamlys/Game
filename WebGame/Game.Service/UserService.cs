@@ -263,5 +263,11 @@ namespace Game.Service
             _friend.Get(id).OrAccepted = true;
             _unitOfWork.Commit();
         }
+
+        public void DontAcceptFriend(int id)
+        {
+            _friend.Delete(_friend.Get(id));
+            _unitOfWork.Commit();
+        }
     }
 }

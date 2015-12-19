@@ -5,12 +5,6 @@
 <div>
     @foreach (var item in Model.tableList)
     {
-        @Html.HiddenFor(m => item.ID);
-        @Html.Hidden("accept"+item.ID, item.ID, new { id ="accept"+item.ID, value = item.ID });
-        @Html.HiddenFor(m => item.Friend_Login);
-        @Html.HiddenFor(m => item.Login);
-
-
         if (item.OrAccepted)
         {
             if (item.Login == User.Identity.Name)
@@ -40,9 +34,9 @@
             {
                 <div class="friend disabled">
                     <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Login</span>
-                    <span class="icon disagree" id='dontAcceptFriend'><i class="fa fa-times"></i></span>
-                    <span class="icon agree" id='"accetpFriend' onclick="frienndAccept(@item.ID,'@item.Friend_Login', '@item.Login')"> <i class="fa fa-check"></i></span>
-                </div>
+                    <span class="icon disagree" data-userid="@item.ID" data-userlogin="@item.Login" data-friendlogin="@item.Friend_Login"><i class="fa fa-times"></i></span>
+                    <span class="icon agree" data-userid="@item.ID" data-userlogin="@item.Login" data-friendlogin="@item.Friend_Login"> <i class="fa fa-check"></i></span>
+</div>
             }
         }
     }

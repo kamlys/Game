@@ -287,5 +287,10 @@ namespace Game.GUI.Controllers
         {
             _userService.AcceptFriend(a);
         }
+
+        public void DontAcceptFriend(int a)
+        {
+            _userService.DontAcceptFriend(a);
+        }
     }
 }

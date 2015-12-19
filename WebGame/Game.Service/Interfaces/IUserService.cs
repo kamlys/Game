@@ -22,6 +22,8 @@ namespace Game.Service.Interfaces
         void AddFriend(FriendDto friend);
         List<FriendDto> GetFriendList(string User);
         void AcceptFriend(int id);
+        void DontAcceptFriend(int id);
+
 
 
     }
