@@ -7,8 +7,21 @@
 <div class="profil">
     @if (User.Identity.Name != Model.tableView.Login)
     {
-        @Html.Hidden("UserLogin", Model.tableView.Login )
-        <h2>@Model.tableView.Login</h2> <button class="btn-large addFriend">Dodaj znajomego</button> 
+        @Html.Hidden("UserLogin", Model.tableView.Login)
+        <h2>@Model.tableView.Login</h2>
+
+        if (Model.tableView.Value == 1)
+        {
+            <button class="btn-large deleteFriend" data-loginfriend="@Model.tableView.Login">Usuń znajomego</button>
+        }
+        else if (Model.tableView.Value == 2)
+        {
+            <button class="btn" disabled>Zaproszenie wysłane</button>
+        }
+        else if (Model.tableView.Value == 3)
+        {
+            <button class="btn-large addFriend">Dodaj znajomego</button>
+        }
         <hr />
         <div id="left">
             @if (Model.tableView.RegDays <= 1)
@@ -135,6 +148,22 @@
     $(document).ready(function () {
         $('.collapsible').collapsible({
             accordion: true
+        });
+    });
+
+    $(".deleteFriend").click(function () {
+        var login = $(this).data('loginfriend');
+
+        console.log(login);
+        $.ajax({
+            type: "POST",
+            url: 'DeleteFriend',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ loginfriend: login}),
+            success: function (data) {
+                console.log("Succces");
+                location.reload();
+            }
         });
     });
 </script>

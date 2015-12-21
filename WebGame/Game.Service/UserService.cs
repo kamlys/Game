@@ -184,7 +184,6 @@ namespace Game.Service
                 userDto.Registration_Date = (DateTime)item.Registration_Date;
                 userDto.Last_Log = (DateTime)item.Last_Log;
             }
-
             return userDto;
         }
 
@@ -267,6 +266,34 @@ namespace Game.Service
         public void DontAcceptFriend(int id)
         {
             _friend.Delete(_friend.Get(id));
+            _unitOfWork.Commit();
+        }
+
+        public int ifFriend(string user, string friend)
+        {
+            int uID = _user.GetAll().First(i => i.Login == user).ID;
+            int fID = _user.GetAll().First(i => i.Login == friend).ID;
+
+            foreach (var item in _friend.GetAll().Where(i=> i.User_ID == uID && i.Friend_ID == fID))
+            {
+                if(item.OrAccepted == true)
+                {
+                    return 1;
+                }
+                if(item.OrAccepted == false)
+                {
+                    return 2;
+                }
+            }
+            return 3;
+        }
+
+        public void DeleteFriend(string userLogin, string friendLogin)
+        {
+            int uID = _user.GetAll().First(i => i.Login == userLogin).ID;
+            int fID = _user.GetAll().First(i => i.Login == friendLogin).ID;
+
+            _friend.Delete(_friend.GetAll().First(i=> i.User_ID == uID && i.Friend_ID == fID));
             _unitOfWork.Commit();
         }
     }

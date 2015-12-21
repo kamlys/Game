@@ -23,8 +23,8 @@ namespace Game.Service.Interfaces
         List<FriendDto> GetFriendList(string User);
         void AcceptFriend(int id);
         void DontAcceptFriend(int id);
-
-
+        void DeleteFriend(string userLogin, string friendLogin);
+        int ifFriend(string user, string friend);
 
     }
 }

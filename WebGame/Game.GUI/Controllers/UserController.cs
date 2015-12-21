@@ -166,21 +166,23 @@ namespace Game.GUI.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Profil(string User)
+        public ActionResult Profil(string user)
         {
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
             tableList.tableView = new TableViewModel();
 
             int buildings = 0;
-            var userDto = _userService.Profil(User);
+            var userDto = _userService.Profil(user);
 
+            tableList.tableView.User_ID = userDto.ID;
             tableList.tableView.Login = userDto.Login;
             tableList.tableView.Email = userDto.Email;
             tableList.tableView.RegDays = (DateTime.Now - userDto.Registration_Date).Days;
             tableList.tableView.LogDays = (DateTime.Now - userDto.Last_Log).Days;
+            tableList.tableView.Value = _userService.ifFriend(User.Identity.Name,user);
 
-            foreach (var item in _userBuildingService.GetUserBuildingList(User))
+            foreach (var item in _userBuildingService.GetUserBuildingList(user))
             {
                 buildings += 1;
             }
@@ -291,6 +293,12 @@ namespace Game.GUI.Controllers
         public void DontAcceptFriend(int a)
         {
             _userService.DontAcceptFriend(a);
+        }
+
+        [HttpPost]
+        public void DeleteFriend(string loginfriend)
+        {
+            _userService.DeleteFriend(User.Identity.Name, loginfriend);
         }
     }
 }
