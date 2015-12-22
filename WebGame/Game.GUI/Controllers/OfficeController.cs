@@ -124,13 +124,15 @@ namespace Game.GUI.Controllers
         {
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
-
+            
             foreach (var item in _productRequirementService.GetCanUserProducts(User.Identity.Name))
             {
                 tableList.tableList.Add(new TableViewModel
                 {
                     Base_Name = item.Base_Name,
-                    Require_Name = item.Require_Name,
+                    RequireProduct = item.RequireProduct,
+                    Name = item.RequireBuilding,
+                    ifCan = item.IfCanProduct
                 });
             }
 

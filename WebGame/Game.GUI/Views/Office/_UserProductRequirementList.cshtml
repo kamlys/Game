@@ -9,10 +9,49 @@
 <ul class="productRequirement">
     @foreach (var item in Model.tableList)
     {
-        <li>
-            <div class="productRequirementItem">
-                <span class="productName">@item.Base_Name</span><span class="inputValue">@Html.TextBox("tableView.Value",null, new { @type = "number", @min = "1", @placeholder="Ilość" }) <button class="btn createButton">Produkuj</button></span>
-            </div>
-        </li>
+        if (item.ifCan)
+        {
+            <li>
+                <div class="productRequirementItem">
+                    <span class="productName">@item.Base_Name</span><span class="inputValue">@Html.TextBox("tableView.Value", null, new { @type = "number", @min = "1", @placeholder = "Ilość"}) <button class="btn createButton" data-productname="@item.Base_Name">Produkuj</button></span>
+                </div>
+            </li>
+        }
+        else
+        {
+            <li>
+                <div class="productRequirementItem disabled">
+                    <span class="productName">@item.Base_Name</span> <span class="conditions">Warunki:  @item.Name, oraz
+                    @foreach (var product in item.RequireProduct)
+                    {
+                        foreach (KeyValuePair<string, int> p in product)
+                        {
+                            <span>@p.Key: @p.Value</span>
+                        }
+                    }
+                    </span>
+                </div>
+            </li>
+        }
     }
 </ul>
+
+<script>
+    $(".createButton").click(function () {
+        var value = $("#tableView_Value").val();
+        var product = $(this).data('productname');
+        console.log(product, value);
+        $.ajax({
+            type: "POST",
+            url: 'UserProduct/CreateProduct',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ value: value, productname: product }),
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
+
+
+
+</script>

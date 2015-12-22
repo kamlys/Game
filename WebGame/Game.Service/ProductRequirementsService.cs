@@ -42,43 +42,53 @@ namespace Game.Service
         public List<ProductRequirementDto> GetCanUserProducts(string user)
         {
             int uID = _user.GetAll().First(i => i.Login == user).ID;
-            bool temp = false;
-            bool temp2 = true;
-            bool temp3 = false;
 
             List<ProductRequirementDto> productRDto = new List<ProductRequirementDto>();
+            ProductRequirementDto productDictionary = new ProductRequirementDto();
+            productDictionary.RequireProduct = new List<Dictionary<string, int>>();
+            bool temp = true;
+            bool temp2 = false;
+            string building = String.Empty;
 
-            var producks = _productR.GetAll().GroupBy(i => i.Base_ID);
-            foreach (var item in producks)
+            var products = _productR.GetAll().GroupBy(i => i.Base_ID);
+            foreach (var item in products)
             {
                 foreach (var item2 in item)
                 {
-                    if (_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value >= item2.Value)
+                    if (!_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == item2.Require_ID))
+                    {
+                        temp = false;
+                    }
+                    else if (_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value < item2.Value)
+                    {
+                        temp = false;
+                    }
+                    var buildingID = _building.GetAll().FirstOrDefault(p => p.Product_ID == item2.Base_ID).ID;
+                    foreach (var item3 in _userBuilding.GetAll().Where(i => i.User_ID == uID && i.Building_ID == buildingID))
+                    {
+                        temp2 = true;
+                    }
+
+                    if (temp && temp2)
                     {
                         temp = true;
                     }
                     else
                     {
-                        temp2 = false;
+                        temp = false;
                     }
-                    var buildingID = _building.GetAll().FirstOrDefault(p => p.Product_ID == item2.Base_ID).ID;
-                    foreach (var item3 in _userBuilding.GetAll().Where(i => i.User_ID == uID && i.Building_ID == buildingID))
-                    {
-                        temp3 = true;
-                    }
+
+                    building = _building.Get(buildingID).Alias;
                 }
 
-
-
-                if (temp && temp2 && temp3)
+                productRDto.Add(new ProductRequirementDto
                 {
-                    productRDto.Add(new ProductRequirementDto
-                    {
-                        Base_Name = _product.Get(item.Key).Name,
-                    });
-                }
+                    Base_Name = _product.Get(item.Key).Name,
+                    RequireProduct = item.Select(i => new Dictionary<string, int>() { { _product.Get(i.Require_ID).Alias, i.Value }, }).ToList(),
+                    IfCanProduct = temp,
+                    RequireBuilding = building
+                });
             }
-
 
             return productRDto;
         }

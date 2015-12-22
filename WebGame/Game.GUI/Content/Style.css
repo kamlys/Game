@@ -520,7 +520,13 @@ nav {
         float: left;
         display: inline-block;
         line-height: 46px;
-        margin-left: 15px; }
+        margin-left: 15px;
+        font-weight: bold; }
+      .office .uProductRequirementList .productRequirementItem .conditions {
+        float: right;
+        display: inline-block;
+        line-height: 46px;
+        margin-right: 15px; }
       .office .uProductRequirementList .productRequirementItem .inputValue {
         display: inline-block;
         float: right;
@@ -533,6 +539,8 @@ nav {
           display: inline-block;
           height: 44px;
           border-bottom: 1px solid #f4511e; }
+    .office .uProductRequirementList .disabled {
+      background-color: #a8a8a8; }
 
 /*Profil*/
 .profil {

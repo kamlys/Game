@@ -751,6 +751,14 @@ nav {
                 display: inline-block;
                 line-height: 46px;
                 margin-left: 15px;
+                font-weight: bold;
+            }
+
+            .conditions{
+                float: right;
+                display: inline-block;
+                line-height: 46px;
+                margin-right: 15px;
             }
 
             .inputValue {
@@ -768,6 +776,10 @@ nav {
                     border-bottom: 1px solid #f4511e;
                 }
             }
+        }
+
+        .disabled{
+            background-color: rgba(168,168,168,1);
         }
     }
 }

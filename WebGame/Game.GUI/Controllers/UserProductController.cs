@@ -86,5 +86,11 @@ namespace Game.GUI.Controllers
             _userProductTable.Delete(id);
             return View("~/Views/Admin/Admin.cshtml");
         }
+
+        [Authorize]
+        public void CreateProduct(int value, string productname)
+        {
+            _userProductTable.CreateProduct(value, productname, User.Identity.Name);
+        }
     }
 }
