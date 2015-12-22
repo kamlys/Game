@@ -14,6 +14,8 @@ namespace Game.Service.Interfaces.TableInterface
         void Add(DolarDto admin);
         void Update(DolarDto admin);
         void Delete(int id);
+        int UserDolar(string user);
+
 
     }
 }

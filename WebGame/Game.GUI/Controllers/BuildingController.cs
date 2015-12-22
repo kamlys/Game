@@ -16,13 +16,15 @@ namespace Game.GUI.Controllers
         private IBuildingHelper _buildingService;
         private IUserBuildingService _userBuilding;
         private IBuildingService _buildingTable;
+        private IDolarService _dolar;
 
 
-        public BuildingController(IBuildingHelper buildingService, IUserBuildingService userBuilding, IBuildingService buildingTable)
+        public BuildingController(IBuildingHelper buildingService, IUserBuildingService userBuilding, IBuildingService buildingTable, IDolarService dolar)
         {
             _buildingService = buildingService;
             _userBuilding = userBuilding;
             _buildingTable = buildingTable;
+            _dolar = dolar;
         }
         // GET: Building
         [Authorize]
@@ -34,8 +36,25 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _BuildingsList()
         {
-            List<BuildingDto> buildings = _buildingService.GetBuildings();
-            return View(buildings);
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+            tableList.tableView = new TableViewModel();
+
+            foreach (var item in _buildingService.GetBuildings())
+            {
+                tableList.tableList.Add(new TableViewModel
+                {
+                    ID = item.ID,
+                    Alias = item.Alias,
+                    Height = item.Height,
+                    Width = item.Width,
+                    Price = item.Price
+                });
+            }
+
+            tableList.tableView.Value = _dolar.UserDolar(User.Identity.Name);
+
+            return View(tableList);
         }
 
 

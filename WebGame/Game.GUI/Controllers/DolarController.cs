@@ -87,6 +87,16 @@ namespace Game.GUI.Controllers
             return View("~/Views/Admin/Admin.cshtml");
         }
 
+        public ActionResult dolar()
+        {
+            int result = getuserdolar();
+            return Content(result.ToString());
+        }
 
+        [NonAction]
+        private int getuserdolar()
+        {
+            return _dolarTableService.UserDolar(User.Identity.Name); ;
+        }
     }
 }

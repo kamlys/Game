@@ -1,13 +1,20 @@
-﻿@model List<Game.Core.DTO.BuildingDto>
+﻿@model Game.GUI.ViewModels.ListTableViewModel
 @{
     Layout = null;
 }
 
 <div id="buildingList">
     <span>Buduj: </span><br />
-    @foreach (var item in Model)
+    @foreach (var item in Model.tableList)
     {
-        <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height)">@item.Alias</p>
+        if (item.Price <= Model.tableView.Value)
+        {
+            <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height)"><span class="buildingName">@item.Alias</span>  <span class="buildingPrice"><i class="fa fa-usd"></i>@item.Price</span></p>
+        }
+        else
+        {
+            <p class="btn disabled" ><span class="buildingName">@item.Alias</span>  <span class="buildingPrice"><i class="fa fa-usd"></i>@item.Price</span></p>
+        }
     }
 </div>
 
