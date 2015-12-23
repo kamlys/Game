@@ -20,6 +20,7 @@ namespace Game.Service
         private IRepository<Buildings> _buildings;
         private IRepository<Users> _users;
         private IRepository<BuildingQueue> _buildingQueue;
+        private IRepository<DealsBuildings> _dealBuilgind;
         private IBuildingHelper _buildingHelper;
         private IUnitOfWork _unitOfWork;
 
@@ -31,6 +32,7 @@ namespace Game.Service
             IRepository<Products> products,
             IRepository<Dolars> dolars,
         IRepository<BuildingQueue> buildingQueue,
+        IRepository<DealsBuildings> dealBuilding,
         IBuildingHelper buildingHelper,
             IUnitOfWork unitOfWork)
         {
@@ -42,6 +44,7 @@ namespace Game.Service
             _userProducts = userProducts;
             _buildingQueue = buildingQueue;
             _dolars = dolars;
+            _dealBuilgind = dealBuilding;
             _buildingHelper = buildingHelper;
         }
 
@@ -284,6 +287,23 @@ namespace Game.Service
                 return true;
             }
             return true;
+        }
+
+        public List<DealBuildingDto> GetDealBuildingList(string user)
+        {
+            int uID = _users.GetAll().First(i => i.Login == user).ID;
+            List<DealBuildingDto> dealBuilding = new List<DealBuildingDto>();
+
+
+            foreach (var item in _dealBuilgind.GetAll().Where(i=> i.User_ID == uID))
+            {
+                dealBuilding.Add(new DealBuildingDto
+                {
+                    Building_Name = _buildings.Get(item.Building_ID).Alias,
+                });
+            }
+
+            return dealBuilding;
         }
     }
 }

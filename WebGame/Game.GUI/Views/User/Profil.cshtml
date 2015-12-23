@@ -152,14 +152,30 @@
                     </div>
                 </li>
                 <li>
+                    <div class="collapsible-header"><i class="fa fa-user"></i>Znajomi</div>
+                    <div class="collapsible-body">
+                        @foreach (var item in Model.tableList)
+                        {
+                            if (item.Friend_Login != null)
+                            {
+                            <div class="ignoredDiv">@item.Friend_Login <span class="deleteFriend" data-loginfriend="@item.Friend_Login"><i class="fa fa-times"></i></span></div>
+                            }
+                        }
+                    </div>
+                </li>
+                <li>
                     <div class="collapsible-header"><i class="fa fa-ban"></i>Ignorowani</div>
                     <div class="collapsible-body">
                         @foreach (var item in Model.tableList)
                         {
+                            if (item.Login != null)
+                            {
                             <div class="ignoredDiv">@item.Login <span class="deleteIgnore" data-ignorlogin="@item.Login"><i class="fa fa-times"></i></span></div>
+                            }
                         }
                     </div>
                 </li>
+
             </ul>
         </div>
     }

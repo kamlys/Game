@@ -191,6 +191,14 @@ namespace Game.GUI.Controllers
                 });
             }
 
+            foreach (var item in _userService.GetFriendList(User.Identity.Name))
+            {
+                tableList.tableList.Add(new TableViewModel
+                {
+                    Friend_Login = item.Friend_Login
+                });
+            }
+
             foreach (var item in _userBuildingService.GetUserBuildingList(user))
             {
                 buildings += 1;

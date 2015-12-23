@@ -32,7 +32,14 @@
                 </div>
             </div>
             <div class="col l3 buildingList card">
-                @Html.Action("_BuildingsList", "Building")
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a href="#Building">Budynki</a></li>
+                        <li class="tab col s3"><a href="#DealBuilding" id="notifi">Budynki z umów</a></li>
+                    </ul>
+                </div>
+                <div id="Building" class="col s12"><div id="Building">@Html.Action("_BuildingsList", "Building")</div></div>
+                <div id="DealBuilding" class="col s12"><div id="DealBuilding">@Html.Action("_DealBuildings", "UserBuilding")</div></div>
             </div>
             <div class="mapBox card">
                 @Html.Action("_UserMap", "Map")
@@ -55,7 +62,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('#testModal').leanModal();
         $('ul.tabs').tabs();
         if ($('#Notification ul li').length >= 1) {
             $('.infoBox .tabs').tabs('select_tab', 'Notification');

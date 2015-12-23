@@ -277,7 +277,7 @@ namespace Game.Service
             int uID = _user.GetAll().First(i => i.Login == user).ID;
             int fID = _user.GetAll().First(i => i.Login == friend).ID;
 
-            foreach (var item in _friend.GetAll().Where(i=> i.User_ID == uID && i.Friend_ID == fID))
+            foreach (var item in _friend.GetAll().Where(i=> (i.User_ID == uID && i.Friend_ID == fID) || (i.User_ID == fID && i.Friend_ID == uID)))
             {
                 if(item.OrAccepted == true)
                 {

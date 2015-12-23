@@ -19,5 +19,6 @@ namespace Game.Service.Interfaces
         void Delete(int id);
         bool ifLvlUp(int id, string User);
         bool LvlUp(int id, string User);
+        List<DealBuildingDto> GetDealBuildingList(string user);
     }
 }

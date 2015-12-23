@@ -1,0 +1,22 @@
+﻿@model Game.GUI.ViewModels.ListTableViewModel
+@{
+    Layout = null;
+}
+
+<div id="buildingList">
+    @foreach (var item in Model.tableList)
+    {
+        <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height)"><span class="buildingName">@item.Alias</span></p>
+    }
+</div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script>
+    $('#buildingList').slimScroll({
+        color: '#ff7d00',
+        size: '10px',
+        height: '350px',
+        alwaysVisible: false
+    });
+</script>

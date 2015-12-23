@@ -13,10 +13,12 @@ namespace Game.GUI.Controllers
     public class UserBuildingController : Controller
     {
         private IUserBuildingService _userBuildingService;
+        private IDolarService _dolar;
 
-        public UserBuildingController(IUserBuildingService userBuildingService)
+        public UserBuildingController(IUserBuildingService userBuildingService, IDolarService dolar)
         {
             _userBuildingService = userBuildingService;
+            _dolar = dolar;
         }
 
         // GET: UserBuilding
@@ -55,6 +57,28 @@ namespace Game.GUI.Controllers
 
             return View("~/Views/Admin/_UserBuildingList.cshtml", tableList);
         }
+
+        [Authorize]
+        public ActionResult _DealBuildings()
+        {
+            ListTableViewModel tableList = new ListTableViewModel();
+            tableList.tableList = new List<TableViewModel>();
+            tableList.tableView = new TableViewModel();
+
+            foreach (var item in _userBuildingService.GetDealBuildingList(User.Identity.Name))
+            {
+                tableList.tableList.Add(new TableViewModel
+                {
+                    ID = item.ID,
+                    Alias = item.Building_Name
+                });
+            }
+
+            tableList.tableView.Value = _dolar.UserDolar(User.Identity.Name);
+
+            return View("~/Views/Building/_DealBuildings.cshtml", tableList);
+        }
+
 
         [HttpPost]
         [Authorize]

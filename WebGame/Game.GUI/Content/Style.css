@@ -158,6 +158,8 @@ nav {
   display: inline-block;
   float: left !important;
   text-align: center; }
+  .buildingList .tabs {
+    margin-top: 0px; }
   .buildingList .btn {
     background-color: #ff7d00;
     max-width: 250px;
@@ -264,7 +266,7 @@ nav {
   border-radius: 0;
   height: 50px;
   line-height: 50px;
-  width: 95%;
+  width: 100%;
   border-bottom: 3px solid #FFB100;
   margin-top: 10px;
   float: left;

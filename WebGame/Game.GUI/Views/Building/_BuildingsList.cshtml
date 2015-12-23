@@ -4,7 +4,6 @@
 }
 
 <div id="buildingList">
-    <span>Buduj: </span><br />
     @foreach (var item in Model.tableList)
     {
         if (item.Price <= Model.tableView.Value)
@@ -24,7 +23,7 @@
     $('#buildingList').slimScroll({
         color: '#ff7d00',
         size: '10px',
-        height: 'auto',
+        height: '350px',
         alwaysVisible: false
     });
 </script>
