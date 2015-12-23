@@ -20,6 +20,7 @@ namespace Game.Dal.Model
         public virtual DbSet<DealsBuildings> DealsBuildings { get; set; }
         public virtual DbSet<Dolars> Dolars { get; set; }
         public virtual DbSet<Friends> Friends { get; set; }
+        public virtual DbSet<Ignored> Ignored { get; set; }
         public virtual DbSet<Maps> Maps { get; set; }
         public virtual DbSet<Market> Market { get; set; }
         public virtual DbSet<Messages> Messages { get; set; }
@@ -144,6 +145,18 @@ namespace Game.Dal.Model
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Friends1)
+                .WithRequired(e => e.Users1)
+                .HasForeignKey(e => e.User_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Ignored)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.Ignored_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Ignored1)
                 .WithRequired(e => e.Users1)
                 .HasForeignKey(e => e.User_ID)
                 .WillCascadeOnDelete(false);

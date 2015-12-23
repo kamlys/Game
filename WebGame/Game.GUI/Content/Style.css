@@ -8,7 +8,7 @@ html, body {
 /*Jakieś artykuły*/
 #homeArticle {
   color: #becbd6;
-  font-size: 30px;
+  font-size: 20px;
   padding: 20px 20px 20px 20px; }
 
 nav {
@@ -590,6 +590,13 @@ nav {
       color: #000; }
     .profil #right .collapsible-body .btn {
       margin-bottom: 15px; }
+    .profil #right .collapsible-body .ignoredDiv {
+      background-color: #a8a8a8;
+      color: #000;
+      border: 1px solid #DDDDDD;
+      height: 46px;
+      line-height: 46px;
+      padding-left: 20px; }
     .profil #right input[type=text], .profil #right textarea.materialize-textarea {
       color: #fff !important; }
 

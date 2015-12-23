@@ -20,8 +20,21 @@
         }
         else if (Model.tableView.Value == 3)
         {
-            <button class="btn-large addFriend">Dodaj znajomego</button>
+            if (!Model.tableView.IfIgnored)
+            {
+                <button class="btn-large addFriend">Dodaj znajomego</button>
+            }
         }
+
+        if (!Model.tableView.Ignor)
+        {
+            <button class="btn-large addIgnore" data-ignorlogin="@Model.tableView.Login">Ignoruj</button>
+        }
+        else
+        {
+            <button class="btn-large deleteIgnore" data-ignorlogin="@Model.tableView.Login">Przestań ignorować</button>
+        }
+
         <hr />
         <div id="left">
             @if (Model.tableView.RegDays <= 1)
@@ -42,25 +55,28 @@
             }
             <span class="info">Posiada <span class="num">@Model.tableView.Number </span>budynków.</span>
         </div>
+        if (!Model.tableView.IfIgnored)
+        {
+            <div id="right">
+                <h3>Wyślij wiadmość:</h3>
+                @using (Html.BeginForm("SentMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.HiddenFor(m => m.tableView.Login);
+                    @Html.Hidden(User.Identity.Name);
+                    <div class="input-field col s12">
+                        @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
+                        <label for="Login">Tytuł:</label>
+                    </div>
 
-        <div id="right">
-            <h3>Wyślij wiadmość:</h3>
-            @using (Html.BeginForm("SentMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.HiddenFor(m => m.tableView.Login);
-                @Html.Hidden(User.Identity.Name);
-                <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
-                    <label for="Login">Tytuł:</label>
-                </div>
+                    <div class="input-field col s12">
+                        @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
+                        <label for="Login">Treść:</label>
+                    </div>
+                    <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage" name="action" />
+                }
 
-                <div class="input-field col s12">
-                    @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
-                    <label for="Login">Treść:</label>
-                </div>
-                <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage" name="action" />
-            }
-        </div>
+            </div>
+        }
     }
     else
     {
@@ -135,6 +151,15 @@
                         }
                     </div>
                 </li>
+                <li>
+                    <div class="collapsible-header"><i class="fa fa-ban"></i>Ignorowani</div>
+                    <div class="collapsible-body">
+                        @foreach (var item in Model.tableList)
+                        {
+                            <div class="ignoredDiv">@item.Login <span class="deleteIgnore" data-ignorlogin="@item.Login"><i class="fa fa-times"></i></span></div>
+                        }
+                    </div>
+                </li>
             </ul>
         </div>
     }
@@ -159,9 +184,38 @@
             type: "POST",
             url: 'DeleteFriend',
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ loginfriend: login}),
+            data: JSON.stringify({ loginfriend: login }),
             success: function (data) {
                 console.log("Succces");
+                location.reload();
+            }
+        });
+    });
+
+    $(".addIgnore").click(function () {
+
+        var ignorlogin = $(this).data('ignorlogin');
+        $.ajax({
+            type: "POST",
+            url: 'AddIgnore',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ ignorlogin: ignorlogin }),
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
+
+
+    $(".deleteIgnore").click(function () {
+
+        var ignorlogin = $(this).data('ignorlogin');
+        $.ajax({
+            type: "POST",
+            url: 'DeleteIgnore',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ ignorlogin: ignorlogin }),
+            success: function (data) {
                 location.reload();
             }
         });

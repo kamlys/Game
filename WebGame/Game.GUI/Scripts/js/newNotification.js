@@ -1,10 +1,18 @@
 ﻿var user_login;
 var user_friend;
 var friend_user;
+
 $(".addButton").click(function () {
     var sender_login = $("#User_Identity_Name").val();
     var theme = $("#tableView_Theme").val();
     var customer_login = $("#tableView_Customer_Login").val();
+    console.log(customer_login);
+    pin = "Nowa wiadomość";
+});
+
+$(".sentMessage").click(function () {
+    var customer_login = $("#tableView_Customer_Login").val();
+    console.log(customer_login);
     pin = "Nowa wiadomość";
 });
 
@@ -125,7 +133,8 @@ $(document).ready(function () {
         };
         $.connection.hub.start().done(function () {
             $('.sentMessage').click(function () {
-                if ($("#tableView_Customer_Login").val() == null) {
+                console.log($("#tableView_Customer_Login").val());
+                if ($("#tableView_Customer_Login").val() == undefined) {
                     game.server.sentNotification($("#tableView_Login").val(), pin);
                 }
                 else {

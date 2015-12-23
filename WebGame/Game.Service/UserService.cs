@@ -18,6 +18,7 @@ namespace Game.Service
         private IRepository<Dolars> _dolar;
         private IRepository<Maps> _map;
         private IRepository<Friends> _friend;
+        private IRepository<Ignored> _ignored;
         private IUnitOfWork _unitOfWork;
         private IHashPass _hassPass;
 
@@ -26,6 +27,7 @@ namespace Game.Service
             IRepository<Dolars> dolar,
             IRepository<Maps> map,
             IRepository<Friends> friend,
+            IRepository<Ignored> ignored,
             IUnitOfWork unitOfWork,
             IHashPass hassPass)
         {
@@ -33,6 +35,7 @@ namespace Game.Service
             _map = map;
             _dolar = dolar;
             _friend = friend;
+            _ignored = ignored;
             _unitOfWork = unitOfWork;
             _hassPass = hassPass;
         }
@@ -295,6 +298,57 @@ namespace Game.Service
 
             _friend.Delete(_friend.GetAll().First(i=> i.User_ID == uID && i.Friend_ID == fID));
             _unitOfWork.Commit();
+        }
+
+        public bool Ignored(string user_login, string ignored_login)
+        {
+            int uID = _user.GetAll().First(i => i.Login == user_login).ID;
+            int iID = _user.GetAll().First(i => i.Login == ignored_login).ID;
+            bool ignored = false;
+
+            foreach (var item in _ignored.GetAll().Where(i=> i.Ignored_ID == iID && i.User_ID == uID))
+            {
+                ignored = true;
+            }
+
+            return ignored;
+        }
+
+        public void AddIgnore(string userlogin, string ignorelogin)
+        {
+            int uID = _user.GetAll().First(i => i.Login == userlogin).ID;
+            int iID = _user.GetAll().First(i => i.Login == ignorelogin).ID;
+            _ignored.Add(new Ignored
+            {
+                User_ID = uID,
+                Ignored_ID = iID
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public void DeleteIgnore(string userlogin, string ignorelogin)
+        {
+            int uID = _user.GetAll().First(i => i.Login == userlogin).ID;
+            int iID = _user.GetAll().First(i => i.Login == ignorelogin).ID;
+            int ID = _ignored.GetAll().First(i => i.User_ID == uID && i.Ignored_ID == iID).ID;
+            _ignored.Delete(_ignored.Get(ID));
+
+            _unitOfWork.Commit();
+        }
+
+        public List<string> GetIgnored(string user)
+        {
+            int uID = _user.GetAll().First(i => i.Login == user).ID;
+
+            List<string> logins = new List<string>();
+
+            foreach (var item in _ignored.GetAll().Where(i=> i.User_ID == uID))
+            {
+                logins.Add(_user.Get(item.Ignored_ID).Login);
+            }
+
+            return logins;
         }
     }
 }

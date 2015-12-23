@@ -181,6 +181,15 @@ namespace Game.GUI.Controllers
             tableList.tableView.RegDays = (DateTime.Now - userDto.Registration_Date).Days;
             tableList.tableView.LogDays = (DateTime.Now - userDto.Last_Log).Days;
             tableList.tableView.Value = _userService.ifFriend(User.Identity.Name,user);
+            tableList.tableView.IfIgnored = _userService.Ignored(user, User.Identity.Name);
+            tableList.tableView.Ignor = _userService.Ignored(User.Identity.Name, user);
+
+            foreach (var item in _userService.GetIgnored(User.Identity.Name))
+            {
+                tableList.tableList.Add(new TableViewModel{
+                    Login = item
+                });
+            }
 
             foreach (var item in _userBuildingService.GetUserBuildingList(user))
             {
@@ -299,6 +308,16 @@ namespace Game.GUI.Controllers
         public void DeleteFriend(string loginfriend)
         {
             _userService.DeleteFriend(User.Identity.Name, loginfriend);
+        }
+
+        public void AddIgnore(string ignorlogin)
+        {
+            _userService.AddIgnore(User.Identity.Name, ignorlogin);
+        }
+
+        public void DeleteIgnore(string ignorlogin)
+        {
+            _userService.DeleteIgnore(User.Identity.Name, ignorlogin);
         }
     }
 }

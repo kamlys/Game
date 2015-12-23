@@ -61,7 +61,10 @@ namespace Game.Service
                 X_pos = col,
                 Y_pos = row,
                 User_ID = uID,
-                Status = "budowa"
+                Status = "budowa",
+                Percent_product = 100,
+                Owner = true
+                
             });
             _dolars.GetAll().First(u => u.User_ID == uID).Value -= buildPrice;
 

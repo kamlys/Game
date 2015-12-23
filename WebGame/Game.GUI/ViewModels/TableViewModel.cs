@@ -78,5 +78,7 @@ namespace Game.GUI.ViewModels
         public string Require_Name { get; set; }
         public List<Dictionary<string,int>> RequireProduct { get; set; }
 
+        public bool IfIgnored { get; set; }
+        public bool Ignor { get; set; }
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="Model\Dolars.cs" />
     <Compile Include="Model\Friends.cs" />
     <Compile Include="Model\gameDbContext.cs" />
+    <Compile Include="Model\Ignored.cs" />
     <Compile Include="Model\Maps.cs" />
     <Compile Include="Model\Market.cs" />
     <Compile Include="Model\Messages.cs" />

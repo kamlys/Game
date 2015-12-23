@@ -25,6 +25,11 @@ namespace Game.Service.Interfaces
         void DontAcceptFriend(int id);
         void DeleteFriend(string userLogin, string friendLogin);
         int ifFriend(string user, string friend);
+        bool Ignored(string user_login, string ignored_login);
+        void AddIgnore(string userlogin, string ignorelogin);
+        void DeleteIgnore(string userlogin, string ignorelogin);
+        List<string> GetIgnored(string user);
+
 
     }
 }
