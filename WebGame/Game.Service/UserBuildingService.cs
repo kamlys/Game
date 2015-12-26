@@ -21,6 +21,7 @@ namespace Game.Service
         private IRepository<Users> _users;
         private IRepository<BuildingQueue> _buildingQueue;
         private IRepository<DealsBuildings> _dealBuilgind;
+        private IRepository<Deals> _deal;
         private IBuildingHelper _buildingHelper;
         private IUnitOfWork _unitOfWork;
 
@@ -31,6 +32,7 @@ namespace Game.Service
             IRepository<Buildings> buildings,
             IRepository<Products> products,
             IRepository<Dolars> dolars,
+            IRepository<Deals> deal,
         IRepository<BuildingQueue> buildingQueue,
         IRepository<DealsBuildings> dealBuilding,
         IBuildingHelper buildingHelper,
@@ -44,19 +46,32 @@ namespace Game.Service
             _userProducts = userProducts;
             _buildingQueue = buildingQueue;
             _dolars = dolars;
+            _deal = deal;
             _dealBuilgind = dealBuilding;
             _buildingHelper = buildingHelper;
         }
 
 
-        public bool Build(int id, int col, int row, string user)
+        public bool Build(int id, int col, int row, int dealID, string user)
         {
             int uID = _users.GetAll().First(a => a.Login == user).ID;
             int buildPrice = _buildings.GetAll().First(b => b.ID == id).Price;
             var dolarsAccount = _dolars.GetAll().First(u => u.User_ID == uID).Value;
             int idProduct = _buildings.GetAll().First(b => b.ID == id).Product_ID;
             bool create = true;
+            int percent = 100;
 
+            if (dealID != 0)
+            {
+                if (uID == _deal.Get(dealID).User1_ID)
+                {
+                    percent = _deal.Get(dealID).Percent_User1;
+                }
+                else
+                {
+                    percent = _deal.Get(dealID).Percent_User2;
+                }
+            }
             _userBuildings.Add(new UserBuildings
             {
                 Building_ID = id,
@@ -65,11 +80,14 @@ namespace Game.Service
                 Y_pos = row,
                 User_ID = uID,
                 Status = "budowa",
-                Percent_product = 100,
+                Percent_product = percent,
                 Owner = true
-                
+
             });
-            _dolars.GetAll().First(u => u.User_ID == uID).Value -= buildPrice;
+            if (dealID == 0)
+            {
+                _dolars.GetAll().First(u => u.User_ID == uID).Value -= buildPrice;
+            }
 
             _unitOfWork.Commit();
 
@@ -105,6 +123,73 @@ namespace Game.Service
 
                 _unitOfWork.Commit();
             }
+
+            if (dealID != 0)
+            {
+                int userDealID;
+
+                if (uID == _deal.Get(dealID).User1_ID)
+                {
+                    userDealID = _deal.Get(dealID).User2_ID;
+                }
+                else
+                {
+                    userDealID = _deal.Get(dealID).User1_ID;
+                }
+
+                _userBuildings.Add(new UserBuildings
+                {
+                    Building_ID = id,
+                    Lvl = 1,
+                    X_pos = col,
+                    Y_pos = row,
+                    User_ID = userDealID,
+                    Status = "budowa",
+                    Percent_product = 100 - percent,
+                    Owner = false
+
+                });
+
+                _unitOfWork.Commit();
+
+                var userDealBuildingID = _userBuildings.GetAll().OrderByDescending(i => i.ID).First(u => u.User_ID == userDealID && u.Building_ID == id && u.Status.Contains("budowa")).ID;
+
+                _buildingQueue.Add(new BuildingQueue
+                {
+                    User_ID = userDealID,
+                    UserBuilding_ID = userBuildingID,
+                    FinishTime = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime),
+                    NewStatus = "gotowy"
+                });
+
+                _unitOfWork.Commit();
+
+                foreach (var item in _userProducts.GetAll().Where(u => u.User_ID == userDealID))
+                {
+                    if (item.Product_ID == idProduct)
+                    {
+                        create = false;
+                    }
+                }
+
+                if (create)
+                {
+                    _userProducts.Add(new UserProducts
+                    {
+                        User_ID = uID,
+                        Product_Name = _products.GetAll().First(i => i.ID == idProduct).Name,
+                        Value = 0,
+                        Product_ID = idProduct
+                    });
+
+                    _unitOfWork.Commit();
+                }
+
+                _dealBuilgind.Delete(_dealBuilgind.GetAll().First(i => i.Deal_ID == dealID));
+                _unitOfWork.Commit();
+            }
+
+
             return true;
         }
 
@@ -245,11 +330,11 @@ namespace Game.Service
             int uID = _users.GetAll().First(i => i.Login == User).ID;
             int temp = _userBuildings.Get(id).Building_ID;
             int userDolars = _dolars.GetAll().First(i => i.User_ID == uID).Value;
-            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Percent_price_per_lvl/10;
+            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Percent_price_per_lvl / 10;
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
             int lvlPrice = percentPricePerLvl * buildingPrice;
 
-            if(userDolars >= lvlPrice)
+            if (userDolars >= lvlPrice)
             {
                 return true;
             }
@@ -262,11 +347,11 @@ namespace Game.Service
             int temp = _userBuildings.Get(id).Building_ID;
             int buildingTime = _buildings.GetAll().First(i => i.ID == temp).BuildingTime;
             int userDolars = _dolars.GetAll().First(i => i.User_ID == uID).Value;
-            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Percent_price_per_lvl/100;
+            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Percent_price_per_lvl / 100;
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
             int lvlPrice = percentPricePerLvl * buildingPrice;
 
-            if (ifLvlUp(id,User))
+            if (ifLvlUp(id, User))
             {
                 _buildingQueue.Add(
                     new BuildingQueue
@@ -295,11 +380,17 @@ namespace Game.Service
             List<DealBuildingDto> dealBuilding = new List<DealBuildingDto>();
 
 
-            foreach (var item in _dealBuilgind.GetAll().Where(i=> i.User_ID == uID))
+            foreach (var item in _dealBuilgind.GetAll().Where(i => i.User_ID == uID))
             {
+                var building = _buildings.Get(item.Building_ID);
+
                 dealBuilding.Add(new DealBuildingDto
                 {
-                    Building_Name = _buildings.Get(item.Building_ID).Alias,
+                    ID = building.ID,
+                    Alias = building.Alias,
+                    Height = building.Height,
+                    Width = building.Width,
+                    Deal_ID = item.Deal_ID,
                 });
             }
 

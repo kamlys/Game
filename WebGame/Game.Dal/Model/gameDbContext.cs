@@ -56,6 +56,12 @@ namespace Game.Dal.Model
                 .HasForeignKey(e => e.Building_ID)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Deals>()
+                .HasMany(e => e.DealsBuildings)
+                .WithRequired(e => e.Deals)
+                .HasForeignKey(e => e.Deal_ID)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Maps>()
                 .HasMany(e => e.Deals)
                 .WithRequired(e => e.Maps)

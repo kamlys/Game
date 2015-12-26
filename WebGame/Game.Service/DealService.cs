@@ -117,7 +117,7 @@ namespace Game.Service
                 _deals.Get(ID).IsActive = true;
                 _dolars.GetAll().First(i => i.User_ID == uID).Value -= myPrice;
                 var ownerID = _deals.Get(ID).Maps.User_ID;
-                _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = ownerID });
+                _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = ownerID, Deal_ID = ID });
 
                 _unitOfWork.Commit();
 

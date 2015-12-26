@@ -6,7 +6,7 @@
 <div id="buildingList">
     @foreach (var item in Model.tableList)
     {
-        <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height)"><span class="buildingName">@item.Alias</span></p>
+        <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height, @item.DealID)"><span class="buildingName">@item.Alias</span></p>
     }
 </div>
 

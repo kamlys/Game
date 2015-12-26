@@ -70,7 +70,10 @@ namespace Game.GUI.Controllers
                 tableList.tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
-                    Alias = item.Building_Name
+                    Alias = item.Alias,
+                    Height = item.Height,
+                    Width = item.Width,
+                    DealID = item.Deal_ID
                 });
             }
 

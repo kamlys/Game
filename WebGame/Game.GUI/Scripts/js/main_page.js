@@ -1,4 +1,5 @@
 ﻿var budowanie = false;
+var dealid = 0;
 var budowanie_szer = 0;
 var budowanie_wys = 0;
 var budowanie_id = 0;
@@ -6,10 +7,11 @@ var szer_mapa = 0;
 var wys_mapa = 0;
 var budynki;
 
-function buduj(id, width, height) {
+function buduj(id, width, height,iddeal) {
     budowanie = true;
     budowanie_szer = width;
     budowanie_wys = height;
+    dealid = iddeal;
     $('.fake-building').css('width', budowanie_szer * 50);
     $('.fake-building').css('height', budowanie_wys * 50);
     budowanie_id = id;
@@ -48,8 +50,15 @@ function setMapSize(wys, szer) {
     szer_mapa = szer;
 }
 
-function budujAjax(col, row, id) {
-    var data = { id: id, col: col, row: row };
+function budujAjax(col, row, id, deali) {
+    var data = {
+        id: id,
+        col: col,
+        row: row,
+        dealid : dealid
+    };
+
+    console.log(data);
     var me = $(this);
 
     if (me.data('requestRunning')) {

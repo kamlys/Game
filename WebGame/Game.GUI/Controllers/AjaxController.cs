@@ -31,7 +31,7 @@ namespace Game.GUI.Controllers
             if (_buildingsHelper.BuildingValidation(a.Id, a.Col, a.Row, User.Identity.Name))
             {
                 ProductUpdate();
-                _userBuildingsService.Build(a.Id, a.Col, a.Row, User.Identity.Name);
+                _userBuildingsService.Build(a.Id, a.Col, a.Row, a.DealID, User.Identity.Name);
                 return new JsonResult { Data = true };
             }
             else

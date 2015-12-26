@@ -80,5 +80,9 @@ namespace Game.GUI.ViewModels
 
         public bool IfIgnored { get; set; }
         public bool Ignor { get; set; }
+
+
+
+        public int DealID { get; set; }
     }
 }
