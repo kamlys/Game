@@ -40,9 +40,11 @@ namespace Game.GUI.ViewModels
         public int Building_ID { get; set; }
         public string Status { get; set; }
         public string Login { get; set; }
+
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string OldPassword { get; set; }
+
         [DataType(DataType.Password)]
         [Compare("Password")]
         public String ComparePassword { get; set; }
