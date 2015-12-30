@@ -858,7 +858,10 @@ nav {
         }
 
         .collapsible-body {
+            padding: 15px !important;
+
             .btn {
+                margin-top: 10px;
                 margin-bottom: 15px;
             }
 
@@ -872,7 +875,7 @@ nav {
             }
         }
 
-        input[type=text], textarea.materialize-textarea {
+        input[type=text], textarea.materialize-textarea,input[type=password],input[type=email].valid, input[type=email] {
             color: #fff !important;
         }
     }
@@ -1001,7 +1004,7 @@ nav {
 
 /*Validation*/
 .validation {
-    display: block;
+    display: inline-block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 70px;
@@ -1020,6 +1023,13 @@ nav {
     -webkit-animation-name: top-margin;
     -webkit-animation-duration: 2s;
 
+    i{
+        padding: 5px;
+        display: inline-block;
+        color: red;
+        float: right;
+        cursor: pointer;
+    }
 
     @keyframes top-margin {
         0% {

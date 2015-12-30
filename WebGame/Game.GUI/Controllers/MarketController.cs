@@ -73,6 +73,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddOffer(ListMarketViewModel marketList)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MarketDto _marketDto = new MarketDto();
 
             _marketDto.Login = User.Identity.Name;
@@ -80,9 +90,14 @@ namespace Game.GUI.Controllers
             _marketDto.Number = marketList.marketView.Number;
             _marketDto.Price = marketList.marketView.Price;
 
-            _marketService.AddOffer(_marketDto);
+            if (!_marketService.AddOffer(_marketDto))
+            {
+                errors.Add("Coś poszło nie tak. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return View("~/Views/Market/Index.cshtml", GetOfferList());
+
         }
 
         [HttpPost]

@@ -72,7 +72,7 @@
                         @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
                         <label for="Login">Treść:</label>
                     </div>
-                    <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage" name="action" />
+                    <button type="submit" class="btn waves-effect waves-light addButton sentMessage" name="action">Wyślij</button>
                 }
 
             </div>
@@ -127,7 +127,7 @@
                                 </div>
 
                                 <div class="Button">
-                                    <input type="submit" value="Zapisz" class="waves-effect waves-light btn" />
+                                    <button type="submit" class="waves-effect waves-light btn changePassword">Zapisz</button>
                                 </div>
                             </form>
                         }
@@ -138,14 +138,16 @@
                     <div class="collapsible-body">
                         @using (Html.BeginForm("ChangeEmail", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
+                            @Html.AntiForgeryToken()
+
                             <form class="col s12">
                                 <div class="input-field col s12">
                                     @Html.TextBoxFor(m => m.tableView.Email, new { @type = "email", @class = "validate" })
-                                    <label for="Email" data-error="Coś nie tak">Email</label>
+                                    <label for="Email" data-error="To nie jest email.">Email</label>
 
                                 </div>
                                 <div class="Button">
-                                    <input type="submit" value="Zapisz" class="waves-effect waves-light btn" />
+                                    <button type="submit" class="waves-effect waves-light btn">Zapisz</button>
                                 </div>
                             </form>
                         }
@@ -158,7 +160,7 @@
                         {
                             if (item.Friend_Login != null)
                             {
-                            <div class="ignoredDiv">@item.Friend_Login <span class="deleteFriend" data-loginfriend="@item.Friend_Login"><i class="fa fa-times"></i></span></div>
+                                <div class="ignoredDiv">@item.Friend_Login <span class="deleteFriend" data-loginfriend="@item.Friend_Login"><i class="fa fa-times"></i></span></div>
                             }
                         }
                     </div>
@@ -170,7 +172,7 @@
                         {
                             if (item.Login != null)
                             {
-                            <div class="ignoredDiv">@item.Login <span class="deleteIgnore" data-ignorlogin="@item.Login"><i class="fa fa-times"></i></span></div>
+                                <div class="ignoredDiv">@item.Login <span class="deleteIgnore" data-ignorlogin="@item.Login"><i class="fa fa-times"></i></span></div>
                             }
                         }
                     </div>
@@ -186,6 +188,32 @@
 <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
 <script src="/signalr/hubs"></script>
 <script>
+
+    $(document).ready(function () {
+
+        $('.sentMessage').attr("disabled", true);
+        $('.changePassword').attr("disabled", true);
+
+        $("#right").keyup(function () {
+            if ($("#tableView_Theme").val() != ""
+                && $("#tableView_Content").val() != "") {
+                $('.sentMessage').attr("disabled", false);
+            }
+            else {
+                $('.sentMessage').attr("disabled", true);
+            }
+
+            if ($("#tableView_OldPassword").val() != ""
+                && $("#tableView_Password").val() != ""
+                && $("#tableView_ComparePassword").val() != "") {
+                $('.changePassword').attr("disabled", false);
+            }
+            else {
+                $('.changePassword').attr("disabled", true);
+            }
+        })
+    });
+
     $(document).ready(function () {
         $('.collapsible').collapsible({
             accordion: true

@@ -7,6 +7,8 @@
     <h5>Nowa wiadmość:</h5>
     @using (Html.BeginForm("SentMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
+        @Html.AntiForgeryToken()
+
         @Html.HiddenFor(m => User.Identity.Name);
         <div class="input-field col s12">
             @Html.Hidden(User.Identity.Name)
@@ -25,9 +27,27 @@
             @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
             <label for="Login">Treść:</label>
         </div>
-        <input type="submit" value="Wyślij" class="btn waves-effect waves-light sentMessage" name="action" />
+        <button type="submit" class="btn waves-effect waves-light sentMessage" name="action">Wyślij</button>
     }
 </div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
 <script src="/signalr/hubs"></script>
+<script>
+    $(document).ready(function () {
+
+        $('.sentMessage').attr("disabled", true);
+
+        $(".newMessage").keyup(function () {
+            if ($("#tableView_Customer_Login").val() != ""
+                && $("#tableView_Theme").val() != ""
+                && $("#tableView_Content").val() != "") {
+                $('.sentMessage').attr("disabled", false);
+                console.log("TUTAJ");
+            }
+            else {
+                $('.sentMessage').attr("disabled", true);
+            }
+        })
+    });
+</script>

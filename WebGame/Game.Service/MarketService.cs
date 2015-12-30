@@ -37,7 +37,7 @@ namespace Game.Service
             _unitOfWork = unitOfWork;
         }
 
-        public void AddOffer(MarketDto offer)
+        public bool AddOffer(MarketDto offer)
         {
             int userID = _user.GetAll().First(i => i.Login == offer.Login).ID;
             int totalPrice = (offer.Price * offer.Number);
@@ -45,7 +45,11 @@ namespace Game.Service
             int ProductID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == offer.Product_Name).Product_ID;
             int userProductValue = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value;
 
-            if (userProductValue>=offer.Number)
+            if (offer.Number > 0
+                &&userProductValue>=offer.Number 
+                && _product.GetAll().Any(i=> i.Name == offer.Product_Name) 
+                && offer.Price >0
+                && userProductValue>=offer.Number)
             {
                 _market.Add(new Market
                 {
@@ -58,7 +62,12 @@ namespace Game.Service
                 _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID==ProductID).Value -= offer.Number;
 
                 _unitOfWork.Commit();
+
+
+                return true;
             }
+
+            return false;
         }
 
         public List<MarketDto> GetOffer()
@@ -127,9 +136,9 @@ namespace Game.Service
             int totalPrice = (market.Price * market.Number);
             int userDolar = _dolar.GetAll().First(u => u.User_ID == uID).Value;
             bool succes = false; // Czy user już ma taki produkt
+            var m = _market.Get(market.ID);
 
-
-            if(userDolar>=totalPrice)
+            if(userDolar>=totalPrice && _market.Get(market.ID).Number>=market.Number)
             {
                 foreach (var item in _userProduct.GetAll().Where(i => i.User_ID == uID && i.Product_ID == market.Product_ID))
                 {

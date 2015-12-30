@@ -590,16 +590,19 @@ nav {
       background-color: #4dd0e1; }
     .profil #right .fa {
       color: #000; }
-    .profil #right .collapsible-body .btn {
-      margin-bottom: 15px; }
-    .profil #right .collapsible-body .ignoredDiv {
-      background-color: #a8a8a8;
-      color: #000;
-      border: 1px solid #DDDDDD;
-      height: 46px;
-      line-height: 46px;
-      padding-left: 20px; }
-    .profil #right input[type=text], .profil #right textarea.materialize-textarea {
+    .profil #right .collapsible-body {
+      padding: 15px !important; }
+      .profil #right .collapsible-body .btn {
+        margin-top: 10px;
+        margin-bottom: 15px; }
+      .profil #right .collapsible-body .ignoredDiv {
+        background-color: #a8a8a8;
+        color: #000;
+        border: 1px solid #DDDDDD;
+        height: 46px;
+        line-height: 46px;
+        padding-left: 20px; }
+    .profil #right input[type=text], .profil #right textarea.materialize-textarea, .profil #right input[type=password], .profil #right input[type=email].valid, .profil #right input[type=email] {
       color: #fff !important; }
 
 /*Ranking*/
@@ -682,7 +685,7 @@ nav {
 
 /*Validation*/
 .validation {
-  display: block;
+  display: inline-block;
   margin-left: auto;
   margin-right: auto;
   margin-top: 70px;
@@ -700,6 +703,12 @@ nav {
   animation-duration: 2s;
   -webkit-animation-name: top-margin;
   -webkit-animation-duration: 2s; }
+  .validation i {
+    padding: 5px;
+    display: inline-block;
+    color: red;
+    float: right;
+    cursor: pointer; }
 
 @keyframes top-margin {
   0% {
