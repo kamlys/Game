@@ -86,5 +86,8 @@ namespace Game.GUI.ViewModels
 
 
         public int DealID { get; set; }
+
+
+        public string[] OptionList { get; set; }
     }
 }

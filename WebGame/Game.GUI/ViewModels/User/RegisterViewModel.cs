@@ -31,5 +31,8 @@ namespace Game.GUI.ViewModels.User
 
         [Column(TypeName = "datetime2")]
         public DateTime? Registration_Date { get; set; }
+
+        [Required]
+        public string RecoveryCode { get; set; }
     }
 }

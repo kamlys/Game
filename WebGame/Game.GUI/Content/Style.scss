@@ -231,6 +231,85 @@ nav {
     }
 }
 
+/*Recovery View*/
+.recoveryForm{
+    border-top: 5px solid #75bf3b;
+    min-height: 500px;
+    background-color: $secondColor;
+    margin-top: 100px;
+    padding: 0 30px 0 30px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    #Login, #Password, #Email, #comparePassword, #RecoveryCode {
+        color: white;
+    }
+
+    .input-field label {
+        color: $greyColor;
+    }
+
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=password]:focus + label,
+    .input-field input[type=email]:focus + label {
+        color: $regColor;
+        font-size: 15px;
+    }
+
+    .input[type=email].invalid + label:after {
+        width: 100px !important;
+    }
+
+    .input-field input[type=text]:focus,
+    .input-field input[type=password]:focus,
+    .input-field input[type=email]:focus {
+        border-bottom: 3px solid #75bf3b;
+        box-shadow: none;
+    }
+
+ .btn{
+            background-color: #75bf3b !important;
+        }
+
+    .regTopText {
+        .registerText {
+            float: left;
+            display: inline-block;
+            color: white;
+            font-size: 30px;
+            margin: 10px 0 40px 0;
+            text-align: left;
+        }
+    }
+
+
+    .registerButton {
+        display: inline-block;
+        width: auto;
+        position: relative;
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+
+       
+
+        .btn, .btn-large {
+            background-color: #75bf3b !important;
+        }
+    }
+
+    .uk-form-danger {
+        color: red !important;
+        background-color: $secondColor !important;
+
+        .logError {
+            list-style-type: none;
+        }
+    }
+}
+
+
 /*Lista budynków do budowy*/
 .buildingList {
     margin: 30px 0 0 0;
@@ -712,6 +791,11 @@ nav {
 
         .myoffer {
             background-color: $greyColor;
+        }
+
+        .rerunDeal{
+            margin-top: 3px;
+            float: right;
         }
 
         .officeDealAdd {

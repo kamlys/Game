@@ -28,6 +28,11 @@ namespace Game.Dal.Model
 
         public int Percent_User2 { get; set; }
 
+        [Column(TypeName = "datetime2")]
+        public DateTime FinishDate { get; set; }
+
+        public int DayTime { get; set; }
+
         public bool IsActive { get; set; }
 
         public virtual Buildings Buildings { get; set; }

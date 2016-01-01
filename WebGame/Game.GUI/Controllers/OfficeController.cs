@@ -112,8 +112,9 @@ namespace Game.GUI.Controllers
                     Percent_User2 = item.Percent_User2,
                     Name = item.Building_Name,
                     IsActive = item.IsActive,
-                    Owner = item.MyMap
-
+                    Owner = item.MyMap,
+                    Value = item.FinishDate.Value.Subtract(DateTime.Now).Days,
+                    LogDays = item.DayTime
                 });
             }
             return View(tableList);
@@ -124,7 +125,7 @@ namespace Game.GUI.Controllers
         {
             ListTableViewModel tableList = new ListTableViewModel();
             tableList.tableList = new List<TableViewModel>();
-            
+
             foreach (var item in _productRequirementService.GetCanUserProducts(User.Identity.Name))
             {
                 tableList.tableList.Add(new TableViewModel
@@ -143,7 +144,7 @@ namespace Game.GUI.Controllers
         public JsonResult AcceptDeal(int a, string user)
         {
             var accepted = _dealService.AcceptDeal(a, User.Identity.Name);
-            if(accepted)
+            if (accepted)
             {
 
                 NotificationDto notificationDto = new NotificationDto();
@@ -153,7 +154,8 @@ namespace Game.GUI.Controllers
 
                 _notificationService.SentNotification(notificationDto);
                 return new JsonResult { Data = true };
-            }else
+            }
+            else
             {
                 return new JsonResult { Data = false };
             }
@@ -164,15 +166,34 @@ namespace Game.GUI.Controllers
         public JsonResult CancelDeal(int a, string user)
         {
             _dealService.CancelDeal(a);
-            NotificationDto notificationDto = new NotificationDto();
 
-            notificationDto.Description = "Umowa odrzucona";
-            notificationDto.User_Login = user;
+            if (user != null)
+            {
+                NotificationDto notificationDto = new NotificationDto();
 
-            _notificationService.SentNotification(notificationDto);
+                notificationDto.Description = "Umowa odrzucona";
+                notificationDto.User_Login = user;
+
+                _notificationService.SentNotification(notificationDto);
+            }
 
             return new JsonResult { Data = true };
         }
+
+
+        [Authorize]
+        public void RerunDeal(int a, string user)
+        {
+            _dealService.RerunDeal(a, User.Identity.Name);
+
+            NotificationDto notificationDto = new NotificationDto();
+
+            notificationDto.Description = "Odnowienie umowy";
+            notificationDto.User_Login = user;
+
+            _notificationService.SentNotification(notificationDto);
+        }
+
 
         [Authorize]
         public ActionResult AddDeal(ListTableViewModel tableList)
@@ -190,8 +211,10 @@ namespace Game.GUI.Controllers
             {
                 dealDto.Map_ID = 0;
             }
-
+            var temp = tableList.tableView.Value;
             dealDto.Percent_User1 = tableList.tableView.Percent_User1;
+            dealDto.FinishDate = (DateTime.Now.AddDays(tableList.tableView.Value));
+            dealDto.DayTime = tableList.tableView.Value;
 
             _dealService.AddDeal(dealDto);
 

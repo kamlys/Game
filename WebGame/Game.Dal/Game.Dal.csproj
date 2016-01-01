@@ -69,6 +69,7 @@
     <Compile Include="Model\Notifications.cs" />
     <Compile Include="Model\ProductRequirements.cs" />
     <Compile Include="Model\Products.cs" />
+    <Compile Include="Model\RecoveryCodes.cs" />
     <Compile Include="Model\sysdiagrams.cs" />
     <Compile Include="Model\UserBuildings.cs" />
     <Compile Include="Model\UserProducts.cs" />

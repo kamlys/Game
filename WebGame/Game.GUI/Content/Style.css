@@ -149,6 +149,56 @@ nav {
     .registerForm .uk-form-danger .logError {
       list-style-type: none; }
 
+/*Recovery View*/
+.recoveryForm {
+  border-top: 5px solid #75bf3b;
+  min-height: 500px;
+  background-color: #2f3b46;
+  margin-top: 100px;
+  padding: 0 30px 0 30px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto; }
+  .recoveryForm #Login, .recoveryForm #Password, .recoveryForm #Email, .recoveryForm #comparePassword, .recoveryForm #RecoveryCode {
+    color: white; }
+  .recoveryForm .input-field label {
+    color: #9d9d9d; }
+  .recoveryForm .input-field input[type=text]:focus + label,
+  .recoveryForm .input-field input[type=password]:focus + label,
+  .recoveryForm .input-field input[type=email]:focus + label {
+    color: #66cccc;
+    font-size: 15px; }
+  .recoveryForm .input[type=email].invalid + label:after {
+    width: 100px !important; }
+  .recoveryForm .input-field input[type=text]:focus,
+  .recoveryForm .input-field input[type=password]:focus,
+  .recoveryForm .input-field input[type=email]:focus {
+    border-bottom: 3px solid #75bf3b;
+    box-shadow: none; }
+  .recoveryForm .btn {
+    background-color: #75bf3b !important; }
+  .recoveryForm .regTopText .registerText {
+    float: left;
+    display: inline-block;
+    color: white;
+    font-size: 30px;
+    margin: 10px 0 40px 0;
+    text-align: left; }
+  .recoveryForm .registerButton {
+    display: inline-block;
+    width: auto;
+    position: relative;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto; }
+    .recoveryForm .registerButton .btn, .recoveryForm .registerButton .btn-large {
+      background-color: #75bf3b !important; }
+  .recoveryForm .uk-form-danger {
+    color: red !important;
+    background-color: #2f3b46 !important; }
+    .recoveryForm .uk-form-danger .logError {
+      list-style-type: none; }
+
 /*Lista budynków do budowy*/
 .buildingList {
   margin: 30px 0 0 0;
@@ -493,6 +543,9 @@ nav {
       background-color: #9d9d9d; }
     .office .uDealList .myoffer {
       background-color: #9d9d9d; }
+    .office .uDealList .rerunDeal {
+      margin-top: 3px;
+      float: right; }
     .office .uDealList .officeDealAdd {
       display: inline-block;
       margin-left: 10px; }

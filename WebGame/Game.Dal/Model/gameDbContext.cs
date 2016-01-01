@@ -31,6 +31,7 @@ namespace Game.Dal.Model
         public virtual DbSet<UserBuildings> UserBuildings { get; set; }
         public virtual DbSet<UserProducts> UserProducts { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<RecoveryCodes> RecoveryCodes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -55,6 +56,10 @@ namespace Game.Dal.Model
                 .WithRequired(e => e.Buildings)
                 .HasForeignKey(e => e.Building_ID)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Deals>()
+                .Property(e => e.FinishDate)
+                .HasPrecision(0);
 
             modelBuilder.Entity<Deals>()
                 .HasMany(e => e.DealsBuildings)
@@ -208,6 +213,16 @@ namespace Game.Dal.Model
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.RecoveryCodes)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.User_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RecoveryCodes>()
+                .Property(e => e.LiveTime)
+                .HasPrecision(0);
         }
     }
 }

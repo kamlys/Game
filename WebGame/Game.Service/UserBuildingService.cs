@@ -282,8 +282,9 @@ namespace Game.Service
             foreach (var item in _userBuildings.GetAll().Where(i => i.User_ID == uID))
             {
                 int BuildLvl = item.Lvl;
-                int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;
-                int Percent_per_lvl = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl / 100;
+                var temp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID);
+                int Product_per_sec = temp.Product_per_sec;
+                int Percent_per_lvl = temp.Percent_product_per_lvl;
 
                 try
                 {
@@ -298,8 +299,8 @@ namespace Game.Service
                         Building_ID = item.Building_ID,
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
                         Status = item.Status,
-                        Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl,
-                        ProdukcjaLvlUp = Product_per_sec * Percent_per_lvl * (BuildLvl + 1),
+                        Produkcja = Product_per_sec + ( Percent_per_lvl * BuildLvl * Product_per_sec)/100,
+                        ProdukcjaLvlUp = Product_per_sec + (Percent_per_lvl * (BuildLvl+1) * Product_per_sec) / 100,
                         PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_price_per_lvl / 10
                     });
                 }
@@ -334,7 +335,7 @@ namespace Game.Service
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
             int lvlPrice = percentPricePerLvl * buildingPrice;
 
-            if (userDolars >= lvlPrice)
+            if (userDolars >= lvlPrice && _userBuildings.GetAll().First(i=> i.ID == id && i.User_ID == uID).Percent_product == 100)
             {
                 return true;
             }
