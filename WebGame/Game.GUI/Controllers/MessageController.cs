@@ -64,9 +64,9 @@ namespace Game.GUI.Controllers
             else
             {
                 errors.Add("Błąd wysyłania. Spróbuj ponownie.");
+                Session["val"] = errors.ToArray<string>();
             }
 
-            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Index");
 
