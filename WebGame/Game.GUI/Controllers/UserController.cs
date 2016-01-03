@@ -11,9 +11,12 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services;
+using System.Web.SessionState;
 
 namespace Game.GUI.Controllers
 {
+    [SessionState(SessionStateBehavior.Required)]
     public class UserController : Controller
     {
         private IUserService _userService;
@@ -35,24 +38,45 @@ namespace Game.GUI.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Register(RegisterViewModel register)
         {
+            List<string> errors;
+            if(Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserDto user = new UserDto();
 
             user.Login = register.Login;
             user.Email = register.Email;
             user.Password = register.Password;
 
-
-            if (_userService.RegisterUser(user))
+            foreach (var item in _userService.RegisterUser(user))
             {
-                FormsAuthentication.SetAuthCookie(user.Login, true);
-                return RedirectToAction("Index", "Home");
+                if (item == 0)
+                {
+                    FormsAuthentication.SetAuthCookie(user.Login, true);
+                    return RedirectToAction("Index", "Home");
+                }
+                else if(item == 1)
+                {
+                    errors.Add("Login już istnieje");
+                }
+                else if(item==2)
+                {
+                errors.Add("Email już istnieje");
+                }
+               
+            }
 
-            };
-
-            ModelState.AddModelError("", "Nie udało się zarejestrować.");
+            Session["val"] = errors.ToArray<string>();
 
             return View();
         }
@@ -66,6 +90,15 @@ namespace Game.GUI.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel modelLogin, string returnUrl)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
             UserDto user = new UserDto();
 
             user.Login = modelLogin.Login;
@@ -79,8 +112,9 @@ namespace Game.GUI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Login bądź hasło niepoprawne.");
+                errors.Add("Login bądź hasło niepoprawne.");
             }
+            Session["val"] = errors.ToArray<string>();
 
             return View(modelLogin);
         }
@@ -212,6 +246,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult ChangePass(ListTableViewModel pass)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserDto user = new UserDto();
 
             user.OldPassword = pass.tableView.OldPassword;
@@ -219,7 +263,8 @@ namespace Game.GUI.Controllers
 
             if (_userService.ChangePass(user, User.Identity.Name))
             {
-                ViewData["changeInfo"] = "Hasło zostało zmienione";
+                errors.Add("Hasło zostało zmienione");
+                Session["val"] = errors.ToArray<string>();
                 return RedirectToAction("Profil", new
                 {
                     User = User.Identity.Name
@@ -227,7 +272,8 @@ namespace Game.GUI.Controllers
             }
             else
             {
-                ViewData["changeInfo"] = "Coś poszło nie tak, spróbuj ponownie";
+                errors.Add("Błąd. Hasło nie zostało zmienione.");
+                Session["val"] = errors.ToArray<string>();
                 return RedirectToAction("Profil", new
                 {
                     User = User.Identity.Name
@@ -239,13 +285,23 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult ChangeEmail(ListTableViewModel email)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
             UserDto user = new UserDto();
 
             user.Email = email.tableView.Email;
 
             if (_userService.ChangeEmail(user, User.Identity.Name))
             {
-                ViewData["changeInfo"] = "Adres E-mail został zmienione";
+                errors.Add("Email został zmieniony.");
+                Session["val"] = errors.ToArray<string>();
                 return RedirectToAction("Profil", new
                 {
                     User = User.Identity.Name
@@ -253,7 +309,8 @@ namespace Game.GUI.Controllers
             }
             else
             {
-                ViewData["changeInfo"] = "Coś poszło nie tak, spróbuj ponownie";
+                errors.Add("Błąd. Email nie został zmieniony.");
+                Session["val"] = errors.ToArray<string>();
                 return RedirectToAction("Profil", new
                 {
                     User = User.Identity.Name
@@ -327,5 +384,52 @@ namespace Game.GUI.Controllers
         {
             _userService.DeleteIgnore(User.Identity.Name, ignorlogin);
         }
+
+        public ActionResult RecoveryPassword()
+        {
+            return View();
+        }
+
+        public void ForgetPassword(string email)
+        {
+            _userService.ForgetPassword(email);
+        }
+
+        public ActionResult RecoveryPass(RegisterViewModel user)
+        {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+
+            UserDto userDto = new UserDto();
+            userDto.Password = user.Password;
+            userDto.Code = user.RecoveryCode;
+            userDto.Email = user.Email;
+
+            if(_userService.RecoveryPass(userDto) == 1)
+            {
+                errors.Add("Hasło zostało zmienione.");
+            }
+            else if(_userService.RecoveryPass(userDto) == 2)
+            {
+                errors.Add("Niepoprawny kod.");
+            }
+            else if(_userService.RecoveryPass(userDto) == 3)
+            {
+                errors.Add("Kod stracił ważność.");
+            }
+
+            Session["val"] = errors.ToArray<string>();
+
+            return View("~/Views/User/Login.cshtml");
+        }
+
     }
 }

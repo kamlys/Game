@@ -9,7 +9,7 @@ namespace Game.Service.Interfaces
 {
     public interface IUserService
     {
-        bool RegisterUser(UserDto user);
+        int[] RegisterUser(UserDto user);
         bool LoginUser(UserDto user);
         List<UserDto> GetUser();
         void Add(UserDto user);
@@ -29,6 +29,8 @@ namespace Game.Service.Interfaces
         void AddIgnore(string userlogin, string ignorelogin);
         void DeleteIgnore(string userlogin, string ignorelogin);
         List<string> GetIgnored(string user);
+        bool ForgetPassword(string email);
+        int RecoveryPass(UserDto user);
 
 
     }

@@ -9,6 +9,9 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <div class="validationDiv">
+        @Html.Action("_Validation", "Validation")
+    </div>
     <nav>
         @if (!User.Identity.IsAuthenticated)
         {
