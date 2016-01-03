@@ -183,5 +183,23 @@ namespace Game.Service
             }
             return false;
         }
+
+        public bool SellProduct(int productID, int value, string user)
+        {
+            int uID = _user.GetAll().First(i => i.Login == user).ID;
+            int money = _product.Get(productID).Price_per_unit * value;
+
+            if (_userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value >= value)
+            {
+                _userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value -= value;
+                _dolar.GetAll().First(i => i.User_ID == uID).Value += money;
+
+                _unitOfWork.Commit();
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }

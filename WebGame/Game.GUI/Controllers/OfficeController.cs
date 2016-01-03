@@ -198,6 +198,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddDeal(ListTableViewModel tableList)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             DealDto dealDto = new DealDto();
 
             dealDto.User1_Login = User.Identity.Name;
@@ -216,15 +226,37 @@ namespace Game.GUI.Controllers
             dealDto.FinishDate = (DateTime.Now.AddDays(tableList.tableView.Value));
             dealDto.DayTime = tableList.tableView.Value;
 
-            _dealService.AddDeal(dealDto);
+            if (dealDto.User2_Login != User.Identity.Name)
+            {
+                foreach(var item in _dealService.AddDeal(dealDto))
+                {
+                    if (item == 1)
+                    {
+                        NotificationDto notificationDto = new NotificationDto();
 
-            NotificationDto notificationDto = new NotificationDto();
+                        notificationDto.Description = "Nowa umowa";
+                        notificationDto.User_Login = tableList.tableView.Login;
 
-            notificationDto.Description = "Nowa umowa";
-            notificationDto.User_Login = tableList.tableView.Login;
+                        _notificationService.SentNotification(notificationDto);
 
-            _notificationService.SentNotification(notificationDto);
+                        errors.Add("Oferta złożona");
+                    }
+                    else if(item == 2)
+                    {
+                        errors.Add("Taki budyenk nie istnieje.");
+                    }
+                    else if(item==0)
+                    {
+                        errors.Add("Taki użytkownik nie istnieje.");
+                    }
+                }
+            }
+            else if(dealDto.User2_Login == User.Identity.Name)
+            {
+                errors.Add("Nie możesz złożyć oferty samemu sobie");
+            }
 
+            Session["val"] = errors.ToArray<string>();
             return RedirectToAction("Index");
         }
 

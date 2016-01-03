@@ -459,6 +459,30 @@ nav {
   .market #Number {
     width: 49%;
     float: left; }
+  .market .systemOffer {
+    height: 300px; }
+    .market .systemOffer .systemOfferItem {
+      height: 200px;
+      width: 200px;
+      border: 1px solid #797979;
+      background-color: #d4d4d4;
+      text-align: center;
+      padding: 30px;
+      cursor: context-menu; }
+      .market .systemOffer .systemOfferItem .numberValue {
+        width: 140px;
+        text-align: center; }
+    .market .systemOffer .carousel {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 300px;
+      -webkit-perspective: 500px;
+      perspective: 1200px;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      -webkit-transform-origin: 0% 50%;
+      transform-origin: 0% 50%; }
 
 .tableList {
   background-color: white;
@@ -470,7 +494,8 @@ nav {
 
 /*Przycisk dodający - AdminPanel*/
 .addButton {
-  float: right; }
+  float: right;
+  margin-bottom: 10px; }
 
 /*Biuro*/
 .office {
@@ -743,8 +768,9 @@ nav {
   margin-right: auto;
   margin-top: 70px;
   min-height: 90px;
-  background-color: #FFB100;
-  color: #000000;
+  background-color: #2c3e50;
+  border-bottom: red 3px solid;
+  color: #fff;
   text-align: center;
   font-size: 15px;
   z-index: 10;

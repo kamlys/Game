@@ -11,7 +11,7 @@
             @using (Html.BeginForm("AddOffer", "Market", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 <div class="input-field col s12">
-                    @Html.DropDownListFor(m => m.marketView.Product_Name, new SelectList(Model.options), new {  @class = "validate" })
+                    @Html.DropDownListFor(m => m.marketView.Product_Name, new SelectList(Model.options), new { @class = "validate" })
                     <label for="Product_Name">Nazwa produktu</label>
                 </div>
 
@@ -25,12 +25,18 @@
                     <label for="Price">Cena za sztukę</label>
                 </div>
 
-                <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+                <button type="submit" class="btn waves-effect waves-light addButton" name="action" >Zapisz</button>
             }
         </div>
     </div>
 
-    <button data-target="offerAdd" class="btn modal-trigger offerAdd">Sprzedaj produkt</button>
+    <h5>Sprzedaj produkty</h5>
+
+    @Html.Action("_SystemOffer", "Market")
+
+    <h5>Oferty społeczności</h5>
+
+    <button data-target="offerAdd" class="btn modal-trigger offerAdd">Wystaw ofertę</button>
     <table class="highlight bordered responsive-table centered market">
 
         <thead>
@@ -70,7 +76,13 @@
 <script src="~/Scripts/js/Market.js"></script>
 <script>
     $(document).ready(function () {
+
+        $('#serviceOffer').carousel();
+
         $('.offerAdd').leanModal();
         $('select').material_select();
+
+
     });
+
 </script>

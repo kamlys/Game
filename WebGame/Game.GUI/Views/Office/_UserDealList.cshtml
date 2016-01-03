@@ -6,39 +6,43 @@
 <div id="dealInner">
     <div id="officeDealAdd" class="modal">
         <div class="modal-content">
-            @using (Html.BeginForm("AddDeal", "Office", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("AddDeal", "Office", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.tableView.Login, new { @placeholder = "", @class = "validate inputLogin" })
-                    <label for="Login">Wspólnik: </label>
-                </div>
+                <form class="col s12">
+                    @Html.AntiForgeryToken()
 
-                <div class="input-field col s12" id="Number">
-                    @Html.TextBoxFor(m => m.tableView.Name, new { @placeholder = "", @class = "validate inputBuildingName" })
-                    <label for="BuildingName">Budynek:</label>
-                </div>
-                <div class="col s12">
-                    <div class="range-field col s6" id="Number">
-                        <label for="Percent_User1">Czas trwania (dni):</label>
-                        @Html.TextBoxFor(m => m.tableView.Value, new { @type = "range", @min = "10", @max = "30", @step = "10", @placeholder = "", @class = "validate inputpercent_user" })
+                    <div class="input-field col s12">
+                        @Html.TextBoxFor(m => m.tableView.Login, new { @placeholder = "", @class = "validate inputLogin" })
+                        <label for="Login">Wspólnik: </label>
                     </div>
-                    <div class="range-field col s6" id="Number">
-                        <label for="Percent_User1">Wkład własny i procent produkcji (%): </label>
-                        @Html.TextBoxFor(m => m.tableView.Percent_User1, new { @type = "range", @min = "0", @max = "100", @placeholder = "", @class = "validate inputpercent_user" })
+
+                    <div class="input-field col s12" id="Number">
+                        @Html.TextBoxFor(m => m.tableView.Name, new { @placeholder = "", @class = "validate inputBuildingName" })
+                        <label for="BuildingName">Budynek:</label>
                     </div>
-                </div>
-                <div class="switch col s6">
-                    <label for="Price">Budynek na mojej mapie: </label>
-                    <label>
-                        Nie
-                        <input type="checkbox" id="tableView_Owner" name="tableView.Owner" />
-                        <span class="lever"></span>
-                        Tak
-                    </label>
-                </div>
+                    <div class="col s12">
+                        <div class="range-field col s6" id="Number">
+                            <label for="Percent_User1">Czas trwania (dni):</label>
+                            @Html.TextBoxFor(m => m.tableView.Value, new { @type = "range", @min = "10", @max = "30", @step = "10", @placeholder = "", @class = "validate inputpercent_user" })
+                        </div>
+                        <div class="range-field col s6" id="Number">
+                            <label for="Percent_User1">Wkład własny i procent produkcji (%): </label>
+                            @Html.TextBoxFor(m => m.tableView.Percent_User1, new { @type = "range", @min = "10", @max = "90", @step="10", @placeholder = "", @class = "validate inputpercent_user" })
+                        </div>
+                    </div>
+                    <div class="switch col s6">
+                        <label for="Price">Budynek na mojej mapie: </label>
+                        <label>
+                            Nie
+                            <input type="checkbox" id="tableView_Owner" name="tableView.Owner" />
+                            <span class="lever"></span>
+                            Tak
+                        </label>
+                    </div>
 
 
-                <button type="submit" class="btn waves-effect waves-light addButton" id="addDeal" name="action">Złóż ofertę</button>
+                    <button type="submit" class="btn waves-effect waves-light addButton" id="addDeal" name="action">Złóż ofertę</button>
+                </form>
             }
         </div>
     </div>
@@ -70,7 +74,7 @@
                         }
                         else
                         {
-                        <div class="collapsible-header">@item.Name</div>
+                            <div class="collapsible-header">@item.Name</div>
                         }
                         <div class="collapsible-body">
                             <p>
@@ -119,7 +123,7 @@
                             <div class="collapsible-body">
                                 <p>
                                     Wspólnik: @item.User2_Login<br />
-                                    Produkcja dla mnie: @item.Percent_User2<br />
+                                    Produkcja dla mnie: @item.Percent_User1<br />
                                     @if (item.Owner == true)
                                     {
                                         <span>Budynek stoi na twojej działce</span><br />
@@ -128,6 +132,7 @@
                                     {
                                         <span>Budynek stoi na działce wspólnika</span><br />
                                     }
+                                    Umowa na @item.LogDays dni.<br />
                                 </p>
                             </div>
                         </li>
@@ -154,8 +159,6 @@
     $(document).ready(function () {
         $('.officeDealAdd').leanModal();
         $('.officeDealShow').leanModal();
-
-
 
     });
     $(document).on("click", "[type='checkbox']", function (e) {
@@ -264,7 +267,7 @@
             type: "POST",
             url: '/Office/RerunDeal',
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ a: offer_id, user: user}),
+            data: JSON.stringify({ a: offer_id, user: user }),
             success: function (data) {
                 location.reload();
                 console.log(offer_id);

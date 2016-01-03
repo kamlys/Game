@@ -17,6 +17,7 @@ namespace Game.GUI.ViewModels
         public DateTime Finish_Date { get; set; }
         public int UserBuilding_ID { get; set; }
         public string NewStatus { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Product_Name { get; set; }
         public int Number { get; set; }
@@ -39,6 +40,7 @@ namespace Game.GUI.ViewModels
         public int Lvl { get; set; }
         public int Building_ID { get; set; }
         public string Status { get; set; }
+        [Required]
         public string Login { get; set; }
 
         [DataType(DataType.Password)]

@@ -1,0 +1,49 @@
+﻿@model Game.GUI.ViewModels.Market.ListMarketViewModel
+@{
+    Layout = null;
+}
+
+<div class="systemOffer">
+
+    <div id="serviceOffer" class="carousel">
+        @foreach (var item in Model.marketList)
+        {
+            <div class="carousel-item systemOfferItem">
+                <span>@item.Product_Name</span><br />
+                <span>$@item.Price</span><br />
+                <input type="number" class="numberValue" id="numberValue_@item.Product_ID" name="numValue" min="1">
+                <button class="btn sellProduct" id="sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
+            </div>
+        }
+    </div>
+
+</div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#serviceOffer').carousel();
+    });
+
+    $(".sellProduct").click(function () {
+        var id = $(this).data('productid');
+        var number = $("#numberValue_"+id).val();
+        var money = $(this).data('price') * number;
+        var productname = $(this).data('productname');
+
+        $.ajax({
+            type: "POST",
+            url: 'Market/SellProduct',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ productid: id, value: number, money: money, name: productname}),
+            success: function (data) {
+                    location.reload();
+            },
+            error: function (data) {
+                location.reload();
+            }
+        });
+    });
+
+</script>

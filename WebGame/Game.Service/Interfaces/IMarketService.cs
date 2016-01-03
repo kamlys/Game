@@ -15,6 +15,8 @@ namespace Game.Service.Interfaces
         void Add(MarketDto market);
         void Update(MarketDto market);
         void Delete(int id);
+        bool SellProduct(int productID, int value, string user);
+
 
     }
 }

@@ -79,40 +79,63 @@ namespace Game.Service
 
         }
 
-        public void AddDeal(DealDto dealDto)
+        public int[] AddDeal(DealDto dealDto)
         {
-            int user1ID = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID;
-            int user2ID = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID;
-            int buildingID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID;
-            int mapID = 0;
-            if (dealDto.Map_ID == 1)
+            List<int> val = new List<int>();
+
+            if (_users.GetAll().Any(i=> i.Login == dealDto.User2_Login))
             {
-                mapID = _maps.GetAll().First(i => i.User_ID == user1ID).Map_ID;
+                if (_buildings.GetAll().Any(i => i.Alias == dealDto.Building_Name))
+                {
+                    int user1ID = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID;
+                    int user2ID = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID;
+                    int buildingID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID;
+                    int mapID = 0;
+                    if (dealDto.Map_ID == 1)
+                    {
+                        mapID = _maps.GetAll().First(i => i.User_ID == user1ID).Map_ID;
+                    }
+                    else if (dealDto.Map_ID == 0)
+                    {
+                        mapID = _maps.GetAll().First(i => i.User_ID == user2ID).Map_ID;
+                    }
+
+                    if (dealDto.Percent_User1 >= 10 && dealDto.Percent_User1 <= 90)
+                    {
+                        _deals.Add(new Deals
+                        {
+                            User1_ID = user1ID,
+                            User2_ID = user2ID,
+                            Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID,
+                            Map_ID = mapID,
+                            IsActive = false,
+                            Percent_User1 = dealDto.Percent_User1,
+                            Percent_User2 = 100 - dealDto.Percent_User1,
+                            FinishDate = (DateTime)dealDto.FinishDate,
+                            DayTime = dealDto.DayTime
+                        });
+
+                        _unitOfWork.Commit();
+                        int price = ((_buildings.Get(buildingID).Price * dealDto.Percent_User1) / 100);
+                        int dolar = _dolars.GetAll().First(i => i.User_ID == user1ID).Value;
+
+                        _dolars.GetAll().First(i => i.User_ID == user1ID).Value -= price;
+                        _unitOfWork.Commit();
+
+                        val.Add(1); //Oferta złożona
+                    }
+                }
+                else
+                {
+                    val.Add(2); //Nie ma takiego budynku
+                }
             }
-            else if (dealDto.Map_ID == 0)
+            else
             {
-                mapID = _maps.GetAll().First(i => i.User_ID == user2ID).Map_ID;
+                val.Add(0); //Nie ma takiego użytkownika   
             }
 
-            _deals.Add(new Deals
-            {
-                User1_ID = user1ID,
-                User2_ID = user2ID,
-                Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID,
-                Map_ID = mapID,
-                IsActive = false,
-                Percent_User1 = dealDto.Percent_User1,
-                Percent_User2 = 100 - dealDto.Percent_User1,
-                FinishDate = (DateTime)dealDto.FinishDate,
-                DayTime = dealDto.DayTime
-            });
-
-            _unitOfWork.Commit();
-            int price = ((_buildings.Get(buildingID).Price * dealDto.Percent_User1) / 100);
-            int dolar = _dolars.GetAll().First(i => i.User_ID == user1ID).Value;
-
-            _dolars.GetAll().First(i => i.User_ID == user1ID).Value -= price;
-            _unitOfWork.Commit();
+            return val.ToArray();
         }
 
         public bool AcceptDeal(int ID, string user)

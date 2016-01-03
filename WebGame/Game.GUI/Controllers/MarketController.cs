@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 
 namespace Game.GUI.Controllers
 {
@@ -32,6 +33,53 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
+        public ActionResult _SystemOffer()
+        {
+            ListMarketViewModel marketList = new ListMarketViewModel();
+            marketList.marketList = new List<MarketViewModel>();
+
+            foreach (var item in _productService.GetProduct())
+            {
+                marketList.marketList.Add(new MarketViewModel
+                {
+                    Product_ID = item.ID,
+                    Product_Name = item.Alias,
+                    Price = item.Price_per_unit
+                });
+            }
+
+            return View(marketList);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult SellProduct(int productid, int value, int money, string name)
+        {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_marketService.SellProduct(productid, value, User.Identity.Name))
+            {
+                errors.Add("Sukces!");
+                errors.Add("+$" + money);
+                errors.Add(name+" -" + value);
+            }
+            else
+            {
+                errors.Add("Nie posiadasz tyle produktów");
+            }
+            Session["val"] = errors.ToArray<string>();
+            return new JsonResult { Data = true };
+        }
+
+        [Authorize]
         public ListMarketViewModel GetOfferList()
         {
             ListMarketViewModel marketList = new ListMarketViewModel();
@@ -53,7 +101,7 @@ namespace Game.GUI.Controllers
             var prod = _userProductService.GetUserProductList(User.Identity.Name);
             var opts = prod.ToList<UserProductDto>();
             var optsString = new List<string>();
-            foreach(var o in opts)
+            foreach (var o in opts)
             {
                 if (!optsString.Contains(o.Product_Name))
                 {
@@ -93,10 +141,15 @@ namespace Game.GUI.Controllers
             if (!_marketService.AddOffer(_marketDto))
             {
                 errors.Add("Coś poszło nie tak. Spróbuj ponownie.");
-            }
-            Session["val"] = errors.ToArray<string>();
+                Session["val"] = errors.ToArray<string>();
 
-            return View("~/Views/Market/Index.cshtml", GetOfferList());
+                return View("~/Views/Market/Index.cshtml", GetOfferList());
+            }
+            else
+            {
+                return View("~/Views/Market/Index.cshtml", GetOfferList());
+            }
+
 
         }
 
@@ -114,7 +167,7 @@ namespace Game.GUI.Controllers
 
             if (_marketService.BuyOffer(marketDto, User.Identity.Name))
             {
-                return new JsonResult { Data = true };
+                return new JsonResult { Data = false };
             }
             else
             {

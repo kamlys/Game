@@ -10,7 +10,7 @@ namespace Game.Service.Interfaces
     public interface IDealService
     {
         List<DealDto> GetUserDeals(string User);
-        void AddDeal(DealDto dealDto);
+        int[] AddDeal(DealDto dealDto);
         bool AcceptDeal(int ID, string user);
         void CancelDeal(int ID);
         void RerunDeal(int ID, string user);
