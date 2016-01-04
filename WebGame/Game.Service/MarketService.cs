@@ -111,6 +111,13 @@ namespace Game.Service
 
         public void Delete(int id)
         {
+            int uID = _market.Get(id).User_ID;
+            int productID = _market.Get(id).Product_ID;
+            int value = _market.Get(id).Number;
+
+
+            _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == productID).Value += value;
+
             _market.Delete(_market.Get(id));
             _unitOfWork.Commit();
         }
