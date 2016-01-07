@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-<div>
+<div id="FriendInner">
     @foreach (var item in Model.tableList)
     {
         if (item.OrAccepted)
@@ -41,3 +41,12 @@
         }
     }
 </div>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script>
+    $('#FriendInner').slimScroll({
+        size: '10px',
+        height: '350px',
+        alwaysVisible: true
+    });
+</script>

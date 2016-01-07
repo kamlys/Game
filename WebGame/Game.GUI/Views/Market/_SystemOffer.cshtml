@@ -3,32 +3,46 @@
     Layout = null;
 }
 
-<div class="systemOffer">
+<button class='dropdown-button btn systemOfferBtn' href='#' data-activates='systemOffer'>Sprzedaj produkty</button>
 
-    <div id="serviceOffer" class="carousel">
-        @foreach (var item in Model.marketList)
-        {
-            <div class="carousel-item systemOfferItem">
-                <span>@item.Product_Name</span><br />
-                <span>$@item.Price</span><br />
-                <input type="number" class="numberValue" id="numberValue_@item.Product_ID" name="numValue" min="1">
-                <button class="btn sellProduct" id="sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
-            </div>
-        }
-    </div>
+<ul id='systemOffer' class='dropdown-content systemOffer'>
+    @foreach (var item in Model.marketList)
+            {
+        <li class="systemOfferItem">
+            <p class="productName">@item.Product_Name</p><p class="productPrice">$@item.Price/szt</p>
+            <button class="btn sellProduct" id="sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
+            <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" onkeypress = "return isNumberKey(event)">
+        </li>
+    }
+</ul>
 
-</div>
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-
 <script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode <= 48 || charCode > 57))
+            return false;
+        return true;
+    }
+
     $(document).ready(function () {
-        $('#serviceOffer').carousel();
+        $('.dropdown-button').dropdown({
+            inDuration: 300,
+            outDuration: 225,
+            constrain_width: false, // Does not change width of dropdown to that of the activator
+            hover: true, // Activate on hover
+            gutter: 0, // Spacing from edge
+            belowOrigin: false, // Displays dropdown below the button
+            alignment: 'left' // Displays dropdown with edge aligned to the left of button
+        }
+   );
+
     });
 
     $(".sellProduct").click(function () {
         var id = $(this).data('productid');
-        var number = $("#numberValue_"+id).val();
+        var number = $("#numberValue_" + id).val();
         var money = $(this).data('price') * number;
         var productname = $(this).data('productname');
 
@@ -36,9 +50,9 @@
             type: "POST",
             url: 'Market/SellProduct',
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ productid: id, value: number, money: money, name: productname}),
+            data: JSON.stringify({ productid: id, value: number, money: money, name: productname }),
             success: function (data) {
-                    location.reload();
+                location.reload();
             },
             error: function (data) {
                 location.reload();

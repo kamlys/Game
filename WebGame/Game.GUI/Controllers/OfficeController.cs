@@ -44,6 +44,12 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
+        public ActionResult _UserProduct()
+        {
+            return View();
+        }
+
+        [Authorize]
         public ActionResult _UserBuildingList()
         {
             ListTableViewModel tableList = new ListTableViewModel();

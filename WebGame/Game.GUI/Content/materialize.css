@@ -6648,7 +6648,7 @@ nav ul a span.badge {
 
 .container {
   margin: 0 auto;
-  max-width: 1280px;
+  max-width: 1920px;
   width: 90%;
 }
 
@@ -7959,8 +7959,8 @@ small {
 .tabs .indicator {
   position: absolute;
   bottom: 0;
-  height: 2px;
-  background-color: #f6b2b5;
+  height: 4px;
+  /*background-color: #f6b2b5;*/
   will-change: left, right;
 }
 

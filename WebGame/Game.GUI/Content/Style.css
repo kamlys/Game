@@ -12,125 +12,127 @@ html, body {
   padding: 20px 20px 20px 20px; }
 
 nav {
-  background-color: #2f3b46; }
+  background-color: #18212A; }
   nav .userDolar {
+    color: #9E9E9E;
     float: left;
     margin-left: 20px;
-    margin-top: 5px;
+    margin-top: 10px;
+    padding: 5px 10px 5px 10px;
     display: inline-block;
-    background-color: #2c3e50;
+    background-color: #214954;
     text-align: center;
-    min-width: 150px;
-    height: 80%;
-    line-height: 55px;
+    min-width: 80px;
+    width: auto;
+    height: 45px;
+    line-height: 40px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
-  nav #userLogout {
+  nav .userDolar:hover {
+    color: #51B3CE;
+    cursor: default; }
+  nav .userLogout {
     margin: -53px 40px 0 0;
     min-width: 80px;
     text-align: center;
     height: 45px;
     line-height: 45px;
     font-size: 15px;
-    background: #2c3e50;
-    color: #9d9d9d;
+    background: #214954;
+    color: #9E9E9E;
     border-radius: 0; }
-    nav #userLogout .fa {
+    nav .userLogout .fa {
       font-size: 150%;
-      color: #9d9d9d; }
+      color: #9E9E9E; }
+  nav .userLogout:hover {
+    color: #51B3CE;
+    background-color: #214954 !important; }
+    nav .userLogout:hover .fa {
+      color: #51B3CE; }
 
 /*Panel logowania*/
 .loginForm {
-  border-top: 5px solid #9b59b6;
-  min-height: 300px;
-  background-color: #2f3b46;
+  border-top: 5px solid #73467B;
+  min-height: 350px;
+  background-color: #18212A;
   margin-top: 100px;
   padding: 0 30px 0 30px;
-  width: 500px;
+  width: 40%;
   margin-left: auto;
   margin-right: auto; }
   .loginForm #Login, .loginForm #Password {
-    color: white; }
+    color: #9E9E9E; }
   .loginForm .input-field label {
-    color: #9d9d9d; }
+    color: #9E9E9E; }
   .loginForm .input-field input[type=text]:focus + label,
   .loginForm .input-field input[type=password]:focus + label {
-    color: #9b59b6;
+    color: #73467B;
     font-size: 15px; }
   .loginForm .input-field input[type=text]:focus,
   .loginForm .input-field input[type=password]:focus {
-    border-bottom: 3px solid #9b59b6;
+    border-bottom: 3px solid #73467B;
     box-shadow: none; }
   .loginForm .loginTopText .logowanieText {
     float: left;
     display: inline-block;
-    color: white;
+    color: #9E9E9E;
     font-size: 30px;
     margin: 10px 0 20px 0;
     text-align: left; }
-  .loginForm .loginTopText .kontoText {
-    display: inline-block;
-    float: right;
-    padding: 15px; }
-    .loginForm .loginTopText .kontoText a {
-      color: white;
-      font-size: 15px;
-      margin: 10px 0 40px 0;
-      text-decoration: none; }
-    .loginForm .loginTopText .kontoText a:hover {
-      color: #9b59b6; }
   .loginForm .loginButton .logowanieButton {
     display: inline-block;
     float: left;
-    width: auto; }
+    width: auto;
+    margin-top: 5%; }
     .loginForm .loginButton .logowanieButton .btn, .loginForm .loginButton .logowanieButton .btn-large {
-      background-color: #9b59b6 !important; }
-  .loginForm .loginButton .forgetPassword {
-    margin-top: 30px;
+      background-color: #73467B !important; }
+  .loginForm .loginButton .loginRegister {
+    margin: 5.5% 0 0 20px;
     display: inline-block;
-    float: right; }
-    .loginForm .loginButton .forgetPassword a {
-      color: white;
+    float: left; }
+    .loginForm .loginButton .loginRegister a {
+      color: #9E9E9E;
       font-size: 15px;
       margin: 10px 0 40px 0;
       text-decoration: none; }
-    .loginForm .loginButton .forgetPassword a:hover {
-      color: #9b59b6; }
+    .loginForm .loginButton .loginRegister a:hover {
+      color: #73467B; }
   .loginForm .uk-form-danger {
     color: red !important;
-    background-color: #2f3b46 !important; }
+    background-color: #18212A !important; }
     .loginForm .uk-form-danger .logError {
       list-style-type: none; }
 
 /*Panel rejestracji*/
 .registerForm {
-  border-top: 5px solid #66cccc;
+  border-top: 5px solid #527575;
   min-height: 500px;
-  background-color: #2f3b46;
+  background-color: #18212A;
   margin-top: 100px;
   padding: 0 30px 0 30px;
-  width: 500px;
+  width: 40%;
   margin-left: auto;
   margin-right: auto; }
   .registerForm #Login, .registerForm #Password, .registerForm #Email, .registerForm #comparePassword {
-    color: white; }
+    color: #9E9E9E; }
   .registerForm .input-field label {
-    color: #9d9d9d; }
+    color: #9E9E9E; }
   .registerForm .input-field input[type=text]:focus + label,
   .registerForm .input-field input[type=password]:focus + label,
   .registerForm .input-field input[type=email]:focus + label {
-    color: #66cccc;
+    color: #527575;
     font-size: 15px; }
-  .registerForm .input[type=email].invalid + label:after {
-    width: 100px !important; }
+  .registerForm input[type=email].invalid + label:after,
+  .registerForm input[type=email]:focus.invalid + label:after {
+    width: 200px !important; }
   .registerForm .input-field input[type=text]:focus,
   .registerForm .input-field input[type=password]:focus,
   .registerForm .input-field input[type=email]:focus {
-    border-bottom: 3px solid #66cccc;
+    border-bottom: 3px solid #527575;
     box-shadow: none; }
   .registerForm .regTopText .registerText {
     float: left;
     display: inline-block;
-    color: white;
+    color: #9E9E9E;
     font-size: 30px;
     margin: 10px 0 40px 0;
     text-align: left; }
@@ -138,14 +140,15 @@ nav {
     display: inline-block;
     width: auto;
     position: relative;
-    width: 500px;
+    min-width: 500px;
     margin-left: auto;
     margin-right: auto; }
     .registerForm .registerButton .btn, .registerForm .registerButton .btn-large {
-      background-color: #66cccc !important; }
+      margin-top: 3%;
+      background-color: #527575 !important; }
   .registerForm .uk-form-danger {
     color: red !important;
-    background-color: #2f3b46 !important; }
+    background-color: #18212A !important; }
     .registerForm .uk-form-danger .logError {
       list-style-type: none; }
 
@@ -153,7 +156,7 @@ nav {
 .recoveryForm {
   border-top: 5px solid #75bf3b;
   min-height: 500px;
-  background-color: #2f3b46;
+  background-color: #18212A;
   margin-top: 100px;
   padding: 0 30px 0 30px;
   width: 500px;
@@ -162,11 +165,11 @@ nav {
   .recoveryForm #Login, .recoveryForm #Password, .recoveryForm #Email, .recoveryForm #comparePassword, .recoveryForm #RecoveryCode {
     color: white; }
   .recoveryForm .input-field label {
-    color: #9d9d9d; }
+    color: #9E9E9E; }
   .recoveryForm .input-field input[type=text]:focus + label,
   .recoveryForm .input-field input[type=password]:focus + label,
   .recoveryForm .input-field input[type=email]:focus + label {
-    color: #66cccc;
+    color: #527575;
     font-size: 15px; }
   .recoveryForm .input[type=email].invalid + label:after {
     width: 100px !important; }
@@ -195,64 +198,76 @@ nav {
       background-color: #75bf3b !important; }
   .recoveryForm .uk-form-danger {
     color: red !important;
-    background-color: #2f3b46 !important; }
+    background-color: #18212A !important; }
     .recoveryForm .uk-form-danger .logError {
       list-style-type: none; }
 
 /*Lista budynków do budowy*/
 .buildingList {
-  margin: 30px 0 0 0;
+  margin: 15px 0 0 0;
   height: 400px;
-  background-color: #2f3b46;
+  background-color: #18212A;
   color: white;
   display: inline-block;
   float: left !important;
   text-align: center; }
+  .buildingList i {
+    font-size: 12px; }
   .buildingList .tabs {
     margin-top: 0px; }
   .buildingList .btn {
-    background-color: #ff7d00;
+    background-color: #214954;
     max-width: 250px;
-    width: 120%;
+    width: 100%;
+    margin: 5px;
+    height: 40px;
+    line-height: 40px;
     font-size: 12px;
     padding: 0 5px 0 5px;
-    border-radius: 0; }
-  .buildingList .disabled {
-    background-color: #a8a8a8; }
-  .buildingList .buildingName {
-    float: left;
+    border-radius: 0;
+    text-transform: none; }
+  .buildingList .btn:hover {
+    color: #51B3CE;
     font-weight: bold; }
+  .buildingList .disabled {
+    background-color: #687579; }
+  .buildingList .buildingName {
+    float: left; }
+  .buildingList .slimScrollBar {
+    background: #214954 !important; }
   .buildingList .buildingPrice {
     float: right; }
-  .buildingList .dropdown-content li {
-    background-color: white;
-    top: 40px;
-    left: 30px;
-    border: 1px solid #ff7d00;
-    height: 30px;
-    color: #ff7d00;
-    text-align: center;
-    line-height: 30px; }
+  .buildingList .tabs .tab a:hover {
+    color: #51B3CE !important;
+    font-weight: bold;
+    border: none; }
+  .buildingList .tabs .indicator {
+    background-color: #214954; }
 
 .mapBox {
   margin-top: 30px;
   width: 540px;
-  margin-left: 3%;
+  margin-left: auto;
+  margin-right: auto;
   /*padding: 20px 20px 20px 20px;*/
-  border: 20px solid #2f3b46;
+  border: 20px solid #18212A;
   background-color: #2f3b46;
-  display: inline-block; }
+  display: block; }
 
 .infoBox {
-  margin: 30px 0 0 0;
+  margin: -555px 0 0 0;
   padding-top: 0;
-  background-color: #2f3b46;
+  background-color: #18212A;
   text-align: center;
   color: white;
-  display: inline-block;
-  width: 250px;
+  display: block;
   height: 400px;
-  float: right !important; }
+  float: right !important;
+  font-size: 12px;
+  width: 100%; }
+  .infoBox .slimScrollBar {
+    background: #214954 !important;
+    width: 10px !important; }
   .infoBox .tabs {
     display: -webkit-box;
     display: -moz-box;
@@ -261,7 +276,7 @@ nav {
     display: flex;
     position: relative;
     height: 48px;
-    background-color: #2f3b46;
+    background-color: #18212A;
     margin: 0;
     width: 100%;
     white-space: nowrap; }
@@ -287,7 +302,8 @@ nav {
       color: #fff !important;
       font-size: 10px; }
     .infoBox .tabs .tab a:hover {
-      color: #ff7d00 !important; }
+      color: #51B3CE !important;
+      font-weight: bold; }
     .infoBox .tabs .tab .tab a {
       color: #fff;
       display: block;
@@ -311,44 +327,53 @@ nav {
       will-change: left, right; }
 
 /*Powiadomienia*/
-#Notification #notificationList .newNotification {
-  background-color: #2c3e50;
-  border-radius: 0;
-  height: 50px;
-  line-height: 50px;
-  width: 100%;
-  border-bottom: 3px solid #FFB100;
-  margin-top: 10px;
-  float: left;
-  font-size: 12px;
-  color: #fff;
-  cursor: pointer; }
-  #Notification #notificationList .newNotification .newNotification:hover {
-    -webkit-box-shadow: 4px 4px 23px 5px #a8a8a8;
-    -moz-box-shadow: 4px 4px 23px 5px #a8a8a8;
-    box-shadow: 4px 4px 23px 5px #a8a8a8; }
-  #Notification #notificationList .newNotification i {
-    line-height: 50px;
-    font-size: 15px; }
-  #Notification #notificationList .newNotification i:hover {
-    color: #FFB100; }
+#Notification #notificationList {
+  margin-top: 4px; }
+  #Notification #notificationList .newNotification {
+    background-color: #214954;
+    border-radius: 0;
+    height: 40px;
+    line-height: 40px;
+    width: 88%;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #fff;
+    cursor: default;
+    font-size: 12px; }
+    #Notification #notificationList .newNotification .notificationLink:hover {
+      color: #51B3CE;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer; }
+    #Notification #notificationList .newNotification i {
+      line-height: 40px;
+      font-size: 12px; }
+    #Notification #notificationList .newNotification i:hover {
+      color: #51B3CE; }
 
 /******************/
 /*List znajomych*/
 .infoBox .friend {
-  background-color: #206b80;
+  background-color: #214954;
   margin-top: 10px;
-  cursor: pointer;
-  border-bottom: 3px solid #ff6a00;
-  height: 45px;
-  line-height: 45px; }
+  width: 88%;
+  cursor: default;
+  height: 40px;
+  line-height: 40px;
+  margin-left: auto;
+  margin-right: auto; }
+  .infoBox .friend .slimScrollBar {
+    background: #214954 !important;
+    right: -5px !important; }
   .infoBox .friend .login {
     float: left;
     margin-left: 20px;
     text-transform: capitalize;
-    font-size: 20px; }
+    font-size: 12px;
+    cursor: pointer; }
   .infoBox .friend .login:hover {
-    color: #ff7d00; }
+    color: #51B3CE;
+    font-weight: bold; }
   .infoBox .friend .icon {
     float: right;
     margin-right: 30px;
@@ -361,9 +386,19 @@ nav {
     color: red; }
 
 .infoBox .disabled {
-  background-color: #a8a8a8; }
+  background-color: #687579; }
+
+.infoBox .tabs .tab a:hover {
+  font-weight: bold;
+  border: none; }
+
+.infoBox .tabs .indicator {
+  background-color: #214954; }
 
 /*****************/
+#products {
+  cursor: default; }
+
 .productList {
   display: block;
   width: 60%;
@@ -372,8 +407,8 @@ nav {
   margin-left: auto !important;
   margin-right: auto;
   padding: 20px 20px 20px 20px;
-  background-color: #2f3b46;
-  width: 50%;
+  background-color: #18212A;
+  width: 100%;
   text-align: center;
   margin-top: 30px;
   float: none !important; }
@@ -392,7 +427,7 @@ nav {
   display: flex;
   position: relative;
   height: 48px;
-  background-color: #2f3b46;
+  background-color: #18212A;
   margin: 30px 0 0 0;
   width: 100%;
   white-space: nowrap; }
@@ -419,7 +454,7 @@ nav {
     color: #fff !important;
     font-size: 10px; }
   .tabs .tab a:hover {
-    color: #ff7d00 !important; }
+    font-weight: bold; }
   .tabs .tab .tab a {
     color: #fff;
     display: block;
@@ -443,14 +478,32 @@ nav {
     will-change: left, right; }
 
 .market {
-  background-color: white;
-  margin-top: 30px; }
+  background-color: #18212A;
+  margin-top: 30px;
+  min-height: 500px; }
+  .market h5 {
+    margin: 20px;
+    display: inline-block;
+    color: #fff; }
+  .market td, .market th {
+    border-radius: 0; }
+  .market table {
+    background-color: #fff; }
+  .market thead tr {
+    width: 100%;
+    background-color: #563232;
+    color: #fff; }
+  .market tbody tr {
+    height: 40px !important; }
+  .market tbody tr:hover {
+    background-color: rgba(86, 50, 50, 0.5) !important; }
   .market .numValue {
     float: left;
     max-width: 60px;
     margin-right: 40px; }
   .market #buyButton {
-    margin-top: 10px; }
+    margin-top: 10px;
+    background-color: #563232; }
   .market #buyTd {
     width: 300px; }
   .market #Price {
@@ -460,29 +513,33 @@ nav {
     width: 49%;
     float: left; }
   .market .systemOffer {
-    height: 300px; }
-    .market .systemOffer .systemOfferItem {
-      height: 200px;
-      width: 200px;
-      border: 1px solid #797979;
-      background-color: #d4d4d4;
+    height: 500px;
+    width: 500px;
+    padding: 10px; }
+    .market .systemOffer .systemOfferItem .productName {
+      display: inline-block;
+      margin-right: 10px; }
+    .market .systemOffer .systemOfferItem .productPrice {
+      display: inline-block;
+      margin-right: 10px; }
+    .market .systemOffer .numberValue {
+      width: 100px !important;
       text-align: center;
-      padding: 30px;
-      cursor: context-menu; }
-      .market .systemOffer .systemOfferItem .numberValue {
-        width: 140px;
-        text-align: center; }
-    .market .systemOffer .carousel {
-      overflow: hidden;
-      position: relative;
-      width: 100%;
-      height: 300px;
-      -webkit-perspective: 500px;
-      perspective: 1200px;
-      -webkit-transform-style: preserve-3d;
-      transform-style: preserve-3d;
-      -webkit-transform-origin: 0% 50%;
-      transform-origin: 0% 50%; }
+      margin-right: 10px;
+      float: right; }
+    .market .systemOffer .sellProduct {
+      float: right;
+      display: block;
+      background-color: #563232; }
+  .market .systemOfferBtn {
+    margin: 20px !important;
+    background-color: #563232; }
+  .market .offerAdd {
+    margin-left: 20px;
+    display: inline-block;
+    background-color: #563232; }
+  .market .addButton {
+    background-color: #563232 !important; }
 
 .tableList {
   background-color: white;
@@ -501,130 +558,196 @@ nav {
 .office {
   margin-top: 30px; }
   .office .uBuildingList {
-    background-color: #2f3b46;
-    min-height: 400px;
+    background-color: #18212A;
+    min-height: 420px;
     display: inline-block;
     float: left;
     padding: 20px 20px 20px 20px;
-    width: 49% !important; }
+    width: 49% !important;
+    border: none; }
+    .office .uBuildingList .progress {
+      height: 10px;
+      margin-bottom: 5px;
+      background-color: #343256; }
+    .office .uBuildingList .indeterminate {
+      background-color: #8581ce; }
+    .office .uBuildingList .slimScrollBar {
+      background: #8581ce !important; }
     .office .uBuildingList h5 {
-      color: #FFB100; }
-    .office .uBuildingList p {
-      color: #FFB100; }
+      color: #fff; }
     .office .uBuildingList #lvlUp {
-      margin-top: 7.5px;
+      margin-top: 4px;
       margin-right: 5px;
-      background-color: #26A69A;
+      background-color: #8581ce;
       color: #000; }
       .office .uBuildingList #lvlUp i {
         line-height: 2rem; }
+    .office .uBuildingList li {
+      width: 95%;
+      margin-right: auto;
+      margin-left: auto; }
+    .office .uBuildingList .collapsible {
+      border: none; }
     .office .uBuildingList .collapsible-header {
-      background-color: #FFB100;
-      color: #000; }
+      background-color: #343256;
+      color: #fff;
+      margin-bottom: 5px;
+      border: none; }
       .office .uBuildingList .collapsible-header #lvlUp:hover {
-        background-color: green; }
-      .office .uBuildingList .collapsible-header #lvlUp:hover:before {
-        content: "test"; }
+        background-color: green;
+        border-radius: 0; }
+    .office .uBuildingList .collapsible-body {
+      background-color: rgba(52, 50, 86, 0.5);
+      color: #fff;
+      margin-top: -5px;
+      margin-bottom: 5px;
+      border: none; }
   .office .uProductList {
     float: right;
-    background-color: #2f3b46;
+    background-color: #18212A;
     min-height: 400px;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
+    .office .uProductList .slimScrollBar {
+      background: #8581ce !important; }
     .office .uProductList h5 {
-      color: #B840EA; }
+      color: #fff; }
+    .office .uProductList .userProduct {
+      padding-top: 8px; }
     .office .uProductList .officeProduct {
-      background-color: #B840EA;
-      color: #000;
-      border: 1px solid #DDDDDD;
-      height: 46px;
-      line-height: 46px;
-      padding-left: 20px; }
+      background-color: #343256;
+      color: #fff;
+      height: 45px;
+      line-height: 45px;
+      padding-left: 20px;
+      margin-bottom: 5px;
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto; }
       .office .uProductList .officeProduct .name {
         float: left; }
       .office .uProductList .officeProduct .officeOfferAdd {
-        margin: 5px 5px 0 0;
+        margin: 3.5px 5px 0 0;
         float: right;
-        border-radius: 10px !important; }
+        background-color: #8581ce;
+        color: #000; }
         .office .uProductList .officeProduct .officeOfferAdd .input[type=text].valid {
-          color: #000 !important; }
+          color: #fff !important; }
+    .office .uProductList .addButton {
+      background-color: #343256 !important; }
   .office .uDealList {
-    background-color: #2f3b46;
+    background-color: #18212A;
     margin-top: 30px;
     min-height: 400px;
     display: inline-block;
     float: right;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
+    .office .uDealList .slimScrollBar {
+      background: #8581ce !important; }
+    .office .uDealList #dealInner {
+      height: 350px; }
+    .office .uDealList #dealBox {
+      height: 100%;
+      margin-top: -20px; }
     .office .uDealList h5 {
-      color: #75bf3b;
+      color: #fff;
       display: inline-block; }
-    .office .uDealList p {
-      color: #75bf3b; }
+    .office .uDealList .collapsible {
+      border: none; }
+    .office .uDealList li {
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto; }
     .office .uDealList .collapsible-header {
-      background-color: #75bf3b;
-      color: #000; }
+      background-color: #343256;
+      color: #fff;
+      margin-bottom: 5px;
+      border: none; }
+    .office .uDealList .collapsible-body {
+      background-color: rgba(52, 50, 86, 0.5);
+      color: #fff;
+      margin-top: -5px;
+      margin-bottom: 5px;
+      border: none; }
     .office .uDealList .disabled {
-      background-color: #9d9d9d; }
+      background-color: #8581ce; }
     .office .uDealList .myoffer {
-      background-color: #9d9d9d; }
+      background-color: #9E9E9E; }
     .office .uDealList .rerunDeal {
       margin-top: 3px;
       float: right; }
     .office .uDealList .officeDealAdd {
       display: inline-block;
-      margin-left: 10px; }
+      margin: -65px 0 0px 100px;
+      background-color: #343256; }
     .office .uDealList .officeDealShow {
       float: right;
       margin: 4px 20px 0 0;
-      width: 200px; }
+      width: 200px;
+      background-color: #343256; }
     .office .uDealList .myoffer {
       float: right;
       margin: 4px 20px 0 0;
       width: 200px; }
+    .office .uDealList .addButton {
+      background-color: #343256 !important; }
   .office .uProductRequirementList {
-    background-color: #2f3b46;
+    background-color: #18212A;
     margin-top: 30px;
     min-height: 400px;
     display: inline-block;
     float: left;
     padding: 20px 20px 20px 20px;
     width: 49% !important; }
+    .office .uProductRequirementList .slimScrollBar {
+      background: #343256 !important; }
     .office .uProductRequirementList h5 {
-      color: #f4511e;
+      color: #fff;
       display: inline-block; }
+    .office .uProductRequirementList .requirementBox {
+      margin-top: -6px; }
     .office .uProductRequirementList .productRequirementItem {
-      background-color: #f4511e;
-      height: 46px; }
+      background-color: #343256;
+      height: 45px;
+      margin-bottom: 5px;
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto; }
       .office .uProductRequirementList .productRequirementItem .productName {
         float: left;
         display: inline-block;
         line-height: 46px;
         margin-left: 15px;
-        font-weight: bold; }
+        color: #fff; }
       .office .uProductRequirementList .productRequirementItem .conditions {
         float: right;
         display: inline-block;
-        line-height: 46px;
+        line-height: 45px;
         margin-right: 15px; }
       .office .uProductRequirementList .productRequirementItem .inputValue {
         display: inline-block;
         float: right;
-        background-color: #9d9d9d;
-        height: 46px;
-        line-height: 46px;
+        background-color: #8581ce;
+        height: 44px;
+        line-height: 44px;
         padding-left: 15px; }
-        .office .uProductRequirementList .productRequirementItem .inputValue #tableView_Value {
+        .office .uProductRequirementList .productRequirementItem .inputValue #productValue {
           width: 50%;
           display: inline-block;
-          height: 44px;
-          border-bottom: 1px solid #f4511e; }
+          height: 40px;
+          border-bottom: 5px solid #343256;
+          text-align: center; }
+        .office .uProductRequirementList .productRequirementItem .inputValue input[type=number]:focus:not([readonly]) {
+          box-shadow: none; }
+        .office .uProductRequirementList .productRequirementItem .inputValue .createButton {
+          background-color: #343256; }
     .office .uProductRequirementList .disabled {
       background-color: #a8a8a8; }
 
 /*Profil*/
 .profil {
-  background-color: #2f3b46;
+  background-color: #18212A;
   margin-top: 40px;
   padding: 5px 20px 20px 20px;
   min-height: 600px; }
@@ -687,42 +810,68 @@ nav {
 .Ranking {
   background-color: #fff;
   margin-top: 30px; }
+  .Ranking td, .Ranking th {
+    border-radius: 0; }
   .Ranking thead {
-    border-bottom: 5px solid #bb0000;
+    background: #2e8367;
     font-weight: bold;
     cursor: default; }
   .Ranking tbody tr:hover {
-    background-color: rgba(187, 0, 0, 0.59);
+    background-color: rgba(46, 131, 103, 0.51);
     cursor: pointer; }
 
 /*Wiadomości*/
 .Message {
-  background-color: #fff; }
+  background-color: #fff;
+  min-height: 500px; }
+  .Message td, .Message th {
+    border-radius: 0; }
+  .Message .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+    background-color: #617487;
+    will-change: left, right; }
+  .Message .noRow {
+    cursor: default;
+    font-size: 20px;
+    color: #9E9E9E;
+    font-style: italic;
+    margin-left: 20px; }
 
 .newMessage {
   height: 450px;
   padding: 10px 30px 30px 30px; }
   .newMessage .sentMessage {
     float: right;
-    margin-bottom: 30px; }
+    margin-bottom: 30px;
+    background-color: #617487; }
   .newMessage .login {
     width: 30%; }
 
-.receivedMessage {
+.receivedMessage thead {
+  background-color: rgba(97, 116, 135, 0.62);
+  border: none; }
+
+.receivedMessage tbody tr:hover {
+  background-color: rgba(97, 116, 135, 0.32);
   cursor: pointer; }
-  .receivedMessage tbody tr:hover {
-    background-color: rgba(187, 0, 0, 0.59);
-    cursor: pointer; }
+
+.receivedMessage .indeterminate {
+  background-color: #8581ce !important; }
 
 #newMessage {
   border-left: 3px solid #c40000;
   font-weight: bold; }
 
-.sentMessage {
+.sentMessage thead {
+  background-color: rgba(97, 116, 135, 0.62);
+  border: none;
+  cursor: default; }
+
+.sentMessage tbody tr:hover {
+  background-color: rgba(97, 116, 135, 0.32);
   cursor: pointer; }
-  .sentMessage tbody tr:hover {
-    background-color: rgba(187, 0, 0, 0.59);
-    cursor: pointer; }
 
 .contentMessage {
   margin-top: 30px;
@@ -745,7 +894,10 @@ nav {
     .contentMessage .sender .login {
       margin: 0px 5px 0px 5px;
       font-style: italic;
-      color: #000; }
+      color: #000;
+      cursor: default; }
+    .contentMessage .sender .login:hover {
+      color: #617487; }
   .contentMessage .content {
     font-size: 18px;
     word-wrap: break-word;
@@ -758,6 +910,8 @@ nav {
   .contentMessage .contentButton {
     margin-top: 20px;
     float: right; }
+    .contentMessage .contentButton .btn {
+      background-color: #617487; }
     .contentMessage .contentButton i {
       margin-right: 5px; }
 
@@ -804,4 +958,9 @@ nav {
     margin-top: 70px;
     -webkit-animation-fill-mode: forwards;
     -webkit-animation-play-state: paused; } }
+
+/*Footer*/
+footer {
+  bottom: 0px;
+  width: 100% !important; }
 

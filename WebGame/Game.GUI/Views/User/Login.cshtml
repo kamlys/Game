@@ -7,9 +7,6 @@
     <div class="loginForm">
         <div class="loginTopText">
             <div class="logowanieText">@ViewBag.Title</div>
-            <div class="kontoText">
-                <a href='@Url.Action("Register", "User")'>Utwórz konto</a>
-            </div>
         </div>
         @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -30,7 +27,8 @@
                     <div class="logowanieButton">
                         <button type="submit" class="waves-effect waves-light btn-large" >Zaloguj</button>
                     </div>
-                    <div class="forgetPassword">
+                    <div class="loginRegister">
+                        <a href='@Url.Action("Register", "User")'>Utwórz konto</a><br />
                         <a href='@Url.Action("RecoveryPassword", "User")'>Zapomniałeś hasła?</a>
                     </div>
                 </div>

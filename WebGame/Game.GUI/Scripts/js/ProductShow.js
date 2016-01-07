@@ -15,14 +15,13 @@
 }
 
 function fillWithData(dataProduct, productNames) {
+    console.log("Działa");
     for (var item in dataProduct) {
         try {
             var n = "";
             var id = dataProduct[item][0];
-            for (var name in productNames)
-            {
-                if(productNames[name][0] == id)
-                {
+            for (var name in productNames) {
+                if (productNames[name][0] == id) {
                     n = productNames[name][1];
                 }
             }
@@ -32,10 +31,6 @@ function fillWithData(dataProduct, productNames) {
         }
     }
 }
-
-$(document).ready(function () {
-//TakeValues();
-})
 
 function TakeValues() {
     $.ajax({
@@ -51,7 +46,3 @@ function TakeValues() {
         processData: false
     });
 }
-
-
-
-

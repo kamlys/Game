@@ -1,10 +1,15 @@
 ﻿//color:
 $firstColor: #2c3e50;
-$secondColor: #2f3b46;
-$logColor: #9b59b6;
-$regColor: #66cccc;
-$greyColor: #9d9d9d;
-$indexColor: #ff7d00;
+$secondColor: #18212A;
+$logColor: #73467B;
+$regColor: #527575;
+$greyColor: #9E9E9E;
+$indexColor: #214954;
+$buildingListColor: #214954;
+$friendColorList: #214954;
+$notificationColor: #214954;
+$officeColor: #343256;
+$marketColoR: #563232;
 
 html, body {
     background-color: $firstColor;
@@ -27,27 +32,35 @@ nav {
     background-color: $secondColor;
 
     .userDolar {
+        color: $greyColor;
         float: left;
         margin-left: 20px;
-        margin-top: 5px;
+        margin-top: 10px;
+        padding: 5px 10px 5px 10px;
         display: inline-block;
-        background-color: $firstColor;
+        background-color: #214954;
         text-align: center;
-        min-width: 150px;
-        height: 80%;
-        line-height: 55px;
+        min-width: 80px;
+        width: auto;
+        height: 45px;
+        line-height: 40px;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     }
 
+    .userDolar:hover {
+        color: #51B3CE;
+        cursor: default;
+    }
 
-    #userLogout {
+
+    .userLogout {
         margin: -53px 40px 0 0;
         min-width: 80px;
         text-align: center;
         height: 45px;
         line-height: 45px;
         font-size: 15px;
-        background: $firstColor;
+        background: #214954;
         color: $greyColor;
         border-radius: 0;
 
@@ -56,21 +69,30 @@ nav {
             color: $greyColor;
         }
     }
+
+    .userLogout:hover {
+        color: #51B3CE;
+        background-color: #214954 !important;
+
+        .fa {
+            color: #51B3CE;
+        }
+    }
 }
 
 /*Panel logowania*/
 .loginForm {
     border-top: 5px solid $logColor;
-    min-height: 300px;
+    min-height: 350px;
     background-color: $secondColor;
     margin-top: 100px;
     padding: 0 30px 0 30px;
-    width: 500px;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
 
     #Login, #Password {
-        color: white;
+        color: $greyColor;
     }
 
     .input-field label {
@@ -94,27 +116,10 @@ nav {
         .logowanieText {
             float: left;
             display: inline-block;
-            color: white;
+            color: $greyColor;
             font-size: 30px;
             margin: 10px 0 20px 0;
             text-align: left;
-        }
-
-        .kontoText {
-            display: inline-block;
-            float: right;
-            padding: 15px;
-
-            a {
-                color: white;
-                font-size: 15px;
-                margin: 10px 0 40px 0;
-                text-decoration: none;
-            }
-
-            a:hover {
-                color: $logColor;
-            }
         }
     }
 
@@ -123,20 +128,20 @@ nav {
             display: inline-block;
             float: left;
             width: auto;
-
+            margin-top: 5%;
 
             .btn, .btn-large {
                 background-color: $logColor !important;
             }
         }
 
-        .forgetPassword {
-            margin-top: 30px;
+        .loginRegister {
+            margin: 5.5% 0 0 20px;
             display: inline-block;
-            float: right;
+            float: left;
 
             a {
-                color: white;
+                color: $greyColor;
                 font-size: 15px;
                 margin: 10px 0 40px 0;
                 text-decoration: none;
@@ -164,12 +169,12 @@ nav {
     background-color: $secondColor;
     margin-top: 100px;
     padding: 0 30px 0 30px;
-    width: 500px;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
 
     #Login, #Password, #Email, #comparePassword {
-        color: white;
+        color: $greyColor;
     }
 
     .input-field label {
@@ -183,8 +188,9 @@ nav {
         font-size: 15px;
     }
 
-    .input[type=email].invalid + label:after {
-        width: 100px !important;
+    input[type=email].invalid + label:after,
+    input[type=email]:focus.invalid + label:after {
+        width: 200px !important;
     }
 
     .input-field input[type=text]:focus,
@@ -200,7 +206,7 @@ nav {
         .registerText {
             float: left;
             display: inline-block;
-            color: white;
+            color: $greyColor;
             font-size: 30px;
             margin: 10px 0 40px 0;
             text-align: left;
@@ -212,11 +218,12 @@ nav {
         display: inline-block;
         width: auto;
         position: relative;
-        width: 500px;
+        min-width: 500px;
         margin-left: auto;
         margin-right: auto;
 
         .btn, .btn-large {
+            margin-top: 3%;
             background-color: $regColor !important;
         }
     }
@@ -312,7 +319,7 @@ nav {
 
 /*Lista budynków do budowy*/
 .buildingList {
-    margin: 30px 0 0 0;
+    margin: 15px 0 0 0;
     height: 400px;
     background-color: $secondColor;
     color: white;
@@ -320,65 +327,88 @@ nav {
     float: left !important;
     text-align: center;
 
+    i {
+        font-size: 12px;
+    }
+
     .tabs {
         margin-top: 0px;
     }
 
     .btn {
-        background-color: $indexColor;
+        background-color: $buildingListColor;
         max-width: 250px;
-        width: 120%;
+        width: 100%;
+        margin: 5px;
+        height: 40px;
+        line-height: 40px;
         font-size: 12px;
         padding: 0 5px 0 5px;
         border-radius: 0;
+        text-transform: none;
+    }
+
+    .btn:hover {
+        color: #51B3CE;
+        font-weight: bold;
     }
 
     .disabled {
-        background-color: rgba(168,168,168,1);
+        background-color: #687579;
     }
 
     .buildingName {
         float: left;
-        font-weight: bold;
+    }
+
+    .slimScrollBar {
+        background: $buildingListColor !important;
     }
 
     .buildingPrice {
         float: right;
     }
 
+    .tabs .tab {
+        a:hover {
+            color: #51B3CE !important;
+            font-weight: bold;
+            border: none;
+        }
+    }
 
-    .dropdown-content li {
-        background-color: white;
-        top: 40px;
-        left: 30px;
-        border: 1px solid $indexColor;
-        height: 30px;
-        color: $indexColor;
-        text-align: center;
-        line-height: 30px;
+    .tabs .indicator {
+        background-color: $buildingListColor;
     }
 }
 
 .mapBox {
     margin-top: 30px;
     width: 540px;
-    margin-left: 3%;
+    margin-left: auto;
+    margin-right: auto;
     /*padding: 20px 20px 20px 20px;*/
     border: 20px solid $secondColor;
     background-color: #2f3b46;
-    display: inline-block;
+    display: block;
 }
 
 .infoBox {
-    margin: 30px 0 0 0;
+    margin: -555px 0 0 0;
     padding-top: 0;
-    background-color: #2f3b46;
+    background-color: $secondColor;
     text-align: center;
     color: white;
-    display: inline-block;
-    width: 250px;
+    display: block;
     height: 400px;
     float: right !important;
+    font-size: 12px;
+    width: 100%;
+
+    .slimScrollBar {
+        background: $buildingListColor !important;
+        width: 10px !important;
+    }
 
     .tabs {
         display: -webkit-box;
@@ -420,7 +450,8 @@ nav {
         }
 
         a:hover {
-            color: $indexColor !important;
+            color: #51B3CE !important;
+            font-weight: bold;
         }
 
         .tab a {
@@ -455,33 +486,34 @@ nav {
 /*Powiadomienia*/
 #Notification {
     #notificationList {
+        margin-top: 4px;
 
         .newNotification {
-            background-color: $firstColor;
+            background-color: $notificationColor;
             border-radius: 0;
-            height: 50px;
-            line-height: 50px;
-            width: 100%;
-            border-bottom: 3px solid #FFB100;
-            margin-top: 10px;
-            float: left;
+            height: 40px;
+            line-height: 40px;
+            width: 88%;
+            margin-bottom: 10px;
             font-size: 12px;
             color: #fff;
-            cursor: pointer;
+            cursor: default;
+            font-size: 12px;
 
-            .newNotification:hover {
-                -webkit-box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
-                -moz-box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
-                box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
+            .notificationLink:hover {
+                color: #51B3CE;
+                font-size: 13px;
+                font-weight: bold;
+                cursor: pointer;
             }
 
             i {
-                line-height: 50px;
-                font-size: 15px;
+                line-height: 40px;
+                font-size: 12px;
             }
 
             i:hover {
-                color: #FFB100;
+                color: #51B3CE;
             }
         }
     }
@@ -491,24 +523,32 @@ nav {
 /*List znajomych*/
 .infoBox {
     .friend {
-        background-color: #206b80;
+        background-color: $friendColorList;
         margin-top: 10px;
-        cursor: pointer;
-        border-bottom: 3px solid #ff6a00;
-        height: 45px;
-        line-height: 45px;
+        width: 88%;
+        cursor: default;
+        height: 40px;
+        line-height: 40px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .slimScrollBar {
+            background: $buildingListColor !important;
+            right: -5px !important;
+        }
 
         .login {
             float: left;
             margin-left: 20px;
             text-transform: capitalize;
-            font-size: 20px;
+            font-size: 12px;
+            cursor: pointer;
         }
 
         .login:hover {
-            color: $indexColor;
+            color: #51B3CE;
+            font-weight: bold;
         }
-
 
         .icon {
             float: right;
@@ -528,12 +568,25 @@ nav {
     }
 
     .disabled {
-        background-color: rgba(168,168,168,1);
+        background-color: #687579;
+    }
+
+    .tabs .tab {
+        a:hover {
+            font-weight: bold;
+            border: none;
+        }
+    }
+
+    .tabs .indicator {
+        background-color: $friendColorList;
     }
 }
 
 /*****************/
-
+#products {
+    cursor: default;
+}
 
 .productList {
     display: block;
@@ -543,8 +596,8 @@ nav {
     margin-left: auto !important;
     margin-right: auto;
     padding: 20px 20px 20px 20px;
-    background-color: #2f3b46;
-    width: 50%;
+    background-color: $secondColor;
+    width: 100%;
     text-align: center;
     margin-top: 30px;
     float: none !important;
@@ -555,7 +608,6 @@ nav {
         margin-right: 20px;
     }
 }
-
 
 /*TabsAdmin*/
 .tabs {
@@ -598,7 +650,7 @@ nav {
     }
 
     a:hover {
-        color: $indexColor !important;
+        font-weight: bold;
     }
 
     .tab a {
@@ -631,8 +683,41 @@ nav {
 
 
 .market {
-    background-color: white;
+    background-color: $secondColor;
     margin-top: 30px;
+    min-height: 500px;
+
+    h5 {
+        margin: 20px;
+        display: inline-block;
+        color: #fff;
+    }
+
+    td, th {
+        border-radius: 0;
+    }
+
+    table {
+        background-color: #fff;
+    }
+
+    thead {
+        tr {
+            width: 100%;
+            background-color: $marketColoR;
+            color: #fff;
+        }
+    }
+
+    tbody {
+        tr {
+            height: 40px !important;
+        }
+
+        tr:hover {
+            background-color: rgba(86, 50, 50, 0.50) !important;
+        }
+    }
 
     .numValue {
         float: left;
@@ -642,6 +727,8 @@ nav {
 
     #buyButton {
         margin-top: 10px;
+        background-color:$marketColoR;
+
     }
 
     #buyTd {
@@ -659,35 +746,49 @@ nav {
     }
 
     .systemOffer {
-        height: 300px;
-
+        height: 500px;
+        width: 500px;
+        padding: 10px;
 
         .systemOfferItem {
-            height: 200px;
-            width: 200px;
-            border: 1px solid #797979;
-            background-color: #d4d4d4;
-            text-align: center;
-            padding: 30px;
-            cursor: context-menu;
-            .numberValue {
-                width: 140px;
-                text-align: center;
+            .productName {
+                display: inline-block;
+                margin-right: 10px;
+            }
+
+            .productPrice {
+                display: inline-block;
+                margin-right: 10px;
             }
         }
 
-        .carousel {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            height: 300px;
-            -webkit-perspective: 500px;
-            perspective: 1200px;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
+        .numberValue {
+            width: 100px !important;
+            text-align: center;
+            margin-right: 10px;
+            float: right;
         }
+
+        .sellProduct {
+            float: right;
+            display: block;
+            background-color: $marketColoR;
+        }
+    }
+
+    .systemOfferBtn {
+        margin: 20px !important;
+        background-color: $marketColoR;
+    }
+
+    .offerAdd {
+        margin-left: 20px;
+        display: inline-block;
+        background-color: $marketColoR;
+    }
+
+    .addButton {
+        background-color: $marketColoR !important;
     }
 }
 
@@ -711,31 +812,43 @@ nav {
 }
 
 
-
 /*Biuro*/
 .office {
     margin-top: 30px;
 
     .uBuildingList {
         background-color: $secondColor;
-        min-height: 400px;
+        min-height: 420px;
         display: inline-block;
         float: left;
         padding: 20px 20px 20px 20px;
         width: 49% !important;
+        border: none;
+
+        .progress {
+            height: 10px;
+            margin-bottom: 5px;
+            background-color: $officeColor;
+        }
+
+        .indeterminate {
+            background-color: #8581ce;
+        }
+
+        .slimScrollBar {
+            background: #8581ce !important;
+        }
 
         h5 {
-            color: #FFB100;
+            color: #fff;
         }
 
-        p {
-            color: #FFB100;
-        }
+
 
         #lvlUp {
-            margin-top: 7.5px;
+            margin-top: 4px;
             margin-right: 5px;
-            background-color: #26A69A;
+            background-color: #8581ce;
             color: #000;
 
             i {
@@ -743,21 +856,38 @@ nav {
             }
         }
 
+        li{
+            width:95%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .collapsible {
+            border: none;
+        }
+
         .collapsible-header {
-            background-color: #FFB100;
-            color: #000;
-
-
+            background-color: $officeColor;
+            color: #fff;
+            margin-bottom: 5px;
+            border: none;
 
             #lvlUp:hover {
                 background-color: green;
-            }
-
-            #lvlUp:hover:before {
-                content: "test";
+                border-radius: 0;
             }
         }
+
+        .collapsible-body {
+            background-color: rgba(52, 50, 86, 0.50);
+            color: #fff;
+            margin-top: -5px;
+            margin-bottom: 5px;
+            border: none;
+        }
     }
+
+
 
     .uProductList {
         float: right;
@@ -766,31 +896,47 @@ nav {
         padding: 20px 20px 20px 20px;
         width: 49% !important;
 
-        h5 {
-            color: #B840EA;
+        .slimScrollBar {
+            background: #8581ce !important;
         }
 
+        h5 {
+            color: #fff;
+        }
+
+        .userProduct {
+            padding-top: 8px;
+        }
+        
         .officeProduct {
-            background-color: #B840EA;
-            color: #000;
-            border: 1px solid #DDDDDD;
-            height: 46px;
-            line-height: 46px;
+            background-color: $officeColor;
+            color: #fff;
+            height: 45px;
+            line-height: 45px;
             padding-left: 20px;
+            margin-bottom: 5px;
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
 
             .name {
                 float: left;
             }
 
             .officeOfferAdd {
-                margin: 5px 5px 0 0;
+                margin: 3.5px 5px 0 0;
                 float: right;
-                border-radius: 10px !important;
+                background-color: #8581ce;
+                color: #000;
 
                 .input[type=text].valid {
-                    color: #000 !important;
+                    color: #fff !important;
                 }
             }
+        }
+
+        .addButton {
+            background-color: $officeColor !important;
         }
     }
 
@@ -803,23 +949,52 @@ nav {
         padding: 20px 20px 20px 20px;
         width: 49% !important;
 
+        .slimScrollBar {
+            background: #8581ce !important;
+        }
+
+        #dealInner {
+            height: 350px;
+        }
+
+        #dealBox {
+            height: 100%;
+            margin-top: -20px;
+        }
 
         h5 {
-            color: #75bf3b;
+            color: #fff;
             display: inline-block;
         }
 
-        p {
-            color: #75bf3b;
+
+        .collapsible {
+            border: none;
+        }
+
+        li{
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .collapsible-header {
-            background-color: #75bf3b;
-            color: #000;
+            background-color: $officeColor;
+            color: #fff;
+            margin-bottom: 5px;
+            border: none;
+        }
+
+        .collapsible-body {
+            background-color: rgba(52, 50, 86, 0.50);
+            color: #fff;
+            margin-top: -5px;
+            margin-bottom: 5px;
+            border: none;
         }
 
         .disabled {
-            background-color: $greyColor;
+            background-color: #8581ce;
         }
 
         .myoffer {
@@ -833,19 +1008,25 @@ nav {
 
         .officeDealAdd {
             display: inline-block;
-            margin-left: 10px;
+            margin: -65px 0 0px 100px;
+            background-color: $officeColor;
         }
 
         .officeDealShow {
             float: right;
             margin: 4px 20px 0 0;
             width: 200px;
+            background-color: $officeColor;
         }
 
         .myoffer {
             float: right;
             margin: 4px 20px 0 0;
             width: 200px;
+        }
+
+        .addButton {
+            background-color: $officeColor !important;
         }
     }
 
@@ -858,43 +1039,63 @@ nav {
         padding: 20px 20px 20px 20px;
         width: 49% !important;
 
+        .slimScrollBar {
+            background: $officeColor !important;
+        }
+
         h5 {
-            color: #f4511e;
+            color: #fff;
             display: inline-block;
         }
 
+        .requirementBox {
+            margin-top: -6px;
+        }
+
         .productRequirementItem {
-            background-color: #f4511e;
-            height: 46px;
+            background-color: $officeColor;
+            height: 45px;
+            margin-bottom: 5px;
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
 
             .productName {
                 float: left;
                 display: inline-block;
                 line-height: 46px;
                 margin-left: 15px;
-                font-weight: bold;
+                color: #fff;
             }
 
             .conditions {
                 float: right;
                 display: inline-block;
-                line-height: 46px;
+                line-height: 45px;
                 margin-right: 15px;
             }
 
             .inputValue {
                 display: inline-block;
                 float: right;
-                background-color: $greyColor;
-                height: 46px;
-                line-height: 46px;
+                background-color: #8581ce;
+                height: 44px;
+                line-height: 44px;
                 padding-left: 15px;
 
-                #tableView_Value {
+                #productValue {
                     width: 50%;
                     display: inline-block;
-                    height: 44px;
-                    border-bottom: 1px solid #f4511e;
+                    height: 40px;
+                    border-bottom: 5px solid $officeColor;
+                    text-align: center;
+                }
+               input[type=number]:focus:not([readonly]){
+                   box-shadow: none;
+               }
+
+                .createButton {
+                    background-color: $officeColor;
                 }
             }
         }
@@ -1003,15 +1204,19 @@ nav {
     background-color: #fff;
     margin-top: 30px;
 
+    td, th{
+        border-radius: 0;
+    }
+
     thead {
-        border-bottom: 5px solid #bb0000;
+        background:#2e8367;
         font-weight: bold;
         cursor: default;
     }
 
     tbody {
         tr:hover {
-            background-color: rgba(187, 0, 0, 0.59);
+            background-color: rgba(46, 131, 103, 0.51);
             cursor: pointer;
         }
     }
@@ -1021,6 +1226,29 @@ nav {
 /*Wiadomości*/
 .Message {
     background-color: #fff;
+    min-height: 500px;
+
+
+
+    td, th {
+        border-radius: 0;
+    }
+
+    .indicator {
+        position: absolute;
+        bottom: 0;
+        height: 5px;
+        background-color: rgba(97, 116, 135, 1);
+        will-change: left, right;
+    }
+
+    .noRow {
+        cursor: default;
+        font-size: 20px;
+        color: $greyColor;
+        font-style: italic;
+        margin-left: 20px;
+    }
 }
 
 .newMessage {
@@ -1030,6 +1258,7 @@ nav {
     .sentMessage {
         float: right;
         margin-bottom: 30px;
+        background-color: #617487;
     }
 
     .login {
@@ -1038,13 +1267,21 @@ nav {
 }
 
 .receivedMessage {
-    cursor: pointer;
+
+    thead {
+        background-color: rgba(97, 116, 135, 0.62);
+        border: none;
+    }
 
     tbody {
         tr:hover {
-            background-color: rgba(187, 0, 0, 0.59);
+            background-color: rgba(97, 116, 135, 0.32);
             cursor: pointer;
         }
+    }
+
+    .indeterminate {
+        background-color: #8581ce !important;
     }
 }
 
@@ -1054,11 +1291,16 @@ nav {
 }
 
 .sentMessage {
-    cursor: pointer;
+
+    thead {
+        background-color: rgba(97, 116, 135, 0.62);
+        border: none;
+        cursor: default;
+    }
 
     tbody {
         tr:hover {
-            background-color: rgba(187, 0, 0, 0.59);
+            background-color: rgba(97, 116, 135, 0.32);
             cursor: pointer;
         }
     }
@@ -1092,6 +1334,10 @@ nav {
             margin: 0px 5px 0px 5px;
             font-style: italic;
             color: #000;
+            cursor:default;
+        }
+        .login:hover {
+            color: #617487;
         }
     }
 
@@ -1111,6 +1357,10 @@ nav {
     .contentButton {
         margin-top: 20px;
         float: right;
+
+        .btn {
+            background-color: #617487;
+        }
 
         i {
             margin-right: 5px;
@@ -1172,4 +1422,11 @@ nav {
             -webkit-animation-play-state: paused;
         }
     }
+}
+
+
+/*Footer*/
+footer {
+    bottom: 0px;
+    width: 100% !important;
 }

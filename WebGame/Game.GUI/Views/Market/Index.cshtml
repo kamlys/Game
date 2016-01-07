@@ -30,13 +30,11 @@
         </div>
     </div>
 
-    <h5>Sprzedaj produkty</h5>
-
     @Html.Action("_SystemOffer", "Market")
+    <br />
+    <h5>Oferty społeczności</h5><button data-target="offerAdd" class="btn modal-trigger offerAdd">Wystaw ofertę</button>
 
-    <h5>Oferty społeczności</h5>
-
-    <button data-target="offerAdd" class="btn modal-trigger offerAdd">Wystaw ofertę</button>
+    
     <table class="highlight bordered responsive-table centered market">
 
         <thead>
@@ -45,6 +43,7 @@
                 <th>Produkt</th>
                 <th>Ilość</th>
                 <th>Cena/szt.</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>

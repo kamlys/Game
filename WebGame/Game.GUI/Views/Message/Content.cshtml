@@ -49,11 +49,11 @@
     <span class="theme">@Model.tableView.Theme</span>
     @if (Model.tableView.Sender_Login != User.Identity.Name)
     {
-        <span class="sender">Od:<span class="login">@Model.tableView.Sender_Login</span> Data: <span class="date">@Model.tableView.PostDate</span></span>
+        <span class="sender">Od:<span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @Model.tableView.Sender_Login })'">@Model.tableView.Sender_Login</span> Data: <span class="date">@Model.tableView.PostDate</span></span>
     }
     else
     {
-        <span class="sender">Do:<span class="login">@Model.tableView.Customer_Login</span> Data: <span class="date">@Model.tableView.PostDate</span></span>
+        <span class="sender">Do:<span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @Model.tableView.Sender_Login })'">@Model.tableView.Customer_Login</span> Data: <span class="date">@Model.tableView.PostDate</span></span>
 
     }
     <span class="content">

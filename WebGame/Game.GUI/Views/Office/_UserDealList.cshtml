@@ -27,7 +27,7 @@
                         </div>
                         <div class="range-field col s6" id="Number">
                             <label for="Percent_User1">Wkład własny i procent produkcji (%): </label>
-                            @Html.TextBoxFor(m => m.tableView.Percent_User1, new { @type = "range", @min = "10", @max = "90", @step="10", @placeholder = "", @class = "validate inputpercent_user" })
+                            @Html.TextBoxFor(m => m.tableView.Percent_User1, new { @type = "range", @min = "10", @max = "90", @step = "10", @placeholder = "", @class = "validate inputpercent_user" })
                         </div>
                     </div>
                     <div class="switch col s6">
@@ -52,78 +52,43 @@
             <div>Oferta od <span id="login"></span></div>
             <div>Dotyczy wybudowania <span id="budynek"></span> na <span id="mapa"></span>.</div>
             <div>Przy twoim wkładzie w wysokości <span id="procent"></span>%.</div>
-            <div><span id="procentproduktu"></span>% wytworzonych produktów będzie przeznaczonych dla dziebie</div>
+            <div><span id="procentproduktu"></span>% wytworzonych produktów będzie przeznaczonych dla ciebie</div>
 
             <button class="btn-large officeDealAccept" id="acceptDeal">Akceptuje</button> <button class="btn-large" id="cancelDeal">Odrzuć</button>
         </div>
     </div>
 
-    <h5>Umowy</h5>
     <button data-target="officeDealAdd" class="btn modal-trigger officeDealAdd">Złóż oferę</button>
+    <div id="dealBox">
 
-    <div id="dealList">
-        <ul class="collapsible" data-collapsible="accordion">
-            @foreach (var item in Model.tableList)
+        <div id="dealList">
+            <ul class="collapsible" data-collapsible="accordion">
+                @foreach (var item in Model.tableList)
             {
                 if (item.IsActive == true)
                 {
-                    <li>
-                        @if (item.Value == 0)
-                        { <button class="btn rerunDeal" id="cancelRerun" data-id="@item.ID">Odrzuć</button><button class="btn rerunDeal" id="rerunDeal" data-id="@item.ID" data-user1="@item.User2_Login" data-user2="@item.Login">Proponuj odnowienie (@item.LogDays dni.)</button>
-                        <div class="collapsible-header disabled">@item.Name</div>
-                        }
-                        else
-                        {
-                            <div class="collapsible-header">@item.Name</div>
-                        }
-                        <div class="collapsible-body">
-                            <p>
-
-                                @if (item.Login == User.Identity.Name)
-                                {
-                                    <span>Wspólnik: @item.User2_Login<br /></span>
-                                    <span>Procent produktu dla mnie: @item.Percent_User2</span><br />
-                                }
-                                else
-                                {
-                                    <span>Wspólnik: @item.Login<br /></span>
-                                    <span>Procent produktu dla mnie: @item.Percent_User1</span><br />
-                                }
-                                @if (item.Owner == true)
-                                {
-                                    <span>Budynek stoi na twojej działce</span><br />
-                                }
-                                else
-                                {
-                                    <span>Budynek stoi na działce wspólnika</span><br />
-                                }
-                                Umowa zawarta na @item.LogDays dni.<br />
-                                @if (item.Value > 1)
-                                {
-                                    <span>Umowa wygasa za @item.Value dni</span>
-                                }
-                                else if (item.Value == 1)
-                                {
-                                    <span>Umowa wygasa za @item.Value dzień</span>
-                                }
-                                else
-                                {
-                                    <span>Umowa wygasa dziś</span>
-                                }
-                            </p>
-                        </div>
-                    </li>
-                }
-                else if (item.IsActive == false)
-                {
-                    if (item.Login == User.Identity.Name)
-                    {
                         <li>
-                            <div class="collapsible-header disabled">@item.Name <button class="btn myoffer disabled">Oczekuje</button></div>
+                            @if (item.Value == 0)
+                            { <button class="btn rerunDeal" id="cancelRerun" data-id="@item.ID">Odrzuć</button><button class="btn rerunDeal" id="rerunDeal" data-id="@item.ID" data-user1="@item.User2_Login" data-user2="@item.Login">Proponuj odnowienie (@item.LogDays dni.)</button>
+                            <div class="collapsible-header disabled">@item.Name</div>
+                            }
+                            else
+                            {
+                                <div class="collapsible-header">@item.Name</div>
+                            }
                             <div class="collapsible-body">
                                 <p>
-                                    Wspólnik: @item.User2_Login<br />
-                                    Produkcja dla mnie: @item.Percent_User1<br />
+
+                                    @if (item.Login == User.Identity.Name)
+                                    {
+                                        <span>Wspólnik: @item.User2_Login<br /></span>
+                                        <span>Procent produktu dla mnie: @item.Percent_User2</span><br />
+                                    }
+                                    else
+                                    {
+                                        <span>Wspólnik: @item.Login<br /></span>
+                                        <span>Procent produktu dla mnie: @item.Percent_User1</span><br />
+                                    }
                                     @if (item.Owner == true)
                                     {
                                         <span>Budynek stoi na twojej działce</span><br />
@@ -132,26 +97,61 @@
                                     {
                                         <span>Budynek stoi na działce wspólnika</span><br />
                                     }
-                                    Umowa na @item.LogDays dni.<br />
+                                    Umowa zawarta na @item.LogDays dni.<br />
+                                    @if (item.Value > 1)
+                                    {
+                                        <span>Umowa wygasa za @item.Value dni</span>
+                                    }
+                                    else if (item.Value == 1)
+                                    {
+                                        <span>Umowa wygasa za @item.Value dzień</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Umowa wygasa dziś</span>
+                                    }
                                 </p>
                             </div>
                         </li>
                     }
-                    else
+                    else if (item.IsActive == false)
                     {
-                        <li>
-                            <div class="collapsible-header disabled">
-                                @item.Name <button data-target="officeDealShow" onclick='showDeal("@item.ID","@item.Login", "@item.Percent_User1", "@item.Name","@item.Owner.ToString()")' class="btn modal-trigger officeDealShow">Zobacz ofertę</button>
-                            </div>
-                        </li>
+                        if (item.Login == User.Identity.Name)
+                        {
+                            <li>
+                                <div class="collapsible-header disabled">@item.Name <button class="btn myoffer disabled">Oczekuje</button></div>
+                                <div class="collapsible-body">
+                                    <p>
+                                        Wspólnik: @item.User2_Login<br />
+                                        Produkcja dla mnie: @item.Percent_User1<br />
+                                        @if (item.Owner == true)
+                                        {
+                                            <span>Budynek stoi na twojej działce</span><br />
+                                        }
+                                        else
+                                        {
+                                            <span>Budynek stoi na działce wspólnika</span><br />
+                                        }
+                                        Umowa na @item.LogDays dni.<br />
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <div class="collapsible-header disabled">
+                                    @item.Name <button data-target="officeDealShow" onclick='showDeal("@item.ID","@item.Login", "@item.Percent_User1", "@item.Name","@item.Owner.ToString()")' class="btn modal-trigger officeDealShow">Zobacz ofertę</button>
+                                </div>
+                            </li>
+                        }
                     }
                 }
-            }
-        </ul>
+            </ul>
 
+        </div>
     </div>
 </div>
-
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 
@@ -193,6 +193,12 @@
     var user;
 
     function showDeal(id, login, percent, building, owner) {
+
+        $("#login").empty();
+        $("#procent").empty();
+        $("#procentproduktu").empty();
+        $("#budynek").empty();
+        $("#mapa").empty();
 
         offer_id = id;
         user = login;
@@ -276,9 +282,8 @@
     });
 
     $('#dealList').slimScroll({
-        color: '#000',
         size: '10px',
-        height: '300px',
-        alwaysVisible: false
+        height: '350px',
+        alwaysVisible: true
     });
 </script>

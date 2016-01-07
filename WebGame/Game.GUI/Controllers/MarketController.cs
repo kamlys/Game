@@ -64,8 +64,11 @@ namespace Game.GUI.Controllers
             {
                 errors = new List<string>();
             }
-
-            if (_marketService.SellProduct(productid, value, User.Identity.Name))
+            if(value<=0)
+            {
+                errors.Add("Nie można tak.");
+            }
+            else if (_marketService.SellProduct(productid, value, User.Identity.Name))
             {
                 errors.Add("Sukces!");
                 errors.Add("+$" + money);

@@ -115,41 +115,44 @@ namespace Game.Service.Table
             var uID = _user.GetAll().First(i => i.Login == user).ID;
             bool ifcan = true;
 
-            if(_userProducts.GetAll().Any(i=> i.Product_ID == product.ID))
+            if (value>0)
             {
-                _userProducts.GetAll().First(i => i.Product_ID == product.ID && i.User_ID == uID).Value += value;
-            }
-            else
-            {
-                _userProducts.Add(new UserProducts
+                if (_userProducts.GetAll().Any(i => i.Product_ID == product.ID))
                 {
-                    Product_ID = product.ID,
-                    Product_Name = product.Name,
-                    User_ID = uID,
-                    Value = value
-                });
-            }
-
-            foreach (var item in _userProducts.GetAll().Where(i => i.Product_ID == product.ID))
-            {
-                foreach (var item2 in _productRequirement.GetAll().Where(i => i.Base_ID == product.ID))
-                {
-                    int temp = value * item2.Value;
-                    int productValue = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value;
-                   
-
-                    if(item2.Value > productValue)
-                    {
-                        ifcan = false;
-                    }
-
-                    _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value -= temp;
+                    _userProducts.GetAll().First(i => i.Product_ID == product.ID && i.User_ID == uID).Value += value;
                 }
-            }
+                else
+                {
+                    _userProducts.Add(new UserProducts
+                    {
+                        Product_ID = product.ID,
+                        Product_Name = product.Name,
+                        User_ID = uID,
+                        Value = value
+                    });
+                }
 
-            if (ifcan)
-            {
-                _unitOfWork.Commit();
+                foreach (var item in _userProducts.GetAll().Where(i => i.Product_ID == product.ID))
+                {
+                    foreach (var item2 in _productRequirement.GetAll().Where(i => i.Base_ID == product.ID))
+                    {
+                        int temp = value * item2.Value;
+                        int productValue = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value;
+
+
+                        if (item2.Value > productValue)
+                        {
+                            ifcan = false;
+                        }
+
+                        _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value -= temp;
+                    }
+                }
+
+                if (ifcan)
+                {
+                    _unitOfWork.Commit();
+                }
             }
         }
     }

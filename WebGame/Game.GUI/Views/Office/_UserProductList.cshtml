@@ -26,17 +26,27 @@
     </div>
 </div>
 
-@foreach (var item in Model.tableList)
-{
-    <div class="officeProduct">
-        <span class="name">@item.Name: @item.Value</span>
-        <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Name',@item.Value)"><i class="fa fa-shopping-cart"></i></button>
-    </div>
-}
+<div class="userProduct">
+    @foreach (var item in Model.tableList)
+    {
+        <div class="officeProduct">
+            <span class="name">@item.Name: @item.Value</span>
+            <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Name',@item.Value)"><i class="fa fa-shopping-cart"></i></button>
+        </div>
+    }
+</div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/js/UpdateRow.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.officeOfferAdd').leanModal();
+    });
+
+    $('.userProduct').slimScroll({
+        color: '#000',
+        size: '10px',
+        height: '350px',
+        alwaysVisible: true
     });
 </script>
