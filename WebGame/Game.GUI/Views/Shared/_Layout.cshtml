@@ -17,7 +17,20 @@
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="nav-wrapper" style="width: 360px">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="hide-on-med-and-down">
+                    <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
+
+                    <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
+
+                    <li><a href='@Url.Action("##", "##")'>Jak grać</a></li>
+
+                    <li><a href='@Url.Action("##", "##")'>Support</a></li>
+
+                    <li><a href='@Url.Action("Login", "User")'>Zaloguj</a></li>
+                </ul>
+
+                <ul class="side-nav" id="mobile-demo">
                     <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
 
                     <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
@@ -39,6 +52,7 @@
             </div>
 
             <div class="nav-wrapper">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="hide-on-med-and-down">
                     <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
 
@@ -56,6 +70,25 @@
 
 
                 </ul>
+
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
+
+                    <li><a href='@Url.Action("Index", "Office")'><i class="fa fa-building"></i> Biuro</a></li>
+
+                    <li><a href='@Url.Action("Index", "Message")' id="message"><i class="fa fa-envelope"></i> Wiadomości</a></li>
+
+                    <li><a href='@Url.Action("Index", "Market")'><i class="fa fa-shopping-cart"></i> Market</a></li>
+
+                    <li><a href='@Url.Action("##", "##")'>Kasyno</a></li>
+
+                    <li><a href='@Url.Action("Index", "Ranking")'><img src="~/Content/Images/trophy42.png" /> Ranking</a></li>
+
+                    <li><a href='@Url.Action("Profil", "User", new {User= User.Identity.Name})'><i class="fa fa-cog"></i> Ustawienia</a></li>
+
+
+                </ul>
+
             </div>
             <button class="btn right userLogout" id="userLogout" onclick="location.href='@Url.Action("Logout", "User")'"><i class="fa fa-sign-out"></i> Wyloguj</button>
                     }
@@ -95,6 +128,7 @@
     @RenderSection("scripts", required: false)
 
     <script>
+        $(".button-collapse").sideNav();
         $('.dropdown-button').dropdown({
             inDuration: 300,
             outDuration: 225,

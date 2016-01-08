@@ -38,13 +38,13 @@ namespace Game.GUI.Controllers
             ListMarketViewModel marketList = new ListMarketViewModel();
             marketList.marketList = new List<MarketViewModel>();
 
-            foreach (var item in _productService.GetProduct())
+            foreach (var item in _userProductService.GetUserProductList(User.Identity.Name))
             {
                 marketList.marketList.Add(new MarketViewModel
                 {
-                    Product_ID = item.ID,
-                    Product_Name = item.Alias,
-                    Price = item.Price_per_unit
+                    Product_ID = item.Product_ID,
+                    Product_Name = item.Product_Name,
+                    Price = item.Price
                 });
             }
 
@@ -64,9 +64,9 @@ namespace Game.GUI.Controllers
             {
                 errors = new List<string>();
             }
-            if(value<=0)
+            if (value <= 0)
             {
-                errors.Add("Nie można tak.");
+                errors.Add("Coś poszło nie tak.");
             }
             else if (_marketService.SellProduct(productid, value, User.Identity.Name))
             {

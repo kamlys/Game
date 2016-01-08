@@ -11,7 +11,7 @@
         <li class="systemOfferItem">
             <p class="productName">@item.Product_Name</p><p class="productPrice">$@item.Price/szt</p>
             <button class="btn sellProduct" id="sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
-            <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" onkeypress = "return isNumberKey(event)">
+            <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" onkeypress="return isNumberKey(event, @item.Product_ID)">
         </li>
     }
 </ul>
@@ -19,10 +19,13 @@
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script>
-    function isNumberKey(evt) {
+    function isNumberKey(evt, id) {
+
         var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode <= 48 || charCode > 57))
+        if (charCode > 31 && (charCode < 47 || charCode > 57)) {
+
             return false;
+        }
         return true;
     }
 

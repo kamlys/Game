@@ -61,16 +61,18 @@
                 <h3>Wyślij wiadmość:</h3>
                 @using (Html.BeginForm("SentMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
+                    @Html.AntiForgeryToken()
+
                     @Html.HiddenFor(m => m.tableView.Login);
                     @Html.Hidden(User.Identity.Name);
                     <div class="input-field col s12">
-                        @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
-                        <label for="Login">Tytuł:</label>
+                        @Html.TextBoxFor(m => m.tableView.Theme, new { @placeholder = "", @class = "validate", @maxlength = "150" })
+                        <label for="tableView_Theme">Tytuł:</label>
                     </div>
 
                     <div class="input-field col s12">
-                        @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
-                        <label for="Login">Treść:</label>
+                        @Html.TextAreaFor(m => m.tableView.Content, new { @placeholder = "", @class = "materialize-textarea"})
+                        <label for="Content">Treść:</label>
                     </div>
                     <button type="submit" class="btn waves-effect waves-light addButton sentMessage" name="action">Wyślij</button>
                 }
@@ -210,13 +212,13 @@
 
 
     $(document).ready(function () {
-
         $('.sentMessage').attr("disabled", true);
         $('.changePassword').attr("disabled", true);
 
         $("#right").keyup(function () {
             if ($("#tableView_Theme").val() != ""
-                && $("#tableView_Content").val() != "") {
+                && $("#tableView_Content").val() != ""
+                && $("tableView_Theme").length > 150) {
                 $('.sentMessage').attr("disabled", false);
             }
             else {

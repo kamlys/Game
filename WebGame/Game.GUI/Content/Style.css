@@ -2,6 +2,9 @@
 html, body {
   background-color: #2c3e50; }
 
+.preloader-wrapper .spinner-layer {
+  background: none; }
+
 .container, .row {
   min-height: 500px; }
 
@@ -25,7 +28,7 @@ nav {
     min-width: 80px;
     width: auto;
     height: 45px;
-    line-height: 40px;
+    line-height: 35px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
   nav .userDolar:hover {
     color: #51B3CE;
@@ -203,6 +206,24 @@ nav {
       list-style-type: none; }
 
 /*Lista budynków do budowy*/
+@media screen and (max-width: 750px) {
+  .buildingList {
+    width: 50% !important;
+    margin-left: auto !important;
+    margin-right: auto !important; } }
+
+@media screen and (min-width: 751px) and (max-width: 860px) {
+  .buildingList {
+    margin: 15px 0 0 -35px !important; } }
+
+@media screen and (min-width: 861px) and (max-width: 1000px) {
+  .buildingList {
+    margin: 15px 0 0 0 !important; } }
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+  .buildingList {
+    margin: 15px 0 0 -40px !important; } }
+
 .buildingList {
   margin: 15px 0 0 0;
   height: 400px;
@@ -217,8 +238,7 @@ nav {
     margin-top: 0px; }
   .buildingList .btn {
     background-color: #214954;
-    max-width: 250px;
-    width: 100%;
+    width: 88%;
     margin: 5px;
     height: 40px;
     line-height: 40px;
@@ -244,15 +264,62 @@ nav {
   .buildingList .tabs .indicator {
     background-color: #214954; }
 
-.mapBox {
-  margin-top: 30px;
-  width: 540px;
-  margin-left: auto;
-  margin-right: auto;
-  /*padding: 20px 20px 20px 20px;*/
-  border: 20px solid #18212A;
-  background-color: #2f3b46;
-  display: block; }
+@media screen and (max-width: 750px) {
+  .mapBox {
+    margin-top: 450px !important;
+    margin-left: auto !important;
+    margin-right: auto !important; } }
+
+@media screen and (max-width: 861px) {
+  .mapBox {
+    margin-top: 30px;
+    margin-right: -35px; } }
+
+@media screen and (max-width: 1000px) {
+  .mapBox {
+    margin-top: 30px;
+    width: 540px;
+    margin-left: auto;
+    /*padding: 20px 20px 20px 20px;*/
+    border: 20px solid #18212A;
+    background-color: #2f3b46;
+    display: block; } }
+
+@media screen and (min-width: 1000px) {
+  .mapBox {
+    margin-top: 30px;
+    width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    /*padding: 20px 20px 20px 20px;*/
+    border: 20px solid #18212A;
+    background-color: #2f3b46;
+    display: block; } }
+
+/*InfoBox*/
+@media screen and (max-width: 750px) {
+  .infoBox {
+    width: 50% !important;
+    float: right !important;
+    margin-top: -975px !important; } }
+
+@media screen and (min-width: 751px) and (max-width: 860px) {
+  .infoBox {
+    margin: -155px 0 0 -35px !important; } }
+
+@media screen and (min-width: 861px) and (max-width: 1000px) {
+  .infoBox {
+    float: left !important;
+    margin: -155px 0 0 0 !important; } }
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+  .infoBox {
+    margin: -555px -40px 0 0 !important;
+    float: right !important; } }
+
+@media screen and (min-width: 1000px) {
+  .infoBox {
+    float: right !important; } }
 
 .infoBox {
   margin: -555px 0 0 0;
@@ -262,7 +329,6 @@ nav {
   color: white;
   display: block;
   height: 400px;
-  float: right !important;
   font-size: 12px;
   width: 100%; }
   .infoBox .slimScrollBar {
@@ -332,14 +398,15 @@ nav {
   #Notification #notificationList .newNotification {
     background-color: #214954;
     border-radius: 0;
-    height: 40px;
+    min-height: 40px;
+    height: auto;
     line-height: 40px;
     width: 88%;
     margin-bottom: 10px;
     font-size: 12px;
     color: #fff;
     cursor: default;
-    font-size: 12px; }
+    font-size: 85%; }
     #Notification #notificationList .newNotification .notificationLink:hover {
       color: #51B3CE;
       font-size: 13px;
@@ -396,8 +463,13 @@ nav {
   background-color: #214954; }
 
 /*****************/
+@media screen and (max-width: 650px) {
+  #products {
+    font-size: 50% !important; } }
+
 #products {
-  cursor: default; }
+  cursor: default;
+  font-size: 70%; }
 
 .productList {
   display: block;
@@ -415,7 +487,7 @@ nav {
   .productList .productItem {
     display: inline-block;
     color: white;
-    margin-right: 20px; }
+    margin-right: 10px; }
 
 /*TabsAdmin*/
 .tabs {
@@ -557,14 +629,18 @@ nav {
 /*Biuro*/
 .office {
   margin-top: 30px; }
+  @media screen and (max-width: 950px) {
+    .office .uBuildingList {
+      width: 100% !important;
+      margin-bottom: 20px; } }
   .office .uBuildingList {
     background-color: #18212A;
     min-height: 420px;
     display: inline-block;
     float: left;
     padding: 20px 20px 20px 20px;
-    width: 49% !important;
-    border: none; }
+    border: none;
+    width: 49%; }
     .office .uBuildingList .progress {
       height: 10px;
       margin-bottom: 5px;
@@ -602,12 +678,15 @@ nav {
       margin-top: -5px;
       margin-bottom: 5px;
       border: none; }
+  @media screen and (max-width: 950px) {
+    .office .uProductList {
+      width: 100% !important; } }
   .office .uProductList {
     float: right;
     background-color: #18212A;
     min-height: 400px;
     padding: 20px 20px 20px 20px;
-    width: 49% !important; }
+    width: 49%; }
     .office .uProductList .slimScrollBar {
       background: #8581ce !important; }
     .office .uProductList h5 {
@@ -635,6 +714,9 @@ nav {
           color: #fff !important; }
     .office .uProductList .addButton {
       background-color: #343256 !important; }
+  @media screen and (max-width: 950px) {
+    .office .uDealList {
+      width: 100% !important; } }
   .office .uDealList {
     background-color: #18212A;
     margin-top: 30px;
@@ -642,7 +724,7 @@ nav {
     display: inline-block;
     float: right;
     padding: 20px 20px 20px 20px;
-    width: 49% !important; }
+    width: 49%; }
     .office .uDealList .slimScrollBar {
       background: #8581ce !important; }
     .office .uDealList #dealInner {
@@ -692,6 +774,9 @@ nav {
       width: 200px; }
     .office .uDealList .addButton {
       background-color: #343256 !important; }
+  @media screen and (max-width: 950px) {
+    .office .uProductRequirementList {
+      width: 100% !important; } }
   .office .uProductRequirementList {
     background-color: #18212A;
     margin-top: 30px;
@@ -699,7 +784,7 @@ nav {
     display: inline-block;
     float: left;
     padding: 20px 20px 20px 20px;
-    width: 49% !important; }
+    width: 49%; }
     .office .uProductRequirementList .slimScrollBar {
       background: #343256 !important; }
     .office .uProductRequirementList h5 {
@@ -750,7 +835,7 @@ nav {
   background-color: #18212A;
   margin-top: 40px;
   padding: 5px 20px 20px 20px;
-  min-height: 600px; }
+  min-height: 650px; }
   .profil h4 {
     color: #fff;
     display: inline-block; }
@@ -803,6 +888,8 @@ nav {
         height: 46px;
         line-height: 46px;
         padding-left: 20px; }
+    .profil #right .character-counter {
+      color: #fff; }
     .profil #right input[type=text], .profil #right textarea.materialize-textarea, .profil #right input[type=password], .profil #right input[type=email].valid, .profil #right input[type=email] {
       color: #fff !important; }
 

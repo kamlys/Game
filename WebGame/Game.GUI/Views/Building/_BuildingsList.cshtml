@@ -8,11 +8,11 @@
     {
         if (item.Price <= Model.tableView.Value)
         {
-            <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height,@item.DealID)"><span class="buildingName">@item.Alias</span><span class="buildingPrice"><i class="fa fa-usd"></i>@item.Price</span></p>
+            <span class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height,@item.DealID)"><span class="buildingName">@item.Alias</span><span class="buildingPrice"><i class="fa fa-usd"></i>@item.Price</span></span>
         }
         else
         {
-            <p class="btn disabled"><span class="buildingName">@item.Alias</span>  <span class="buildingPrice"><i class="fa fa-usd"></i>@item.Price</span></p>
+            <span class="btn disabled"><span class="buildingName">@item.Alias</span>  <span class="buildingPrice"><i class="fa fa-usd"></i>@item.Price</span></span>
         }
     }
 </div>

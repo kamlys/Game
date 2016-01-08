@@ -87,7 +87,8 @@ namespace Game.Service.Table
                         Login = _user.GetAll().First(i => i.ID == item.User_ID).Login,
                         Product_Name = item.Product_Name,
                         Value = item.Value,
-                        Product_ID = item.Product_ID
+                        Product_ID = item.Product_ID,
+                        Price = _product.Get(item.Product_ID).Price_per_unit
                     });
                 }
                 catch (Exception)
