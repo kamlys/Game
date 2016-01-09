@@ -37,6 +37,39 @@ html, body {
 nav {
     background-color: $secondColor;
 
+    .button-collapse {
+        font-size: 22px;
+
+    i {
+        font-size: 22px;
+        margin-right: 5px;
+    }
+}
+
+.side-nav {
+    background-color: $secondColor;
+
+    a {
+        color: #fff !important;
+    }
+
+    li {
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .userDolar {
+        display: none;
+    }
+
+    .dolarMenu {
+        color: #fff;
+        text-align: center;
+        cursor: default;
+    }
+}
+
+@media screen and (min-width: 993px) {
     .userDolar {
         color: $greyColor;
         float: left;
@@ -57,8 +90,15 @@ nav {
         color: #51B3CE;
         cursor: default;
     }
+}
 
+@media screen and (max-width: 992px) {
+    .userLogout {
+        display: none;
+    }
+}
 
+@media screen and (min-width: 993px) {
     .userLogout {
         margin: -53px 40px 0 0;
         min-width: 80px;
@@ -86,6 +126,7 @@ nav {
     }
 }
 
+}
 /*Panel logowania*/
 .loginForm {
     border-top: 5px solid $logColor;
@@ -243,7 +284,6 @@ nav {
         }
     }
 }
-
 /*Recovery View*/
 .recoveryForm {
     border-top: 5px solid #75bf3b;
@@ -321,8 +361,6 @@ nav {
         }
     }
 }
-
-
 /*Lista budynków do budowy*/
 @media screen and (max-width: 750px) {
     .buildingList {
@@ -462,10 +500,7 @@ nav {
         display: block;
     }
 }
-
 /*InfoBox*/
-
-
 @media screen and (max-width: 750px) {
     .infoBox {
         width: 50% !important;
@@ -594,7 +629,6 @@ nav {
         }
     }
 }
-
 /*Powiadomienia*/
 #Notification {
     #notificationList {
@@ -632,7 +666,6 @@ nav {
     }
 }
 /******************/
-
 /*List znajomych*/
 .infoBox {
     .friend {
@@ -695,7 +728,6 @@ nav {
         background-color: $friendColorList;
     }
 }
-
 /*****************/
 @media screen and (max-width: 650px) {
     #products {
@@ -728,7 +760,6 @@ nav {
         margin-right: 10px;
     }
 }
-
 /*TabsAdmin*/
 .tabs {
     margin-top: 30px;
@@ -923,13 +954,11 @@ nav {
         }
     }
 }
-
 /*Przycisk dodający - AdminPanel*/
 .addButton {
     float: right;
     margin-bottom: 10px;
 }
-
 /*Biuro*/
 .office {
     margin-top: 30px;
@@ -941,7 +970,7 @@ nav {
         }
     }
 
-   
+
     .uBuildingList {
         background-color: $secondColor;
         min-height: 420px;
@@ -1166,7 +1195,7 @@ nav {
         }
     }
 
-     @media screen and (max-width: 950px) {
+    @media screen and (max-width: 950px) {
         .uProductRequirementList {
             width: 100% !important;
         }
@@ -1345,7 +1374,6 @@ nav {
         }
     }
 }
-
 /*Ranking*/
 .Ranking {
     background-color: #fff;
@@ -1368,8 +1396,6 @@ nav {
         }
     }
 }
-
-
 /*Wiadomości*/
 .Message {
     background-color: #fff;
@@ -1515,8 +1541,6 @@ nav {
         }
     }
 }
-
-
 /*Validation*/
 .validation {
     display: inline-block;
@@ -1571,8 +1595,6 @@ nav {
         }
     }
 }
-
-
 /*Footer*/
 footer {
     bottom: 0px;
