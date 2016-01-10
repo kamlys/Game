@@ -40,92 +40,91 @@ nav {
     .button-collapse {
         font-size: 22px;
 
-    i {
-        font-size: 22px;
-        margin-right: 5px;
-    }
-}
-
-.side-nav {
-    background-color: $secondColor;
-
-    a {
-        color: #fff !important;
+        i {
+            font-size: 22px;
+            margin-right: 5px;
+        }
     }
 
-    li {
-    }
-}
+    .side-nav {
+        background-color: $secondColor;
 
-@media screen and (max-width: 992px) {
-    .userDolar {
-        display: none;
-    }
+        a {
+            color: #fff !important;
+        }
 
-    .dolarMenu {
-        color: #fff;
-        text-align: center;
-        cursor: default;
-    }
-}
-
-@media screen and (min-width: 993px) {
-    .userDolar {
-        color: $greyColor;
-        float: left;
-        margin-left: 20px;
-        margin-top: 10px;
-        padding: 5px 10px 5px 10px;
-        display: inline-block;
-        background-color: #214954;
-        text-align: center;
-        min-width: 80px;
-        width: auto;
-        height: 45px;
-        line-height: 35px;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        li {
+        }
     }
 
-    .userDolar:hover {
-        color: #51B3CE;
-        cursor: default;
+    @media screen and (max-width: 992px) {
+        .userDolar {
+            display: none;
+        }
+
+        .dolarMenu {
+            color: #fff;
+            text-align: center;
+            cursor: default;
+        }
     }
-}
 
-@media screen and (max-width: 992px) {
-    .userLogout {
-        display: none;
-    }
-}
-
-@media screen and (min-width: 993px) {
-    .userLogout {
-        margin: -53px 40px 0 0;
-        min-width: 80px;
-        text-align: center;
-        height: 45px;
-        line-height: 45px;
-        font-size: 15px;
-        background: #214954;
-        color: $greyColor;
-        border-radius: 0;
-
-        .fa {
-            font-size: 150%;
+    @media screen and (min-width: 993px) {
+        .userDolar {
             color: $greyColor;
+            float: left;
+            margin-left: 20px;
+            margin-top: 10px;
+            padding: 5px 10px 5px 10px;
+            display: inline-block;
+            background-color: #214954;
+            text-align: center;
+            min-width: 80px;
+            width: auto;
+            height: 45px;
+            line-height: 35px;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
         }
-    }
 
-    .userLogout:hover {
-        color: #51B3CE;
-        background-color: #214954 !important;
-
-        .fa {
+        .userDolar:hover {
             color: #51B3CE;
+            cursor: default;
         }
     }
-}
 
+    @media screen and (max-width: 992px) {
+        .userLogout {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 993px) {
+        .userLogout {
+            margin: -53px 40px 0 0;
+            min-width: 80px;
+            text-align: center;
+            height: 45px;
+            line-height: 45px;
+            font-size: 15px;
+            background: #214954;
+            color: $greyColor;
+            border-radius: 0;
+
+            .fa {
+                font-size: 150%;
+                color: $greyColor;
+            }
+        }
+
+        .userLogout:hover {
+            color: #51B3CE;
+            background-color: #214954 !important;
+
+            .fa {
+                color: #51B3CE;
+            }
+        }
+    }
 }
 /*Panel logowania*/
 .loginForm {
@@ -134,7 +133,7 @@ nav {
     background-color: $secondColor;
     margin-top: 100px;
     padding: 0 30px 0 30px;
-    width: 40%;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
 
@@ -216,7 +215,7 @@ nav {
     background-color: $secondColor;
     margin-top: 100px;
     padding: 0 30px 0 30px;
-    width: 40%;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
 
@@ -291,7 +290,7 @@ nav {
     background-color: $secondColor;
     margin-top: 100px;
     padding: 0 30px 0 30px;
-    width: 500px;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
 
@@ -838,6 +837,25 @@ nav {
     margin-top: 30px;
     min-height: 500px;
 
+    .noOffer {
+        display: block;
+        color: #fff;
+        margin-left: 20px;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .tabs .tab {
+        a:hover {
+            font-weight: bold;
+            border: none;
+        }
+    }
+
+    .tabs .indicator {
+        background-color: $marketColoR;
+    }
+
     h5 {
         margin: 20px;
         display: inline-block;
@@ -926,6 +944,10 @@ nav {
         }
     }
 
+    .btn {
+        background-color: $marketColoR;
+    }
+
     .systemOfferBtn {
         margin: 20px !important;
         background-color: $marketColoR;
@@ -935,6 +957,14 @@ nav {
         margin-left: 20px;
         display: inline-block;
         background-color: $marketColoR;
+    }
+
+    .offerSellAdd {
+        margin: 10px 0 10px 10px;
+    }
+
+    .offerBuyAdd {
+        margin: 10px 0 10px 10px;
     }
 
     .addButton {

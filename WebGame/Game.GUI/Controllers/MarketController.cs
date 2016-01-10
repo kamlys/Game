@@ -29,7 +29,87 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View(GetOfferList());
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult _SellOffer()
+        {
+            ListMarketViewModel marketList = new ListMarketViewModel();
+            marketList.marketList = new List<MarketViewModel>();
+
+            foreach (var item in _marketService.GetSellOffer())
+            {
+                marketList.marketList.Add(new MarketViewModel
+                {
+                    ID = item.ID,
+                    Login = item.Login,
+                    User_ID = item.User_ID,
+                    Product_ID = item.Product_ID,
+                    Product_Name = item.Product_Name,
+                    Number = item.Number,
+                    Price = item.Price,
+                    TypeOffer = item.TypeOffer
+                });
+            }
+
+            var prod = _userProductService.GetUserProductList(User.Identity.Name);
+            var aprod = _productService.GetProduct();
+            var opts = prod.ToList<UserProductDto>();
+            var aopts = aprod.ToList<ProductDto>();
+            var optsString = new List<string>();
+            foreach (var o in opts)
+            {
+                if (!optsString.Contains(o.Product_Name))
+                {
+                    optsString.Add(o.Product_Name);
+                }
+            }
+
+
+            marketList.options = optsString.ToArray();
+
+            return View("~/Views/Market/_SellOffer.cshtml", marketList);
+        }
+
+        [Authorize]
+        public ActionResult _BuyOffer()
+        {
+            ListMarketViewModel marketList = new ListMarketViewModel();
+            marketList.marketList = new List<MarketViewModel>();
+
+            foreach (var item in _marketService.GetBuyOffer())
+            {
+                marketList.marketList.Add(new MarketViewModel
+                {
+                    ID = item.ID,
+                    Login = item.Login,
+                    User_ID = item.User_ID,
+                    Product_ID = item.Product_ID,
+                    Product_Name = item.Product_Name,
+                    Number = item.Number,
+                    Price = item.Price,
+                    TypeOffer = item.TypeOffer
+                });
+            }
+
+            var prod = _userProductService.GetUserProductList(User.Identity.Name);
+            var aprod = _productService.GetProduct();
+            var opts = prod.ToList<UserProductDto>();
+            var aopts = aprod.ToList<ProductDto>();
+            var optsString = new List<string>();
+            foreach (var o in aopts)
+            {
+                if (!optsString.Contains(o.Alias))
+                {
+                    optsString.Add(o.Alias);
+                }
+            }
+
+
+            marketList.allOptions = optsString.ToArray();
+
+            return View("~/Views/Market/_BuyOffer.cshtml", marketList);
         }
 
         [Authorize]
@@ -53,7 +133,7 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public JsonResult SellProduct(int productid, int value, int money, string name)
+        public JsonResult SellProduct(int productid, int value, int money, string name,bool type)
         {
             List<string> errors;
             if (Session["val"] != null)
@@ -72,7 +152,7 @@ namespace Game.GUI.Controllers
             {
                 errors.Add("Sukces!");
                 errors.Add("+$" + money);
-                errors.Add(name+" -" + value);
+                errors.Add(name + " -" + value);
             }
             else
             {
@@ -82,40 +162,40 @@ namespace Game.GUI.Controllers
             return new JsonResult { Data = true };
         }
 
-        [Authorize]
-        public ListMarketViewModel GetOfferList()
-        {
-            ListMarketViewModel marketList = new ListMarketViewModel();
-            marketList.marketList = new List<MarketViewModel>();
+        //[Authorize]
+        //public ListMarketViewModel GetOfferList()
+        //{
+        //    ListMarketViewModel marketList = new ListMarketViewModel();
+        //    marketList.marketList = new List<MarketViewModel>();
 
-            foreach (var item in _marketService.GetOffer())
-            {
-                marketList.marketList.Add(new MarketViewModel
-                {
-                    ID = item.ID,
-                    Login = item.Login,
-                    User_ID = item.User_ID,
-                    Product_ID = item.Product_ID,
-                    Product_Name = item.Product_Name,
-                    Number = item.Number,
-                    Price = item.Price
-                });
-            }
-            var prod = _userProductService.GetUserProductList(User.Identity.Name);
-            var opts = prod.ToList<UserProductDto>();
-            var optsString = new List<string>();
-            foreach (var o in opts)
-            {
-                if (!optsString.Contains(o.Product_Name))
-                {
-                    optsString.Add(o.Product_Name);
-                }
-            }
+        //    foreach (var item in _marketService.GetOffer())
+        //    {
+        //        marketList.marketList.Add(new MarketViewModel
+        //        {
+        //            ID = item.ID,
+        //            Login = item.Login,
+        //            User_ID = item.User_ID,
+        //            Product_ID = item.Product_ID,
+        //            Product_Name = item.Product_Name,
+        //            Number = item.Number,
+        //            Price = item.Price
+        //        });
+        //    }
+        //    var prod = _userProductService.GetUserProductList(User.Identity.Name);
+        //    var opts = prod.ToList<UserProductDto>();
+        //    var optsString = new List<string>();
+        //    foreach (var o in opts)
+        //    {
+        //        if (!optsString.Contains(o.Product_Name))
+        //        {
+        //            optsString.Add(o.Product_Name);
+        //        }
+        //    }
 
-            marketList.options = optsString.ToArray();
+        //    marketList.options = optsString.ToArray();
 
-            return marketList;
-        }
+        //    return marketList;
+        //}
 
 
 
@@ -140,19 +220,14 @@ namespace Game.GUI.Controllers
             _marketDto.Product_Name = marketList.marketView.Product_Name;
             _marketDto.Number = marketList.marketView.Number;
             _marketDto.Price = marketList.marketView.Price;
+            _marketDto.TypeOffer = marketList.marketView.TypeOffer;
 
             if (!_marketService.AddOffer(_marketDto))
             {
                 errors.Add("Coś poszło nie tak. Spróbuj ponownie.");
                 Session["val"] = errors.ToArray<string>();
-
-                return View("~/Views/Market/Index.cshtml", GetOfferList());
             }
-            else
-            {
-                return View("~/Views/Market/Index.cshtml", GetOfferList());
-            }
-
+            return View("~/Views/Market/Index.cshtml");
 
         }
 
@@ -167,6 +242,7 @@ namespace Game.GUI.Controllers
             marketDto.Price = a.Price;
             marketDto.Product_ID = a.Product_ID;
             marketDto.User_ID = a.User_ID;
+            marketDto.TypeOffer = a.TypeOffer;
 
             if (_marketService.BuyOffer(marketDto, User.Identity.Name))
             {

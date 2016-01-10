@@ -10,5 +10,7 @@ namespace Game.GUI.ViewModels.Market
         public MarketViewModel marketView { get; set; }
         public List<MarketViewModel> marketList { get; set; }
         public string[] options { get; set; }
+        public string[] allOptions { get; set; }
+
     }
 }

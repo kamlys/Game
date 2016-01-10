@@ -376,6 +376,8 @@
     <Content Include="Views\User\RecoveryPassword.cshtml" />
     <Content Include="Views\Market\_SystemOffer.cshtml" />
     <Content Include="Views\Office\_UserProduct.cshtml" />
+    <Content Include="Views\Market\_BuyOffer.cshtml" />
+    <Content Include="Views\Market\_SellOffer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

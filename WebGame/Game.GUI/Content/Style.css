@@ -80,7 +80,7 @@ nav {
   background-color: #18212A;
   margin-top: 100px;
   padding: 0 30px 0 30px;
-  width: 40%;
+  width: 400px;
   margin-left: auto;
   margin-right: auto; }
   .loginForm #Login, .loginForm #Password {
@@ -133,7 +133,7 @@ nav {
   background-color: #18212A;
   margin-top: 100px;
   padding: 0 30px 0 30px;
-  width: 40%;
+  width: 400px;
   margin-left: auto;
   margin-right: auto; }
   .registerForm #Login, .registerForm #Password, .registerForm #Email, .registerForm #comparePassword {
@@ -183,7 +183,7 @@ nav {
   background-color: #18212A;
   margin-top: 100px;
   padding: 0 30px 0 30px;
-  width: 500px;
+  width: 400px;
   margin-left: auto;
   margin-right: auto; }
   .recoveryForm #Login, .recoveryForm #Password, .recoveryForm #Email, .recoveryForm #comparePassword, .recoveryForm #RecoveryCode {
@@ -574,6 +574,17 @@ nav {
   background-color: #18212A;
   margin-top: 30px;
   min-height: 500px; }
+  .market .noOffer {
+    display: block;
+    color: #fff;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 18px; }
+  .market .tabs .tab a:hover {
+    font-weight: bold;
+    border: none; }
+  .market .tabs .indicator {
+    background-color: #563232; }
   .market h5 {
     margin: 20px;
     display: inline-block;
@@ -624,6 +635,8 @@ nav {
       float: right;
       display: block;
       background-color: #563232; }
+  .market .btn {
+    background-color: #563232; }
   .market .systemOfferBtn {
     margin: 20px !important;
     background-color: #563232; }
@@ -631,6 +644,10 @@ nav {
     margin-left: 20px;
     display: inline-block;
     background-color: #563232; }
+  .market .offerSellAdd {
+    margin: 10px 0 10px 10px; }
+  .market .offerBuyAdd {
+    margin: 10px 0 10px 10px; }
   .market .addButton {
     background-color: #563232 !important; }
 

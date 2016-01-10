@@ -10,6 +10,8 @@ namespace Game.Service.Interfaces
     public interface IMarketService
     {
         List<MarketDto> GetOffer();
+        List<MarketDto> GetSellOffer();
+        List<MarketDto> GetBuyOffer();
         bool BuyOffer(MarketDto market, string User);
         bool AddOffer(MarketDto offer);
         void Add(MarketDto market);

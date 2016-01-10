@@ -1,0 +1,81 @@
+﻿@model Game.GUI.ViewModels.Market.ListMarketViewModel
+@{
+    Layout = null;
+}
+
+<div id="offerSellAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddOffer", "Market", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.HiddenFor(m => m.marketView.TypeOffer, new { Value = true })
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.marketView.Product_Name, new SelectList(Model.options), new { @class = "validate" })
+                <label for="Product_Name">Nazwa produktu</label>
+            </div>
+
+            <div class="input-field col s6" id="Number">
+                @Html.TextBoxFor(m => m.marketView.Number, new { @type = "number", @min = "1", @placeholder = "", @class = "validate" })
+                <label for="Number">Ilość</label>
+            </div>
+
+            <div class="input-field col s6" id="Price">
+                @Html.TextBoxFor(m => m.marketView.Price, new { @type = "number", @min = "1", @placeholder = "", @class = "validate" })
+                <label for="Price">Cena za sztukę</label>
+            </div>
+
+            <button type="submit" class="btn waves-effect waves-light addButton" name="action">Zapisz</button>
+        }
+    </div>
+</div>
+<button data-target="offerSellAdd" class="btn modal-trigger offerAdd offerSellAdd">Wystaw ofertę sprzedaży</button>
+
+@if (!Model.marketList.Any())
+            {
+    <span class="noOffer">Brak ofert</span>
+}
+else
+{
+    <table class="highlight bordered centered">
+
+        <thead>
+            <tr>
+                <th>Wystwaiający</th>
+                <th>Produkt</th>
+                <th>Ilość</th>
+                <th>Cena/szt.</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.marketList)
+            {
+                <tr>
+                    <td>@item.Login</td>
+                    <td>@item.Product_Name</td>
+                    <td>@item.Number</td>
+                    <td>@item.Price</td>
+                    <td id="buyTd">
+                        @if (User.Identity.Name != item.Login)
+                        {
+                            <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" max="@item.Number" value="1">
+                            <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton_@item.Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, true)">Kup</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/materialize.min.js"></script>
+<script>
+    $('.offerSellAdd').leanModal();
+
+</script>
