@@ -2709,7 +2709,7 @@ video.responsive-video {
   height: auto;
 }
 
-.pagination li {
+/*.pagination li {
   display: inline-block;
   font-size: 1.2rem;
   padding: 0 10px;
@@ -2758,7 +2758,7 @@ video.responsive-video {
     overflow: hidden;
     white-space: nowrap;
   }
-}
+}*/
 
 .breadcrumb {
   font-size: 18px;

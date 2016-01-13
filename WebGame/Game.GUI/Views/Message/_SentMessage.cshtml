@@ -1,10 +1,11 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model PagedList.IPagedList<Game.GUI.ViewModels.TableViewModel>
+@using PagedList.Mvc;
 @{
     Layout = null;
 }
 
 <div class="sentMessage">
-    @if (!Model.tableList.Any())
+    @if (!Model.Any())
     {
         <span class="noRow">Brak wiadomości</span>
     }
@@ -20,15 +21,19 @@
             </thead>
 
             <tbody>
-                @foreach (var item in Model.tableList)
+                @foreach (var item in Model)
                 {
                     <tr onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
-                        <td>@item.Customer_Login</td>
-                        <td>@item.Theme</td>
-                        <td>@item.PostDate</td>
+                        <td>@Html.DisplayFor(modelItem=>item.Customer_Login)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Theme)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
                     </tr>
                 }
             </tbody>
         </table>
+
+        <div class="paginationRank">
+            @Html.PagedListPager(Model, Page_No => Url.Action("_SentMessage", new { Page_No }))
+        </div>
     }
 </div>

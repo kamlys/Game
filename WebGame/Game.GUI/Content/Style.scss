@@ -1406,8 +1406,30 @@ nav {
 }
 /*Ranking*/
 .Ranking {
-    background-color: #fff;
+    background-color: $secondColor;
     margin-top: 30px;
+    min-height: 500px;
+
+
+    .paginationRank {
+        float: right;
+        margin-right: 10px;
+
+        a{
+            color: #2e8367;
+        }
+
+        .pagination > .active > a, 
+        .pagination > .active > span, 
+        .pagination > .active > a:hover, 
+        .pagination > .active > span:hover, 
+        .pagination > .active > a:focus, 
+        .pagination > .active > span:focus{
+            background: #2e8367;
+            border: 1px solid #2e8367;
+            color: #fff;
+        }
+    }
 
     td, th {
         border-radius: 0;
@@ -1420,18 +1442,45 @@ nav {
     }
 
     tbody {
+        tr{
+            background: #fff;
+        }
         tr:hover {
-            background-color: rgba(46, 131, 103, 0.51);
+            background-color: #A6D2C3;
+
             cursor: pointer;
         }
     }
 }
 /*Wiadomości*/
 .Message {
-    background-color: #fff;
-    min-height: 500px;
+    background-color: $secondColor;
+    //min-height: 600px;
 
+    .paginationRank {
+        float: right;
+        margin-right: 10px;
+        display: block;
 
+        a{
+            color: rgba(97, 116, 135, 0.62);
+        }
+
+        .pagination > .active > a, 
+        .pagination > .active > span, 
+        .pagination > .active > a:hover, 
+        .pagination > .active > span:hover, 
+        .pagination > .active > a:focus, 
+        .pagination > .active > span:focus{
+            background: rgba(97, 116, 135, 0.62);
+            border: 1px solid rgba(97, 116, 135, 0.62);
+            color: #fff;
+        }
+    }
+
+    table{
+        background-color: #fff;
+    }
 
     td, th {
         border-radius: 0;
@@ -1457,8 +1506,9 @@ nav {
 .newMessage {
     height: 450px;
     padding: 10px 30px 30px 30px;
+    background-color: #fff;
 
-    .sentMessage {
+    .sentMessageBtn {
         float: right;
         margin-bottom: 30px;
         background-color: #617487;
@@ -1470,10 +1520,14 @@ nav {
 }
 
 .receivedMessage {
+    min-height: 660px;
+
+    
 
     thead {
         background-color: rgba(97, 116, 135, 0.62);
         border: none;
+        cursor: default;
     }
 
     tbody {
@@ -1494,7 +1548,9 @@ nav {
 }
 
 .sentMessage {
+    min-height: 660px;
 
+    
     thead {
         background-color: rgba(97, 116, 135, 0.62);
         border: none;

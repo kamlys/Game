@@ -933,22 +933,55 @@ nav {
 
 /*Ranking*/
 .Ranking {
-  background-color: #fff;
-  margin-top: 30px; }
+  background-color: #18212A;
+  margin-top: 30px;
+  min-height: 500px; }
+  .Ranking .paginationRank {
+    float: right;
+    margin-right: 10px; }
+    .Ranking .paginationRank a {
+      color: #2e8367; }
+    .Ranking .paginationRank .pagination > .active > a,
+    .Ranking .paginationRank .pagination > .active > span,
+    .Ranking .paginationRank .pagination > .active > a:hover,
+    .Ranking .paginationRank .pagination > .active > span:hover,
+    .Ranking .paginationRank .pagination > .active > a:focus,
+    .Ranking .paginationRank .pagination > .active > span:focus {
+      background: #2e8367;
+      border: 1px solid #2e8367;
+      color: #fff; }
   .Ranking td, .Ranking th {
     border-radius: 0; }
   .Ranking thead {
     background: #2e8367;
     font-weight: bold;
     cursor: default; }
+  .Ranking tbody tr {
+    background: #fff; }
   .Ranking tbody tr:hover {
-    background-color: rgba(46, 131, 103, 0.51);
+    background-color: #A6D2C3;
     cursor: pointer; }
 
 /*Wiadomości*/
 .Message {
-  background-color: #fff;
-  min-height: 500px; }
+  background-color: #18212A; }
+  .Message .paginationRank {
+    float: right;
+    margin-right: 10px;
+    display: block; }
+    .Message .paginationRank a {
+      color: rgba(97, 116, 135, 0.62); }
+    .Message .paginationRank .pagination > .active > a,
+    .Message .paginationRank .pagination > .active > span,
+    .Message .paginationRank .pagination > .active > a:hover,
+    .Message .paginationRank .pagination > .active > span:hover,
+    .Message .paginationRank .pagination > .active > a:focus,
+    .Message .paginationRank .pagination > .active > span:focus {
+      background: rgba(97, 116, 135, 0.62);
+      border: 1px solid rgba(97, 116, 135, 0.62);
+      color: #fff; }
+  .Message table {
+    background-color: #fff; }
   .Message td, .Message th {
     border-radius: 0; }
   .Message .indicator {
@@ -966,37 +999,40 @@ nav {
 
 .newMessage {
   height: 450px;
-  padding: 10px 30px 30px 30px; }
-  .newMessage .sentMessage {
+  padding: 10px 30px 30px 30px;
+  background-color: #fff; }
+  .newMessage .sentMessageBtn {
     float: right;
     margin-bottom: 30px;
     background-color: #617487; }
   .newMessage .login {
     width: 30%; }
 
-.receivedMessage thead {
-  background-color: rgba(97, 116, 135, 0.62);
-  border: none; }
-
-.receivedMessage tbody tr:hover {
-  background-color: rgba(97, 116, 135, 0.32);
-  cursor: pointer; }
-
-.receivedMessage .indeterminate {
-  background-color: #8581ce !important; }
+.receivedMessage {
+  min-height: 660px; }
+  .receivedMessage thead {
+    background-color: rgba(97, 116, 135, 0.62);
+    border: none;
+    cursor: default; }
+  .receivedMessage tbody tr:hover {
+    background-color: rgba(97, 116, 135, 0.32);
+    cursor: pointer; }
+  .receivedMessage .indeterminate {
+    background-color: #8581ce !important; }
 
 #newMessage {
   border-left: 3px solid #c40000;
   font-weight: bold; }
 
-.sentMessage thead {
-  background-color: rgba(97, 116, 135, 0.62);
-  border: none;
-  cursor: default; }
-
-.sentMessage tbody tr:hover {
-  background-color: rgba(97, 116, 135, 0.32);
-  cursor: pointer; }
+.sentMessage {
+  min-height: 660px; }
+  .sentMessage thead {
+    background-color: rgba(97, 116, 135, 0.62);
+    border: none;
+    cursor: default; }
+  .sentMessage tbody tr:hover {
+    background-color: rgba(97, 116, 135, 0.32);
+    cursor: pointer; }
 
 .contentMessage {
   margin-top: 30px;

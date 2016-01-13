@@ -27,7 +27,7 @@
             @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
             <label for="Login">Treść:</label>
         </div>
-        <button type="submit" class="btn waves-effect waves-light sentMessage" name="action">Wyślij</button>
+        <button type="submit" class="btn waves-effect waves-light sentMessageBtn" name="action">Wyślij</button>
     }
 </div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
@@ -36,17 +36,17 @@
 <script>
     $(document).ready(function () {
 
-        $('.sentMessage').attr("disabled", true);
+        $('.sentMessageBtn').attr("disabled", true);
 
         $(".newMessage").keyup(function () {
             if ($("#tableView_Customer_Login").val() != ""
                 && $("#tableView_Theme").val() != ""
                 && $("#tableView_Content").val() != "") {
-                $('.sentMessage').attr("disabled", false);
+                $('.sentMessageBtn').attr("disabled", false);
                 console.log("TUTAJ");
             }
             else {
-                $('.sentMessage').attr("disabled", true);
+                $('.sentMessageBtn').attr("disabled", true);
             }
         })
     });

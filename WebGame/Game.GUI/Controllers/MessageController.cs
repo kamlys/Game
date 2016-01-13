@@ -1,6 +1,7 @@
 ﻿using Game.Core.DTO;
 using Game.GUI.ViewModels;
 using Game.Service.Interfaces;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,14 +93,15 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult _SentMessage()
+        public ActionResult _SentMessage(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            List<TableViewModel> tableList = new List<TableViewModel>();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
 
             foreach (var item in _messageService.GetSentMessage(User.Identity.Name))
             {
-                tableList.tableList.Add(new TableViewModel
+                tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
                     Customer_Login = item.Customer_Login,
@@ -108,18 +110,19 @@ namespace Game.GUI.Controllers
                     PostDate = item.PostDate
                 });
             }
-            return View("~/Views/Message/_SentMessage.cshtml", tableList);
+            return View("~/Views/Message/_SentMessage.cshtml", tableList.ToPagedList(No_Of_Page, Size_Of_Page));
         }
 
         [Authorize]
-        public ActionResult _ReceivedMessage()
+        public ActionResult _ReceivedMessage(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            List<TableViewModel> tableList = new List<TableViewModel>();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
 
             foreach (var item in _messageService.GetReceivedMessages(User.Identity.Name))
             {
-                tableList.tableList.Add(new TableViewModel
+                tableList.Add(new TableViewModel
                 {
                     ID = item.ID,
                     Sender_Login = item.Sender_Login,
@@ -130,7 +133,27 @@ namespace Game.GUI.Controllers
                 });
             }
 
-            return View("~/Views/Message/_ReceivedMessage.cshtml", tableList);
+            return View("~/Views/Message/_ReceivedMessage.cshtml", tableList.ToPagedList(No_Of_Page, Size_Of_Page));
+
+
+
+            //ListTableViewModel tableList = new ListTableViewModel();
+            //tableList.tableList = new List<TableViewModel>();
+
+            //foreach (var item in _messageService.GetReceivedMessages(User.Identity.Name))
+            //{
+            //    tableList.tableList.Add(new TableViewModel
+            //    {
+            //        ID = item.ID,
+            //        Sender_Login = item.Sender_Login,
+            //        Theme = item.Theme,
+            //        Content = item.Content,
+            //        PostDate = item.PostDate,
+            //        IfRead = item.IfRead
+            //    });
+            //}
+
+            //return View("~/Views/Message/_ReceivedMessage.cshtml", tableList);
         }
 
         [Authorize]
