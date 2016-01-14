@@ -4,14 +4,15 @@
     Layout = null;
 }
 
-<div class="receivedMessage">
+
+<div class="receivedMessage" id="receivedMessage">
     @if (!Model.Any())
     {
         <span class="noRow">Brak wiadomości</span>
     }
     else
     {
-        
+
 
         <table class="bordered centered">
             <thead>
@@ -22,7 +23,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="receivedMessage">
 
 
                 @foreach (var item in Model)
@@ -30,9 +31,9 @@
                     if (item.IfRead == false)
                     {
                         <tr id="newMessage" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
-                            <td>@Html.DisplayFor(modelItem=>item.Sender_Login)</td>
-                            <td>@Html.DisplayFor(modelItem=>item.Theme)</td>
-                            <td>@Html.DisplayFor(modelItem=>item.PostDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Sender_Login)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Theme)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
                         </tr>
                     }
                     else if (item.IfRead == true)
@@ -47,8 +48,23 @@
             </tbody>
         </table>
 
-        <div class="paginationRank">
-            @Html.PagedListPager(Model, Page_No => Url.Action("_ReceivedMessage", new { Page_No }))
+        <div class="paginationBtn" id="paginationBtnReceived">
+            @Html.PagedListPager(Model, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
         </div>
     }
 </div>
+<script>
+    $('#paginationBtnReceived').on('click', 'a', function (e) {
+        e.preventDefault();
+        if (!$(this).parents("li:first").hasClass("active")) {
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#receivedMessage').html(result);
+                }
+            });
+        }
+    });
+</script>

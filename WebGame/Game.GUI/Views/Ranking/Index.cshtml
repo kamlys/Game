@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int temp = 1;
 }
-
 <div class="Ranking">
-    <div class="paginationRank">
+    <div class="paginationBtn">
         @Html.PagedListPager(Model, Page_No => Url.Action("Index", new { Page_No }))
     </div>
     <table class="bordered centered">
@@ -26,7 +25,7 @@
                 {
                     <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'" style="font-weight: bold; font-size: 19px">
                         <td>@Html.DisplayFor(modelItem => item.Number)</td>
-                        <td>@Html.DisplayFor(modelItem=>item.Login)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Login)</td>
                         <td>@Html.DisplayFor(modelItem => item.Value)</td>
                     </tr>
                 }
@@ -41,5 +40,5 @@
             }
         </tbody>
     </table>
-    
+
 </div>

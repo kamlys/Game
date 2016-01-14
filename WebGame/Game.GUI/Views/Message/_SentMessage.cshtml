@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<div class="sentMessage">
+<div class="sentMessage" id="sentMessage">
     @if (!Model.Any())
     {
         <span class="noRow">Brak wiadomości</span>
@@ -24,7 +24,7 @@
                 @foreach (var item in Model)
                 {
                     <tr onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
-                        <td>@Html.DisplayFor(modelItem=>item.Customer_Login)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Customer_Login)</td>
                         <td>@Html.DisplayFor(modelItem => item.Theme)</td>
                         <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
                     </tr>
@@ -32,8 +32,24 @@
             </tbody>
         </table>
 
-        <div class="paginationRank">
-            @Html.PagedListPager(Model, Page_No => Url.Action("_SentMessage", new { Page_No }))
+        <div class="paginationBtn" id="paginationBtnSent">
+            @Html.PagedListPager(Model, Page_No => Url.Action("_SentMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "sentMessage" }))
         </div>
     }
 </div>
+<script>
+    $('#paginationBtnSent').on('click', 'a', function (e) {
+        console.log(this,"paginationBtnSent");
+        e.preventDefault();
+        if(!$(this).parents("li:first").hasClass("active")){
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#sentMessage').html(result);
+                }
+            });
+        }
+    });
+</script>

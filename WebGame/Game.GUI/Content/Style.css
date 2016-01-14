@@ -936,17 +936,17 @@ nav {
   background-color: #18212A;
   margin-top: 30px;
   min-height: 500px; }
-  .Ranking .paginationRank {
+  .Ranking .paginationBtn {
     float: right;
     margin-right: 10px; }
-    .Ranking .paginationRank a {
+    .Ranking .paginationBtn a {
       color: #2e8367; }
-    .Ranking .paginationRank .pagination > .active > a,
-    .Ranking .paginationRank .pagination > .active > span,
-    .Ranking .paginationRank .pagination > .active > a:hover,
-    .Ranking .paginationRank .pagination > .active > span:hover,
-    .Ranking .paginationRank .pagination > .active > a:focus,
-    .Ranking .paginationRank .pagination > .active > span:focus {
+    .Ranking .paginationBtn .pagination > .active > a,
+    .Ranking .paginationBtn .pagination > .active > span,
+    .Ranking .paginationBtn .pagination > .active > a:hover,
+    .Ranking .paginationBtn .pagination > .active > span:hover,
+    .Ranking .paginationBtn .pagination > .active > a:focus,
+    .Ranking .paginationBtn .pagination > .active > span:focus {
       background: #2e8367;
       border: 1px solid #2e8367;
       color: #fff; }
@@ -965,18 +965,18 @@ nav {
 /*Wiadomości*/
 .Message {
   background-color: #18212A; }
-  .Message .paginationRank {
+  .Message .paginationBtn {
     float: right;
     margin-right: 10px;
     display: block; }
-    .Message .paginationRank a {
+    .Message .paginationBtn a {
       color: rgba(97, 116, 135, 0.62); }
-    .Message .paginationRank .pagination > .active > a,
-    .Message .paginationRank .pagination > .active > span,
-    .Message .paginationRank .pagination > .active > a:hover,
-    .Message .paginationRank .pagination > .active > span:hover,
-    .Message .paginationRank .pagination > .active > a:focus,
-    .Message .paginationRank .pagination > .active > span:focus {
+    .Message .paginationBtn .pagination > .active > a,
+    .Message .paginationBtn .pagination > .active > span,
+    .Message .paginationBtn .pagination > .active > a:hover,
+    .Message .paginationBtn .pagination > .active > span:hover,
+    .Message .paginationBtn .pagination > .active > a:focus,
+    .Message .paginationBtn .pagination > .active > span:focus {
       background: rgba(97, 116, 135, 0.62);
       border: 1px solid rgba(97, 116, 135, 0.62);
       color: #fff; }

@@ -59,7 +59,6 @@ $(".agree").click(function () {
         success: function (data) {
         }
     });
-    console.log(user_friend, friend_user)
 });
 
 $(".disagree").click(function () {

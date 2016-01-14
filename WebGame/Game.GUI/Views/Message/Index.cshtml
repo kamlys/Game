@@ -8,8 +8,8 @@
     <div class="col s12">
         <ul class="tabs">
             <li class="tab col s3"><a href="#Nowa">Nowa wiadomość</a></li>
-            <li class="tab col s3"><a class="active" href="#Odebrane">Odebrane</a></li>
-            <li class="tab col s3"><a href="#Wyslane">Wysłane</a></li>
+            <li class="tab col s3 sent"><a class="active" href="#Odebrane">Odebrane</a></li>
+            <li class="tab col s3 received"><a href="#Wyslane">Wysłane</a></li>
         </ul>
     </div>
     <div id="Nowa" class="col s12">@Html.Action("_NewMessage", "Message")</div>
@@ -20,8 +20,13 @@
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('ul.tabs').tabs();
+    });
+
+    $('.tab').click(function () {
+        $('#Wyslane').load("/Message/_SentMessage");
+        $('#Odebrane').load("/Message/_ReceivedMessage");
+
     });
 
 </script>
