@@ -1,10 +1,9 @@
 ﻿using Game.Core.DTO;
-using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Building.QueueBuilding;
 using Game.Service.Interfaces.TableInterface;
+using PagedList;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Game.GUI.Controllers
@@ -26,39 +25,36 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult _BuildingQueueList()
+        public ActionResult _BuildingQueueList(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            QueueViewModel queueModel = new QueueViewModel();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
 
-            foreach (var item in _queueTable.GetQueue())
+            queueModel.listModel = _queueTable.GetQueue().Select(x => new ItemQueueViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    User_ID = item.User_ID,
-                    Login = item.Login,
-                    UserBuilding_ID = item.UserBuilding_ID,
-                    Name = item.BuildingName,
-                    Finish_Date = item.FinishTime,
-                    NewStatus = item.NewStatus
-                });
-            }
+                ID = x.ID,
+                User_ID = x.User_ID,
+                User_Login = x.Login,
+                UserBuilding_ID = x.UserBuilding_ID,
+                BuildingName = x.BuildingName,
+                FinishDate = x.FinishTime,
+                NewStatus = x.NewStatus
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-
-            return View("~/Views/Admin/_BuildingQueueList.cshtml", tableList);
+            return View("~/Views/Admin/_BuildingQueueList.cshtml", queueModel);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel listView)
+        public ActionResult Add(QueueViewModel queueModel)
         {
             BuildingQueueDto _queueDto = new BuildingQueueDto();
 
-            _queueDto.Login = listView.tableView.Login;
-            _queueDto.UserBuilding_ID = listView.tableView.UserBuilding_ID;
-            _queueDto.NewStatus = listView.tableView.NewStatus;
-            _queueDto.FinishTime = DateTime.Now.AddSeconds(listView.tableView.Value);
+            _queueDto.Login = queueModel.viewModel.User_Login;
+            _queueDto.UserBuilding_ID = queueModel.viewModel.UserBuilding_ID;
+            _queueDto.NewStatus = queueModel.viewModel.NewStatus;
+            _queueDto.FinishTime = DateTime.Now.AddSeconds(queueModel.viewModel.Second);
 
             _queueTable.Add(_queueDto);
 
@@ -67,12 +63,12 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel viewList)
+        public ActionResult Update(QueueViewModel queueModel)
         {
             BuildingQueueDto _buildingQueueDto = new BuildingQueueDto();
 
-            _buildingQueueDto.ID = viewList.tableView.ID;
-            _buildingQueueDto.Login = viewList.tableView.Login;
+            _buildingQueueDto.ID = queueModel.viewModel.ID;
+            _buildingQueueDto.Login = queueModel.viewModel.User_Login;
 
             _queueTable.Update(_buildingQueueDto);
 

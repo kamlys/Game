@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Game.GUI.ViewModels.TableViewModel>
+﻿@model Game.GUI.ViewModels.Message.MessageViewModel
 @using PagedList.Mvc;
 @{
     Layout = null;
@@ -6,7 +6,7 @@
 
 
 <div class="receivedMessage" id="receivedMessage">
-    @if (!Model.Any())
+    @if (!Model.listModel.Any())
     {
         <span class="noRow">Brak wiadomości</span>
     }
@@ -24,9 +24,7 @@
             </thead>
 
             <tbody id="receivedMessage">
-
-
-                @foreach (var item in Model)
+                @foreach (var item in Model.listModel)
                 {
                     if (item.IfRead == false)
                     {
@@ -48,9 +46,9 @@
             </tbody>
         </table>
 
-        <div class="paginationBtn" id="paginationBtnReceived">
-            @Html.PagedListPager(Model, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
-        </div>
+            <div class="paginationBtn" id="paginationBtnReceived">
+                @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+            </div>
     }
 </div>
 <script>

@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Product.UserProduct.UserProductViewModel
 @{
     Layout = null;
 }
@@ -8,15 +8,15 @@
         @using (Html.BeginForm("Add", "UserProduct", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
                 <label for="Login">Login</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Product_Name, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Value, new { placeholder = "", @class = "validate" })
                 <label for="Value">Ilość</label>
             </div>
 
@@ -30,20 +30,20 @@
         @using (Html.BeginForm("Update", "UserProduct", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.ID, new { placeholder = "", @class = "validate inputID" })
+                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
                 <label for="ID">ID</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate inputLogin" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
                 <label for="Login">Login</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Product_Name, new { placeholder = "", @class = "validate inputProductName" })
+                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate inputProductName" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate inputValue" })
+                @Html.TextBoxFor(m => m.viewModel.Value, new { placeholder = "", @class = "validate inputValue" })
                 <label for="Value">Ilość</label>
             </div>
 
@@ -65,12 +65,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.tableList)
+            @foreach (var item in Model.listModel)
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.Login</td>
-                    <td>@item.Name</td>
+                    <td>@item.User_Login</td>
+                    <td>@item.Product_Name</td>
                     <td>@item.Value</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
@@ -79,7 +79,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="uproductUpdate" class="btn-floating #00695c teal darken-3 modal-trigger uproductUpdate" onclick="updaterow(['inputID','inputLogin','inputProductName','inputValue'], 
-                                            ['@item.ID','@item.Login','@item.Name','@item.Value'])"><i class="fa fa-pencil"></i></button></li>
+                                            ['@item.ID','@item.User_Login','@item.Product_Name','@item.Value'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "UserProduct", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

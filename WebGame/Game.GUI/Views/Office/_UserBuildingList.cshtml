@@ -1,11 +1,11 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Building.UserBuildings.UserBuildingsViewModel 
 @{
     Layout = null;
 }
 
 <div id="userBuilding">
     <ul class="collapsible" data-collapsible="accordion">
-        @foreach (var item in Model.tableList)
+        @foreach (var item in Model.listModel)
         {
             <li>
                 @if (item.ifCan == true)
@@ -16,7 +16,7 @@
                     </button>
                 }
                 <div class="collapsible-header">
-                    @item.Name
+                    @item.Building_Name
 
                     @if (item.Status != "gotowy")
                 {
@@ -28,7 +28,7 @@
                 <div class="collapsible-body">
                     <p>
                         Lvl: @item.Lvl<br />
-                        Produkcja(s): @item.Value<br />
+                        Produkcja(s): @item.Produkcja<br />
                         Status: @item.Status
                     </p>
                 </div>

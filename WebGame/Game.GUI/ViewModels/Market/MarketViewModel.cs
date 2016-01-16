@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,13 +8,10 @@ namespace Game.GUI.ViewModels.Market
 {
     public class MarketViewModel
     {
-        public int ID { get; set; }
-        public int User_ID { get; set; }
-        public string Login { get; set; }
-        public int Product_ID { get; set; }
-        public string Product_Name { get; set; }
-        public int Number { get; set; }
-        public int Price { get; set; }
-        public bool TypeOffer { get; set; }
+        public string[] allProduct { get; set; }
+        public string[] userProduct { get; set; }
+        public ItemMarketViewModel viewModel { get; set; }
+        public List<ItemMarketViewModel> systemOfferList { get; set; }
+        public IPagedList<ItemMarketViewModel> listModel { get; set; }
     }
 }

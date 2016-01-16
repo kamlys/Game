@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Building.QueueBuilding.QueueViewModel
 @{
     Layout = null;
 }
@@ -9,22 +9,22 @@
             {
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
                 <label for="Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.UserBuilding_ID, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.UserBuilding_ID, new { placeholder = "", @class = "validate" })
                 <label for="UserBuilding_ID">ID budynku użytkownika</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate" })
-                <label for="Value">Czas budowy</label>
+                @Html.TextBoxFor(m => m.viewModel.Second, new { placeholder = "", @class = "validate" })
+                <label for="Value">Czas budowy(s)</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.NewStatus, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.NewStatus, new { placeholder = "", @class = "validate" })
                 <label for="NewStatus">Nowy status</label>
             </div>
             <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
@@ -38,27 +38,27 @@
             {
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.ID, new { @placeholder = "", @class = "validate inputID" })
+                @Html.TextBoxFor(m => m.viewModel.ID, new { @placeholder = "", @class = "validate inputID" })
                 <label for="ID">ID</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { @placeholder = "", @class = "validate inputLogin" })
+                @Html.TextBoxFor(m => m.viewModel.UserLogin, new { @placeholder = "", @class = "validate inputLogin" })
                 <label for="Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.UserBuilding_ID, new { @placeholder = "", @class = "validate inputUserBuilding_ID" })
+                @Html.TextBoxFor(m => m.viewModel.UserBuilding_ID, new { @placeholder = "", @class = "validate inputUserBuilding_ID" })
                 <label for="UserBuilding_ID">ID budynku użytkownika</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Value, new { placeholder = "", @class = "validate inputValue" })
-                <label for="Value">Czas budowy</label>
+                @Html.TextBoxFor(m => m.viewModel.Second, new { placeholder = "", @class = "validate inputValue" })
+                <label for="Value">Czas budowy(s)</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.NewStatus, new { placeholder = "", @class = "validate inputNewStatus" })
+                @Html.TextBoxFor(m => m.viewModel.NewStatus, new { placeholder = "", @class = "validate inputNewStatus" })
                 <label for="NewStatus">Nowy status</label>
             </div>
             <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
@@ -81,13 +81,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.tableList)
+            @foreach (var item in Model.listModel)
             {
                 <tr>
                     <td>@item.ID</td>
                     <td>@item.Login</td>
                     <td>@item.UserBuilding_ID</td>
-                    <td>@item.Name</td>
+                    <td>@item.BuildingName</td>
                     <td>@item.Finish_Date</td>
                     <td>@item.NewStatus</td>
                     <td>
@@ -96,7 +96,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="queueAdd" class="btn-floating #00695c teal darken-3 modal-trigger queueAdd" onclick="updaterow(['inputID','inputLogin','inputUserBuilding_ID','inputValue','inputNewStatus'], ['@item.ID','@item.Login','@item.UserBuilding_ID','@item.Value','@item.NewStatus'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="queueAdd" class="btn-floating #00695c teal darken-3 modal-trigger queueAdd" onclick="updaterow(['inputID','inputLogin','inputUserBuilding_ID','inputValue','inputNewStatus'], ['@item.ID','@item.Login','@item.UserBuilding_ID','@item.Second','@item.NewStatus'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "BuildingQueue", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

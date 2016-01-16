@@ -3,6 +3,7 @@ using Game.GUI.ViewModels;
 using Game.GUI.ViewModels.Market;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,81 +34,50 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult _SellOffer()
+        public ActionResult _SellOffer(int? Page_No)
         {
-            ListMarketViewModel marketList = new ListMarketViewModel();
-            marketList.marketList = new List<MarketViewModel>();
+            MarketViewModel marketList = new MarketViewModel();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
 
-            foreach (var item in _marketService.GetSellOffer())
+            marketList.listModel = _marketService.GetSellOffer().Select(x => new ItemMarketViewModel
             {
-                marketList.marketList.Add(new MarketViewModel
-                {
-                    ID = item.ID,
-                    Login = item.Login,
-                    User_ID = item.User_ID,
-                    Product_ID = item.Product_ID,
-                    Product_Name = item.Product_Name,
-                    Number = item.Number,
-                    Price = item.Price,
-                    TypeOffer = item.TypeOffer
-                });
-            }
+                ID = x.ID,
+                User_Login = x.Login,
+                User_ID = x.User_ID,
+                Product_ID = x.Product_ID,
+                Product_Name = x.Product_Name,
+                Number = x.Number,
+                Price = x.Price,
+                TypeOffer = x.TypeOffer
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-            var prod = _userProductService.GetUserProductList(User.Identity.Name);
-            var aprod = _productService.GetProduct();
-            var opts = prod.ToList<UserProductDto>();
-            var aopts = aprod.ToList<ProductDto>();
-            var optsString = new List<string>();
-            foreach (var o in opts)
-            {
-                if (!optsString.Contains(o.Product_Name))
-                {
-                    optsString.Add(o.Product_Name);
-                }
-            }
+            marketList.userProduct = _userProductService.GetUserProductList(User.Identity.Name).Select(i => i.Product_Name).ToArray();
 
-
-            marketList.options = optsString.ToArray();
-
+            
             return View("~/Views/Market/_SellOffer.cshtml", marketList);
         }
 
         [Authorize]
-        public ActionResult _BuyOffer()
+        public ActionResult _BuyOffer(int? Page_No)
         {
-            ListMarketViewModel marketList = new ListMarketViewModel();
-            marketList.marketList = new List<MarketViewModel>();
+            MarketViewModel marketList = new MarketViewModel();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
 
-            foreach (var item in _marketService.GetBuyOffer())
+            marketList.listModel = _marketService.GetBuyOffer().Select(x => new ItemMarketViewModel
             {
-                marketList.marketList.Add(new MarketViewModel
-                {
-                    ID = item.ID,
-                    Login = item.Login,
-                    User_ID = item.User_ID,
-                    Product_ID = item.Product_ID,
-                    Product_Name = item.Product_Name,
-                    Number = item.Number,
-                    Price = item.Price,
-                    TypeOffer = item.TypeOffer
-                });
-            }
+                ID = x.ID,
+                User_Login = x.Login,
+                User_ID = x.User_ID,
+                Product_ID = x.Product_ID,
+                Product_Name = x.Product_Name,
+                Number = x.Number,
+                Price = x.Price,
+                TypeOffer = x.TypeOffer
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-            var prod = _userProductService.GetUserProductList(User.Identity.Name);
-            var aprod = _productService.GetProduct();
-            var opts = prod.ToList<UserProductDto>();
-            var aopts = aprod.ToList<ProductDto>();
-            var optsString = new List<string>();
-            foreach (var o in aopts)
-            {
-                if (!optsString.Contains(o.Alias))
-                {
-                    optsString.Add(o.Alias);
-                }
-            }
-
-
-            marketList.allOptions = optsString.ToArray();
+            marketList.allProduct = _productService.GetProduct().Select(i => i.Alias).ToArray();
 
             return View("~/Views/Market/_BuyOffer.cshtml", marketList);
         }
@@ -115,25 +85,21 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _SystemOffer()
         {
-            ListMarketViewModel marketList = new ListMarketViewModel();
-            marketList.marketList = new List<MarketViewModel>();
+            MarketViewModel marketList = new MarketViewModel();
 
-            foreach (var item in _userProductService.GetUserProductList(User.Identity.Name))
+            marketList.systemOfferList = _userProductService.GetUserProductList(User.Identity.Name).Select(x => new ItemMarketViewModel
             {
-                marketList.marketList.Add(new MarketViewModel
-                {
-                    Product_ID = item.Product_ID,
-                    Product_Name = item.Product_Name,
-                    Price = item.Price
-                });
-            }
+                Product_ID = x.Product_ID,
+                Product_Name = x.Product_Name,
+                Price = x.Price
+            }).ToList();
 
             return View(marketList);
         }
 
         [HttpPost]
         [Authorize]
-        public JsonResult SellProduct(int productid, int value, int money, string name,bool type)
+        public JsonResult SellProduct(int productid, int value, int money, string name)
         {
             List<string> errors;
             if (Session["val"] != null)
@@ -162,47 +128,9 @@ namespace Game.GUI.Controllers
             return new JsonResult { Data = true };
         }
 
-        //[Authorize]
-        //public ListMarketViewModel GetOfferList()
-        //{
-        //    ListMarketViewModel marketList = new ListMarketViewModel();
-        //    marketList.marketList = new List<MarketViewModel>();
-
-        //    foreach (var item in _marketService.GetOffer())
-        //    {
-        //        marketList.marketList.Add(new MarketViewModel
-        //        {
-        //            ID = item.ID,
-        //            Login = item.Login,
-        //            User_ID = item.User_ID,
-        //            Product_ID = item.Product_ID,
-        //            Product_Name = item.Product_Name,
-        //            Number = item.Number,
-        //            Price = item.Price
-        //        });
-        //    }
-        //    var prod = _userProductService.GetUserProductList(User.Identity.Name);
-        //    var opts = prod.ToList<UserProductDto>();
-        //    var optsString = new List<string>();
-        //    foreach (var o in opts)
-        //    {
-        //        if (!optsString.Contains(o.Product_Name))
-        //        {
-        //            optsString.Add(o.Product_Name);
-        //        }
-        //    }
-
-        //    marketList.options = optsString.ToArray();
-
-        //    return marketList;
-        //}
-
-
-
-
         [HttpPost]
         [Authorize]
-        public ActionResult AddOffer(ListMarketViewModel marketList)
+        public ActionResult AddOffer(MarketViewModel marketList)
         {
             List<string> errors;
             if (Session["val"] != null)
@@ -217,10 +145,10 @@ namespace Game.GUI.Controllers
             MarketDto _marketDto = new MarketDto();
 
             _marketDto.Login = User.Identity.Name;
-            _marketDto.Product_Name = marketList.marketView.Product_Name;
-            _marketDto.Number = marketList.marketView.Number;
-            _marketDto.Price = marketList.marketView.Price;
-            _marketDto.TypeOffer = marketList.marketView.TypeOffer;
+            _marketDto.Product_Name = marketList.viewModel.Product_Name;
+            _marketDto.Number = marketList.viewModel.Number;
+            _marketDto.Price = marketList.viewModel.Price;
+            _marketDto.TypeOffer = marketList.viewModel.TypeOffer;
 
             if (!_marketService.AddOffer(_marketDto))
             {
@@ -233,9 +161,10 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public JsonResult BuyOffer(MarketViewModel a)
+        public JsonResult BuyOffer(ItemMarketViewModel a)
         {
             MarketDto marketDto = new MarketDto();
+
 
             marketDto.ID = a.ID;
             marketDto.Number = a.Number;
@@ -254,38 +183,16 @@ namespace Game.GUI.Controllers
             }
         }
 
-        [Authorize]
-        public ActionResult _MarketList()
-        {
-            ListMarketViewModel marketList = new ListMarketViewModel();
-            marketList.marketList = new List<MarketViewModel>();
-
-            foreach (var item in _marketService.GetOffer())
-            {
-                marketList.marketList.Add(new MarketViewModel
-                {
-                    ID = item.ID,
-                    Login = item.Login,
-                    Product_Name = item.Product_Name,
-                    Number = item.Number,
-                    Price = item.Price
-                });
-            }
-            return View("~/Views/Admin/_MarketList.cshtml", marketList);
-        }
-
-
-
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel listView)
+        public ActionResult Add(MarketViewModel marketModel)
         {
             MarketDto _marketDto = new MarketDto();
 
-            _marketDto.Login = listView.tableView.Login;
-            _marketDto.Product_Name = listView.tableView.Product_Name;
-            _marketDto.Number = listView.tableView.Number;
-            _marketDto.Price = listView.tableView.Price;
+            _marketDto.Login = marketModel.viewModel.User_Login;
+            _marketDto.Product_Name = marketModel.viewModel.Product_Name;
+            _marketDto.Number = marketModel.viewModel.Number;
+            _marketDto.Price = marketModel.viewModel.Price;
 
             _marketService.Add(_marketDto);
 
@@ -294,14 +201,14 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel listView)
+        public ActionResult Update(MarketViewModel marketModel)
         {
             MarketDto _marketDto = new MarketDto();
 
-            _marketDto.Login = listView.tableView.Login;
-            _marketDto.Product_Name = listView.tableView.Product_Name;
-            _marketDto.Number = listView.tableView.Number;
-            _marketDto.Price = listView.tableView.Price;
+            _marketDto.Login = marketModel.viewModel.User_Login;
+            _marketDto.Product_Name = marketModel.viewModel.Product_Name;
+            _marketDto.Number = marketModel.viewModel.Number;
+            _marketDto.Price = marketModel.viewModel.Price;
 
             _marketService.Update(_marketDto);
 

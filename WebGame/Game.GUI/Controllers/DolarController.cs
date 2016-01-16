@@ -1,7 +1,9 @@
 ﻿using Game.Core.DTO;
 using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Dolar;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,42 +23,33 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        // GET: DolarTable
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
-        [Authorize]
-        public ActionResult _DolarList()
+        public ActionResult _DolarList(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            DolarViewModel dolarModel = new DolarViewModel();
 
-            foreach (var item in _dolarTableService.GetDolars())
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+
+            dolarModel.listModel = _dolarTableService.GetDolars().Select(x => new ItemDolarViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    User_ID = item.User_ID,
-                    Login = item.Login,
-                    Value = item.Value
-                });
-            }
+                ID = x.ID,
+                User_ID = x.User_ID,
+                User_Login = x.Login,
+                DolarValue = x.Value
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-
-            return View("~/Views/Admin/_DolarList.cshtml", tableList);
+            return View("~/Views/Admin/_DolarList.cshtml", dolarModel);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel listView)
+        public ActionResult Add(DolarViewModel dolarModel)
         {
             DolarDto _dolarDto = new DolarDto();
 
-            _dolarDto.User_ID = listView.tableView.User_ID;
-            _dolarDto.Login = listView.tableView.Login;
-            _dolarDto.Value = listView.tableView.Value;
+            _dolarDto.User_ID = dolarModel.viewModel.User_ID;
+            _dolarDto.Login = dolarModel.viewModel.User_Login;
+            _dolarDto.Value = dolarModel.viewModel.DolarValue;
 
             _dolarTableService.Add(_dolarDto);
 
@@ -65,14 +58,14 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel listView)
+        public ActionResult Update(DolarViewModel dolarModel)
         {
             DolarDto _dolarDto = new DolarDto();
 
-            _dolarDto.ID = listView.tableView.ID;
-            _dolarDto.User_ID = listView.tableView.User_ID;
-            _dolarDto.Login = listView.tableView.Login;
-            _dolarDto.Value = listView.tableView.Value;
+            _dolarDto.ID = dolarModel.viewModel.ID;
+            _dolarDto.User_ID = dolarModel.viewModel.User_ID;
+            _dolarDto.Login = dolarModel.viewModel.User_Login;
+            _dolarDto.Value = dolarModel.viewModel.DolarValue;
 
             _dolarTableService.Update(_dolarDto);
 

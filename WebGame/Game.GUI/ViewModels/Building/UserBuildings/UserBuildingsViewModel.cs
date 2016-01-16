@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Game.GUI.ViewModels.UserBuildings
+namespace Game.GUI.ViewModels.Building.UserBuildings
 {
     public class UserBuildingsViewModel
     {
@@ -19,5 +19,8 @@ namespace Game.GUI.ViewModels.UserBuildings
         public string Status;
         public int BuildDone;
         public string Alias { get; set; }
+
+        public ItemUserBuildingViewModel viewModel { get; set; }
+        public List<ItemUserBuildingViewModel> listModel { get; set; }
     }
 }

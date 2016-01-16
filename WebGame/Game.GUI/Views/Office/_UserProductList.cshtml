@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Product.UserProduct.UserProductViewModel
 @{
     Layout = null;
 }
@@ -7,17 +7,17 @@
         @using (Html.BeginForm("AddOffer", "Office", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Product_Name, new {  @placeholder = "", @class = "validate inputProductName" })
+                @Html.TextBoxFor(m => m.viewModel.Product_Name, new {  @placeholder = "", @class = "validate inputProductName" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
 
                 <div class="input-field col s6" id="Number">
-                    @Html.TextBoxFor(m => m.tableView.Number, new {  @type = "number", @min="0", @placeholder = "", @class = "validate inputNumber" })
+                    @Html.TextBoxFor(m => m.viewModel.Value, new {  @type = "number", @min="0", @placeholder = "", @class = "validate inputNumber" })
                     <label for="Number">Ilość</label>
                 </div>
 
                 <div class="input-field col s6" id="Price">
-                    @Html.TextBoxFor(m => m.tableView.Price, new { @type = "number", @placeholder = "", @class = "validate" })
+                    @Html.TextBoxFor(m => m.viewModel.Price, new { @type = "number", @placeholder = "", @class = "validate" })
                     <label for="Price">Cena za sztukę</label>
                 </div>
 
@@ -27,11 +27,11 @@
 </div>
 
 <div class="userProduct">
-    @foreach (var item in Model.tableList)
+    @foreach (var item in Model.listModel)
     {
         <div class="officeProduct">
-            <span class="name">@item.Name: @item.Value</span>
-            <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Name',@item.Value)"><i class="fa fa-shopping-cart"></i></button>
+            <span class="name">@item.Product_Name: @item.Value</span>
+            <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Product_Name',@item.Value)"><i class="fa fa-shopping-cart"></i></button>
         </div>
     }
 </div>

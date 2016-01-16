@@ -1,4 +1,5 @@
 ﻿using Game.Core.DTO;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,12 @@ namespace Game.GUI.ViewModels.Map
     public class MapViewModel
     {
         public MapDto Map;
-        public List<UserBuildings.UserBuildingsViewModel> UserBuildings;
+        public List<Building.UserBuildings.UserBuildingsViewModel> UserBuildings;
         public String UserProducts;
         public String ProductNames;
         public String BuildingsArray;
+
+        public ItemMapViewModel viewModel { get; set; }
+        public IPagedList<ItemMapViewModel> listModel { get; set; }
     }
 }

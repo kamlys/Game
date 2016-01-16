@@ -835,7 +835,28 @@ nav {
 .market {
     background-color: $secondColor;
     margin-top: 30px;
+    padding-bottom: 80px;
     min-height: 500px;
+
+    .paginationBtn {
+        float: right;
+        margin-right: 10px;
+
+        a{
+            color: #fff;
+        }
+
+        .pagination > .active > a, 
+        .pagination > .active > span, 
+        .pagination > .active > a:hover, 
+        .pagination > .active > span:hover, 
+        .pagination > .active > a:focus, 
+        .pagination > .active > span:focus{
+            background: $marketColoR;
+            border: 1px solid $marketColoR;
+            color: #fff;
+        }
+    }
 
     .noOffer {
         display: block;

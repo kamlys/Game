@@ -1,68 +1,68 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
-@{
-    Layout = null;
-}
-
-
-<div id="requirementBox" class="requirementBox">
-    <ul class="productRequirement">
-        @foreach (var item in Model.tableList)
-        {
-            if (item.ifCan)
-            {
-                <li>
-                    <div class="productRequirementItem">
-                        <span class="productName">@item.Base_Name</span><span class="inputValue">@Html.TextBox("productValue", null, new { @onkeypress = "return isNumberKey(event)", @type = "number", @min = "1", @placeholder = "Ilość" }) <button class="btn createButton" data-productname="@item.Base_Name">Produkuj</button></span>
-                    </div>
-                </li>
-            }
-            else
-            {
-                <li>
-                    <div class="productRequirementItem disabled">
-                        <span class="productName">@item.Base_Name</span> <span class="conditions">
-                            Warunki:  @item.Name, oraz
-                            @foreach (var product in item.RequireProduct)
-                    {
-                        foreach (KeyValuePair<string, int> p in product)
-                        {
-                                    <span>@p.Key: @p.Value</span>
-                                }
-                            }
-                        </span>
-                    </div>
-                </li>
-            }
-        }
-    </ul>
-</div>
-<script>
-    $(".createButton").click(function () {
-        var value = $("#productValue").val();
-        var product = $(this).data('productname');
-        console.log(product, value);
-        $.ajax({
-            type: "POST",
-            url: 'UserProduct/CreateProduct',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ value: value, productname: product }),
-            success: function (data) {
-                location.reload();
-            }
-        });
-    });
-
-    function isNumberKey(evt) {
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode <= 48 || charCode > 57))
-            return false;
-        return true;
+﻿@model Game.GUI.ViewModels.Product.ProductRequirement.ProductRequirementViewModel
+    @{
+        Layout = null;
     }
 
-    $('#requirementBox').slimScroll({
-        size: '10px',
-        height: '350px',
-        alwaysVisible: true
-    });
 
-</script>
+    <div id="requirementBox" class="requirementBox">
+        <ul class="productRequirement">
+            @foreach (var item in Model.listModel)
+            {
+                if (item.ifCan)
+                {
+                    <li>
+                        <div class="productRequirementItem">
+                            <span class="productName">@item.BaseName</span><span class="inputValue">@Html.TextBox("productValue", null, new { @onkeypress = "return isNumberKey(event)", @type = "number", @min = "1", @placeholder = "Ilość" }) <button class="btn createButton" data-productname="@item.BaseName">Produkuj</button></span>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <div class="productRequirementItem disabled">
+                            <span class="productName">@item.BaseName</span> <span class="conditions">
+                                Warunki:  @item.BuildingName, oraz
+                        @foreach (var product in item.RequireProduct)
+                        {
+                            foreach (KeyValuePair<string, int> p in product)
+                            {
+                                <span>@p.Key: @p.Value</span>
+                            }
+                        }
+                    </span>
+                </div>
+            </li>
+                }
+            }
+        </ul>
+    </div>
+    <script>
+        $(".createButton").click(function () {
+            var value = $("#productValue").val();
+            var product = $(this).data('productname');
+            console.log(product, value);
+            $.ajax({
+                type: "POST",
+                url: 'UserProduct/CreateProduct',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ value: value, productname: product }),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode <= 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        $('#requirementBox').slimScroll({
+            size: '10px',
+            height: '350px',
+            alwaysVisible: true
+        });
+
+    </script>

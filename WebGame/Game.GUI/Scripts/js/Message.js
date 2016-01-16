@@ -1,5 +1,5 @@
 ﻿$(".deleteMessage").click(function () {
-    var id = $("#tableView_ID").val();
+    var id = $("#viewModel_ID").val();
     console.log(id);
     $.ajax({
         type: "POST",

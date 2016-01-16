@@ -21,7 +21,6 @@ namespace Game.GUI
         {
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
 
-
             context.Clients.User(user).shownotification(user, pin);
 
         }

@@ -1,10 +1,7 @@
 ﻿using Game.Core.DTO;
-using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Product.UserProduct;
 using Game.Service.Interfaces.TableInterface;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Game.GUI.Controllers
@@ -28,35 +25,30 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _UserProductList()
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            UserProductViewModel userProductModel = new UserProductViewModel();
 
-            foreach (var item in _userProductTable.GetUserProduct())
+            userProductModel.listModel = _userProductTable.GetUserProduct().Select(x => new ItemUserProductViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    User_ID = item.User_ID,
-                    Login = item.Login,
-                    Name = item.Product_Name,
-                    Value = item.Value,
-                    Product_ID = item.Product_ID
-                });
-            }
+                ID = x.ID,
+                User_ID = x.User_ID,
+                User_Login = x.Login,
+                Product_Name = x.Product_Name,
+                Value = x.Value,
+                Product_ID = x.Product_ID
+            }).ToList();
 
-
-            return View("~/Views/Admin/_UserProductList.cshtml", tableList);
+            return View("~/Views/Admin/_UserProductList.cshtml", userProductModel);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel listView)
+        public ActionResult Add(UserProductViewModel userProductModel)
         {
             UserProductDto _userProductDto = new UserProductDto();
 
-            _userProductDto.Login = listView.tableView.Login;
-            _userProductDto.Product_Name = listView.tableView.Product_Name;
-            _userProductDto.Value =  listView.tableView.Value;
+            _userProductDto.Login = userProductModel.viewModel.User_Login;
+            _userProductDto.Product_Name = userProductModel.viewModel.Product_Name;
+            _userProductDto.Value = userProductModel.viewModel.Value;
 
             _userProductTable.Add(_userProductDto);
 
@@ -65,14 +57,14 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel listView)
+        public ActionResult Update(UserProductViewModel userProductModel)
         {
             UserProductDto _userProductDto = new UserProductDto();
 
-            _userProductDto.ID = listView.tableView.ID;
-            _userProductDto.Login = listView.tableView.Login;
-            _userProductDto.Product_Name = listView.tableView.Product_Name;
-            _userProductDto.Value = listView.tableView.Value;
+            _userProductDto.ID = userProductModel.viewModel.ID;
+            _userProductDto.Login = userProductModel.viewModel.User_Login;
+            _userProductDto.Product_Name = userProductModel.viewModel.Product_Name;
+            _userProductDto.Value = userProductModel.viewModel.Value;
 
             _userProductTable.Update(_userProductDto);
 

@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Notification.NotificationViewModel
 @{
     Layout = null;
 }
@@ -7,19 +7,19 @@
     <div id="NotificationInner">
 
         <ul id="notificationList">
-            @foreach (var item in Model.tableList)
+            @foreach (var item in Model.listModel)
             {
                 if (item.Description.Contains("zaproszenie"))
                 {
-                    <li><div class="chip newNotification" ><span class="notificationLink" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification('@item.ID')"></i></div></li>
+                    <li><div class="chip newNotification" ><span class="notificationLink" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.SenderLogin })'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification('@item.ID')"></i></div></li>
                 }
-                else if (item.Description.Contains("mowa"))
+                else if (item.Description.Contains("umowa"))
                 {
                     <li><div class="chip newNotification"><span class="notificationLink" onclick="location.href='@Url.Action("Index", "Office")'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification('@item.ID')"></i></div></li>
                 }
                 else
                 {
-                    <li><div class="chip newNotification" ><span class="notificationLink" onclick="location.href='@Url.Action("Index", "Message")'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification(@item.ID)"></i></div></li>
+                    <li><div class="chip newNotification" ><span class="notificationLink" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.Temp_ID })'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification(@item.ID)"></i></div></li>
                 }
             }
         </ul>

@@ -1,13 +1,13 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.User.Friend.FriendViewModel
 @{
     Layout = null;
 }
 <div id="FriendInner">
-    @foreach (var item in Model.tableList)
+    @foreach (var item in Model.listModel)
     {
         if (item.OrAccepted)
         {
-            if (item.Login == User.Identity.Name)
+            if (item.User_Login == User.Identity.Name)
             {
                 <div class="friend">
                     <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">@item.Friend_Login</span>
@@ -17,14 +17,14 @@
             else
             {
                 <div class="friend">
-                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Login</span>
+                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">@item.User_Login</span>
                     <span class="icon"><i class="fa fa-comments"></i></span>
                 </div>
             }
         }
         else
         {
-            if (item.Login == User.Identity.Name)
+            if (item.User_Login == User.Identity.Name)
             {
                 <div class="friend disabled">
                     <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">@item.Friend_Login</span>
@@ -33,9 +33,9 @@
             else
             {
                 <div class="friend disabled">
-                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">@item.Login</span>
-                    <span class="icon disagree" data-userid="@item.ID" data-userlogin="@item.Login" data-friendlogin="@item.Friend_Login"><i class="fa fa-times"></i></span>
-                    <span class="icon agree" data-userid="@item.ID" data-userlogin="@item.Login" data-friendlogin="@item.Friend_Login"> <i class="fa fa-check"></i></span>
+                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">@item.User_Login</span>
+                    <span class="icon disagree" data-userid="@item.ID" data-userlogin="@item.User_Login" data-friendlogin="@item.Friend_Login"><i class="fa fa-times"></i></span>
+                    <span class="icon agree" data-userid="@item.ID" data-userlogin="@item.User_Login" data-friendlogin="@item.Friend_Login"> <i class="fa fa-check"></i></span>
 </div>
             }
         }

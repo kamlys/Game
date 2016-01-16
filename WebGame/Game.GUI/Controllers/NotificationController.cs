@@ -1,4 +1,5 @@
 ﻿using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Notification;
 using Game.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,19 +22,18 @@ namespace Game.GUI.Controllers
         // GET: Notification
         public ActionResult _Notification()
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            NotificationViewModel notificationModel = new NotificationViewModel();
 
-            foreach (var item in _notificationService.GetUserNotification(User.Identity.Name))
+            notificationModel.listModel = _notificationService.GetUserNotification(User.Identity.Name).Select(x => new ItemNotificationViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    Login = item.User_Login,
-                    Description = item.Description,
-                     ID = item.ID
-                });
-            }
-            return View(tableList);
+                UserLogin = x.User_Login,
+                Description = x.Description,
+                Temp_ID = x.Temp_ID,
+                ID = x.ID,
+                SenderLogin = x.SenderLogin
+            }).ToList();
+
+            return View(notificationModel);
         }
     }
 }

@@ -1,15 +1,11 @@
 ﻿using Game.Core.DTO;
 using Game.GUI.ViewModels.Map;
-using Game.Service;
 using Game.Service.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Game.GUI.ViewModels.UserBuildings;
-using Game.GUI.ViewModels;
-using Game.Service.Interfaces.TableInterface;
+using PagedList;
+using Game.GUI.ViewModels.Building.UserBuildings;
 
 namespace Game.GUI.Controllers
 {
@@ -94,36 +90,36 @@ namespace Game.GUI.Controllers
 
 
         [Authorize]
-        public ActionResult _MapList()
+        public ActionResult _MapList(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            MapViewModel mapModel = new MapViewModel();
 
-            foreach (var item in _mapService.GetMaps())
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+
+            mapModel.listModel = _mapService.GetMaps().Select(x => new ItemMapViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.Map_ID,
-                    User_ID = item.User_ID,
-                    Login = item.Login,
-                    Height = item.Height,
-                    Width = item.Width
-                });
-            }
+                ID = x.Map_ID,
+                User_ID = x.User_ID,
+                User_Login = x.Login,
+                Height = x.Height,
+                Width = x.Width
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
 
-            return View("~/Views/Admin/_MapList.cshtml", tableList);
+
+            return View("~/Views/Admin/_MapList.cshtml", mapModel);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel listView)
+        public ActionResult Add(MapViewModel mapModel)
         {
             MapDto _mapDto = new MapDto();
 
-            _mapDto.User_ID = listView.tableView.User_ID;
-            _mapDto.Height = listView.tableView.Height;
-            _mapDto.Width = listView.tableView.Width;
+            _mapDto.User_ID = mapModel.viewModel.User_ID;
+            _mapDto.Height = mapModel.viewModel.Height;
+            _mapDto.Width = mapModel.viewModel.Width;
 
             _mapService.Add(_mapDto);
 
@@ -132,14 +128,14 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel listView)
+        public ActionResult Update(MapViewModel mapModel)
         {
             MapDto _mapDto = new MapDto();
 
-            _mapDto.Map_ID = listView.tableView.ID;
-            _mapDto.User_ID = listView.tableView.User_ID;
-            _mapDto.Height = listView.tableView.Height;
-            _mapDto.Width = listView.tableView.Width;
+            _mapDto.Map_ID = mapModel.viewModel.ID;
+            _mapDto.User_ID = mapModel.viewModel.User_ID;
+            _mapDto.Height = mapModel.viewModel.Height;
+            _mapDto.Width = mapModel.viewModel.Width;
 
             _mapService.Add(_mapDto);
 

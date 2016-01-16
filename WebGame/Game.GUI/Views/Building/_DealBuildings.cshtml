@@ -1,12 +1,12 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Building.BuildingViewModel
 @{
     Layout = null;
 }
 
 <div id="buildingList">
-    @foreach (var item in Model.tableList)
+    @foreach (var item in Model.listModel)
     {
-        <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height, @item.DealID)"><span class="buildingName">@item.Alias</span></p>
+        <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height, @item.DealID)"><span class="buildingName">@item.BuildingName</span></p>
     }
 </div>
 

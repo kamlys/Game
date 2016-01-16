@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.Market.ListMarketViewModel
+﻿@model Game.GUI.ViewModels.Market.MarketViewModel
 @{
     Layout = null;
 }
@@ -6,7 +6,7 @@
 <button class='dropdown-button btn systemOfferBtn' href='#' data-activates='systemOffer'>Sprzedaj produkty</button>
 
 <ul id='systemOffer' class='dropdown-content systemOffer'>
-    @foreach (var item in Model.marketList)
+    @foreach (var item in Model.systemOfferList)
             {
         <li class="systemOfferItem">
             <p class="productName">@item.Product_Name</p><p class="productPrice">$@item.Price/szt</p>
@@ -48,7 +48,7 @@
         var number = $("#numberValue_" + id).val();
         var money = $(this).data('price') * number;
         var productname = $(this).data('productname');
-
+        console.log(id,number,money,productname);
         $.ajax({
             type: "POST",
             url: 'Market/SellProduct',
@@ -57,9 +57,6 @@
             success: function (data) {
                 location.reload();
             },
-            error: function (data) {
-                location.reload();
-            }
         });
     });
 

@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Deal.DealViewModel
 @{
     Layout = null;
 }
@@ -12,22 +12,22 @@
                     @Html.AntiForgeryToken()
 
                     <div class="input-field col s12">
-                        @Html.TextBoxFor(m => m.tableView.Login, new { @placeholder = "", @class = "validate inputLogin" })
+                        @Html.TextBoxFor(m => m.viewModel.User2_Login, new { @placeholder = "", @class = "validate inputLogin" })
                         <label for="Login">Wspólnik: </label>
                     </div>
 
                     <div class="input-field col s12" id="Number">
-                        @Html.TextBoxFor(m => m.tableView.Name, new { @placeholder = "", @class = "validate inputBuildingName" })
+                        @Html.TextBoxFor(m => m.viewModel.Building_Name, new { @placeholder = "", @class = "validate inputBuildingName" })
                         <label for="BuildingName">Budynek:</label>
                     </div>
                     <div class="col s12">
                         <div class="range-field col s6" id="Number">
                             <label for="Percent_User1">Czas trwania (dni):</label>
-                            @Html.TextBoxFor(m => m.tableView.Value, new { @type = "range", @min = "10", @max = "30", @step = "10", @placeholder = "", @class = "validate inputpercent_user" })
+                            @Html.TextBoxFor(m => m.viewModel.DealDay, new { @type = "range", @min = "10", @max = "30", @step = "10", @placeholder = "", @class = "validate inputpercent_user" })
                         </div>
                         <div class="range-field col s6" id="Number">
                             <label for="Percent_User1">Wkład własny i procent produkcji (%): </label>
-                            @Html.TextBoxFor(m => m.tableView.Percent_User1, new { @type = "range", @min = "10", @max = "90", @step = "10", @placeholder = "", @class = "validate inputpercent_user" })
+                            @Html.TextBoxFor(m => m.viewModel.Percent_User1, new { @type = "range", @min = "10", @max = "90", @step = "10", @placeholder = "", @class = "validate inputpercent_user" })
                         </div>
                     </div>
                     <div class="switch col s6">
@@ -63,30 +63,30 @@
 
         <div id="dealList">
             <ul class="collapsible" data-collapsible="accordion">
-                @foreach (var item in Model.tableList)
+                @foreach (var item in Model.listModel)
             {
                 if (item.IsActive == true)
                 {
                         <li>
-                            @if (item.Value == 0)
-                            { <button class="btn rerunDeal" id="cancelRerun" data-id="@item.ID">Odrzuć</button><button class="btn rerunDeal" id="rerunDeal" data-id="@item.ID" data-user1="@item.User2_Login" data-user2="@item.Login">Proponuj odnowienie (@item.LogDays dni.)</button>
-                            <div class="collapsible-header disabled">@item.Name</div>
+                            @if (item.DealDay == 0)
+                            { <button class="btn rerunDeal" id="cancelRerun" data-id="@item.ID">Odrzuć</button><button class="btn rerunDeal" id="rerunDeal" data-id="@item.ID" data-user1="@item.User2_Login" data-user2="@item.User1_Login">Proponuj odnowienie (@item.DealDay dni.)</button>
+                            <div class="collapsible-header disabled">@item.Building_Name</div>
                             }
                             else
                             {
-                                <div class="collapsible-header">@item.Name</div>
+                                <div class="collapsible-header">@item.Building_Name</div>
                             }
                             <div class="collapsible-body">
                                 <p>
 
-                                    @if (item.Login == User.Identity.Name)
+                                    @if (item.User1_Login == User.Identity.Name)
                                     {
                                         <span>Wspólnik: @item.User2_Login<br /></span>
                                         <span>Procent produktu dla mnie: @item.Percent_User2</span><br />
                                     }
                                     else
                                     {
-                                        <span>Wspólnik: @item.Login<br /></span>
+                                        <span>Wspólnik: @item.User1_Login<br /></span>
                                         <span>Procent produktu dla mnie: @item.Percent_User1</span><br />
                                     }
                                     @if (item.Owner == true)
@@ -97,14 +97,14 @@
                                     {
                                         <span>Budynek stoi na działce wspólnika</span><br />
                                     }
-                                    Umowa zawarta na @item.LogDays dni.<br />
-                                    @if (item.Value > 1)
+                                    Umowa zawarta na @item.DealDay dni.<br />
+                                    @if (item.DealDay > 1)
                                     {
-                                        <span>Umowa wygasa za @item.Value dni</span>
+                                        <span>Umowa wygasa za @item.DealDay dni</span>
                                     }
-                                    else if (item.Value == 1)
+                                    else if (item.DealDay == 1)
                                     {
-                                        <span>Umowa wygasa za @item.Value dzień</span>
+                                        <span>Umowa wygasa za @item.DealDay dzień</span>
                                     }
                                     else
                                     {
@@ -116,10 +116,10 @@
                     }
                     else if (item.IsActive == false)
                     {
-                        if (item.Login == User.Identity.Name)
+                        if (item.User1_Login == User.Identity.Name)
                         {
                             <li>
-                                <div class="collapsible-header disabled">@item.Name <button class="btn myoffer disabled">Oczekuje</button></div>
+                                <div class="collapsible-header disabled">@item.Building_Name <button class="btn myoffer disabled">Oczekuje</button></div>
                                 <div class="collapsible-body">
                                     <p>
                                         Wspólnik: @item.User2_Login<br />
@@ -132,7 +132,7 @@
                                         {
                                             <span>Budynek stoi na działce wspólnika</span><br />
                                         }
-                                        Umowa na @item.LogDays dni.<br />
+                                        Umowa na @item.DealDay dni.<br />
                                     </p>
                                 </div>
                             </li>
@@ -141,7 +141,7 @@
                         {
                             <li>
                                 <div class="collapsible-header disabled">
-                                    @item.Name <button data-target="officeDealShow" onclick='showDeal("@item.ID","@item.Login", "@item.Percent_User1", "@item.Name","@item.Owner.ToString()")' class="btn modal-trigger officeDealShow">Zobacz ofertę</button>
+                                    @item.Building_Name <button data-target="officeDealShow" onclick='showDeal("@item.ID","@item.User1_Login", "@item.Percent_User1", "@item.Building_Name","@item.Owner.ToString()")' class="btn modal-trigger officeDealShow">Zobacz ofertę</button>
                                 </div>
                             </li>
                         }
@@ -171,18 +171,18 @@
 
     $("#addDeal").click(function () {
         if ($('input[id=test1]:checked').val() == "on") {
-            $("#tableView_Value").val() = 7;
-            console.log($("#tableView_Value").val());
+            $("#viewModel_DealDay").val() = 7;
+            console.log($("#viewModel_DealDay").val());
             console.log($('input[id=test1]:checked').val());
         }
         else if ($('input[id=test2]:checked').val() == "on") {
-            $("#tableView_Value").val() = 10;
+            $("#viewModel_DealDay").val() = 10;
         }
         else if ($('input[id=test3]:checked').val() == "on") {
-            $("#tableView_Value").val() = 20;
+            $("#viewModel_DealDay").val() = 20;
         }
         else if ($('input[id=test4]:checked').val() == "on") {
-            $("#tableView_Value").val() = 30;
+            $("#viewModel_DealDay").val() = 30;
         }
     });
 

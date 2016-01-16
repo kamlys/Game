@@ -1,5 +1,4 @@
-﻿@model Game.GUI.ViewModels.Market.ListMarketViewModel
-@{
+﻿@{
     ViewBag.Title = "Market";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -23,7 +22,6 @@
 <script src="~/Scripts/js/Market.js"></script>
 <script>
     $(document).ready(function () {
-
         $(document).on("click", "[type='checkbox']", function (e) {
             if (this.checked) {
                 $(this).attr("value", "true");
@@ -31,11 +29,12 @@
                 $(this).attr("value", "false");
             }
         });
-
-
         $('ul.tabs').tabs();
+    });
 
-
+    $('.tab').click(function () {
+        $('#SellOffer').load("/Market/_SellOffer");
+        $('#BuyOffer').load("/Message/_BuyOffer");
 
     });
 

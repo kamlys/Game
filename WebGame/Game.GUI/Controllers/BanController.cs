@@ -1,10 +1,8 @@
 ﻿using Game.Core.DTO;
-using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.User.Ban;
 using Game.Service.Interfaces.TableInterface;
-using System;
-using System.Collections.Generic;
+using PagedList;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Game.GUI.Controllers
@@ -24,37 +22,33 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult _BanList()
+        public ActionResult _BanList(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
-
-            foreach (var item in _banTable.GetBan())
+            BanViewModel banModel = new BanViewModel();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+            banModel.listModel = _banTable.GetBan().Select(x => new ItemBanViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    Login = item.Login,
-                    Description = item.Description,
-                    Start_Date = item.Start_Date,
-                    Finish_Date = item.Finish_Date
-                });
-            }
+                ID = x.ID,
+                User_Login = x.Login,
+                Description = x.Description,
+                StartDate = x.Start_Date,
+                FinishDate = x.Finish_Date
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-
-            return View("~/Views/Admin/_BanList.cshtml", tableList);
+            return View("~/Views/Admin/_BanList.cshtml", banModel);
         }
 
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel viewList)
+        public ActionResult Add(BanViewModel banModel)
         {
             BanDto _banDto = new BanDto();
 
-            _banDto.Login = viewList.tableView.Login;
-            _banDto.Description = viewList.tableView.Description;
-            _banDto.Finish_Date = viewList.tableView.Finish_Date;
+            _banDto.Login = banModel.viewModel.User_Login;
+            _banDto.Description = banModel.viewModel.Description;
+            _banDto.Finish_Date = banModel.viewModel.FinishDate;
 
             _banTable.Add(_banDto);
 
@@ -64,14 +58,14 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel viewList)
+        public ActionResult Update(BanViewModel banModel)
         {
             BanDto _banDto = new BanDto();
 
-            _banDto.ID = viewList.tableView.ID;
-            _banDto.Login = viewList.tableView.Login;
-            _banDto.Description = viewList.tableView.Description;
-            _banDto.Finish_Date = viewList.tableView.Finish_Date;
+            _banDto.ID = banModel.viewModel.ID;
+            _banDto.Login = banModel.viewModel.User_Login;
+            _banDto.Description = banModel.viewModel.Description;
+            _banDto.Finish_Date = banModel.viewModel.FinishDate;
 
             _banTable.Update(_banDto);
 

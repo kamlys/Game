@@ -18,9 +18,8 @@ function buyoffer(ID, user_ID, product_ID, price, typeOff) {
     marketbuyoffer(ID, user_ID, product_ID, price, typeOffer);
 }
 
-
 function marketbuyoffer(ID, user_ID, product_ID, price,type) {
-    var data = { ID : ID, user_ID: user_ID, product_ID: product_ID, price: price, number: number, typeOffer: typeOffer };
+    var data = { ID : ID, User_ID: user_ID, Product_ID: product_ID, Price: price, Number: number, TypeOffer: typeOffer };
     var me = $(this);
     console.log(data);
     if (me.data('requestRunning')) {
@@ -31,7 +30,7 @@ function marketbuyoffer(ID, user_ID, product_ID, price,type) {
         type: "POST",
         url: 'market/buyoffer',
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ a: data }),
+        data: JSON.stringify({a: data}),
         dataType: "json",
         success: function (data) {
             location.reload();

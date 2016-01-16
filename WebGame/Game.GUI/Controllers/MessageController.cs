@@ -1,5 +1,7 @@
 ﻿using Game.Core.DTO;
 using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Message;
+using Game.GUI.ViewModels.User;
 using Game.Service.Interfaces;
 using PagedList;
 using System;
@@ -35,7 +37,7 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult SentMessage(ListTableViewModel messageView)
+        public ActionResult SentMessage(MessageViewModel messageModel)
         {
             List<string> errors;
             if (Session["val"] != null)
@@ -50,14 +52,15 @@ namespace Game.GUI.Controllers
             MessageDto message = new MessageDto();
 
             message.Sender_Login = User.Identity.Name;
-            message.Customer_Login = messageView.tableView.Customer_Login;
-            message.Theme = messageView.tableView.Theme;
-            message.Content = messageView.tableView.Content;
+            message.Customer_Login = messageModel.viewModel.Customer_Login;
+            message.Theme = messageModel.viewModel.Theme;
+            message.Content = messageModel.viewModel.Content;
 
             if (_messageService.SentMessage(message))
             {
                 _notificationService.SentNotification(new NotificationDto
                 {
+                    SenderLogin = User.Identity.Name,
                     User_Login = message.Customer_Login,
                     Description = "Nowa wiadomość",
                 });
@@ -74,14 +77,14 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult SentMessageProfile(ListTableViewModel messageView)
+        public ActionResult SentMessageProfile(ProfileViewModel profilViewModel)
         {
             MessageDto message = new MessageDto();
 
             message.Sender_Login = User.Identity.Name;
-            message.Customer_Login = messageView.tableView.Login;
-            message.Theme = messageView.tableView.Theme;
-            message.Content = messageView.tableView.Content;
+            message.Customer_Login = profilViewModel.Login;
+            message.Theme = profilViewModel.Theme;
+            message.Content = profilViewModel.Content;
 
             _messageService.SentMessage(message);
             _notificationService.SentNotification(new NotificationDto
@@ -95,88 +98,64 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _SentMessage(int? Page_No)
         {
-            List<TableViewModel> tableList = new List<TableViewModel>();
+            MessageViewModel messageModel = new MessageViewModel();
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
 
-            foreach (var item in _messageService.GetSentMessage(User.Identity.Name))
+            messageModel.listModel = _messageService.GetSentMessage(User.Identity.Name).Select(x => new ItemMessageViewModel
             {
-                tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    Customer_Login = item.Customer_Login,
-                    Theme = item.Theme,
-                    Content = item.Content,
-                    PostDate = item.PostDate
-                });
-            }
-            return View("~/Views/Message/_SentMessage.cshtml", tableList.ToPagedList(No_Of_Page, Size_Of_Page));
+                ID = x.ID,
+                Customer_Login = x.Customer_Login,
+                Theme = x.Theme,
+                Content = x.Content,
+                PostDate = x.PostDate
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
+
+            return View("~/Views/Message/_SentMessage.cshtml", messageModel);
         }
 
         [Authorize]
         public ActionResult _ReceivedMessage(int? Page_No)
         {
-            List<TableViewModel> tableList = new List<TableViewModel>();
+            MessageViewModel messageModel = new MessageViewModel();
+
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
 
-            foreach (var item in _messageService.GetReceivedMessages(User.Identity.Name))
+            messageModel.listModel = _messageService.GetReceivedMessages(User.Identity.Name).Select(x=>new ItemMessageViewModel
             {
-                tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    Sender_Login = item.Sender_Login,
-                    Theme = item.Theme,
-                    Content = item.Content,
-                    PostDate = item.PostDate,
-                    IfRead = item.IfRead
-                });
-            }
+                ID = x.ID,
+                Sender_Login = x.Sender_Login,
+                Theme = x.Theme,
+                Content = x.Content,
+                PostDate = x.PostDate,
+                IfRead = x.IfRead
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-            return View("~/Views/Message/_ReceivedMessage.cshtml", tableList.ToPagedList(No_Of_Page, Size_Of_Page));
-
-
-
-            //ListTableViewModel tableList = new ListTableViewModel();
-            //tableList.tableList = new List<TableViewModel>();
-
-            //foreach (var item in _messageService.GetReceivedMessages(User.Identity.Name))
-            //{
-            //    tableList.tableList.Add(new TableViewModel
-            //    {
-            //        ID = item.ID,
-            //        Sender_Login = item.Sender_Login,
-            //        Theme = item.Theme,
-            //        Content = item.Content,
-            //        PostDate = item.PostDate,
-            //        IfRead = item.IfRead
-            //    });
-            //}
-
-            //return View("~/Views/Message/_ReceivedMessage.cshtml", tableList);
+            return View("~/Views/Message/_ReceivedMessage.cshtml", messageModel);
         }
 
         [Authorize]
         public ActionResult Content(int MessageID)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableView = new TableViewModel();
+            MessageViewModel messageModel = new MessageViewModel();
+            messageModel.viewModel = new ItemMessageViewModel();
 
             var temp = _messageService.ConentMessage(MessageID, User.Identity.Name);
 
-            tableList.tableView.ID = temp.ID;
-            tableList.tableView.Customer_Login = temp.Customer_Login;
-            tableList.tableView.Sender_Login = temp.Sender_Login;
-            tableList.tableView.Theme = temp.Theme;
-            tableList.tableView.Content = temp.Content;
-            tableList.tableView.PostDate = (DateTime)temp.PostDate;
+            messageModel.viewModel.ID = temp.ID;
+            messageModel.viewModel.Customer_Login = temp.Customer_Login;
+            messageModel.viewModel.Sender_Login = temp.Sender_Login;
+            messageModel.viewModel.Theme = temp.Theme;
+            messageModel.viewModel.Content = temp.Content;
+            messageModel.viewModel.PostDate = (DateTime)temp.PostDate;
 
-            return View(tableList);
+            return View(messageModel);
         }
 
         [Authorize]
         public void DeleteMessage(int a)
-       {
+        {
             _messageService.DeleteMessage(a);
         }
 
