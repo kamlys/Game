@@ -6,27 +6,25 @@
 
 <div class="row">
     <div class="office">
-            <div class="col s12 m6 l6 uBuildingList">
-                <h5>Lista zabudowań</h5>
-                @Html.Action("_UserBuildingList", "Office")
-            </div>
+        <div class="uBuildingList">
+            <h5>Lista zabudowań</h5>
+            @Html.Action("_UserBuildingList", "Office")
+        </div>
 
-            <div class="col s12 m6 l6 uProductList">
-                <h5>Magazyn</h5>
-                @Html.Action("_UserProductList", "Office")
-            </div>
+        <div class="uProductList">
+            <h5>Magazyn</h5>
+            @Html.Action("_UserProductList", "Office")
+        </div>
 
-            <div class="col s12 m6 l6 uDealList">
-                <div id="dealBox">
-                    @Html.Action("_UserDealList", "Office")
-                </div>
-            </div>
+        <div class="uDealList">
+            <h5>Umowy</h5>
+            @Html.Action("_UserDealList", "Office")
+        </div>
 
-            <div class="col s12 m6 l6 uProductRequirementList">
-                <div id="requirementBox">
-                    @Html.Action("_UserProductRequirementList", "Office")
-                </div>
-            </div>
+        <div class="uProductRequirementList">
+            <h5>Produkcja</h5>
+            @Html.Action("_UserProductRequirementList", "Office")
+        </div>
     </div>
 
 </div>

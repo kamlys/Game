@@ -1,19 +1,18 @@
 ﻿using Game.Core.DTO;
-using Game.GUI.ViewModels;
 using Game.GUI.ViewModels.User;
-using Game.Service;
+using Game.GUI.ViewModels.User.Friend;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.SessionState;
 
 namespace Game.GUI.Controllers
 {
+    [SessionState(SessionStateBehavior.Required)]
     public class UserController : Controller
     {
         private IUserService _userService;
@@ -35,24 +34,45 @@ namespace Game.GUI.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Register(RegisterViewModel register)
         {
+            List<string> errors;
+            if(Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserDto user = new UserDto();
 
             user.Login = register.Login;
             user.Email = register.Email;
             user.Password = register.Password;
 
-
-            if (_userService.RegisterUser(user))
+            foreach (var item in _userService.RegisterUser(user))
             {
-                FormsAuthentication.SetAuthCookie(user.Login, true);
-                return RedirectToAction("Index", "Home");
+                if (item == 0)
+                {
+                    FormsAuthentication.SetAuthCookie(user.Login, true);
+                    return RedirectToAction("Index", "Home");
+                }
+                else if(item == 1)
+                {
+                    errors.Add("Login już istnieje");
+                }
+                else if(item==2)
+                {
+                errors.Add("Email już istnieje");
+                }
+               
+            }
 
-            };
-
-            ModelState.AddModelError("", "Nie udało się zarejestrować.");
+            Session["val"] = errors.ToArray<string>();
 
             return View();
         }
@@ -66,6 +86,15 @@ namespace Game.GUI.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel modelLogin, string returnUrl)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
             UserDto user = new UserDto();
 
             user.Login = modelLogin.Login;
@@ -79,8 +108,9 @@ namespace Game.GUI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Login bądź hasło niepoprawne.");
+                errors.Add("Login bądź hasło niepoprawne.");
             }
+            Session["val"] = errors.ToArray<string>();
 
             return View(modelLogin);
         }
@@ -97,39 +127,34 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _UserList()
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            UserViewModel userModel = new UserViewModel();
 
-            foreach (var item in _userService.GetUser())
+            userModel.listModel = _userService.GetUser().Select(x => new ItemUserViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    Login = item.Login,
-                    Password = item.Password,
-                    Email = item.Email,
-                    Last_Update = item.Last_Update,
-                    Registration_Date = item.Registration_Date,
-                    Last_Log = item.Last_Log
-                });
-            }
+                ID = x.ID,
+                User_Login = x.Login,
+                Password = x.Password,
+                Email = x.Email,
+                LastUpdate = x.Last_Update,
+                RegistrationDate = x.Registration_Date,
+                LastLog = x.Last_Log
+            }).ToList();
 
-
-            return View("~/Views/Admin/_UserList.cshtml", tableList);
+            return View("~/Views/Admin/_UserList.cshtml", userModel);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel listView)
+        public ActionResult Add(UserViewModel userModel)
         {
             UserDto _userDto = new UserDto();
 
-            _userDto.Login = listView.tableView.Login;
-            _userDto.Password = listView.tableView.Password;
-            _userDto.Email = listView.tableView.Email;
-            _userDto.Last_Log = listView.tableView.Last_Log;
-            _userDto.Registration_Date = listView.tableView.Registration_Date;
-            _userDto.Last_Update = listView.tableView.Last_Update;
+            _userDto.Login = userModel.viewModel.User_Login;
+            _userDto.Password = userModel.viewModel.Password;
+            _userDto.Email = userModel.viewModel.Email;
+            _userDto.Last_Log = userModel.viewModel.LastLog;
+            _userDto.Registration_Date = userModel.viewModel.RegistrationDate;
+            _userDto.Last_Update = userModel.viewModel.LastUpdate;
 
             _userService.Add(_userDto);
 
@@ -138,17 +163,17 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel listView)
+        public ActionResult Update(UserViewModel userModel)
         {
             UserDto _userDto = new UserDto();
 
-            _userDto.ID = listView.tableView.ID;
-            _userDto.Login = listView.tableView.Login;
-            _userDto.Password = listView.tableView.Password;
-            _userDto.Email = listView.tableView.Email;
-            _userDto.Last_Log = listView.tableView.Last_Log;
-            _userDto.Registration_Date = listView.tableView.Registration_Date;
-            _userDto.Last_Update = listView.tableView.Last_Update;
+            _userDto.ID = userModel.viewModel.ID;
+            _userDto.Login = userModel.viewModel.User_Login;
+            _userDto.Password = userModel.viewModel.Password;
+            _userDto.Email = userModel.viewModel.Email;
+            _userDto.Last_Log = userModel.viewModel.LastLog;
+            _userDto.Registration_Date = userModel.viewModel.RegistrationDate;
+            _userDto.Last_Update = userModel.viewModel.LastUpdate;
 
             _userService.Update(_userDto);
 
@@ -166,41 +191,64 @@ namespace Game.GUI.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Profil(string User)
+        public ActionResult Profil(string user)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
-            tableList.tableView = new TableViewModel();
+            ProfileViewModel profilView = new ProfileViewModel();
 
             int buildings = 0;
-            var userDto = _userService.Profil(User);
+            var userDto = _userService.Profil(user);
 
-            tableList.tableView.Login = userDto.Login;
-            tableList.tableView.Email = userDto.Email;
-            tableList.tableView.RegDays = (DateTime.Now - userDto.Registration_Date).Days;
-            tableList.tableView.LogDays = (DateTime.Now - userDto.Last_Log).Days;
+            profilView.User_ID = userDto.ID;
 
-            foreach (var item in _userBuildingService.GetUserBuildingList(User))
+            profilView.Login = userDto.Login;
+            profilView.EmailAddress = userDto.Email;
+            profilView.RegDays = (DateTime.Now - userDto.Registration_Date).Days;
+            profilView.LogDays = (DateTime.Now - userDto.Last_Log).Days;
+            profilView.Value = _userService.ifFriend(User.Identity.Name,user);
+            profilView.IfIgnored = _userService.Ignored(user, User.Identity.Name);
+            profilView.Ignor = _userService.Ignored(User.Identity.Name, user);
+
+
+            profilView.Ignored_Login = _userService.GetIgnored(User.Identity.Name);
+
+            profilView.Friend_Login = new List<string>();
+            foreach (var item in _userService.GetFriendList(User.Identity.Name))
+            {
+                profilView.Friend_Login.Add(item.Friend_Login);
+            }
+
+            foreach (var item in _userBuildingService.GetUserBuildingList(user))
             {
                 buildings += 1;
             }
 
-            tableList.tableView.Number = buildings;
-            return View(tableList);
+            profilView.Number = buildings;
+            return View(profilView);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult ChangePass(ListTableViewModel pass)
+        public ActionResult ChangePass(ProfileViewModel pass)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserDto user = new UserDto();
 
-            user.OldPassword = pass.tableView.OldPassword;
-            user.Password = pass.tableView.Password;
+            user.OldPassword = pass.OldPassword;
+            user.Password = pass.Password;
 
             if (_userService.ChangePass(user, User.Identity.Name))
             {
-                ViewData["changeInfo"] = "Hasło zostało zmienione";
+                errors.Add("Hasło zostało zmienione");
+                Session["val"] = errors.ToArray<string>();
                 return RedirectToAction("Profil", new
                 {
                     User = User.Identity.Name
@@ -208,7 +256,8 @@ namespace Game.GUI.Controllers
             }
             else
             {
-                ViewData["changeInfo"] = "Coś poszło nie tak, spróbuj ponownie";
+                errors.Add("Błąd. Hasło nie zostało zmienione.");
+                Session["val"] = errors.ToArray<string>();
                 return RedirectToAction("Profil", new
                 {
                     User = User.Identity.Name
@@ -218,15 +267,25 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult ChangeEmail(ListTableViewModel email)
+        public ActionResult ChangeEmail(ProfileViewModel email)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
             UserDto user = new UserDto();
 
-            user.Email = email.tableView.Email;
+            user.Email = email.EmailAddress;
 
             if (_userService.ChangeEmail(user, User.Identity.Name))
             {
-                ViewData["changeInfo"] = "Adres E-mail został zmienione";
+                errors.Add("Email został zmieniony.");
+                Session["val"] = errors.ToArray<string>();
                 return RedirectToAction("Profil", new
                 {
                     User = User.Identity.Name
@@ -234,7 +293,8 @@ namespace Game.GUI.Controllers
             }
             else
             {
-                ViewData["changeInfo"] = "Coś poszło nie tak, spróbuj ponownie";
+                errors.Add("Błąd. Email nie został zmieniony.");
+                Session["val"] = errors.ToArray<string>();
                 return RedirectToAction("Profil", new
                 {
                     User = User.Identity.Name
@@ -245,22 +305,19 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _FriendList()
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            FriendViewModel friendModel = new FriendViewModel();
 
-            foreach (var item in _userService.GetFriendList(User.Identity.Name))
+            friendModel.listModel = _userService.GetFriendList(User.Identity.Name).Select(x => new ItemFriendViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    Login = item.User_Login,
-                    User_ID = item.User_ID,
-                    Friend_ID = item.Friend_ID,
-                    Friend_Login = item.Friend_Login,
-                    OrAccepted = item.OrAccepted
-                });
-            }
-            return View(tableList);
+                ID = x.ID,
+                User_Login = x.User_Login,
+                User_ID = x.User_ID,
+                Friend_ID = x.Friend_ID,
+                Friend_Login = x.Friend_Login,
+                OrAccepted = x.OrAccepted
+            }).ToList();
+
+            return View(friendModel);
         }
 
         [HttpPost]
@@ -276,6 +333,7 @@ namespace Game.GUI.Controllers
             _notificationService.SentNotification(new NotificationDto
             {
                 User_Login = a,
+                SenderLogin = User.Identity.Name,
                 Description = "Nowa zaproszenie do znajomych",
             });
 
@@ -287,5 +345,73 @@ namespace Game.GUI.Controllers
         {
             _userService.AcceptFriend(a);
         }
+
+        public void DontAcceptFriend(int a)
+        {
+            _userService.DontAcceptFriend(a);
+        }
+
+        [HttpPost]
+        public void DeleteFriend(string loginfriend)
+        {
+            _userService.DeleteFriend(User.Identity.Name, loginfriend);
+        }
+
+        public void AddIgnore(string ignorlogin)
+        {
+            _userService.AddIgnore(User.Identity.Name, ignorlogin);
+        }
+
+        public void DeleteIgnore(string ignorlogin)
+        {
+            _userService.DeleteIgnore(User.Identity.Name, ignorlogin);
+        }
+
+        public ActionResult RecoveryPassword()
+        {
+            return View();
+        }
+
+        public void ForgetPassword(string email)
+        {
+            _userService.ForgetPassword(email);
+        }
+
+        public ActionResult RecoveryPass(RegisterViewModel user)
+        {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+
+            UserDto userDto = new UserDto();
+            userDto.Password = user.Password;
+            userDto.Code = user.RecoveryCode;
+            userDto.Email = user.Email;
+
+            if(_userService.RecoveryPass(userDto) == 1)
+            {
+                errors.Add("Hasło zostało zmienione.");
+            }
+            else if(_userService.RecoveryPass(userDto) == 2)
+            {
+                errors.Add("Niepoprawny kod.");
+            }
+            else if(_userService.RecoveryPass(userDto) == 3)
+            {
+                errors.Add("Kod stracił ważność.");
+            }
+
+            Session["val"] = errors.ToArray<string>();
+
+            return View("~/Views/User/Login.cshtml");
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.Market.ListMarketViewModel
+﻿@model Game.GUI.ViewModels.Market.MarketViewModel
 @{
     Layout = null;
 }
@@ -9,22 +9,22 @@
             {
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.Login, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
                 <label for="Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.Product_Name, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.Number, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Number, new { placeholder = "", @class = "validate" })
                 <label for="Number">Ilość</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.Price, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @class = "validate" })
                 <label for="Price">Cena/szt</label>
             </div>
 
@@ -39,26 +39,26 @@
             {
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.ID, new { placeholder = "", @class = "validate inputID" })
+                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
                 <label for="ID">ID</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.Login, new { placeholder = "", @class = "validate inputLogin" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
                 <label for="Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.Product_Name, new { placeholder = "", @class = "validate inputProductName" })
+                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate inputProductName" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.Number, new { placeholder = "", @class = "validate inputNumber" })
+                @Html.TextBoxFor(m => m.viewModel.Number, new { placeholder = "", @class = "validate inputNumber" })
                 <label for="Number">Ilość</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.marketView.Price, new { placeholder = "", @class = "validate inputPrice" })
+                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @class = "validate inputPrice" })
                 <label for="Price">Cena/szt</label>
             </div>
 
@@ -80,10 +80,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.marketList)
+            @foreach (var item in Model.listModel)
             {
                 <tr>
-                    <td>@item.Login</td>
+                    <td>@item.User_Login</td>
                     <td>@item.Product_Name</td>
                     <td>@item.Number</td>
                     <td>@item.Price</td>
@@ -93,7 +93,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="offerUpdate" class="btn-floating #00695c teal darken-3 modal-trigger offerUpdate" onclick="updaterow(['inputID','inputLogin','inputProductName','inputNumber','inputPrice'], ['@item.ID','@item.Login','@item.Product_Name','@item.Number','@item.Price'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="offerUpdate" class="btn-floating #00695c teal darken-3 modal-trigger offerUpdate" onclick="updaterow(['inputID','inputLogin','inputProductName','inputNumber','inputPrice'], ['@item.ID','@item.User_Login','@item.Product_Name','@item.Number','@item.Price'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteOfferAdmin", "Market", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

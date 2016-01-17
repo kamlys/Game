@@ -47,12 +47,14 @@
     <Compile Include="DTO\DealDto.cs" />
     <Compile Include="DTO\DolarDto.cs" />
     <Compile Include="DTO\FriendDto.cs" />
+    <Compile Include="DTO\IgnoredDto.cs" />
     <Compile Include="DTO\MapDto.cs" />
     <Compile Include="DTO\MarketDto.cs" />
     <Compile Include="DTO\MessageDto.cs" />
     <Compile Include="DTO\NotificationDto.cs" />
     <Compile Include="DTO\ProductDto.cs" />
     <Compile Include="DTO\ProductRequirementDto.cs" />
+    <Compile Include="DTO\RecoveryCodeDto.cs" />
     <Compile Include="DTO\UserBuildingDto.cs" />
     <Compile Include="DTO\UserDto.cs" />
     <Compile Include="DTO\UserProductDto.cs" />

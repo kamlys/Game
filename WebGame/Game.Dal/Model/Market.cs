@@ -19,6 +19,8 @@ namespace Game.Dal.Model
 
         public int Price { get; set; }
 
+        public bool TypeOffer { get; set; }
+
         public virtual Users Users { get; set; }
     }
 }

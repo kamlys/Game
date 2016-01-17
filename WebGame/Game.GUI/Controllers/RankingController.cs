@@ -1,5 +1,7 @@
 ﻿using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Ranking;
 using Game.Service.Interfaces.TableInterface;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +20,33 @@ namespace Game.GUI.Controllers
         }
         // GET: Ranking
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            List<RankingViewModel> rankingModel = new List<RankingViewModel>();
+
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+            int temp = No_Of_Page;
 
             foreach (var item in _dolar.GetToRank())
             {
-                tableList.tableList.Add(new TableViewModel
+                temp+=1;
+                rankingModel.Add(new RankingViewModel
                 {
-                    Login = item.Login,
-                    Value = item.Value
+                    User_Login = item.Login,
+                    UserDolar = item.Value,
+                    Position = temp - 1
                 });
             }
-            return View(tableList);
+
+            //rankingModel = _dolar.GetToRank().Select(x => new RankingViewModel
+            //{
+            //    User_Login = x.Login,
+            //    UserDolar = x.Value,
+            //    Position = temp - 1
+            //}).ToList();
+
+            return View(rankingModel.ToPagedList(No_Of_Page,Size_Of_Page));
         }
     }
 }

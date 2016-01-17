@@ -11,7 +11,7 @@ namespace Game.Dal.Model
         public int ID { get; set; }
 
         public int User_ID { get; set; }
-
+        public int Temp_ID { get; set; }
         [Required]
         [StringLength(300)]
         public string Description { get; set; }

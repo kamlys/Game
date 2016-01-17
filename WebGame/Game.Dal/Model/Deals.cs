@@ -8,6 +8,12 @@ namespace Game.Dal.Model
 
     public partial class Deals
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Deals()
+        {
+            DealsBuildings = new HashSet<DealsBuildings>();
+        }
+
         public int ID { get; set; }
 
         public int User1_ID { get; set; }
@@ -22,9 +28,17 @@ namespace Game.Dal.Model
 
         public int Percent_User2 { get; set; }
 
+        [Column(TypeName = "datetime2")]
+        public DateTime FinishDate { get; set; }
+
+        public int DayTime { get; set; }
+
         public bool IsActive { get; set; }
 
         public virtual Buildings Buildings { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DealsBuildings> DealsBuildings { get; set; }
 
         public virtual Maps Maps { get; set; }
 

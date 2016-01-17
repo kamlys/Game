@@ -15,6 +15,7 @@ namespace Game.Core.DTO
         public int Value { get; set; }
         public int Product_ID { get; set; }
         public string Alias { get; set; }
+        public int Price { get; set; }
 
     }
 }

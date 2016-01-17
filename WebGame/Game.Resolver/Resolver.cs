@@ -36,7 +36,8 @@ namespace Game.Resolver
             builder.RegisterType<Repository<Deals>>().As<IRepository<Deals>>();
             builder.RegisterType<Repository<DealsBuildings>>().As<IRepository<DealsBuildings>>();
             builder.RegisterType<Repository<ProductRequirements>>().As<IRepository<ProductRequirements>>();
-
+            builder.RegisterType<Repository<Ignored>>().As<IRepository<Ignored>>();
+            builder.RegisterType<Repository<RecoveryCodes>>().As<IRepository<RecoveryCodes>>();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();

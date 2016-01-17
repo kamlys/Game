@@ -1,38 +1,68 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Message.MessageViewModel
+@using PagedList.Mvc;
 @{
     Layout = null;
 }
 
-<div class="receivedMessage">
-    <table class="bordered centered">
-        <thead>
-            <tr>
-                <th>Nadawca</th>
-                <th>Temat</th>
-                <th>Data wysłania</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            @foreach (var item in Model.tableList)
-            {
-                if (item.IfRead == false)
+<div class="receivedMessage" id="receivedMessage">
+    @if (!Model.listModel.Any())
+    {
+        <span class="noRow">Brak wiadomości</span>
+    }
+    else
+    {
+
+
+        <table class="bordered centered">
+            <thead>
+                <tr>
+                    <th>Nadawca</th>
+                    <th>Temat</th>
+                    <th>Data wysłania</th>
+                </tr>
+            </thead>
+
+            <tbody id="receivedMessage">
+                @foreach (var item in Model.listModel)
                 {
-                    <tr id="newMessage" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
-                        <td>@item.Sender_Login</td>
-                        <td>@item.Theme</td>
-                        <td>@item.PostDate</td>
-                    </tr>
+                    if (item.IfRead == false)
+                    {
+                        <tr id="newMessage" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
+                            <td>@Html.DisplayFor(modelItem => item.Sender_Login)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Theme)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
+                        </tr>
+                    }
+                    else if (item.IfRead == true)
+                    {
+                        <tr style="font-weight: normal" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
+                            <td>@Html.DisplayFor(modelItem => item.Sender_Login)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Theme)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
+                        </tr>
+                    }
                 }
-                else if (item.IfRead == true)
-                {
-                    <tr style="font-weight: normal" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
-                        <td>@item.Sender_Login</td>
-                        <td>@item.Theme</td>
-                        <td>@item.PostDate</td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+
+            <div class="paginationBtn" id="paginationBtnReceived">
+                @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+            </div>
+    }
 </div>
+<script>
+    $('#paginationBtnReceived').on('click', 'a', function (e) {
+        e.preventDefault();
+        if (!$(this).parents("li:first").hasClass("active")) {
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#receivedMessage').html(result);
+                }
+            });
+        }
+    });
+</script>

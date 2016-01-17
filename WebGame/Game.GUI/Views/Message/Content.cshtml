@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Message.MessageViewModel
 @{
     ViewBag.Title = "Content";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,19 +11,19 @@
             @Html.Hidden(User.Identity.Name);
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Customer_Login, new { @placeholder = "", @class = "validate inputLogin" })
+                @Html.TextBoxFor(m => m.viewModel.Customer_Login, new { @placeholder = "", @class = "validate inputLogin" })
                 <label for="Odbiorca">Odbiorca:</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Theme, new { @placeholder = "", @class = "validate inputTheme", length = "150" })
+                @Html.TextBoxFor(m => m.viewModel.Theme, new { @placeholder = "", @class = "validate inputTheme", length = "150" })
                 <label for="Login">Tytuł:</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextAreaFor(m => m.tableView.Content, new { @placeholder = "", @class = "materialize-textarea inputContent" })
+                @Html.TextAreaFor(m => m.viewModel.Content, new { @placeholder = "", @class = "materialize-textarea inputContent" })
                 <label for="Login">Treść:</label>
             </div>
-            <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage" name="action" />
+            <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage sentMessageBtn" name="action" />
         }
     </div>
 </div>
@@ -31,34 +31,34 @@
 
 
 
-@Html.HiddenFor(m => Model.tableView.ID)
-@Html.HiddenFor(m => Model.tableView.Sender_Login)
-@Html.HiddenFor(m => Model.tableView.Theme)
+@Html.HiddenFor(m => Model.viewModel.ID)
+@Html.HiddenFor(m => Model.viewModel.Sender_Login)
+@Html.HiddenFor(m => Model.viewModel.Theme)
 
 
 <div class="contentMessage">
 
     <div class="contentButton">
-        @if (Model.tableView.Sender_Login != User.Identity.Name)
+        @if (Model.viewModel.Sender_Login != User.Identity.Name)
         {
             <button class="btn answerButton" id="answerButton" data-target="answerButton"><i class="fa fa-retweet"></i>Odpowiedz</button>
         }
         <button class="btn deleteMessage"><i class="fa fa-trash"></i>Usuń</button>
     </div>
 
-    <span class="theme">@Model.tableView.Theme</span>
-    @if (Model.tableView.Sender_Login != User.Identity.Name)
+    <span class="theme">@Model.viewModel.Theme</span>
+    @if (Model.viewModel.Sender_Login != User.Identity.Name)
     {
-        <span class="sender">Od:<span class="login">@Model.tableView.Sender_Login</span> Data: <span class="date">@Model.tableView.PostDate</span></span>
+        <span class="sender">Od:<span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @Model.viewModel.Sender_Login })'">@Model.viewModel.Sender_Login</span> Data: <span class="date">@Model.viewModel.PostDate</span></span>
     }
     else
     {
-        <span class="sender">Do:<span class="login">@Model.tableView.Customer_Login</span> Data: <span class="date">@Model.tableView.PostDate</span></span>
+        <span class="sender">Do:<span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @Model.viewModel.Sender_Login })'">@Model.viewModel.Customer_Login</span> Data: <span class="date">@Model.viewModel.PostDate</span></span>
 
     }
     <span class="content">
         <span class="contentTitle">Treść:</span>
-        @Model.tableView.Content
+        @Model.viewModel.Content
     </span>
 </div>
 
@@ -68,9 +68,9 @@
     $(document).ready(function () {
         $('.answerButton').leanModal();
 
-        $("#tableView_Customer_Login").val($("#tableView_Sender_Login").val());
+        $("#viewModel_Customer_Login").val($("#viewModel_Sender_Login").val());
         $(".inputLogin").attr("readonly", true);
-        $("#tableView_Theme").val("Re: " + $("#tableView_Theme").val());
+        $("#viewModel_Theme").val("Re: " + $("#viewModel_Theme").val());
         $(".inputTheme").attr("readonly", true);
         $(".inputContent").val("");
     });

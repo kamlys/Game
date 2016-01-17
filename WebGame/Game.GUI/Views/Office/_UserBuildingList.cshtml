@@ -1,22 +1,22 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Building.UserBuildings.UserBuildingsViewModel 
 @{
     Layout = null;
 }
 
 <div id="userBuilding">
     <ul class="collapsible" data-collapsible="accordion">
-        @foreach (var item in Model.tableList)
+        @foreach (var item in Model.listModel)
         {
             <li>
                 @if (item.ifCan == true)
                 {
-                    <button class="chip right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
+                    <button class="right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
                             id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
                         <i class="fa fa-arrow-up"></i> Level UP
                     </button>
                 }
                 <div class="collapsible-header">
-                    @item.Name
+                    @item.Building_Name
 
                     @if (item.Status != "gotowy")
                 {
@@ -28,7 +28,7 @@
                 <div class="collapsible-body">
                     <p>
                         Lvl: @item.Lvl<br />
-                        Produkcja: @item.Value<br />
+                        Produkcja(s): @item.Produkcja<br />
                         Status: @item.Status
                     </p>
                 </div>
@@ -47,9 +47,8 @@
         });
     });
     $('#userBuilding').slimScroll({
-        color: '#000',
         size: '10px',
-        height: '300px',
-        alwaysVisible: false
+        height: '350px',
+        alwaysVisible: true
     });
 </script>

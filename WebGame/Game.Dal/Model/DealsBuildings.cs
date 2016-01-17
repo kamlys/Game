@@ -14,7 +14,11 @@ namespace Game.Dal.Model
 
         public int User_ID { get; set; }
 
+        public int Deal_ID { get; set; }
+
         public virtual Buildings Buildings { get; set; }
+
+        public virtual Deals Deals { get; set; }
 
         public virtual Users Users { get; set; }
     }

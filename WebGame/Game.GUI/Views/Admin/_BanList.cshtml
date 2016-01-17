@@ -1,5 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
-@{
+﻿@model Game.GUI.ViewModels.User.Ban.BanViewModel
     Layout = null;
 }
 
@@ -9,17 +8,17 @@
             {
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
                 <label for="Login">Login</label>
             </div>
             
             <div class="input-field col s12">
-                @Html.TextAreaFor(m => m.tableView.Description, new { placeholder = "", @class = "materialize-textarea" })
+                @Html.TextAreaFor(m => m.viewModel.Description, new { placeholder = "", @class = "materialize-textarea" })
                 <label for="Description">Opis</label>
             </div>
             
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Finish_Date, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", @type = "date", @class = "validate datepicker" })
                 <label for="Finish_Date">Data końca</label>
             </div>
 
@@ -34,21 +33,21 @@
         @using (Html.BeginForm("Update", "Ban", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.ID, new { placeholder = "", @class = "validate inputID" })
+                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
                 <label for="Login">Login</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate inputLogin" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
                 <label for="Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextAreaFor(m => m.tableView.Description, new { placeholder = "", @class = "materialize-textarea inputDescription" })
+                @Html.TextAreaFor(m => m.viewModel.Description, new { placeholder = "", @class = "materialize-textarea inputDescription" })
                 <label for="Description">Opis</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Finish_Date, new { placeholder = "", @type = "date", @class = "validate datepicker inputFinishDate" })
+                @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", @type = "date", @class = "validate datepicker inputFinishDate" })
                 <label for="Finish_Date">Data końca</label>
             </div>
 
@@ -75,14 +74,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.tableList)
+            @foreach (var item in Model.listModel)
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.Login</td>
+                    <td>@item.User_Login</td>
                     <td>@item.Description</td>
                     <td>@item.Start_Date</td>
-                    <td>@item.Finish_Date</td>
+                    <td>@item.FinishDate</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
                             <button class="btn-floating btn-large red">

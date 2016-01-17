@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Game.Core.DTO
 {
-    public class DealBuildingDto
+    public class DealBuildingDto : BuildingDto
     {
-        public int ID { get; set; }
+        public int DealBuilding_ID { get; set; }
         public int User_ID { get; set; }
         public int Building_ID { get; set; }
-        public string Building_Name { get; set; }
+        public int Deal_ID { get; set; }
     }
 }

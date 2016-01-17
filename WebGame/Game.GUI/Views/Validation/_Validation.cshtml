@@ -1,0 +1,26 @@
+﻿@model Game.GUI.ViewModels.Validation.ValidationViewModel
+@{
+    Layout = null;
+}
+<div>
+    @if (Model.ValidationText != null)
+    {
+        <div class="validation">
+            <i class="fa fa-times" id="closeInfo"></i>
+            <ul>
+                @foreach (var item in Model.ValidationText)
+                {
+                    <li>@item</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+<script type="text/javascript">
+
+    $("#closeInfo").click(function () {
+        $(".validation").hide();
+    });
+</script>

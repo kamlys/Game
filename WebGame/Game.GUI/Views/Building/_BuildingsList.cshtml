@@ -1,13 +1,19 @@
-﻿@model List<Game.Core.DTO.BuildingDto>
+﻿@model Game.GUI.ViewModels.Building.BuildingViewModel
 @{
     Layout = null;
 }
 
 <div id="buildingList">
-    <span>Buduj: </span><br />
-    @foreach (var item in Model)
+    @foreach (var item in Model.listModel)
     {
-        <p class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height)">@item.Alias</p>
+        if (item.Price <= Model.UserDolar)
+        {
+            <span class="btn" onclick="buduj(@item.ID, @item.Width, @item.Height,@item.DealID)"><span class="buildingName">@item.BuildingName</span><span class="buildingPrice"><i class="fa fa-usd"></i>@item.Price</span></span>
+        }
+        else
+        {
+            <span class="btn disabled"><span class="buildingName">@item.BuildingName</span>  <span class="buildingPrice"><i class="fa fa-usd"></i>@item.Price</span></span>
+        }
     }
 </div>
 
@@ -15,9 +21,8 @@
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
     $('#buildingList').slimScroll({
-        color: '#ff7d00',
         size: '10px',
-        height: 'auto',
-        alwaysVisible: false
+        height: '350px',
+        alwaysVisible: true
     });
 </script>

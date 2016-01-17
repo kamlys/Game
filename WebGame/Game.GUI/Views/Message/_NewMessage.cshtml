@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Message.MessageViewModel
 @{
     Layout = null;
 }
@@ -7,27 +7,47 @@
     <h5>Nowa wiadmość:</h5>
     @using (Html.BeginForm("SentMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
+        @Html.AntiForgeryToken()
+
         @Html.HiddenFor(m => User.Identity.Name);
         <div class="input-field col s12">
             @Html.Hidden(User.Identity.Name)
         </div>
         <div class="input-field col s12 login">
-            @Html.TextBoxFor(m => m.tableView.Customer_Login, new { placeholder = "", @class = "validate inputLogin", length = "150" })
+            @Html.TextBoxFor(m => m.viewModel.Customer_Login, new { placeholder = "", @class = "validate inputLogin", length = "150" })
             <label for="Customer_Login">Odbiorca:</label>
         </div>
 
         <div class="input-field col s12">
-            @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
+            @Html.TextBoxFor(m => m.viewModel.Theme, new { placeholder = "", @class = "validate", length = "150" })
             <label for="Login">Tytuł:</label>
         </div>
 
         <div class="input-field col s12">
-            @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
+            @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "materialize-textarea" })
             <label for="Login">Treść:</label>
         </div>
-        <input type="submit" value="Wyślij" class="btn waves-effect waves-light sentMessage" name="action" />
+        <button type="submit" class="btn waves-effect waves-light sentMessageBtn" name="action">Wyślij</button>
     }
 </div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
 <script src="/signalr/hubs"></script>
+<script>
+    $(document).ready(function () {
+
+        $('.sentMessageBtn').attr("disabled", true);
+
+        $(".newMessage").keyup(function () {
+            if ($("#viewModel_Customer_Login").val() != ""
+                && $("#viewModel_Theme").val() != ""
+                && $("#viewModel_Content").val() != "") {
+                $('.sentMessageBtn').attr("disabled", false);
+                console.log("TUTAJ");
+            }
+            else {
+                $('.sentMessageBtn').attr("disabled", true);
+            }
+        })
+    });
+</script>

@@ -15,5 +15,6 @@ namespace Game.Core.DTO
         public string Product_Name { get; set; }
         public int Number { get; set; }
         public int Price { get; set; }
+        public bool TypeOffer { get; set; }
     }
 }

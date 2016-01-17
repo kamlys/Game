@@ -17,13 +17,15 @@ namespace Game.Service.Table
         private IRepository<UserProducts> _userProducts;
         private IRepository<Products> _product;
         private IRepository<Users> _user;
+        private IRepository<ProductRequirements> _productRequirement;
         private IUnitOfWork _unitOfWork;
 
-        public UserProductService(IRepository<UserProducts> userProducts, IRepository<Users> user, IRepository<Products> product, IUnitOfWork unitOfWork)
+        public UserProductService(IRepository<UserProducts> userProducts, IRepository<Users> user, IRepository<Products> product, IRepository<ProductRequirements> productRequirement, IUnitOfWork unitOfWork)
         {
             _userProducts = userProducts;
             _product = product;
             _user = user;
+            _productRequirement = productRequirement;
             _unitOfWork = unitOfWork;
         }
 
@@ -74,7 +76,7 @@ namespace Game.Service.Table
         {
             int uID = _user.GetAll().First(i => i.Login == User).ID;
             List<UserProductDto> userProductsDto = new List<UserProductDto>();
-            foreach (var item in _userProducts.GetAll().Where(i=> i.User_ID == uID))
+            foreach (var item in _userProducts.GetAll().Where(i => i.User_ID == uID))
             {
                 try
                 {
@@ -85,7 +87,8 @@ namespace Game.Service.Table
                         Login = _user.GetAll().First(i => i.ID == item.User_ID).Login,
                         Product_Name = item.Product_Name,
                         Value = item.Value,
-                        Product_ID = item.Product_ID
+                        Product_ID = item.Product_ID,
+                        Price = _product.Get(item.Product_ID).Price_per_unit
                     });
                 }
                 catch (Exception)
@@ -105,6 +108,53 @@ namespace Game.Service.Table
             }
 
             _unitOfWork.Commit();
+        }
+
+        public void CreateProduct(int value, string productName, string user)
+        {
+            var product = _product.GetAll().First(i => i.Alias == productName);
+            var uID = _user.GetAll().First(i => i.Login == user).ID;
+            bool ifcan = true;
+
+            if (value>0)
+            {
+                if (_userProducts.GetAll().Any(i => i.Product_ID == product.ID))
+                {
+                    _userProducts.GetAll().First(i => i.Product_ID == product.ID && i.User_ID == uID).Value += value;
+                }
+                else
+                {
+                    _userProducts.Add(new UserProducts
+                    {
+                        Product_ID = product.ID,
+                        Product_Name = product.Name,
+                        User_ID = uID,
+                        Value = value
+                    });
+                }
+
+                foreach (var item in _userProducts.GetAll().Where(i => i.Product_ID == product.ID))
+                {
+                    foreach (var item2 in _productRequirement.GetAll().Where(i => i.Base_ID == product.ID))
+                    {
+                        int temp = value * item2.Value;
+                        int productValue = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value;
+
+
+                        if (item2.Value > productValue)
+                        {
+                            ifcan = false;
+                        }
+
+                        _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value -= temp;
+                    }
+                }
+
+                if (ifcan)
+                {
+                    _unitOfWork.Commit();
+                }
+            }
         }
     }
 }

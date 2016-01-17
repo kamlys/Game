@@ -20,6 +20,7 @@ namespace Game.Dal.Model
         public virtual DbSet<DealsBuildings> DealsBuildings { get; set; }
         public virtual DbSet<Dolars> Dolars { get; set; }
         public virtual DbSet<Friends> Friends { get; set; }
+        public virtual DbSet<Ignored> Ignored { get; set; }
         public virtual DbSet<Maps> Maps { get; set; }
         public virtual DbSet<Market> Market { get; set; }
         public virtual DbSet<Messages> Messages { get; set; }
@@ -30,6 +31,7 @@ namespace Game.Dal.Model
         public virtual DbSet<UserBuildings> UserBuildings { get; set; }
         public virtual DbSet<UserProducts> UserProducts { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<RecoveryCodes> RecoveryCodes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -53,6 +55,16 @@ namespace Game.Dal.Model
                 .HasMany(e => e.UserBuildings)
                 .WithRequired(e => e.Buildings)
                 .HasForeignKey(e => e.Building_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Deals>()
+                .Property(e => e.FinishDate)
+                .HasPrecision(0);
+
+            modelBuilder.Entity<Deals>()
+                .HasMany(e => e.DealsBuildings)
+                .WithRequired(e => e.Deals)
+                .HasForeignKey(e => e.Deal_ID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Maps>()
@@ -149,6 +161,18 @@ namespace Game.Dal.Model
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Users>()
+                .HasMany(e => e.Ignored)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.Ignored_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.Ignored1)
+                .WithRequired(e => e.Users1)
+                .HasForeignKey(e => e.User_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
                 .HasMany(e => e.Maps)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
@@ -189,6 +213,16 @@ namespace Game.Dal.Model
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Users>()
+                .HasMany(e => e.RecoveryCodes)
+                .WithRequired(e => e.Users)
+                .HasForeignKey(e => e.User_ID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RecoveryCodes>()
+                .Property(e => e.LiveTime)
+                .HasPrecision(0);
         }
     }
 }

@@ -1,76 +1,107 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.User.ProfileViewModel
 @{
     ViewBag.Title = "Profil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="profil">
-    @if (User.Identity.Name != Model.tableView.Login)
+    @if (User.Identity.Name != Model.Login)
     {
-        @Html.Hidden("UserLogin", Model.tableView.Login )
-        <h2>@Model.tableView.Login</h2> <button class="btn-large addFriend">Dodaj znajomego</button> 
+        @Html.Hidden("UserLogin", Model.Login)
+        <h2>@Model.Login</h2>
+
+        if (Model.Value == 1)
+        {
+            <button class="btn btn-large deleteFriend" data-loginfriend="@Model.Login">Usuń znajomego</button>
+        }
+        else if (Model.Value == 2)
+        {
+            <button class="btn" disabled>Zaproszenie wysłane</button>
+        }
+        else if (Model.Value == 3)
+        {
+            if (!Model.IfIgnored)
+            {
+                <button class="btn btn-large addFriend">Dodaj znajomego</button>
+            }
+        }
+
+        if (!Model.Ignor)
+        {
+            <button class="btn btn-large addIgnore" data-ignorlogin="@Model.Login">Ignoruj</button>
+        }
+        else
+        {
+            <button class="btn btn-large deleteIgnore" data-ignorlogin="@Model.Login">Przestań ignorować</button>
+        }
+
         <hr />
         <div id="left">
-            @if (Model.tableView.RegDays <= 1)
+            @if (Model.RegDays <= 1)
             {
                 <span class="info">Gra od <span class="num">dzisiaj.</span></span>
             }
             else
             {
-                <span class="info">Gra od <span class="num">@Model.tableView.RegDays</span> dni.</span>
+                <span class="info">Gra od <span class="num">@Model.RegDays</span> dni.</span>
             }
-            @if (Model.tableView.LogDays <= 1)
+            @if (Model.LogDays <= 1)
             {
                 <span class="info">Ostatnio logował się <span class="num">dzisiaj.</span></span>
             }
             else
             {
-                <span class="info">Ostatnio logował się <span class="num">@Model.tableView.LogDays</span> dni temu.</span>
+                <span class="info">Ostatnio logował się <span class="num">@Model.LogDays</span> dni temu.</span>
             }
-            <span class="info">Posiada <span class="num">@Model.tableView.Number </span>budynków.</span>
+            <span class="info">Posiada <span class="num">@Model.Number </span>budynków.</span>
         </div>
+        if (!Model.IfIgnored)
+        {
+            <div id="right">
+                <h3>Wyślij wiadmość:</h3>
+                @using (Html.BeginForm("SentMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
 
-        <div id="right">
-            <h3>Wyślij wiadmość:</h3>
-            @using (Html.BeginForm("SentMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.HiddenFor(m => m.tableView.Login);
-                @Html.Hidden(User.Identity.Name);
-                <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.tableView.Theme, new { placeholder = "", @class = "validate", length = "150" })
-                    <label for="Login">Tytuł:</label>
-                </div>
+                    @Html.HiddenFor(m => m.Login);
+                    @Html.Hidden(User.Identity.Name);
+                    <div class="input-field col s12">
+                        @Html.TextBoxFor(m => m.Theme, new { @placeholder = "", @class = "validate", @maxlength = "150" })
+                        <label for="tableView_Theme">Tytuł:</label>
+                    </div>
 
-                <div class="input-field col s12">
-                    @Html.TextAreaFor(m => m.tableView.Content, new { placeholder = "", @class = "materialize-textarea" })
-                    <label for="Login">Treść:</label>
-                </div>
-                <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage" name="action" />
-            }
-        </div>
+                    <div class="input-field col s12">
+                        @Html.TextAreaFor(m => m.Content, new { @placeholder = "", @class = "materialize-textarea"})
+                        <label for="Content">Treść:</label>
+                    </div>
+                    <button type="submit" class="btn waves-effect waves-light addButton sentMessageBtn" name="action">Wyślij</button>
+                }
+
+            </div>
+        }
     }
     else
     {
-        <h4>Jesteś zalogowany jako</h4> <h2>@Model.tableView.Login</h2>
+        <h4>Jesteś zalogowany jako</h4> <h2>@Model.Login</h2>
         <hr />
         <div id="left">
-            @if (Model.tableView.RegDays <= 1)
+            @if (Model.RegDays <= 1)
             {
                 <span class="info">Grasz od <span class="num">dzisiaj.</span></span>
             }
             else
             {
-                <span class="info">Grasz od <span class="num">@Model.tableView.RegDays</span> dni.</span>
+                <span class="info">Grasz od <span class="num">@Model.RegDays</span> dni.</span>
             }
-            @if (Model.tableView.LogDays <= 1)
+            @if (Model.LogDays <= 1)
             {
                 <span class="info">Ostatnio logowałeś się <span class="num">dzisiaj.</span></span>
             }
             else
             {
-                <span class="info">Ostatnio logowałeś się <span class="num">@Model.tableView.LogDays</span> dni temu.</span>
+                <span class="info">Ostatnio logowałeś się <span class="num">@Model.LogDays</span> dni temu.</span>
             }
-            <span class="info">Posiadasz <span class="num">@Model.tableView.Number </span>budynków.</span>
+            <span class="info">Posiadasz <span class="num">@Model.Number </span>budynków.</span>
         </div>
         <div id="right">
             <ul class="collapsible" data-collapsible="accordion">
@@ -83,22 +114,22 @@
 
                             <form class="col s12">
                                 <div class="input-field col s12">
-                                    @Html.PasswordFor(m => m.tableView.OldPassword, new { @class = "validate" })
+                                    @Html.PasswordFor(m => m.OldPassword, new { @class = "validate" })
                                     <label for="OldPassword">Stare hasło</label>
                                 </div>
 
                                 <div class="input-field col s12">
-                                    @Html.PasswordFor(m => m.tableView.Password, new { @class = "validate" })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "validate" })
                                     <label for="Password">Nowe hasło</label>
                                 </div>
 
                                 <div class="input-field col s12">
-                                    @Html.PasswordFor(m => m.tableView.ComparePassword, new { @class = "validate" })
+                                    @Html.PasswordFor(m => m.ComparePassword, new { @class = "validate" })
                                     <label for="ComparePassword">Powtórz hasło</label>
                                 </div>
 
                                 <div class="Button">
-                                    <input type="submit" value="Zapisz" class="waves-effect waves-light btn" />
+                                    <button type="submit" class="waves-effect waves-light btn changePassword">Zapisz</button>
                                 </div>
                             </form>
                         }
@@ -109,19 +140,50 @@
                     <div class="collapsible-body">
                         @using (Html.BeginForm("ChangeEmail", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
+                            @Html.AntiForgeryToken()
+
                             <form class="col s12">
                                 <div class="input-field col s12">
-                                    @Html.TextBoxFor(m => m.tableView.Email, new { @type = "email", @class = "validate" })
-                                    <label for="Email" data-error="Coś nie tak">Email</label>
+                                    @Html.TextBoxFor(m => m.EmailAddress, new { @type = "email", @class = "validate" })
+                                    <label for="Email" data-error="To nie jest email.">Email</label>
 
                                 </div>
                                 <div class="Button">
-                                    <input type="submit" value="Zapisz" class="waves-effect waves-light btn" />
+                                    <button type="submit" class="waves-effect waves-light btn">Zapisz</button>
                                 </div>
                             </form>
                         }
                     </div>
                 </li>
+                <li>
+                    <div class="collapsible-header"><i class="fa fa-user"></i>Znajomi</div>
+                    <div class="collapsible-body">
+                        <div id="friendDiv">
+                            @foreach (var item in Model.Friend_Login)
+                            {
+                                if (item != null)
+                                {
+                                    <div class="ignoredDiv">@item <span class="deleteFriend" data-loginfriend="@item"><i class="fa fa-times"></i></span></div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="fa fa-ban"></i>Ignorowani</div>
+                    <div class="collapsible-body">
+                        <div id="ignoreDiv">
+                            @foreach (var item in Model.Ignored_Login)
+                            {
+                                if (item != null)
+                                {
+                                    <div class="ignoredDiv">@item <span class="deleteIgnore" data-ignorlogin="@item"><i class="fa fa-times"></i></span></div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </li>
+
             </ul>
         </div>
     }
@@ -130,11 +192,98 @@
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script src="/signalr/hubs"></script>
 <script>
+
+    $('#friendDiv').slimScroll({
+        color: '#000',
+        size: '10px',
+        height: '200px',
+        alwaysVisible: false
+    });
+
+    $('#ignoreDiv').slimScroll({
+        color: '#000',
+        size: '10px',
+        height: '200px',
+        alwaysVisible: false
+    });
+
+
+    $(document).ready(function () {
+        $('.sentMessageBtn').attr("disabled", true);
+        $('.changePassword').attr("disabled", true);
+
+        $("#right").keyup(function () {
+            if ($("#Theme").val() != ""
+                && $("#Content").val() != ""
+                && $("#Theme").length <= 150) {
+                $('.sentMessageBtn').attr("disabled", false);
+            }
+            else {
+                $('.sentMessageBtn').attr("disabled", true);
+            }
+
+            if ($("#OldPassword").val() != ""
+                && $("#Password").val() != ""
+                && $("#ComparePassword").val() != "") {
+                $('.changePassword').attr("disabled", false);
+            }
+            else {
+                $('.changePassword').attr("disabled", true);
+            }
+        })
+    });
+
     $(document).ready(function () {
         $('.collapsible').collapsible({
             accordion: true
+        });
+    });
+
+    $(".deleteFriend").click(function () {
+        var login = $(this).data('loginfriend');
+
+        console.log(login);
+        $.ajax({
+            type: "POST",
+            url: 'DeleteFriend',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ loginfriend: login }),
+            success: function (data) {
+                console.log("Succces");
+                location.reload();
+            }
+        });
+    });
+
+    $(".addIgnore").click(function () {
+
+        var ignorlogin = $(this).data('ignorlogin');
+        $.ajax({
+            type: "POST",
+            url: 'AddIgnore',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ ignorlogin: ignorlogin }),
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
+
+
+    $(".deleteIgnore").click(function () {
+
+        var ignorlogin = $(this).data('ignorlogin');
+        $.ajax({
+            type: "POST",
+            url: 'DeleteIgnore',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ ignorlogin: ignorlogin }),
+            success: function (data) {
+                location.reload();
+            }
         });
     });
 </script>

@@ -1,10 +1,17 @@
 ﻿var user_login;
 var user_friend;
 var friend_user;
+
 $(".addButton").click(function () {
     var sender_login = $("#User_Identity_Name").val();
-    var theme = $("#tableView_Theme").val();
-    var customer_login = $("#tableView_Customer_Login").val();
+    var theme = $("#viewModel_Theme").val();
+    var customer_login = $("#viewModel_Customer_Login").val();
+    console.log(customer_login);
+    pin = "Nowa wiadomość";
+});
+
+$(".sentMessageBtn").click(function () {
+    var customer_login = $("#Login").val();
     pin = "Nowa wiadomość";
 });
 
@@ -37,9 +44,11 @@ $("#addDeal").click(function () {
     pin = "Nowa umowa";
 });
 
-function frienndAccept(id, friend, user) {
+$(".agree").click(function () {
     pin = "Zaproszenie zaakceptowane";
-    var id = id;
+    var id = $(this).data('userid');
+    user_friend = $(this).data('userlogin');
+    friend_user = $(this).data('friendlogin');
     console.log(id);
     $.ajax({
         type: "POST",
@@ -49,11 +58,24 @@ function frienndAccept(id, friend, user) {
         success: function (data) {
         }
     });
-    user_friend = user;
-    friend_user = friend;
+});
 
+$(".disagree").click(function () {
+    pin = "Zaproszenie odrzucone";
+    var id = $(this).data('userid');
+    user_friend = $(this).data('userlogin');
+    friend_user = $(this).data('friendlogin');
+    console.log(id);
+    $.ajax({
+        type: "POST",
+        url: 'User/DontAcceptFriend',
+        data: JSON.stringify({ a: id }),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+        }
+    });
     console.log(user_friend, friend_user)
-};
+});
 
 function getFriendList() {
     $.ajax({
@@ -61,7 +83,8 @@ function getFriendList() {
         url: 'User/_FriendList',
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            $("#FriendBox").html($(data).html());
+            var $temp = $(data).filter("#FriendBox");
+            $("#FriendBox").html($temp);
         }
 
     });
@@ -81,7 +104,7 @@ function getNotifications() {
 }
 
 function getDeals() {
-    console.log("getDeals()");
+
     $.ajax({
         type: "GET",
         url: 'Office/_UserDealList',
@@ -99,17 +122,6 @@ $(document).ready(function () {
         var user = $("#User_Identity_Name").val();
         var game = $.connection.gameHub;
         game.client.shownotification = function (user, pin) {
-            //console.log("Wiadomość: " + notification);
-            //console.log("Pin: " + pin);
-            //$('#notificationList').append(notification);
-
-            //var div = document.getElementById('notifi');
-            //div.style.color = "red";
-            //div.style.fontSize = "15px";
-            //div.style.fontWeight = "700";
-            //div.style.textDecoration = "underline";
-
-            //$("#NotificationBox").load('@(Url.Action("_Notification","Notification"))');
             window.setTimeout(getDeals, 2000);
             window.setTimeout(getFriendList(), 2000);
             window.setTimeout(getNotifications, 2000);
@@ -119,30 +131,37 @@ $(document).ready(function () {
 
         };
         $.connection.hub.start().done(function () {
-            $('.sentMessage').click(function () {
-                if ($("#tableView_Customer_Login").val() == null) {
-                    game.server.sentNotification($("#tableView_Login").val(), pin);
+            $('.sentMessageBtn').click(function () {
+                if ($("#viewModel_Customer_Login").val() == undefined) {
+                    game.server.sentNotification($("#Login").val(), pin);
                 }
-                else {
-                    game.server.sentNotification($("#tableView_Customer_Login").val(), pin);
+                else{
+                    game.server.sentNotification($("#viewModel_Customer_Login").val(), pin);
                 }
+            });
+            $('#friendMessage').click(function () {
+                console.log($("#viewModel_Friend_Login").val());
+                game.server.sentNotification($("#viewModel_Friend_Login").val(), pin);
             });
             $('.addFriend').click(function () {
                 game.server.sentNotification($("#UserLogin").val(), pin);
             });
             $('#addDeal').click(function () {
-                game.server.sentNotification($("#tableView_Login").val(), pin);
+                game.server.sentNotification($("#viewModel_User2_Login").val(), pin);
             });
             $('#acceptDeal').click(function () {
                 game.server.sentNotification(user_login, pin);
             });
             $('#cancelDeal').click(function () {
-                console.log("UserLogin: " + user_login);
                 game.server.sentNotification(user_login, pin);
             });
-            $('#acceptFriend').click(function () {
-                window.setTimeout(game.server.sentNotification(user_friend, pin),20000);
-                window.setTimeout(game.server.sentNotification(friend_user, pin), 20000);
+            $('.agree').click(function () {
+                game.server.sentNotification(user_friend, pin);
+                game.server.sentNotification(friend_user, pin);
+            });
+            $('.disagree').click(function () {
+                game.server.sentNotification(user_friend, pin);
+                game.server.sentNotification(friend_user, pin);
             });
         });
     });

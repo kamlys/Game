@@ -14,5 +14,6 @@ namespace Game.Service.Interfaces.TableInterface
         void Add(UserProductDto userProduct);
         void Update(UserProductDto userProduct);
         void Delete(int id);
+        void CreateProduct(int value, string productNem, string user);
     }
 }

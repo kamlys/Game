@@ -10,7 +10,7 @@ namespace Game.Service.Interfaces
 {
     public interface IUserBuildingService
     {
-        bool Build(int id, int col, int row, string user);
+        bool Build(int id, int col, int row, int dealID, string user);
         void Destroy(string user, int ID);
         List<UserBuildingDto> GetUserBuilding();
         List<UserBuildingDto> GetUserBuildingList(string User);
@@ -19,5 +19,6 @@ namespace Game.Service.Interfaces
         void Delete(int id);
         bool ifLvlUp(int id, string User);
         bool LvlUp(int id, string User);
+        List<DealBuildingDto> GetDealBuildingList(string user);
     }
 }

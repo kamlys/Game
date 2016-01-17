@@ -99,5 +99,12 @@ namespace Game.Service.Table
             }
             return dolarDto.OrderByDescending(x=>x.Value).ToList();
         }
+
+        public int UserDolar(string user)
+        {
+            int uID = _users.GetAll().First(i => i.Login == user).ID;
+
+            return _dolars.GetAll().First(i => i.User_ID == uID).Value;
+        }
     }
 }

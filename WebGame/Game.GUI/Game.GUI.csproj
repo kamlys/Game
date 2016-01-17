@@ -133,12 +133,24 @@
       <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Mvc.Mailer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcMailer.4.5\lib\45\Mvc.Mailer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Remotion.Linq, Version=2.0.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
@@ -206,6 +218,7 @@
     <Content Include="Content\Images\Pickaxe.png" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\material-design-icons\LICENSE.txt" />
@@ -281,7 +294,9 @@
     <Content Include="Content\Map.min.css">
       <DependentUpon>Map.css</DependentUpon>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-2.1.4.min.map" />
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +308,7 @@
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\BuildingQueueController.cs" />
     <Compile Include="Controllers\DolarController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
@@ -304,22 +320,51 @@
     <Compile Include="Controllers\UserBuildingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
+    <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="GameHub.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ListTableViewModel.cs" />
-    <Compile Include="ViewModels\Market\ListMarketViewModel.cs" />
-    <Compile Include="ViewModels\Market\MarketViewModel.cs" />
-    <Compile Include="ViewModels\TableViewModel.cs" />
-    <Compile Include="ViewModels\Building\AjaxBuildViewModel.cs" />
+    <Compile Include="ViewModels\User\Admin\AdminViewModel.cs" />
+    <Compile Include="ViewModels\User\Admin\ItemAdminViewModel.cs" />
+    <Compile Include="ViewModels\User\Ban\BanViewModel.cs" />
+    <Compile Include="ViewModels\User\Ban\ItemBanViewModel.cs" />
     <Compile Include="ViewModels\Building\BuildingViewModel.cs" />
+    <Compile Include="ViewModels\Deal\DealViewModel.cs" />
+    <Compile Include="ViewModels\Deal\ItemDealViewModel.cs" />
+    <Compile Include="ViewModels\Dolar\DolarViewModel.cs" />
+    <Compile Include="ViewModels\Dolar\ItemDolarViewModel.cs" />
+    <Compile Include="ViewModels\User\Friend\FriendViewModel.cs" />
+    <Compile Include="ViewModels\User\Friend\ItemFriendViewModel.cs" />
+    <Compile Include="ViewModels\Map\ItemMapViewModel.cs" />
+    <Compile Include="ViewModels\Market\ItemMarketViewModel.cs" />
+    <Compile Include="ViewModels\Market\MarketViewModel.cs" />
+    <Compile Include="ViewModels\Message\ItemMessageViewModel.cs" />
+    <Compile Include="ViewModels\Message\MessageViewModel.cs" />
+    <Compile Include="ViewModels\Notification\ItemNotificationViewModel.cs" />
+    <Compile Include="ViewModels\Notification\NotificationViewModel.cs" />
+    <Compile Include="ViewModels\Product\ProductRequirement\ItemProductRequirementViewModel.cs" />
+    <Compile Include="ViewModels\Product\ProductRequirement\ProductRequirementViewModel.cs" />
+    <Compile Include="ViewModels\Product\ItemProductViewModel.cs" />
+    <Compile Include="ViewModels\Product\ProductViewModel.cs" />
+    <Compile Include="ViewModels\Building\QueueBuilding\ItemQueueViewModel.cs" />
+    <Compile Include="ViewModels\Building\QueueBuilding\QueueViewModel.cs" />
+    <Compile Include="ViewModels\Ranking\RankingViewModel.cs" />
+    <Compile Include="ViewModels\Building\AjaxBuildViewModel.cs" />
+    <Compile Include="ViewModels\Building\ItemBuildingViewModel.cs" />
     <Compile Include="ViewModels\Map\MapViewModel.cs" />
-    <Compile Include="ViewModels\UserBuildings\UserBuildingsViewModel.cs" />
+    <Compile Include="ViewModels\Building\UserBuildings\ItemUserBuildingViewModel.cs" />
+    <Compile Include="ViewModels\Building\UserBuildings\UserBuildingsViewModel.cs" />
+    <Compile Include="ViewModels\Product\UserProduct\ItemUserProductViewModel.cs" />
+    <Compile Include="ViewModels\Product\UserProduct\UserProductViewModel.cs" />
+    <Compile Include="ViewModels\User\ItemUserViewModel.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
+    <Compile Include="ViewModels\User\ProfileViewModel.cs" />
     <Compile Include="ViewModels\User\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\User\UserViewModel.cs" />
+    <Compile Include="ViewModels\Validation\ValidationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config">
@@ -362,6 +407,13 @@
     <Content Include="Views\Notification\_Notification.cshtml" />
     <Content Include="Views\Office\_UserDealList.cshtml" />
     <Content Include="Views\Office\_UserProductRequirementList.cshtml" />
+    <Content Include="Views\Building\_DealBuildings.cshtml" />
+    <Content Include="Views\Validation\_Validation.cshtml" />
+    <Content Include="Views\User\RecoveryPassword.cshtml" />
+    <Content Include="Views\Market\_SystemOffer.cshtml" />
+    <Content Include="Views\Office\_UserProduct.cshtml" />
+    <Content Include="Views\Market\_BuyOffer.cshtml" />
+    <Content Include="Views\Market\_SellOffer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -373,6 +425,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Styles\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.Core\Game.Core.csproj">

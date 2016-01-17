@@ -1,7 +1,9 @@
 ﻿using Game.Core.DTO;
 using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Product;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,37 +30,35 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult _ProductList()
+        public ActionResult _ProductList(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            ProductViewModel productModel = new ProductViewModel();
 
-            foreach (var item in _productTable.GetProduct())
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+
+            productModel.listModel = _productTable.GetProduct().Select(x => new ItemProductViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    Name = item.Name,
-                    Price_per_unit = item.Price_per_unit,
-                    Unit = item.Unit,
-                    Alias = item.Alias
-                });
-            }
+                ID = x.ID,
+                ProductName = x.Name,
+                Price_per_unit = x.Price_per_unit,
+                Unit = x.Unit,
+                Alias = x.Alias
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-
-            return View("~/Views/Admin/_ProductList.cshtml", tableList);
+            return View("~/Views/Admin/_ProductList.cshtml", productModel);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel listView)
+        public ActionResult Add(ProductViewModel productModel)
         {
             ProductDto _productDto = new ProductDto();
 
-            _productDto.Name = listView.tableView.Name;
-            _productDto.Price_per_unit = listView.tableView.Price_per_unit;
-            _productDto.Unit = listView.tableView.Unit;
-            _productDto.Alias = listView.tableView.Alias;
+            _productDto.Name = productModel.viewModel.ProductName;
+            _productDto.Price_per_unit = productModel.viewModel.Price_per_unit;
+            _productDto.Unit = productModel.viewModel.Unit;
+            _productDto.Alias = productModel.viewModel.Alias;
 
             _productTable.Add(_productDto);
 
@@ -67,15 +67,15 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel listView)
+        public ActionResult Update(ProductViewModel productModel)
         {
             ProductDto _productDto = new ProductDto();
 
-            _productDto.ID = listView.tableView.ID;
-            _productDto.Name = listView.tableView.Name;
-            _productDto.Price_per_unit = listView.tableView.Price_per_unit;
-            _productDto.Unit = listView.tableView.Unit;
-            _productDto.Alias = listView.tableView.Alias;
+            _productDto.ID = productModel.viewModel.ID;
+            _productDto.Name = productModel.viewModel.ProductName;
+            _productDto.Price_per_unit = productModel.viewModel.Price_per_unit;
+            _productDto.Unit = productModel.viewModel.Unit;
+            _productDto.Alias = productModel.viewModel.Alias;
 
             _productTable.Add(_productDto);
 

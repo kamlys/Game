@@ -14,7 +14,6 @@
             {
             <form class="col s12">
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "uk-form-danger logError" })
 
                 <div class="input-field col s12">
                     @Html.TextBoxFor(m => m.Login, new { @class = "validate" })
@@ -23,12 +22,12 @@
                 </div>
                 <div class="input-field col s12">
                     @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "validate" })
-                    <label for="Email" data-error="Coś nie tak">Email</label>
+                    <label for="Email" data-error="To nie jest email.">Email</label>
 
                 </div>
                 <div class="input-field col s12">
                     @Html.PasswordFor(m => m.Password, new { @class = "validate" })
-                    <label for="Password">Password</label>
+                    <label for="Password">Hasło</label>
 
                 </div>
                 <div class="input-field col s12">
@@ -38,7 +37,7 @@
                 </div>
 
                 <div class="registerButton">
-                    <input type="submit" value="Zarejestruj" class="waves-effect waves-light btn-large" />
+                    <button type="submit" class="waves-effect waves-light btn-large" >Zarejestruj</button>
                 </div>
             </form>
         }

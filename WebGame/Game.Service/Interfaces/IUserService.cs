@@ -9,7 +9,7 @@ namespace Game.Service.Interfaces
 {
     public interface IUserService
     {
-        bool RegisterUser(UserDto user);
+        int[] RegisterUser(UserDto user);
         bool LoginUser(UserDto user);
         List<UserDto> GetUser();
         void Add(UserDto user);
@@ -22,6 +22,15 @@ namespace Game.Service.Interfaces
         void AddFriend(FriendDto friend);
         List<FriendDto> GetFriendList(string User);
         void AcceptFriend(int id);
+        void DontAcceptFriend(int id);
+        void DeleteFriend(string userLogin, string friendLogin);
+        int ifFriend(string user, string friend);
+        bool Ignored(string user_login, string ignored_login);
+        void AddIgnore(string userlogin, string ignorelogin);
+        void DeleteIgnore(string userlogin, string ignorelogin);
+        List<string> GetIgnored(string user);
+        bool ForgetPassword(string email);
+        int RecoveryPass(UserDto user);
 
 
     }

@@ -1,11 +1,8 @@
 ﻿using Game.Core.DTO;
-using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.User.Admin;
 using Game.Service.Interfaces;
-using Game.Service.Interfaces.TableInterface;
-using System;
-using System.Collections.Generic;
+using PagedList;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Game.GUI.Controllers
@@ -35,31 +32,27 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult _AdminList()
+        public ActionResult _AdminList(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
-
-            foreach (var item in _adminService.GetAdmin())
+            AdminViewModel adminModel = new AdminViewModel();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+            adminModel.listModel = _adminService.GetAdmin().Select(x => new ItemAdminViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    Login = item.Login
-                });
-            }
+                ID = x.ID,
+                User_Login = x.Login
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-
-            return View("~/Views/Admin/_AdminList.cshtml", tableList);
+            return View("~/Views/Admin/_AdminList.cshtml", adminModel);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel viewList)
+        public ActionResult Add(AdminViewModel viewModel)
         {
             AdminDto _adminDto = new AdminDto();
 
-            _adminDto.Login = viewList.tableView.Login;
+            _adminDto.Login = viewModel.viewModel.User_Login;
 
             _adminService.Add(_adminDto);
 
@@ -68,12 +61,12 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel viewList)
+        public ActionResult Update(AdminViewModel viewModel)
         {
             AdminDto _adminDto = new AdminDto();
 
-            _adminDto.ID = viewList.tableView.ID;
-            _adminDto.Login = viewList.tableView.Login;
+            _adminDto.ID = viewModel.viewModel.ID;
+            _adminDto.Login = viewModel.viewModel.User_Login;
 
             _adminService.Update(_adminDto);
 

@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.User.UserViewModel
 @{
     Layout = null;
 }
@@ -9,32 +9,32 @@
             {
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
                 <label for="Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.PasswordFor(m => m.tableView.Password, new { placeholder = "", @class = "validate" })
+                @Html.PasswordFor(m => m.viewModel.Password, new { placeholder = "", @class = "validate" })
                 <label for="Password">Hasło</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Email, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Email, new { placeholder = "", @class = "validate" })
                 <label for="Email">Email</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Last_Log, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                @Html.TextBoxFor(m => m.viewModel.LastLog, new { placeholder = "", @type = "date", @class = "validate datepicker" })
                 <label for="Last_Log">Ostatnie logowanie</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Registration_Date, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                @Html.TextBoxFor(m => m.viewModel.RegistrationDate, new { placeholder = "", @type = "date", @class = "validate datepicker" })
                 <label for="Registration_Date">Data rejestracji</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Last_Update, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                @Html.TextBoxFor(m => m.viewModel.LastUpdate, new { placeholder = "", @type = "date", @class = "validate datepicker" })
                 <label for="Last_update">Ostatni update surowców</label>
             </div>
 
@@ -49,37 +49,37 @@
         @using (Html.BeginForm("Add", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.ID, new { placeholder = "", @class = "validate inputID" })
+                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
                 <label for="ID">ID</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Login, new { placeholder = "", @class = "validate inputLogin" })
+                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
                 <label for="Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.PasswordFor(m => m.tableView.Password, new { placeholder = "", @class = "validate inputPassword" })
+                @Html.PasswordFor(m => m.viewModel.Password, new { placeholder = "", @class = "validate inputPassword" })
                 <label for="Password">Hasło</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Email, new { placeholder = "", @class = "validate inputEmail" })
+                @Html.TextBoxFor(m => m.viewModel.Email, new { placeholder = "", @class = "validate inputEmail" })
                 <label for="Email">Email</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Last_Log, new { placeholder = "", @type = "date", @class = "validate datepicker inputLastLog" })
+                @Html.TextBoxFor(m => m.viewModel.LastLog, new { placeholder = "", @type = "date", @class = "validate datepicker inputLastLog" })
                 <label for="Last_Log">Ostatnie logowanie</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Registration_Date, new { placeholder = "", @type = "date", @class = "validate datepicker inputRegistrationDate" })
+                @Html.TextBoxFor(m => m.viewModel.RegistrationDate, new { placeholder = "", @type = "date", @class = "validate datepicker inputRegistrationDate" })
                 <label for="Registration_Date">Data rejestracji</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.tableView.Last_Update, new { placeholder = "", @type = "date", @class = "validate datepicker inputLastUpdate" })
+                @Html.TextBoxFor(m => m.viewModel.LastUpdate, new { placeholder = "", @type = "date", @class = "validate datepicker inputLastUpdate" })
                 <label for="Last_update">Ostatni update surowców</label>
             </div>
 
@@ -105,16 +105,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.tableList)
+            @foreach (var item in Model.listModel)
             {
                 <tr>
                     <td>@item.ID</td>
                     <td>@item.Login</td>
                     <td>@item.Password</td>
                     <td>@item.Email</td>
-                    <td>@item.Registration_Date</td>
-                    <td>@item.Last_Log</td>
-                    <td>@item.Last_Update</td>
+                    <td>@item.RegistrationDate</td>
+                    <td>@item.LastLog</td>
+                    <td>@item.LastUpdate</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
                             <button class="btn-floating btn-large red">
@@ -123,7 +123,7 @@
                             <ul>
                                 <li><button data-target="userUpdate" class="btn-floating #00695c teal darken-3 modal-trigger userUpdate" 
                                             onclick="updaterow(['inputID','inputLogin','inputPassword','inputEmail','inputLastLog', 'inputRegistrationDate','inputLastUpdate'], 
-                                            ['@item.ID','@item.Login','@item.Password','@item.Email','@item.Last_Log','@item.Registration_Date','@item.Last_Update'])"><i class="fa fa-pencil"></i></button></li>
+                                            ['@item.ID','@item.Login','@item.Password','@item.Email','@item.LastLog','@item.RegistrationDate','@item.LastUpdate'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "User", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

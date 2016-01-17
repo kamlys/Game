@@ -75,7 +75,7 @@ namespace Game.Service
                 });
             }
 
-            return message;
+            return message.OrderByDescending(i => i.PostDate).ToList();
         }
 
         public List<MessageDto> GetReceivedMessages(string User)
@@ -95,7 +95,7 @@ namespace Game.Service
                 });
             }
 
-            return message;
+            return message.OrderByDescending(i=> i.PostDate).ToList();
         }
 
         public MessageDto ConentMessage(int ID, string User)

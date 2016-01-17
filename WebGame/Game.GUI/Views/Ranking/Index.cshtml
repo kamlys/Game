@@ -1,12 +1,14 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model PagedList.IPagedList<Game.GUI.ViewModels.Ranking.RankingViewModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Ranking";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int temp = 1;
 }
-
 <div class="Ranking">
-
+    <div class="paginationBtn">
+        @Html.PagedListPager(Model, Page_No => Url.Action("Index", new { Page_No }))
+    </div>
     <table class="bordered centered">
         <thead>
             <tr>
@@ -17,27 +19,26 @@
         </thead>
 
         <tbody>
-            @foreach (var item in Model.tableList)
+            @foreach (var item in Model)
             {
-                if (item.Login == User.Identity.Name)
+                if (item.User_Login == User.Identity.Name)
                 {
-                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'" style="font-weight: bold">
-                        <td>@(temp++).</td>
-                        <td>@item.Login</td>
-                        <td>@item.Value</td>
+                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'" style="font-weight: bold; font-size: 19px">
+                        <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                        <td>@Html.DisplayFor(modelItem => item.User_Login)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UserDolar)</td>
                     </tr>
                 }
                 else
                 {
-                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Login })'">
-                        <td>@(temp++).</td>
-                        <td>@item.Login</td>
-                        <td>@item.Value</td>
+                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">
+                        <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                        <td>@Html.DisplayFor(modelItem => item.User_Login)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UserDolar)</td>
                     </tr>
                 }
             }
         </tbody>
     </table>
-
 
 </div>

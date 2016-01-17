@@ -22,7 +22,7 @@ namespace Game.GUI.ViewModels.User
         [DataType(DataType.Password)]
         [Display(Name = "Powtórz hasło")]
         [Compare("Password")]
-        public String comparePassword { get; set; }
+        public string comparePassword { get; set; }
 
         [Required]
         [Display(Name = "E-mail")]
@@ -31,5 +31,8 @@ namespace Game.GUI.ViewModels.User
 
         [Column(TypeName = "datetime2")]
         public DateTime? Registration_Date { get; set; }
+
+        [Required]
+        public string RecoveryCode { get; set; }
     }
 }

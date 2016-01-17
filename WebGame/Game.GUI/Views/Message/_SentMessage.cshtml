@@ -1,27 +1,55 @@
-﻿@model Game.GUI.ViewModels.ListTableViewModel
+﻿@model Game.GUI.ViewModels.Message.MessageViewModel
+@using PagedList.Mvc;
 @{
     Layout = null;
 }
 
-<div class="sentMessage">
-    <table class="bordered centered">
-        <thead>
-            <tr>
-                <th>Odbiorca</th>
-                <th>Temat</th>
-                <th>Data wysłania</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var item in Model.tableList)
-            {
-                <tr onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
-                    <td>@item.Customer_Login</td>
-                    <td>@item.Theme</td>
-                    <td>@item.PostDate</td>
+<div class="sentMessage" id="sentMessage">
+    @if (!Model.listModel.Any())
+    {
+        <span class="noRow">Brak wiadomości</span>
+    }
+    else
+    {
+        <table class="bordered centered">
+            <thead>
+                <tr>
+                    <th>Odbiorca</th>
+                    <th>Temat</th>
+                    <th>Data wysłania</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.listModel)
+                {
+                    <tr onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
+                        <td>@Html.DisplayFor(modelItem => item.Customer_Login)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Theme)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="paginationBtn" id="paginationBtnSent">
+            @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_SentMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "sentMessage" }))
+        </div>
+    }
 </div>
+<script>
+    $('#paginationBtnSent').on('click', 'a', function (e) {
+        console.log(this,"paginationBtnSent");
+        e.preventDefault();
+        if(!$(this).parents("li:first").hasClass("active")){
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#sentMessage').html(result);
+                }
+            });
+        }
+    });
+</script>

@@ -1,11 +1,9 @@
 ﻿using Game.Core.DTO;
-using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Building;
+using Game.GUI.ViewModels.Building.UserBuildings;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Game.GUI.Controllers
@@ -13,10 +11,12 @@ namespace Game.GUI.Controllers
     public class UserBuildingController : Controller
     {
         private IUserBuildingService _userBuildingService;
+        private IDolarService _dolar;
 
-        public UserBuildingController(IUserBuildingService userBuildingService)
+        public UserBuildingController(IUserBuildingService userBuildingService, IDolarService dolar)
         {
             _userBuildingService = userBuildingService;
+            _dolar = dolar;
         }
 
         // GET: UserBuilding
@@ -29,47 +29,59 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _UserBuildingList()
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
+            UserBuildingsViewModel userBuildingModel = new UserBuildingsViewModel();
 
-            foreach (var item in _userBuildingService.GetUserBuilding())
+            userBuildingModel.listModel = _userBuildingService.GetUserBuilding().Where(i => !i.Owner).Select(x => new ItemUserBuildingViewModel
             {
-                if(!item.Owner)
-                {
-                    continue;
-                }
-                tableList.tableList.Add(new TableViewModel
-                {
-                    ID = item.ID,
-                    User_ID = item.User_ID,
-                    Login = item.Login,
-                    X_pos = item.X_pos,
-                    Y_pos = item.Y_pos,
-                    Lvl = item.Lvl,
-                    Building_ID = item.Building_ID,
-                    Name = item.Building_Name,
-                    Status = item.Status
-                });
-            }
+                ID = x.ID,
+                User_ID = x.User_ID,
+                User_Login = x.Login,
+                X_pos = x.X_pos,
+                Y_pos = x.Y_pos,
+                Lvl = x.Lvl,
+                Building_ID = x.Building_ID,
+                Building_Name = x.Building_Name,
+                Status = x.Status
+            }).ToList();
 
-
-            return View("~/Views/Admin/_UserBuildingList.cshtml", tableList);
+            return View("~/Views/Admin/_UserBuildingList.cshtml", userBuildingModel);
         }
+
+        [Authorize]
+        public ActionResult _DealBuildings()
+        {
+            BuildingViewModel buildingList = new BuildingViewModel();
+
+            buildingList.listModel = _userBuildingService.GetDealBuildingList(User.Identity.Name).Select(x => new ItemBuildingViewModel
+            {
+                ID = x.ID,
+                BuildingName = x.Alias,
+                Height = x.Height,
+                Width = x.Width,
+                DealID = x.Deal_ID
+            }).ToList();
+
+
+            buildingList.UserDolar = _dolar.UserDolar(User.Identity.Name);
+
+            return View("~/Views/Building/_DealBuildings.cshtml", buildingList);
+        }
+
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel listView)
+        public ActionResult Add(UserBuildingsViewModel userBuildingModel)
         {
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
 
-            _userBuildingDto.User_ID = listView.tableView.User_ID;
-            _userBuildingDto.Login = listView.tableView.Login;
-            _userBuildingDto.X_pos = listView.tableView.X_pos;
-            _userBuildingDto.Y_pos = listView.tableView.Y_pos;
-            _userBuildingDto.Lvl = listView.tableView.Lvl;
-            _userBuildingDto.Building_ID = listView.tableView.Building_ID;
-            _userBuildingDto.Building_Name = listView.tableView.Name;
-            _userBuildingDto.Status = listView.tableView.Status;
+            _userBuildingDto.User_ID = userBuildingModel.viewModel.User_ID;
+            _userBuildingDto.Login = userBuildingModel.viewModel.User_Login;
+            _userBuildingDto.X_pos = userBuildingModel.viewModel.X_pos;
+            _userBuildingDto.Y_pos = userBuildingModel.viewModel.Y_pos;
+            _userBuildingDto.Lvl = userBuildingModel.viewModel.Lvl;
+            _userBuildingDto.Building_ID = userBuildingModel.viewModel.Building_ID;
+            _userBuildingDto.Building_Name = userBuildingModel.viewModel.Building_Name;
+            _userBuildingDto.Status = userBuildingModel.viewModel.Status;
 
             _userBuildingService.Add(_userBuildingDto);
 
@@ -78,19 +90,19 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel listView)
+        public ActionResult Update(UserBuildingsViewModel userBuildingModel)
         {
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
 
-            _userBuildingDto.ID = listView.tableView.ID;
-            _userBuildingDto.User_ID = listView.tableView.User_ID;
-            _userBuildingDto.Login = listView.tableView.Login;
-            _userBuildingDto.X_pos = listView.tableView.X_pos;
-            _userBuildingDto.Y_pos = listView.tableView.Y_pos;
-            _userBuildingDto.Lvl = listView.tableView.Lvl;
-            _userBuildingDto.Building_ID = listView.tableView.Building_ID;
-            _userBuildingDto.Building_Name = listView.tableView.Name;
-            _userBuildingDto.Status = listView.tableView.Status;
+            _userBuildingDto.ID = userBuildingModel.viewModel.ID;
+            _userBuildingDto.User_ID = userBuildingModel.viewModel.User_ID;
+            _userBuildingDto.Login = userBuildingModel.viewModel.User_Login;
+            _userBuildingDto.X_pos = userBuildingModel.viewModel.X_pos;
+            _userBuildingDto.Y_pos = userBuildingModel.viewModel.Y_pos;
+            _userBuildingDto.Lvl = userBuildingModel.viewModel.Lvl;
+            _userBuildingDto.Building_ID = userBuildingModel.viewModel.Building_ID;
+            _userBuildingDto.Building_Name = userBuildingModel.viewModel.Building_Name;
+            _userBuildingDto.Status = userBuildingModel.viewModel.Status;
 
             _userBuildingService.Update(_userBuildingDto);
 

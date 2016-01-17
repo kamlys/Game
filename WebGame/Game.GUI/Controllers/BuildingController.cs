@@ -1,8 +1,10 @@
 ﻿using Game.Core.DTO;
 using Game.GUI.ViewModels;
+using Game.GUI.ViewModels.Building;
 using Game.Service;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +18,15 @@ namespace Game.GUI.Controllers
         private IBuildingHelper _buildingService;
         private IUserBuildingService _userBuilding;
         private IBuildingService _buildingTable;
+        private IDolarService _dolar;
 
 
-        public BuildingController(IBuildingHelper buildingService, IUserBuildingService userBuilding, IBuildingService buildingTable)
+        public BuildingController(IBuildingHelper buildingService, IUserBuildingService userBuilding, IBuildingService buildingTable, IDolarService dolar)
         {
             _buildingService = buildingService;
             _userBuilding = userBuilding;
             _buildingTable = buildingTable;
+            _dolar = dolar;
         }
         // GET: Building
         [Authorize]
@@ -34,62 +38,69 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _BuildingsList()
         {
-            List<BuildingDto> buildings = _buildingService.GetBuildings();
-            return View(buildings);
+            BuildingViewModel buildingList = new BuildingViewModel();
+
+            buildingList.listModel = _buildingService.GetBuildings().Select(x => new ItemBuildingViewModel
+            {
+                ID = x.ID,
+                BuildingName = x.Alias,
+                Height = x.Height,
+                Width = x.Width,
+                Price = x.Price
+            }).ToList();
+
+            buildingList.UserDolar = _dolar.UserDolar(User.Identity.Name);
+
+            return View(buildingList);
         }
 
 
         [Authorize]
-        public ActionResult _BuildingList2()
+        public ActionResult _BuildingList2(int? Page_No)
         {
-            ListTableViewModel tableList = new ListTableViewModel();
-            tableList.tableList = new List<TableViewModel>();
-
-
-            foreach (var item in _buildingTable.GetBuilding())
+            BuildingViewModel buildingModel = new BuildingViewModel();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+            buildingModel.pagedModel = _buildingTable.GetBuilding().Select(x => new ItemBuildingViewModel
             {
-                tableList.tableList.Add(new TableViewModel
-                {
-                    Name = item.Name,
-                    Price = item.Price,
-                    ID = item.ID,
-                    Height = item.Height,
-                    Width = item.Width,
-                    Dest_price = (int)item.Dest_price,
-                    Percent_price_per_lvl = item.Percent_price_per_lvl,
-                    Percent_product_per_lvl = item.Percent_product_per_lvl,
-                    Product_ID = item.Product_ID,
-                    Product_Name = item.Product_Name,
-                    Product_per_sec = item.Product_per_sec,
-                    Alias = item.Alias,
-                    BuildingTime = item.BuildingTime,
-                    DestructionTime = item.DestructionTime
-                });
-            }
+                BuildingName = x.Name,
+                Price = x.Price,
+                ID = x.ID,
+                Height = x.Height,
+                Width = x.Width,
+                DestPrice = (int)x.Dest_price,
+                Percent_price_per_lvl = x.Percent_price_per_lvl,
+                Percent_product_per_lvl = x.Percent_product_per_lvl,
+                Product_ID = x.Product_ID,
+                Product_Name = x.Product_Name,
+                Product_per_sec = x.Product_per_sec,
+                Alias = x.Alias,
+                BuildingTime = x.BuildingTime,
+                DestructionTime = x.DestructionTime
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-
-            return View("~/Views/Admin/_BuildingList2.cshtml", tableList);
+            return View("~/Views/Admin/_BuildingList2.cshtml", buildingModel);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(ListTableViewModel viewModel)
+        public ActionResult Add(BuildingViewModel buildingModel)
         {
             BuildingDto _buildingDto = new BuildingDto();
 
-            _buildingDto.Name = viewModel.tableView.Name;
-            _buildingDto.Price = viewModel.tableView.Price;
-            _buildingDto.Height = viewModel.tableView.Height;
-            _buildingDto.Width = viewModel.tableView.Width;
-            _buildingDto.Dest_price = (int)viewModel.tableView.Dest_price;
-            _buildingDto.Percent_price_per_lvl = viewModel.tableView.Percent_price_per_lvl;
-            _buildingDto.Percent_product_per_lvl = viewModel.tableView.Percent_product_per_lvl;
-            _buildingDto.Product_ID = viewModel.tableView.Product_ID;
-            _buildingDto.Product_Name = viewModel.tableView.Product_Name;
-            _buildingDto.Product_per_sec = viewModel.tableView.Product_per_sec;
-            _buildingDto.Alias = viewModel.tableView.Alias;
-            _buildingDto.BuildingTime = viewModel.tableView.BuildingTime;
-            _buildingDto.DestructionTime = viewModel.tableView.DestructionTime;
+            _buildingDto.Name = buildingModel.viewModel.BuildingName;
+            _buildingDto.Price = buildingModel.viewModel.Price;
+            _buildingDto.Height = buildingModel.viewModel.Height;
+            _buildingDto.Width = buildingModel.viewModel.Width;
+            _buildingDto.Dest_price = (int)buildingModel.viewModel.DestructionTime;
+            _buildingDto.Percent_price_per_lvl = buildingModel.viewModel.Percent_price_per_lvl;
+            _buildingDto.Percent_product_per_lvl = buildingModel.viewModel.Percent_product_per_lvl;
+            _buildingDto.Product_ID = buildingModel.viewModel.Product_ID;
+            _buildingDto.Product_Name = buildingModel.viewModel.Product_Name;
+            _buildingDto.Product_per_sec = buildingModel.viewModel.Product_per_sec;
+            _buildingDto.Alias = buildingModel.viewModel.Alias;
+            _buildingDto.BuildingTime = buildingModel.viewModel.BuildingTime;
+            _buildingDto.DestructionTime = buildingModel.viewModel.DestructionTime;
 
             _buildingTable.Add(_buildingDto);
 
@@ -98,23 +109,23 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(ListTableViewModel viewModel)
+        public ActionResult Update(BuildingViewModel buildingModel)
         {
             BuildingDto _buildingDto = new BuildingDto();
 
-            _buildingDto.Name = viewModel.tableView.Name;
-            _buildingDto.Price = viewModel.tableView.Price;
-            _buildingDto.Height = viewModel.tableView.Height;
-            _buildingDto.Width = viewModel.tableView.Width;
-            _buildingDto.Dest_price = (int)viewModel.tableView.Dest_price;
-            _buildingDto.Percent_price_per_lvl = viewModel.tableView.Percent_price_per_lvl;
-            _buildingDto.Percent_product_per_lvl = viewModel.tableView.Percent_product_per_lvl;
-            _buildingDto.Product_ID = viewModel.tableView.Product_ID;
-            _buildingDto.Product_Name = viewModel.tableView.Product_Name;
-            _buildingDto.Product_per_sec = viewModel.tableView.Product_per_sec;
-            _buildingDto.Alias = viewModel.tableView.Alias;
-            _buildingDto.BuildingTime = viewModel.tableView.BuildingTime;
-            _buildingDto.DestructionTime = viewModel.tableView.DestructionTime;
+            _buildingDto.Name = buildingModel.viewModel.BuildingName;
+            _buildingDto.Price = buildingModel.viewModel.Price;
+            _buildingDto.Height = buildingModel.viewModel.Height;
+            _buildingDto.Width = buildingModel.viewModel.Width;
+            _buildingDto.Dest_price = (int)buildingModel.viewModel.DestructionTime;
+            _buildingDto.Percent_price_per_lvl = buildingModel.viewModel.Percent_price_per_lvl;
+            _buildingDto.Percent_product_per_lvl = buildingModel.viewModel.Percent_product_per_lvl;
+            _buildingDto.Product_ID = buildingModel.viewModel.Product_ID;
+            _buildingDto.Product_Name = buildingModel.viewModel.Product_Name;
+            _buildingDto.Product_per_sec = buildingModel.viewModel.Product_per_sec;
+            _buildingDto.Alias = buildingModel.viewModel.Alias;
+            _buildingDto.BuildingTime = buildingModel.viewModel.BuildingTime;
+            _buildingDto.DestructionTime = buildingModel.viewModel.DestructionTime;
 
             _buildingTable.Add(_buildingDto);
 
