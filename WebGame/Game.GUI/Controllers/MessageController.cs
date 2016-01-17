@@ -2,6 +2,7 @@
 using Game.GUI.ViewModels;
 using Game.GUI.ViewModels.Message;
 using Game.GUI.ViewModels.User;
+using Game.GUI.ViewModels.User.Friend;
 using Game.Service.Interfaces;
 using PagedList;
 using System;
@@ -37,7 +38,7 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult SentMessage(MessageViewModel messageModel)
+        public ActionResult SendMessage(MessageViewModel messageModel)
         {
             List<string> errors;
             if (Session["val"] != null)
@@ -77,7 +78,7 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult SentMessageProfile(ProfileViewModel profilViewModel)
+        public ActionResult SendMessageProfile(ProfileViewModel profilViewModel)
         {
             MessageDto message = new MessageDto();
 
@@ -93,6 +94,25 @@ namespace Game.GUI.Controllers
                 Description = "Nowa wiadomość",
             });
             return RedirectToAction("Profil", "User", new { User = message.Customer_Login });
+        }
+
+        [Authorize]
+        public ActionResult SendFriendMessage(FriendViewModel friendViewModel)
+        {
+            MessageDto message = new MessageDto();
+
+            message.Sender_Login = User.Identity.Name;
+            message.Customer_Login = friendViewModel.viewModel.Friend_Login;
+            message.Theme = friendViewModel.viewModel.Theme;
+            message.Content = friendViewModel.viewModel.Content;
+
+            _messageService.SentMessage(message);
+            _notificationService.SentNotification(new NotificationDto
+            {
+                User_Login = message.Customer_Login,
+                Description = "Nowa wiadomość",
+            });
+            return View("~/Views/Home/Index.cshtml");
         }
 
         [Authorize]

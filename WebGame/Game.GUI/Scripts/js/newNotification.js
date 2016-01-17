@@ -83,7 +83,8 @@ function getFriendList() {
         url: 'User/_FriendList',
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            $("#FriendBox").html($(data).html());
+            var $temp = $(data).filter("#FriendBox");
+            $("#FriendBox").html($temp);
         }
 
     });
@@ -131,13 +132,16 @@ $(document).ready(function () {
         };
         $.connection.hub.start().done(function () {
             $('.sentMessageBtn').click(function () {
-                console.log($("#viewModel_Customer_Login").val());
                 if ($("#viewModel_Customer_Login").val() == undefined) {
                     game.server.sentNotification($("#Login").val(), pin);
                 }
-                else {
+                else{
                     game.server.sentNotification($("#viewModel_Customer_Login").val(), pin);
                 }
+            });
+            $('#friendMessage').click(function () {
+                console.log($("#viewModel_Friend_Login").val());
+                game.server.sentNotification($("#viewModel_Friend_Login").val(), pin);
             });
             $('.addFriend').click(function () {
                 game.server.sentNotification($("#UserLogin").val(), pin);

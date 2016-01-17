@@ -2,48 +2,103 @@
 @{
     Layout = null;
 }
-<div id="FriendInner">
-    @foreach (var item in Model.listModel)
-    {
-        if (item.OrAccepted)
+
+<div id="modal1" class="modal friendMessage">
+    <div class="modal-content ">
+        <h5>Nowa wiadmość:</h5>
+        @using (Html.BeginForm("SendFriendMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
-            if (item.User_Login == User.Identity.Name)
-            {
-                <div class="friend">
-                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">@item.Friend_Login</span>
-                    <span class="icon"><i class="fa fa-comments"></i></span>
-                </div>
-            }
-            else
-            {
-                <div class="friend">
-                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">@item.User_Login</span>
-                    <span class="icon"><i class="fa fa-comments"></i></span>
-                </div>
-            }
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(m => User.Identity.Name);
+            <div class="input-field col s12">
+                @Html.Hidden(User.Identity.Name)
+            </div>
+            <div class="input-field col s12 login">
+                @Html.TextBoxFor(m => m.viewModel.Friend_Login, new { placeholder = "", @class = "inputLogin" })
+                <label for="Customer_Login">Odbiorca:</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Theme, new { placeholder = "", @class = "validate", maxlength = "150" })
+                <label for="Login">Tytuł:</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "materialize-textarea" })
+                <label for="Login">Treść:</label>
+            </div>
+            <button type="submit" class="btn waves-effect waves-light sentMessageBtn" id="friendMessage" name="action">Wyślij</button>
         }
-        else
-        {
-            if (item.User_Login == User.Identity.Name)
-            {
-                <div class="friend disabled">
-                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">@item.Friend_Login</span>
-                </div>
-            }
-            else
-            {
-                <div class="friend disabled">
-                    <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">@item.User_Login</span>
-                    <span class="icon disagree" data-userid="@item.ID" data-userlogin="@item.User_Login" data-friendlogin="@item.Friend_Login"><i class="fa fa-times"></i></span>
-                    <span class="icon agree" data-userid="@item.ID" data-userlogin="@item.User_Login" data-friendlogin="@item.Friend_Login"> <i class="fa fa-check"></i></span>
+    </div>
 </div>
+
+<div id="FriendBox">
+    <div id="FriendInner">
+        @foreach (var item in Model.listModel)
+        {
+            if (item.OrAccepted)
+            {
+                if (item.User_Login == User.Identity.Name)
+                {
+                    <div class="friend">
+                        <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">@item.Friend_Login</span>
+                        <span class="icon"><i class="fa fa-comments modal-trigger userMessage" data-target="modal1" data-friendlogin="@item.Friend_Login"></i></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="friend">
+                        <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">@item.User_Login</span>
+                        <span class="icon"><i class="fa fa-comments modal-trigger userMessage" data-target="modal1" data-friendlogin="@item.User_Login"></i></span>
+                    </div>
+                }
+            }
+            else
+            {
+                if (item.User_Login == User.Identity.Name)
+                {
+                    <div class="friend disabled">
+                        <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.Friend_Login })'">@item.Friend_Login</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="friend disabled">
+                        <span class="login" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">@item.User_Login</span>
+                        <span class="icon disagree" data-userid="@item.ID" data-userlogin="@item.User_Login" data-friendlogin="@item.Friend_Login"><i class="fa fa-times"></i></span>
+                        <span class="icon agree" data-userid="@item.ID" data-userlogin="@item.User_Login" data-friendlogin="@item.Friend_Login"> <i class="fa fa-check"></i></span>
+                    </div>
+                }
             }
         }
-    }
+    </div>
 </div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $('.sentMessageBtn').attr("disabled", true);
+
+        $(".friendMessage").keyup(function () {
+            if ($("#viewModel_Theme").val() != ""
+                && $("#viewModel_Content").val() != "") {
+                $('.sentMessageBtn').attr("readonly", false);
+            }
+            else {
+                $('.sentMessageBtn').attr("readonly", true);
+            }
+        })
+        $('.modal-trigger').leanModal();
+
+    });
+
+    $('.userMessage').click(function(){
+        $("#viewModel_Friend_Login").val($(this).data('friendlogin'));
+        $("#viewModel_Friend_Login").attr('disabled',true);
+
+    });
+
     $('#FriendInner').slimScroll({
         size: '10px',
         height: '350px',

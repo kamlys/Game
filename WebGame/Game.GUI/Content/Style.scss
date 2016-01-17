@@ -667,6 +667,11 @@ nav {
 /******************/
 /*List znajomych*/
 .infoBox {
+    
+    .friendMessage {
+            color: black !important;
+            width: 30% !important;
+        }
     .friend {
         background-color: $friendColorList;
         margin-top: 10px;
@@ -676,6 +681,9 @@ nav {
         line-height: 40px;
         margin-left: auto;
         margin-right: auto;
+
+        
+
 
         .slimScrollBar {
             background: $buildingListColor !important;
@@ -842,16 +850,16 @@ nav {
         float: right;
         margin-right: 10px;
 
-        a{
+        a {
             color: #fff;
         }
 
-        .pagination > .active > a, 
-        .pagination > .active > span, 
-        .pagination > .active > a:hover, 
-        .pagination > .active > span:hover, 
-        .pagination > .active > a:focus, 
-        .pagination > .active > span:focus{
+        .pagination > .active > a,
+        .pagination > .active > span,
+        .pagination > .active > a:hover,
+        .pagination > .active > span:hover,
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
             background: $marketColoR;
             border: 1px solid $marketColoR;
             color: #fff;
@@ -1436,16 +1444,16 @@ nav {
         float: right;
         margin-right: 10px;
 
-        a{
+        a {
             color: #2e8367;
         }
 
-        .pagination > .active > a, 
-        .pagination > .active > span, 
-        .pagination > .active > a:hover, 
-        .pagination > .active > span:hover, 
-        .pagination > .active > a:focus, 
-        .pagination > .active > span:focus{
+        .pagination > .active > a,
+        .pagination > .active > span,
+        .pagination > .active > a:hover,
+        .pagination > .active > span:hover,
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
             background: #2e8367;
             border: 1px solid #2e8367;
             color: #fff;
@@ -1463,12 +1471,12 @@ nav {
     }
 
     tbody {
-        tr{
+        tr {
             background: #fff;
         }
+
         tr:hover {
             background-color: #A6D2C3;
-
             cursor: pointer;
         }
     }
@@ -1477,29 +1485,28 @@ nav {
 .Message {
     background-color: $secondColor;
     //min-height: 600px;
-
     .paginationBtn {
         float: right;
         margin-right: 10px;
         display: block;
 
-        a{
+        a {
             color: rgba(97, 116, 135, 0.62);
         }
 
-        .pagination > .active > a, 
-        .pagination > .active > span, 
-        .pagination > .active > a:hover, 
-        .pagination > .active > span:hover, 
-        .pagination > .active > a:focus, 
-        .pagination > .active > span:focus{
+        .pagination > .active > a,
+        .pagination > .active > span,
+        .pagination > .active > a:hover,
+        .pagination > .active > span:hover,
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
             background: rgba(97, 116, 135, 0.62);
             border: 1px solid rgba(97, 116, 135, 0.62);
             color: #fff;
         }
     }
 
-    table{
+    table {
         background-color: #fff;
     }
 
@@ -1543,7 +1550,7 @@ nav {
 .receivedMessage {
     min-height: 660px;
 
-    
+
 
     thead {
         background-color: rgba(97, 116, 135, 0.62);
@@ -1571,7 +1578,7 @@ nav {
 .sentMessage {
     min-height: 660px;
 
-    
+
     thead {
         background-color: rgba(97, 116, 135, 0.62);
         border: none;

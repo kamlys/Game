@@ -441,6 +441,10 @@ nav {
 
 /******************/
 /*List znajomych*/
+.infoBox .friendMessage {
+  color: black !important;
+  width: 30% !important; }
+
 .infoBox .friend {
   background-color: #214954;
   margin-top: 10px;
