@@ -26,26 +26,28 @@
     else
     {
         <div class="IndexDiv">
-            <div class="productList col s12 card">
-                <div id="products">
-
+            <div class="col m4 l3 buildingList card">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a href="#Building">Budynki</a></li>
+                        <li class="tab col s3"><a href="#DealBuilding" id="notifi">Budynki z umów</a></li>
+                    </ul>
                 </div>
-            </div>
-            <div class="col l3 buildingList card">
-                @Html.Action("_BuildingsList", "Building")
+                <div id="Building" style="display:inline-block"><div id="Building">@Html.Action("_BuildingsList", "Building")</div></div>
+                <div id="DealBuilding" style="display:inline-block"><div id="DealBuilding">@Html.Action("_DealBuildings", "UserBuilding")</div></div>
             </div>
             <div class="mapBox card">
                 @Html.Action("_UserMap", "Map")
             </div>
-            <div class="col l3 infoBox card">
+            <div class="col m4 l3 infoBox card">
                 <div class="col s12">
                     <ul class="tabs">
                         <li class="tab col s3"><a href="#Friend">Znajomi</a></li>
                         <li class="tab col s3"><a href="#Notification" id="notifi">Powiadomienia</a></li>
                     </ul>
                 </div>
-                <div id="Friend" class="col s12"><div id="FriendBox">@Html.Action("_FriendList", "User")</div></div>
-                <div id="Notification" class="col s12"><div id="NotificationBox">@Html.Action("_Notification", "Notification")</div></div>
+                <div id="Friend" style="display:inline-block; width: 100%">@Html.Action("_FriendList", "User")</div>
+                <div id="Notification" style="display:inline-block; width: 100%"><div id="NotificationBox" style="width: 100%">@Html.Action("_Notification", "Notification")</div></div>
             </div>
         </div>
     }
@@ -55,10 +57,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('#testModal').leanModal();
         $('ul.tabs').tabs();
         if ($('#Notification ul li').length >= 1) {
             $('.infoBox .tabs').tabs('select_tab', 'Notification');
+        }
+
+        if ($('#DealBuilding ul li').length >= 1) {
+            $('.buildingList .tabs').tabs('select_tab', 'DealBuilding');
         }
     });
 

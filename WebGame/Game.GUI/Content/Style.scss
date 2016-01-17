@@ -1,20 +1,31 @@
 ﻿//color:
 $firstColor: #2c3e50;
-$secondColor: #2f3b46;
-$logColor: #9b59b6;
-$regColor: #66cccc;
-$greyColor: #9d9d9d;
-$indexColor: #ff7d00;
+$secondColor: #18212A;
+$logColor: #73467B;
+$regColor: #527575;
+$greyColor: #9E9E9E;
+$indexColor: #214954;
+$buildingListColor: #214954;
+$friendColorList: #214954;
+$notificationColor: #214954;
+$officeColor: #343256;
+$marketColoR: #563232;
 
 html, body {
     background-color: $firstColor;
 }
 
 
+.preloader-wrapper {
+    .spinner-layer {
+        background: none;
+    }
+}
+
+
 .container, .row {
     min-height: 500px;
 }
-
 
 /*Jakieś artykuły*/
 #homeArticle {
@@ -26,37 +37,108 @@ html, body {
 nav {
     background-color: $secondColor;
 
-    #userLogout {
-        margin: -53px 40px 0 0;
-        min-width: 80px;
-        text-align: center;
-        height: 45px;
-        line-height: 45px;
-        font-size: 15px;
-        background: $firstColor;
-        color: $greyColor;
-        border-radius: 0;
+    .button-collapse {
+        font-size: 22px;
 
-        .fa {
-            font-size: 150%;
+        i {
+            font-size: 22px;
+            margin-right: 5px;
+        }
+    }
+
+    .side-nav {
+        background-color: $secondColor;
+
+        a {
+            color: #fff !important;
+        }
+
+        li {
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .userDolar {
+            display: none;
+        }
+
+        .dolarMenu {
+            color: #fff;
+            text-align: center;
+            cursor: default;
+        }
+    }
+
+    @media screen and (min-width: 993px) {
+        .userDolar {
             color: $greyColor;
+            float: left;
+            margin-left: 20px;
+            margin-top: 10px;
+            padding: 5px 10px 5px 10px;
+            display: inline-block;
+            background-color: #214954;
+            text-align: center;
+            min-width: 80px;
+            width: auto;
+            height: 45px;
+            line-height: 35px;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .userDolar:hover {
+            color: #51B3CE;
+            cursor: default;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .userLogout {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 993px) {
+        .userLogout {
+            margin: -53px 40px 0 0;
+            min-width: 80px;
+            text-align: center;
+            height: 45px;
+            line-height: 45px;
+            font-size: 15px;
+            background: #214954;
+            color: $greyColor;
+            border-radius: 0;
+
+            .fa {
+                font-size: 150%;
+                color: $greyColor;
+            }
+        }
+
+        .userLogout:hover {
+            color: #51B3CE;
+            background-color: #214954 !important;
+
+            .fa {
+                color: #51B3CE;
+            }
         }
     }
 }
-
 /*Panel logowania*/
 .loginForm {
     border-top: 5px solid $logColor;
-    min-height: 300px;
+    min-height: 350px;
     background-color: $secondColor;
     margin-top: 100px;
     padding: 0 30px 0 30px;
-    width: 500px;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
 
     #Login, #Password {
-        color: white;
+        color: $greyColor;
     }
 
     .input-field label {
@@ -80,27 +162,10 @@ nav {
         .logowanieText {
             float: left;
             display: inline-block;
-            color: white;
+            color: $greyColor;
             font-size: 30px;
             margin: 10px 0 20px 0;
             text-align: left;
-        }
-
-        .kontoText {
-            display: inline-block;
-            float: right;
-            padding: 15px;
-
-            a {
-                color: white;
-                font-size: 15px;
-                margin: 10px 0 40px 0;
-                text-decoration: none;
-            }
-
-            a:hover {
-                color: $logColor;
-            }
         }
     }
 
@@ -109,20 +174,20 @@ nav {
             display: inline-block;
             float: left;
             width: auto;
-
+            margin-top: 5%;
 
             .btn, .btn-large {
                 background-color: $logColor !important;
             }
         }
 
-        .forgetPassword {
-            margin-top: 30px;
+        .loginRegister {
+            margin: 5.5% 0 0 20px;
             display: inline-block;
-            float: right;
+            float: left;
 
             a {
-                color: white;
+                color: $greyColor;
                 font-size: 15px;
                 margin: 10px 0 40px 0;
                 text-decoration: none;
@@ -150,11 +215,86 @@ nav {
     background-color: $secondColor;
     margin-top: 100px;
     padding: 0 30px 0 30px;
-    width: 500px;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
 
     #Login, #Password, #Email, #comparePassword {
+        color: $greyColor;
+    }
+
+    .input-field label {
+        color: $greyColor;
+    }
+
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=password]:focus + label,
+    .input-field input[type=email]:focus + label {
+        color: $regColor;
+        font-size: 15px;
+    }
+
+    input[type=email].invalid + label:after,
+    input[type=email]:focus.invalid + label:after {
+        width: 200px !important;
+    }
+
+    .input-field input[type=text]:focus,
+    .input-field input[type=password]:focus,
+    .input-field input[type=email]:focus {
+        border-bottom: 3px solid $regColor;
+        box-shadow: none;
+    }
+
+
+
+    .regTopText {
+        .registerText {
+            float: left;
+            display: inline-block;
+            color: $greyColor;
+            font-size: 30px;
+            margin: 10px 0 40px 0;
+            text-align: left;
+        }
+    }
+
+
+    .registerButton {
+        display: inline-block;
+        width: auto;
+        position: relative;
+        min-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .btn, .btn-large {
+            margin-top: 3%;
+            background-color: $regColor !important;
+        }
+    }
+
+    .uk-form-danger {
+        color: red !important;
+        background-color: $secondColor !important;
+
+        .logError {
+            list-style-type: none;
+        }
+    }
+}
+/*Recovery View*/
+.recoveryForm {
+    border-top: 5px solid #75bf3b;
+    min-height: 500px;
+    background-color: $secondColor;
+    margin-top: 100px;
+    padding: 0 30px 0 30px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+
+    #Login, #Password, #Email, #comparePassword, #RecoveryCode {
         color: white;
     }
 
@@ -176,11 +316,13 @@ nav {
     .input-field input[type=text]:focus,
     .input-field input[type=password]:focus,
     .input-field input[type=email]:focus {
-        border-bottom: 3px solid $regColor;
+        border-bottom: 3px solid #75bf3b;
         box-shadow: none;
     }
 
-
+    .btn {
+        background-color: #75bf3b !important;
+    }
 
     .regTopText {
         .registerText {
@@ -202,8 +344,10 @@ nav {
         margin-left: auto;
         margin-right: auto;
 
+
+
         .btn, .btn-large {
-            background-color: $regColor !important;
+            background-color: #75bf3b !important;
         }
     }
 
@@ -216,10 +360,42 @@ nav {
         }
     }
 }
-
 /*Lista budynków do budowy*/
+@media screen and (max-width: 750px) {
+    .buildingList {
+        width: 50% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media screen and (min-width: 751px) {
+    @media screen and (max-width: 860px) {
+        .buildingList {
+            margin: 15px 0 0 -35px !important;
+        }
+    }
+}
+
+@media screen and (min-width: 861px) {
+    @media screen and (max-width: 1000px) {
+        .buildingList {
+            margin: 15px 0 0 0 !important;
+        }
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    @media screen and (max-width: 1200px) {
+
+        .buildingList {
+            margin: 15px 0 0 -40px !important;
+        }
+    }
+}
+
 .buildingList {
-    margin: 30px 0 0 0;
+    margin: 15px 0 0 0;
     height: 400px;
     background-color: $secondColor;
     color: white;
@@ -227,47 +403,158 @@ nav {
     float: left !important;
     text-align: center;
 
-    .btn {
-        background-color: $indexColor;
-        max-width: 190px;
-        width: 100%;
+    i {
         font-size: 12px;
-        padding: 0;
-        border-radius: 0;
     }
 
-    .dropdown-content li {
-        background-color: white;
-        top: 40px;
-        left: 30px;
-        border: 1px solid $indexColor;
-        height: 30px;
-        color: $indexColor;
-        text-align: center;
-        line-height: 30px;
+    .tabs {
+        margin-top: 0px;
+    }
+
+    .btn {
+        background-color: $buildingListColor;
+        width: 88%;
+        margin: 5px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 12px;
+        padding: 0 5px 0 5px;
+        border-radius: 0;
+        text-transform: none;
+    }
+
+    .btn:hover {
+        color: #51B3CE;
+        font-weight: bold;
+    }
+
+    .disabled {
+        background-color: #687579;
+    }
+
+    .buildingName {
+        float: left;
+    }
+
+    .slimScrollBar {
+        background: $buildingListColor !important;
+    }
+
+    .buildingPrice {
+        float: right;
+    }
+
+    .tabs .tab {
+        a:hover {
+            color: #51B3CE !important;
+            font-weight: bold;
+            border: none;
+        }
+    }
+
+    .tabs .indicator {
+        background-color: $buildingListColor;
     }
 }
 
-.mapBox {
-    margin-top: 30px;
-    width: 540px;
-    margin-left: 3%;
-    /*padding: 20px 20px 20px 20px;*/
-    border: 20px solid $secondColor;
-    background-color: #2f3b46;
-    display: inline-block;
+@media screen and (max-width: 750px) {
+    .mapBox {
+        margin-top: 450px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+
+@media screen and (max-width: 861px) {
+    .mapBox {
+        margin-top: 30px;
+        margin-right: -35px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .mapBox {
+        margin-top: 30px;
+        width: 540px;
+        margin-left: auto;
+        /*padding: 20px 20px 20px 20px;*/
+        border: 20px solid $secondColor;
+        background-color: #2f3b46;
+        display: block;
+    }
+}
+
+
+
+@media screen and (min-width: 1000px) {
+    .mapBox {
+        margin-top: 30px;
+        width: 540px;
+        margin-left: auto;
+        margin-right: auto;
+        /*padding: 20px 20px 20px 20px;*/
+        border: 20px solid $secondColor;
+        background-color: #2f3b46;
+        display: block;
+    }
+}
+/*InfoBox*/
+@media screen and (max-width: 750px) {
+    .infoBox {
+        width: 50% !important;
+        float: right !important;
+        margin-top: -975px !important;
+    }
+}
+
+@media screen and (min-width: 751px) {
+    @media screen and (max-width: 860px) {
+        .infoBox {
+            margin: -155px 0 0 -35px !important;
+        }
+    }
+}
+
+
+@media screen and (min-width: 861px) {
+    @media screen and (max-width: 1000px) {
+        .infoBox {
+            float: left !important;
+            margin: -155px 0 0 0 !important;
+        }
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    @media screen and (max-width: 1200px) {
+
+        .infoBox {
+            margin: -555px -40px 0 0 !important;
+            float: right !important;
+        }
+    }
+
+    .infoBox {
+        float: right !important;
+    }
 }
 
 .infoBox {
-    margin: 30px 0 0 0;
+    margin: -555px 0 0 0;
     padding-top: 0;
-    background-color: #2f3b46;
+    background-color: $secondColor;
     text-align: center;
     color: white;
-    display: inline-block;
-    width: 250px;
+    display: block;
     height: 400px;
-    float: right !important;
+    font-size: 12px;
+    width: 100%;
+
+    .slimScrollBar {
+        background: $buildingListColor !important;
+        width: 10px !important;
+    }
 
     .tabs {
         display: -webkit-box;
@@ -309,7 +596,8 @@ nav {
         }
 
         a:hover {
-            color: $indexColor !important;
+            color: #51B3CE !important;
+            font-weight: bold;
         }
 
         .tab a {
@@ -340,64 +628,80 @@ nav {
         }
     }
 }
-
 /*Powiadomienia*/
 #Notification {
     #notificationList {
+        margin-top: 4px;
 
         .newNotification {
-            background-color: $firstColor;
+            background-color: $notificationColor;
             border-radius: 0;
-            height: 50px;
-            line-height: 50px;
-            width: 95%;
-            border-bottom: 3px solid #FFB100;
-            margin-top: 10px;
-            float: left;
+            min-height: 40px;
+            height: auto;
+            line-height: 40px;
+            width: 88%;
+            margin-bottom: 10px;
             font-size: 12px;
             color: #fff;
-            cursor: pointer;
+            cursor: default;
+            font-size: 85%;
 
-            .newNotification:hover {
-                -webkit-box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
-                -moz-box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
-                box-shadow: 4px 4px 23px 5px rgba(168,168,168,1);
+            .notificationLink:hover {
+                color: #51B3CE;
+                font-size: 13px;
+                font-weight: bold;
+                cursor: pointer;
             }
 
             i {
-                line-height: 50px;
-                font-size: 15px;
+                line-height: 40px;
+                font-size: 12px;
             }
 
             i:hover {
-                color: #FFB100;
+                color: #51B3CE;
             }
         }
     }
 }
 /******************/
-
 /*List znajomych*/
 .infoBox {
+    
+    .friendMessage {
+            color: black !important;
+            width: 30% !important;
+        }
     .friend {
-        background-color: #206b80;
+        background-color: $friendColorList;
         margin-top: 10px;
-        cursor: pointer;
-        border-bottom: 3px solid #ff6a00;
-        height: 45px;
-        line-height: 45px;
+        width: 88%;
+        cursor: default;
+        height: 40px;
+        line-height: 40px;
+        margin-left: auto;
+        margin-right: auto;
+
+        
+
+
+        .slimScrollBar {
+            background: $buildingListColor !important;
+            right: -5px !important;
+        }
 
         .login {
             float: left;
             margin-left: 20px;
             text-transform: capitalize;
-            font-size: 20px;
+            font-size: 12px;
+            cursor: pointer;
         }
 
         .login:hover {
-            color: $indexColor;
+            color: #51B3CE;
+            font-weight: bold;
         }
-
 
         .icon {
             float: right;
@@ -417,23 +721,41 @@ nav {
     }
 
     .disabled {
-        background-color: rgba(168,168,168,1);
+        background-color: #687579;
+    }
+
+    .tabs .tab {
+        a:hover {
+            font-weight: bold;
+            border: none;
+        }
+    }
+
+    .tabs .indicator {
+        background-color: $friendColorList;
+    }
+}
+/*****************/
+@media screen and (max-width: 650px) {
+    #products {
+        font-size: 50% !important;
     }
 }
 
-/*****************/
-
+#products {
+    cursor: default;
+    font-size: 70%;
+}
 
 .productList {
     display: block;
     width: 60%;
     height: 50px;
-    line-height: 50px;
     margin-left: auto !important;
     margin-right: auto;
     padding: 20px 20px 20px 20px;
-    background-color: #2f3b46;
-    width: 50%;
+    background-color: $secondColor;
+    width: 100%;
     text-align: center;
     margin-top: 30px;
     float: none !important;
@@ -441,11 +763,9 @@ nav {
     .productItem {
         display: inline-block;
         color: white;
-        margin-right: 20px;
+        margin-right: 10px;
     }
 }
-
-
 /*TabsAdmin*/
 .tabs {
     margin-top: 30px;
@@ -487,7 +807,7 @@ nav {
     }
 
     a:hover {
-        color: $indexColor !important;
+        font-weight: bold;
     }
 
     .tab a {
@@ -520,8 +840,81 @@ nav {
 
 
 .market {
-    background-color: white;
+    background-color: $secondColor;
     margin-top: 30px;
+    padding-bottom: 80px;
+    min-height: 500px;
+
+    .paginationBtn {
+        float: right;
+        margin-right: 10px;
+
+        a {
+            color: #fff;
+        }
+
+        .pagination > .active > a,
+        .pagination > .active > span,
+        .pagination > .active > a:hover,
+        .pagination > .active > span:hover,
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
+            background: $marketColoR;
+            border: 1px solid $marketColoR;
+            color: #fff;
+        }
+    }
+
+    .noOffer {
+        display: block;
+        color: #fff;
+        margin-left: 20px;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .tabs .tab {
+        a:hover {
+            font-weight: bold;
+            border: none;
+        }
+    }
+
+    .tabs .indicator {
+        background-color: $marketColoR;
+    }
+
+    h5 {
+        margin: 20px;
+        display: inline-block;
+        color: #fff;
+    }
+
+    td, th {
+        border-radius: 0;
+    }
+
+    table {
+        background-color: #fff;
+    }
+
+    thead {
+        tr {
+            width: 100%;
+            background-color: $marketColoR;
+            color: #fff;
+        }
+    }
+
+    tbody {
+        tr {
+            height: 40px !important;
+        }
+
+        tr:hover {
+            background-color: rgba(86, 50, 50, 0.50) !important;
+        }
+    }
 
     .numValue {
         float: left;
@@ -531,6 +924,7 @@ nav {
 
     #buyButton {
         margin-top: 10px;
+        background-color: $marketColoR;
     }
 
     #buyTd {
@@ -546,6 +940,64 @@ nav {
         width: 49%;
         float: left;
     }
+
+    .systemOffer {
+        height: 500px;
+        width: 500px;
+        padding: 10px;
+
+        .systemOfferItem {
+            .productName {
+                display: inline-block;
+                margin-right: 10px;
+            }
+
+            .productPrice {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
+
+        .numberValue {
+            width: 100px !important;
+            text-align: center;
+            margin-right: 10px;
+            float: right;
+        }
+
+        .sellProduct {
+            float: right;
+            display: block;
+            background-color: $marketColoR;
+        }
+    }
+
+    .btn {
+        background-color: $marketColoR;
+    }
+
+    .systemOfferBtn {
+        margin: 20px !important;
+        background-color: $marketColoR;
+    }
+
+    .offerAdd {
+        margin-left: 20px;
+        display: inline-block;
+        background-color: $marketColoR;
+    }
+
+    .offerSellAdd {
+        margin: 10px 0 10px 10px;
+    }
+
+    .offerBuyAdd {
+        margin: 10px 0 10px 10px;
+    }
+
+    .addButton {
+        background-color: $marketColoR !important;
+    }
 }
 
 .tableList {
@@ -560,38 +1012,56 @@ nav {
         }
     }
 }
-
 /*Przycisk dodający - AdminPanel*/
 .addButton {
     float: right;
+    margin-bottom: 10px;
 }
-
-
-
 /*Biuro*/
 .office {
     margin-top: 30px;
 
+    @media screen and (max-width: 950px) {
+        .uBuildingList {
+            width: 100% !important;
+            margin-bottom: 20px;
+        }
+    }
+
+
     .uBuildingList {
         background-color: $secondColor;
-        min-height: 400px;
+        min-height: 420px;
         display: inline-block;
         float: left;
         padding: 20px 20px 20px 20px;
-        width: 49% !important;
+        border: none;
+        width: 49%;
+
+        .progress {
+            height: 10px;
+            margin-bottom: 5px;
+            background-color: $officeColor;
+        }
+
+        .indeterminate {
+            background-color: #8581ce;
+        }
+
+        .slimScrollBar {
+            background: #8581ce !important;
+        }
 
         h5 {
-            color: #FFB100;
+            color: #fff;
         }
 
-        p {
-            color: #FFB100;
-        }
+
 
         #lvlUp {
-            margin-top: 7.5px;
+            margin-top: 4px;
             margin-right: 5px;
-            background-color: #26A69A;
+            background-color: #8581ce;
             color: #000;
 
             i {
@@ -599,19 +1069,40 @@ nav {
             }
         }
 
+        li {
+            width: 95%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .collapsible {
+            border: none;
+        }
+
         .collapsible-header {
-            background-color: #FFB100;
-            color: #000;
-
-
+            background-color: $officeColor;
+            color: #fff;
+            margin-bottom: 5px;
+            border: none;
 
             #lvlUp:hover {
                 background-color: green;
+                border-radius: 0;
             }
+        }
 
-            #lvlUp:hover:before {
-                content: "test";
-            }
+        .collapsible-body {
+            background-color: rgba(52, 50, 86, 0.50);
+            color: #fff;
+            margin-top: -5px;
+            margin-bottom: 5px;
+            border: none;
+        }
+    }
+
+    @media screen and (max-width: 950px) {
+        .uProductList {
+            width: 100% !important;
         }
     }
 
@@ -620,33 +1111,55 @@ nav {
         background-color: $secondColor;
         min-height: 400px;
         padding: 20px 20px 20px 20px;
-        width: 49% !important;
+        width: 49%;
+
+        .slimScrollBar {
+            background: #8581ce !important;
+        }
 
         h5 {
-            color: #B840EA;
+            color: #fff;
+        }
+
+        .userProduct {
+            padding-top: 8px;
         }
 
         .officeProduct {
-            background-color: #B840EA;
-            color: #000;
-            border: 1px solid #DDDDDD;
-            height: 46px;
-            line-height: 46px;
+            background-color: $officeColor;
+            color: #fff;
+            height: 45px;
+            line-height: 45px;
             padding-left: 20px;
+            margin-bottom: 5px;
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
 
             .name {
                 float: left;
             }
 
             .officeOfferAdd {
-                margin: 5px 5px 0 0;
+                margin: 3.5px 5px 0 0;
                 float: right;
-                border-radius: 10px !important;
+                background-color: #8581ce;
+                color: #000;
 
                 .input[type=text].valid {
-                    color: #000 !important;
+                    color: #fff !important;
                 }
             }
+        }
+
+        .addButton {
+            background-color: $officeColor !important;
+        }
+    }
+
+    @media screen and (max-width: 950px) {
+        .uDealList {
+            width: 100% !important;
         }
     }
 
@@ -657,46 +1170,92 @@ nav {
         display: inline-block;
         float: right;
         padding: 20px 20px 20px 20px;
-        width: 49% !important;
+        width: 49%;
 
+        .slimScrollBar {
+            background: #8581ce !important;
+        }
+
+        #dealInner {
+            height: 350px;
+        }
+
+        #dealBox {
+            height: 100%;
+            margin-top: -20px;
+        }
 
         h5 {
-            color: #75bf3b;
+            color: #fff;
             display: inline-block;
         }
 
-        p {
-            color: #75bf3b;
+
+        .collapsible {
+            border: none;
+        }
+
+        li {
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .collapsible-header {
-            background-color: #75bf3b;
-            color: #000;
+            background-color: $officeColor;
+            color: #fff;
+            margin-bottom: 5px;
+            border: none;
+        }
+
+        .collapsible-body {
+            background-color: rgba(52, 50, 86, 0.50);
+            color: #fff;
+            margin-top: -5px;
+            margin-bottom: 5px;
+            border: none;
         }
 
         .disabled {
-            background-color: $greyColor;
+            background-color: #8581ce;
         }
 
         .myoffer {
             background-color: $greyColor;
         }
 
+        .rerunDeal {
+            margin-top: 3px;
+            float: right;
+        }
+
         .officeDealAdd {
             display: inline-block;
-            margin-left: 10px;
+            margin: -65px 0 0px 100px;
+            background-color: $officeColor;
         }
 
         .officeDealShow {
             float: right;
             margin: 4px 20px 0 0;
             width: 200px;
+            background-color: $officeColor;
         }
 
         .myoffer {
             float: right;
             margin: 4px 20px 0 0;
             width: 200px;
+        }
+
+        .addButton {
+            background-color: $officeColor !important;
+        }
+    }
+
+    @media screen and (max-width: 950px) {
+        .uProductRequirementList {
+            width: 100% !important;
         }
     }
 
@@ -707,39 +1266,72 @@ nav {
         display: inline-block;
         float: left;
         padding: 20px 20px 20px 20px;
-        width: 49% !important;
+        width: 49%;
+
+        .slimScrollBar {
+            background: $officeColor !important;
+        }
 
         h5 {
-            color: #f4511e;
+            color: #fff;
             display: inline-block;
         }
 
+        .requirementBox {
+            margin-top: -6px;
+        }
+
         .productRequirementItem {
-            background-color: #f4511e;
-            height: 46px;
+            background-color: $officeColor;
+            height: 45px;
+            margin-bottom: 5px;
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
 
             .productName {
                 float: left;
                 display: inline-block;
                 line-height: 46px;
                 margin-left: 15px;
+                color: #fff;
+            }
+
+            .conditions {
+                float: right;
+                display: inline-block;
+                line-height: 45px;
+                margin-right: 15px;
             }
 
             .inputValue {
                 display: inline-block;
                 float: right;
-                background-color: $greyColor;
-                height: 46px;
-                line-height: 46px;
+                background-color: #8581ce;
+                height: 44px;
+                line-height: 44px;
                 padding-left: 15px;
 
-                #tableView_Value {
+                #productValue {
                     width: 50%;
                     display: inline-block;
-                    height: 44px;
-                    border-bottom: 1px solid #f4511e;
+                    height: 40px;
+                    border-bottom: 5px solid $officeColor;
+                    text-align: center;
+                }
+
+                input[type=number]:focus:not([readonly]) {
+                    box-shadow: none;
+                }
+
+                .createButton {
+                    background-color: $officeColor;
                 }
             }
+        }
+
+        .disabled {
+            background-color: rgba(168,168,168,1);
         }
     }
 }
@@ -748,7 +1340,7 @@ nav {
     background-color: $secondColor;
     margin-top: 40px;
     padding: 5px 20px 20px 20px;
-    min-height: 600px;
+    min-height: 650px;
 
     h4 {
         color: #fff;
@@ -814,49 +1406,139 @@ nav {
         }
 
         .collapsible-body {
+            padding: 15px !important;
+
             .btn {
+                margin-top: 10px;
                 margin-bottom: 15px;
+            }
+
+            .ignoredDiv {
+                background-color: rgba(168,168,168,1);
+                color: #000;
+                border: 1px solid #DDDDDD;
+                height: 46px;
+                line-height: 46px;
+                padding-left: 20px;
             }
         }
 
-        input[type=text], textarea.materialize-textarea {
+        .character-counter {
+            color: #fff;
+        }
+
+        input[type=text], textarea.materialize-textarea, input[type=password], input[type=email].valid, input[type=email] {
             color: #fff !important;
         }
     }
 }
-
 /*Ranking*/
 .Ranking {
-    background-color: #fff;
+    background-color: $secondColor;
     margin-top: 30px;
+    min-height: 500px;
+
+
+    .paginationBtn {
+        float: right;
+        margin-right: 10px;
+
+        a {
+            color: #2e8367;
+        }
+
+        .pagination > .active > a,
+        .pagination > .active > span,
+        .pagination > .active > a:hover,
+        .pagination > .active > span:hover,
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
+            background: #2e8367;
+            border: 1px solid #2e8367;
+            color: #fff;
+        }
+    }
+
+    td, th {
+        border-radius: 0;
+    }
 
     thead {
-        border-bottom: 5px solid #bb0000;
+        background: #2e8367;
         font-weight: bold;
         cursor: default;
     }
 
     tbody {
+        tr {
+            background: #fff;
+        }
+
         tr:hover {
-            background-color: rgba(187, 0, 0, 0.59);
+            background-color: #A6D2C3;
             cursor: pointer;
         }
     }
 }
-
-
 /*Wiadomości*/
 .Message {
-    background-color: #fff;
+    background-color: $secondColor;
+    //min-height: 600px;
+    .paginationBtn {
+        float: right;
+        margin-right: 10px;
+        display: block;
+
+        a {
+            color: rgba(97, 116, 135, 0.62);
+        }
+
+        .pagination > .active > a,
+        .pagination > .active > span,
+        .pagination > .active > a:hover,
+        .pagination > .active > span:hover,
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
+            background: rgba(97, 116, 135, 0.62);
+            border: 1px solid rgba(97, 116, 135, 0.62);
+            color: #fff;
+        }
+    }
+
+    table {
+        background-color: #fff;
+    }
+
+    td, th {
+        border-radius: 0;
+    }
+
+    .indicator {
+        position: absolute;
+        bottom: 0;
+        height: 5px;
+        background-color: rgba(97, 116, 135, 1);
+        will-change: left, right;
+    }
+
+    .noRow {
+        cursor: default;
+        font-size: 20px;
+        color: $greyColor;
+        font-style: italic;
+        margin-left: 20px;
+    }
 }
 
 .newMessage {
     height: 450px;
     padding: 10px 30px 30px 30px;
+    background-color: #fff;
 
-    .sentMessage {
+    .sentMessageBtn {
         float: right;
         margin-bottom: 30px;
+        background-color: #617487;
     }
 
     .login {
@@ -865,13 +1547,25 @@ nav {
 }
 
 .receivedMessage {
-    cursor: pointer;
+    min-height: 660px;
+
+
+
+    thead {
+        background-color: rgba(97, 116, 135, 0.62);
+        border: none;
+        cursor: default;
+    }
 
     tbody {
         tr:hover {
-            background-color: rgba(187, 0, 0, 0.59);
+            background-color: rgba(97, 116, 135, 0.32);
             cursor: pointer;
         }
+    }
+
+    .indeterminate {
+        background-color: #8581ce !important;
     }
 }
 
@@ -881,11 +1575,18 @@ nav {
 }
 
 .sentMessage {
-    cursor: pointer;
+    min-height: 660px;
+
+
+    thead {
+        background-color: rgba(97, 116, 135, 0.62);
+        border: none;
+        cursor: default;
+    }
 
     tbody {
         tr:hover {
-            background-color: rgba(187, 0, 0, 0.59);
+            background-color: rgba(97, 116, 135, 0.32);
             cursor: pointer;
         }
     }
@@ -919,6 +1620,11 @@ nav {
             margin: 0px 5px 0px 5px;
             font-style: italic;
             color: #000;
+            cursor: default;
+        }
+
+        .login:hover {
+            color: #617487;
         }
     }
 
@@ -939,8 +1645,71 @@ nav {
         margin-top: 20px;
         float: right;
 
+        .btn {
+            background-color: #617487;
+        }
+
         i {
             margin-right: 5px;
         }
     }
+}
+/*Validation*/
+.validation {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+    min-height: 90px;
+    background-color: $firstColor;
+    border-bottom: red 3px solid;
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+    z-index: 10;
+    position: fixed;
+    width: 300px;
+    left: 0;
+    right: 0;
+    animation-name: top-margin;
+    animation-duration: 2s;
+    -webkit-animation-name: top-margin;
+    -webkit-animation-duration: 2s;
+
+    i {
+        padding: 5px;
+        display: inline-block;
+        color: red;
+        float: right;
+        cursor: pointer;
+    }
+
+    @keyframes top-margin {
+        0% {
+            margin-top: -150px;
+        }
+
+        100% {
+            margin-top: 70px;
+            animation-fill-mode: forwards;
+            animation-play-state: paused;
+        }
+    }
+
+    @-webkit-keyframes top-margin {
+        0% {
+            margin-top: -150px;
+        }
+
+        100% {
+            margin-top: 70px;
+            -webkit-animation-fill-mode: forwards;
+            -webkit-animation-play-state: paused;
+        }
+    }
+}
+/*Footer*/
+footer {
+    bottom: 0px;
+    width: 100% !important;
 }

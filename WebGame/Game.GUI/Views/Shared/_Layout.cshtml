@@ -5,16 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+
     @*@Styles.Render("~/Styles")*@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <div class="validationDiv">
+        @Html.Action("_Validation", "Validation")
+    </div>
     <nav>
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="nav-wrapper" style="width: 360px">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars"></i>Menu</a>
                 <ul class="hide-on-med-and-down">
                     <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
+
+                    <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
+
+                    <li><a href='@Url.Action("##", "##")'>Jak grać</a></li>
+
+                    <li><a href='@Url.Action("##", "##")'>Support</a></li>
+
+                    <li><a href='@Url.Action("Login", "User")'>Zaloguj</a></li>
+                </ul>
+
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i>Home</a></li>
 
                     <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
 
@@ -30,7 +47,12 @@
 
         @if (User.Identity.IsAuthenticated)
         {
+            <div class="userDolar">
+                @User.Identity.Name <i class="fa fa-usd"></i>  @{Html.RenderAction("dolar", "Dolar");}
+            </div>
+
             <div class="nav-wrapper">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars"></i>Menu</a>
                 <ul class="hide-on-med-and-down">
                     <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
 
@@ -48,13 +70,38 @@
 
 
                 </ul>
+
+                <ul class="side-nav" id="mobile-demo">
+                    <li class="dolarMenu">@User.Identity.Name <i class="fa fa-usd"></i>  @{Html.RenderAction("dolar", "Dolar");}</li>
+                    <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i>Home</a></li>
+
+                    <li><a href='@Url.Action("Index", "Office")'><i class="fa fa-building"></i> Biuro</a></li>
+
+                    <li><a href='@Url.Action("Index", "Message")' id="message"><i class="fa fa-envelope"></i> Wiadomości</a></li>
+
+                    <li><a href='@Url.Action("Index", "Market")'><i class="fa fa-shopping-cart"></i> Market</a></li>
+
+                    <li><a href='@Url.Action("##", "##")'>Kasyno</a></li>
+
+                    <li><a href='@Url.Action("Index", "Ranking")'><img src="~/Content/Images/trophy42.png" /> Ranking</a></li>
+
+                    <li><a href='@Url.Action("Profil", "User", new {User= User.Identity.Name})'><i class="fa fa-cog"></i> Ustawienia</a></li>
+
+                    <li><a href='@Url.Action("Logout","User")'><i class="fa fa-sign-out"></i>Wyloguj</a></li>
+                </ul>
+
             </div>
-            <button class="btn right" id="userLogout" onclick="location.href='@Url.Action("Logout", "User")'"><i class="fa fa-sign-out"></i> Wyloguj</button>
-        }
+            <button class="btn right userLogout" id="userLogout" onclick="location.href='@Url.Action("Logout", "User")'"><i class="fa fa-sign-out"></i> Wyloguj</button>
+                    }
 
 
     </nav>
+
     <div class="container">
+        @if (User.Identity.IsAuthenticated)
+        {
+                Html.RenderAction("_UserProduct", "Office");
+        }
         @RenderBody()
         <footer>
             <p>
@@ -80,6 +127,7 @@
     @RenderSection("scripts", required: false)
 
     <script>
+        $(".button-collapse").sideNav();
         $('.dropdown-button').dropdown({
             inDuration: 300,
             outDuration: 225,

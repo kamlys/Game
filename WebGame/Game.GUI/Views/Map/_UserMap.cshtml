@@ -56,13 +56,12 @@
 
 
 <script type="text/javascript" src="~/Scripts/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="~/Scripts/js/ProductShow.js"></script>
 <script>
     $(document).ready(function () { 
         setBudynki(@budynkiArray);
         setMapSize(@map.Width, @map.Height);
-        fillWithData(@userProducts, @Html.Raw(productNames));
-        setInterval(function () { updateProduct(@userProducts); }, 1000);
+        //fillWithData(@userProducts, @Html.Raw(productNames));
+        //setInterval(function () { updateProduct(@userProducts); }, 1000);
         setInterval(progressBar, 1000);
     });
 </script>
