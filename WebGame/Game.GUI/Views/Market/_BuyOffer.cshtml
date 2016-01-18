@@ -1,0 +1,103 @@
+﻿@model Game.GUI.ViewModels.Market.MarketViewModel
+@using PagedList.Mvc;
+@{
+    Layout = null;
+}
+
+<div id="offerBuyAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddOffer", "Market", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.HiddenFor(m => m.viewModel.TypeOffer, new { @value = false })
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.allProduct), new { @class = "validate" })
+                <label for="Product_Name">Nazwa produktu</label>
+            </div>
+            <div class="input-field col s6" id="Number">
+                @Html.TextBoxFor(m => m.viewModel.Number, new { @type = "number", @min = "1", @placeholder = "", @class = "validate" })
+                <label for="Number">Ilość</label>
+            </div>
+
+            <div class="input-field col s6" id="Price">
+                @Html.TextBoxFor(m => m.viewModel.Price, new { @type = "number", @min = "1", @placeholder = "", @class = "validate" })
+                <label for="Price">Cena za sztukę</label>
+            </div>
+
+            <button type="submit" class="btn waves-effect waves-light addButton" name="action">Zapisz</button>
+        }
+    </div>
+</div>
+<button data-target="offerBuyAdd" class="btn modal-trigger offerAdd offerBuyAdd">Wystaw ofertę kupna</button>
+
+@if (!Model.listModel.Any())
+{
+    <span class="noOffer">Brak ofert</span>
+}
+else
+{
+    <div id="buyOffer">
+        <table class="highlight bordered centered">
+
+            <thead>
+                <tr>
+                    <th>Wystwaiający</th>
+                    <th>Produkt</th>
+                    <th>Ilość</th>
+                    <th>Cena/szt.</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.listModel)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => @item.User_Login)</td>
+                        <td>@Html.DisplayFor(modelItem => @item.Product_Name)</td>
+                        <td>@Html.DisplayFor(modelItem => @item.Number)</td>
+                        <td>@Html.DisplayFor(modelItem => @item.Price)</td>
+                        <td id="buyTd">
+                            @if (User.Identity.Name != item.User_Login)
+                            {
+                                <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" max="@item.Number" value="1">
+                                <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, false)">Sprzedaj</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+        <div class="paginationBtn" id="paginationBtnBuyOffer">
+            @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+        </div>
+    </div>
+}
+
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/materialize.min.js"></script>
+<script>
+    $('.offerBuyAdd').leanModal();
+    $('select').material_select();
+
+    $('#paginationBtnBuyOffer').on('click', 'a', function (e) {
+        e.preventDefault();
+        if (!$(this).parents("li:first").hasClass("active")) {
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#buyOffer').html(result);
+                }
+            });
+        }
+    });
+
+</script>
