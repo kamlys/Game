@@ -214,7 +214,14 @@ namespace Game.GUI.Controllers
             profilView.Friend_Login = new List<string>();
             foreach (var item in _userService.GetFriendList(User.Identity.Name))
             {
-                profilView.Friend_Login.Add(item.Friend_Login);
+                if (item.Friend_Login == User.Identity.Name)
+                {
+                    profilView.Friend_Login.Add(item.User_Login);
+                }
+                else
+                {
+                    profilView.Friend_Login.Add(item.Friend_Login);
+                }
             }
 
             foreach (var item in _userBuildingService.GetUserBuildingList(user))

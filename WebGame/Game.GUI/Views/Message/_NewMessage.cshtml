@@ -14,7 +14,7 @@
             @Html.Hidden(User.Identity.Name)
         </div>
         <div class="input-field col s12 login">
-            @Html.TextBoxFor(m => m.viewModel.Customer_Login, new { placeholder = "", @class = "validate inputLogin", length = "150" })
+            @Html.DropDownListFor(m => m.viewModel.Customer_Login, new SelectList(Model.userList), new { @class = "validate" })
             <label for="Customer_Login">Odbiorca:</label>
         </div>
 
@@ -35,6 +35,7 @@
 <script src="/signalr/hubs"></script>
 <script>
     $(document).ready(function () {
+        $('select').material_select();
 
         $('.sentMessageBtn').attr("disabled", true);
 

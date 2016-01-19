@@ -58,7 +58,7 @@ namespace Game.GUI.Controllers
                 BuildingName = x.Alias,
                 Height = x.Height,
                 Width = x.Width,
-                DealID = x.Deal_ID
+                DealID = x.Deal_ID,
             }).ToList();
 
 

@@ -17,11 +17,14 @@ namespace Game.GUI.Controllers
     {
         private IMessageService _messageService;
         private INotificationService _notificationService;
+        private IUserService _userService;
 
-        public MessageController(IMessageService messageService, INotificationService notificationSerwice)
+
+        public MessageController(IMessageService messageService, INotificationService notificationSerwice, IUserService userService)
         {
             _messageService = messageService;
             _notificationService = notificationSerwice;
+            _userService = userService;
         }
 
         // GET: Message
@@ -34,7 +37,9 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult _NewMessage()
         {
-            return View();
+            MessageViewModel messageModel = new MessageViewModel();
+            messageModel.userList = _userService.GetUser().OrderByDescending(x => x.Login).Select(x => x.Login).ToArray();
+            return View(messageModel);
         }
 
         [Authorize]

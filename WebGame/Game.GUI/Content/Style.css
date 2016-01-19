@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 html, body {
   background-color: #2c3e50; }
 
@@ -231,18 +231,23 @@ nav {
   .buildingList {
     width: 50% !important;
     margin-left: auto !important;
-    margin-right: auto !important; } }
+    margin-right: auto !important;
+    margin-top: -421px !important; } }
+
 @media screen and (min-width: 751px) and (max-width: 860px) {
   .buildingList {
-    margin: 15px 0 0 -35px !important; } }
+    margin: 0 0 0 -35px !important; } }
+
 @media screen and (min-width: 861px) and (max-width: 1000px) {
   .buildingList {
-    margin: 15px 0 0 0 !important; } }
+    margin: 0 0 0 0 !important; } }
+
 @media screen and (min-width: 1000px) and (max-width: 1200px) {
   .buildingList {
-    margin: 15px 0 0 -40px !important; } }
+    margin: 0 0 0 -40px !important; } }
+
 .buildingList {
-  margin: 15px 0 0 0;
+  margin: 0 0 0 0;
   height: 400px;
   background-color: #18212A;
   color: white;
@@ -285,11 +290,15 @@ nav {
   .mapBox {
     margin-top: 450px !important;
     margin-left: auto !important;
-    margin-right: auto !important; } }
+    margin-right: auto !important;
+    border: none !important;
+    background: none !important; } }
+
 @media screen and (max-width: 861px) {
   .mapBox {
     margin-top: 30px;
     margin-right: -35px; } }
+
 @media screen and (max-width: 1000px) {
   .mapBox {
     margin-top: 30px;
@@ -299,6 +308,7 @@ nav {
     border: 20px solid #18212A;
     background-color: #2f3b46;
     display: block; } }
+
 @media screen and (min-width: 1000px) {
   .mapBox {
     margin-top: 30px;
@@ -309,26 +319,32 @@ nav {
     border: 20px solid #18212A;
     background-color: #2f3b46;
     display: block; } }
+
 /*InfoBox*/
 @media screen and (max-width: 750px) {
   .infoBox {
     width: 50% !important;
     float: right !important;
-    margin-top: -975px !important; } }
+    margin-top: -935px !important; } }
+
 @media screen and (min-width: 751px) and (max-width: 860px) {
   .infoBox {
     margin: -155px 0 0 -35px !important; } }
+
 @media screen and (min-width: 861px) and (max-width: 1000px) {
   .infoBox {
     float: left !important;
     margin: -155px 0 0 0 !important; } }
+
 @media screen and (min-width: 1000px) and (max-width: 1200px) {
   .infoBox {
     margin: -555px -40px 0 0 !important;
     float: right !important; } }
+
 @media screen and (min-width: 1000px) {
   .infoBox {
     float: right !important; } }
+
 .infoBox {
   margin: -555px 0 0 0;
   padding-top: 0;
@@ -431,6 +447,7 @@ nav {
 .infoBox .friendMessage {
   color: black !important;
   width: 30% !important; }
+
 .infoBox .friend {
   background-color: #214954;
   margin-top: 10px;
@@ -462,11 +479,14 @@ nav {
     color: green; }
   .infoBox .friend .disagree:hover {
     color: red; }
+
 .infoBox .disabled {
   background-color: #687579; }
+
 .infoBox .tabs .tab a:hover {
   font-weight: bold;
   border: none; }
+
 .infoBox .tabs .indicator {
   background-color: #214954; }
 
@@ -474,6 +494,12 @@ nav {
 @media screen and (max-width: 650px) {
   #products {
     font-size: 50% !important; } }
+
+.product {
+  display: inline-block;
+  margin-right: 2%;
+  width: 5%; }
+
 #products {
   cursor: default;
   font-size: 70%; }
@@ -484,14 +510,14 @@ nav {
   height: 50px;
   margin-left: auto !important;
   margin-right: auto;
-  padding: 20px 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
   background-color: #18212A;
   width: 100%;
   text-align: center;
   margin-top: 30px;
   float: none !important; }
   .productList .productItem {
-    display: inline-block;
+    display: block;
     color: white;
     margin-right: 10px; }
 
@@ -1103,6 +1129,7 @@ nav {
     color: red;
     float: right;
     cursor: pointer; }
+
 @keyframes top-margin {
   0% {
     margin-top: -150px; }
@@ -1110,6 +1137,7 @@ nav {
     margin-top: 70px;
     animation-fill-mode: forwards;
     animation-play-state: paused; } }
+
 @-webkit-keyframes top-margin {
   0% {
     margin-top: -150px; }
@@ -1117,9 +1145,12 @@ nav {
     margin-top: 70px;
     -webkit-animation-fill-mode: forwards;
     -webkit-animation-play-state: paused; } }
+
 /*Footer*/
 footer {
-  bottom: 0px;
-  width: 100% !important; }
+  width: 100% !important;
+  min-height: 20%;
+  margin-top: 20px;
+  background-color: #18212A;
+  position: absolute; }
 
-/*# sourceMappingURL=Style.css.map */

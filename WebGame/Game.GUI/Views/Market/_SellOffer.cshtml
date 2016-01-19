@@ -10,7 +10,7 @@
         {
             @Html.HiddenFor(m => m.viewModel.TypeOffer, new { Value = true })
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.userProduct), new {@class = "validate" })
+                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.userProduct), new { @class = "validate" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
 
@@ -60,7 +60,7 @@ else
                         <td id="buyTd">
                             @if (User.Identity.Name != item.User_Login)
                             {
-                                <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" max="@item.Number" value="1">
+                                <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" max="@item.Number" value="1" onkeypress="return isNumberKey()">
                                 <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, true)">Kup</button>
                             }
                             else
@@ -85,6 +85,11 @@ else
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/materialize.min.js"></script>
 <script>
+
+    function isNumberKey() {
+        return false;
+    }
+
     $('.offerSellAdd').leanModal();
     $('#paginationBtnSellOffer').on('click', 'a', function (e) {
         e.preventDefault();

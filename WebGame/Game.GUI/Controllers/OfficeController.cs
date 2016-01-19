@@ -24,6 +24,7 @@ namespace Game.GUI.Controllers
         private IProductRequirementsService _productRequirementService;
         private IBuildingHelper _buildingsHelper;
         private IProductService _productService;
+        private IUserService _userService;
         private IMapService _mapService;
 
         public OfficeController(IUserBuildingService userBuildingService,
@@ -34,6 +35,7 @@ namespace Game.GUI.Controllers
             IBuildingHelper buildingsHelper,
             IProductService productService,
             IMapService mapService,
+            IUserService userService,
             IDealService dealService)
         {
             _userBuildingService = userBuildingService;
@@ -44,6 +46,7 @@ namespace Game.GUI.Controllers
             _buildingsHelper = buildingsHelper;
             _productService = productService;
             _mapService = mapService;
+            _userService = userService;
             _productRequirementService = productRequirementService;
         }
 
@@ -176,6 +179,8 @@ namespace Game.GUI.Controllers
                 DealDay = x.DayTime
             }).ToList();
 
+            dealModel.buildingList = _buildingsHelper.GetBuildings().Select(x => x.Alias).ToArray();
+            dealModel.userList = _userService.GetUser().Select(x => x.Login).ToArray();
             return View(dealModel);
         }
 

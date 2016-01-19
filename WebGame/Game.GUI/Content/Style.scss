@@ -366,13 +366,14 @@ nav {
         width: 50% !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        margin-top: -421px !important;
     }
 }
 
 @media screen and (min-width: 751px) {
     @media screen and (max-width: 860px) {
         .buildingList {
-            margin: 15px 0 0 -35px !important;
+            margin: 0 0 0 -35px !important;
         }
     }
 }
@@ -380,7 +381,7 @@ nav {
 @media screen and (min-width: 861px) {
     @media screen and (max-width: 1000px) {
         .buildingList {
-            margin: 15px 0 0 0 !important;
+            margin: 0 0 0 0 !important;
         }
     }
 }
@@ -389,13 +390,13 @@ nav {
     @media screen and (max-width: 1200px) {
 
         .buildingList {
-            margin: 15px 0 0 -40px !important;
+            margin: 0 0 0 -40px !important;
         }
     }
 }
 
 .buildingList {
-    margin: 15px 0 0 0;
+    margin: 0 0 0 0;
     height: 400px;
     background-color: $secondColor;
     color: white;
@@ -462,6 +463,8 @@ nav {
         margin-top: 450px !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        border: none !important;
+        background: none !important;
     }
 }
 
@@ -504,7 +507,7 @@ nav {
     .infoBox {
         width: 50% !important;
         float: right !important;
-        margin-top: -975px !important;
+        margin-top: -935px !important;
     }
 }
 
@@ -742,6 +745,12 @@ nav {
     }
 }
 
+.product{
+    display: inline-block;
+    margin-right: 2%;
+    width:5%;
+}
+
 #products {
     cursor: default;
     font-size: 70%;
@@ -753,7 +762,7 @@ nav {
     height: 50px;
     margin-left: auto !important;
     margin-right: auto;
-    padding: 20px 20px 20px 20px;
+    padding: 10px 20px 20px 20px;
     background-color: $secondColor;
     width: 100%;
     text-align: center;
@@ -761,7 +770,7 @@ nav {
     float: none !important;
 
     .productItem {
-        display: inline-block;
+        display: block;
         color: white;
         margin-right: 10px;
     }
@@ -1710,6 +1719,9 @@ nav {
 }
 /*Footer*/
 footer {
-    bottom: 0px;
     width: 100% !important;
+    min-height: 20%;
+    margin-top: 20px;
+    background-color: $secondColor;
+    position: absolute;
 }

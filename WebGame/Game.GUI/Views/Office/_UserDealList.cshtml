@@ -10,14 +10,16 @@
             {
                 <form class="col s12">
                     @Html.AntiForgeryToken()
-
+                    
                     <div class="input-field col s12">
-                        @Html.TextBoxFor(m => m.viewModel.User2_Login, new { @placeholder = "", @class = "validate inputLogin" })
+                        @*@Html.TextBoxFor(m => m.viewModel.User2_Login, new { @placeholder = "", @class = "validate inputLogin" })*@
+                        @Html.DropDownListFor(m => m.viewModel.User2_Login, new SelectList(Model.userList), new { @class = "validate" })
                         <label for="Login">Wspólnik: </label>
                     </div>
 
                     <div class="input-field col s12" id="Number">
-                        @Html.TextBoxFor(m => m.viewModel.Building_Name, new { @placeholder = "", @class = "validate inputBuildingName" })
+                        @*@Html.TextBoxFor(m => m.viewModel.Building_Name, new { @placeholder = "", @class = "validate inputBuildingName" })*@
+                        @Html.DropDownListFor(m => m.viewModel.Building_Name, new SelectList(Model.buildingList), new { @class = "validate" })
                         <label for="BuildingName">Budynek:</label>
                     </div>
                     <div class="col s12">
@@ -159,6 +161,7 @@
     $(document).ready(function () {
         $('.officeDealAdd').leanModal();
         $('.officeDealShow').leanModal();
+        $('select').material_select();
 
     });
     $(document).on("click", "[type='checkbox']", function (e) {

@@ -8,6 +8,7 @@ namespace Game.GUI.ViewModels.Message
 {
     public class MessageViewModel
     {
+        public string[] userList { get; set; }
         public ItemMessageViewModel viewModel { get; set; }
         public IPagedList<ItemMessageViewModel> listModel { get; set; }
     }

@@ -32,6 +32,9 @@ namespace Game.GUI.ViewModels.User
         [Display(Name = "Powtórz hasło")]
         [Compare("Password")]
         public string ComparePassword { get; set; }
+
+        [Display(Name = "E-mail")]
+        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         
     }

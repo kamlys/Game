@@ -8,7 +8,6 @@
 
 
 <div class="productList col s12 card">
-
     <div id="products">
 
     </div>
@@ -52,7 +51,7 @@
                                 n = productNames[name][1];
                             }
                         }
-                        $("#products").append("<div class='productItem' id='product_label_" + dataProduct[item][0] + "'>" + n + ":</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div>");
+                        $("#products").append("<div class='product'><div class='productItem' id='product_label_" + dataProduct[item][0] + "'>" + n + ":</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div></div>");
                     } catch (e) {
 
                     }

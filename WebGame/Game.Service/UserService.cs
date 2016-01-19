@@ -325,8 +325,8 @@ namespace Game.Service
         {
             int uID = _user.GetAll().First(i => i.Login == userLogin).ID;
             int fID = _user.GetAll().First(i => i.Login == friendLogin).ID;
-
-            _friend.Delete(_friend.GetAll().First(i => i.User_ID == uID && i.Friend_ID == fID));
+            int id = _friend.GetAll().First(i => (i.User_ID == uID && i.Friend_ID == fID) || (i.User_ID == fID && i.Friend_ID == uID)).Id;
+            _friend.Delete(_friend.Get(id));
             _unitOfWork.Commit();
         }
 

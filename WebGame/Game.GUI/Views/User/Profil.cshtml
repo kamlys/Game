@@ -59,7 +59,7 @@
         {
             <div id="right">
                 <h3>Wyślij wiadmość:</h3>
-                @using (Html.BeginForm("SentMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("SendMessageProfile", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="input-field col s12">
-                        @Html.TextAreaFor(m => m.Content, new { @placeholder = "", @class = "materialize-textarea"})
+                        @Html.TextAreaFor(m => m.Content, new { @placeholder = "", @class = "materialize-textarea" })
                         <label for="Content">Treść:</label>
                     </div>
                     <button type="submit" class="btn waves-effect waves-light addButton sentMessageBtn" name="action">Wyślij</button>
@@ -234,9 +234,7 @@
                 $('.changePassword').attr("disabled", true);
             }
         })
-    });
 
-    $(document).ready(function () {
         $('.collapsible').collapsible({
             accordion: true
         });

@@ -92,7 +92,7 @@
 
             </div>
             <button class="btn right userLogout" id="userLogout" onclick="location.href='@Url.Action("Logout", "User")'"><i class="fa fa-sign-out"></i> Wyloguj</button>
-                    }
+                        }
 
 
     </nav>
@@ -100,19 +100,21 @@
     <div class="container">
         @if (User.Identity.IsAuthenticated)
         {
-                Html.RenderAction("_UserProduct", "Office");
+            Html.RenderAction("_UserProduct", "Office");
         }
         @RenderBody()
-        <footer>
-            <p>
-                &copy; @DateTime.Now.Year - My ASP.NET Application
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a href='@Url.Action("Admin", "Admin")'><i class="fa fa-lock"></i></a>
-                }
-            </p>
-        </footer>
+
     </div>
+
+    <footer>
+        <p>
+            &copy; @DateTime.Now.Year - My ASP.NET Application
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href='@Url.Action("Admin", "Admin")'><i class="fa fa-lock"></i></a>
+            }
+        </p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/materialize")

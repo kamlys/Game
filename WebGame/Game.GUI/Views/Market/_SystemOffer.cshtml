@@ -11,7 +11,7 @@
         <li class="systemOfferItem">
             <p class="productName">@item.Product_Name</p><p class="productPrice">$@item.Price/szt</p>
             <button class="btn sellProduct" id="sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
-            <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" onkeypress="return isNumberKey(event, @item.Product_ID)">
+            <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" onkeypress="return isNumberKey()">
         </li>
     }
 </ul>
@@ -19,15 +19,24 @@
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script>
-    function isNumberKey(evt, id) {
-
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 47 || charCode > 57)) {
-
-            return false;
-        }
-        return true;
+    function isNumberKey() {
+        return false;
     }
+
+    $("input[name='numValue']").change(function () {
+        var id = $(this).data('id');
+        var productid = $(this).data('productid');
+
+        if (!$("#product_" + productid).text().length) {
+            $("#numberValue_" + id).attr({ "max": 0 });
+            $("#numberValue_" + id).val(0);
+        }
+        else {
+            $("#numberValue_" + productid).attr({ "max": $("#product_" + productid).text() });
+            console.log($("#product_" + productid).text());
+        }
+    });
+
 
     $(document).ready(function () {
         $('.dropdown-button').dropdown({
