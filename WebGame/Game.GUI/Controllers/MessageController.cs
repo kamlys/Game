@@ -38,7 +38,7 @@ namespace Game.GUI.Controllers
         public ActionResult _NewMessage()
         {
             MessageViewModel messageModel = new MessageViewModel();
-            messageModel.userList = _userService.GetUser().OrderByDescending(x => x.Login).Select(x => x.Login).ToArray();
+            messageModel.userList = _userService.GetUser().OrderBy(x => x.Login).Select(x => x.Login).ToArray();
             return View(messageModel);
         }
 
@@ -62,7 +62,7 @@ namespace Game.GUI.Controllers
             message.Theme = messageModel.viewModel.Theme;
             message.Content = messageModel.viewModel.Content;
 
-            if (_messageService.SentMessage(message))
+            if (_messageService.SendMessage(message))
             {
                 _notificationService.SentNotification(new NotificationDto
                 {
@@ -92,7 +92,7 @@ namespace Game.GUI.Controllers
             message.Theme = profilViewModel.Theme;
             message.Content = profilViewModel.Content;
 
-            _messageService.SentMessage(message);
+            _messageService.SendMessage(message);
             _notificationService.SentNotification(new NotificationDto
             {
                 User_Login = message.Customer_Login,
@@ -111,7 +111,7 @@ namespace Game.GUI.Controllers
             message.Theme = friendViewModel.viewModel.Theme;
             message.Content = friendViewModel.viewModel.Content;
 
-            _messageService.SentMessage(message);
+            _messageService.SendMessage(message);
             _notificationService.SentNotification(new NotificationDto
             {
                 User_Login = message.Customer_Login,

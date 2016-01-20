@@ -35,7 +35,7 @@ namespace Game.Service
             throw new NotImplementedException();
         }
 
-        public bool SentMessage(MessageDto message)
+        public bool SendMessage(MessageDto message)
         {
             try
             {

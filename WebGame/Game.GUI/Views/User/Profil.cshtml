@@ -74,7 +74,7 @@
                         @Html.TextAreaFor(m => m.Content, new { @placeholder = "", @class = "materialize-textarea" })
                         <label for="Content">Treść:</label>
                     </div>
-                    <button type="submit" class="btn waves-effect waves-light addButton sentMessageBtn" name="action">Wyślij</button>
+                    <button type="submit" class="btn waves-effect waves-light addButton sendMessageBtn" name="action">Wyślij</button>
                 }
 
             </div>
@@ -212,17 +212,17 @@
 
 
     $(document).ready(function () {
-        $('.sentMessageBtn').attr("disabled", true);
+        $('.sendMessageBtn').attr("disabled", true);
         $('.changePassword').attr("disabled", true);
 
         $("#right").keyup(function () {
             if ($("#Theme").val() != ""
                 && $("#Content").val() != ""
                 && $("#Theme").length <= 150) {
-                $('.sentMessageBtn').attr("disabled", false);
+                $('.sendMessageBtn').attr("disabled", false);
             }
             else {
-                $('.sentMessageBtn').attr("disabled", true);
+                $('.sendMessageBtn').attr("disabled", true);
             }
 
             if ($("#OldPassword").val() != ""

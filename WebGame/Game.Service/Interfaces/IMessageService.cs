@@ -9,7 +9,7 @@ namespace Game.Service.Interfaces
 {
     public interface IMessageService
     {
-        bool SentMessage(MessageDto message);
+        bool SendMessage(MessageDto message);
         void ReadMessage(MessageDto message);
         void DeleteMessage(int id);
         MessageDto ConentMessage(int ID, string User);

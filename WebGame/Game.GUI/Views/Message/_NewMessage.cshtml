@@ -5,7 +5,7 @@
 
 <div class="newMessage">
     <h5>Nowa wiadmość:</h5>
-    @using (Html.BeginForm("SentMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -27,7 +27,7 @@
             @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "materialize-textarea" })
             <label for="Login">Treść:</label>
         </div>
-        <button type="submit" class="btn waves-effect waves-light sentMessageBtn" name="action">Wyślij</button>
+        <button type="submit" class="btn waves-effect waves-light sendMessageBtn" name="action">Wyślij</button>
     }
 </div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
@@ -37,17 +37,17 @@
     $(document).ready(function () {
         $('select').material_select();
 
-        $('.sentMessageBtn').attr("disabled", true);
+        $('.sendMessageBtn').attr("disabled", true);
 
         $(".newMessage").keyup(function () {
             if ($("#viewModel_Customer_Login").val() != ""
                 && $("#viewModel_Theme").val() != ""
                 && $("#viewModel_Content").val() != "") {
-                $('.sentMessageBtn').attr("disabled", false);
+                $('.sendMessageBtn').attr("disabled", false);
                 console.log("TUTAJ");
             }
             else {
-                $('.sentMessageBtn').attr("disabled", true);
+                $('.sendMessageBtn').attr("disabled", true);
             }
         })
     });

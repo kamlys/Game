@@ -52,7 +52,7 @@ namespace Game.GUI.Controllers
                 TypeOffer = x.TypeOffer
             }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-            marketList.userProduct = _userProductService.GetUserProductList(User.Identity.Name).Select(i => i.Product_Name).ToArray();
+            marketList.userProduct = _userProductService.GetUserProductList(User.Identity.Name).OrderBy(x=>x.Alias).Select(i => i.Product_Name).ToArray();
 
             
             return View("~/Views/Market/_SellOffer.cshtml", marketList);
@@ -77,7 +77,7 @@ namespace Game.GUI.Controllers
                 TypeOffer = x.TypeOffer
             }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-            marketList.allProduct = _productService.GetProduct().Select(i => i.Alias).ToArray();
+            marketList.allProduct = _productService.GetProduct().OrderBy(x => x.Alias).Select(i => i.Alias).ToArray();
 
             return View("~/Views/Market/_BuyOffer.cshtml", marketList);
         }

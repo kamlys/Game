@@ -4,7 +4,7 @@
 }
 
 <div id="modal1" class="modal friendMessage">
-    <div class="modal-content ">
+    <div class="modal-content">
         <h5>Nowa wiadmość:</h5>
         @using (Html.BeginForm("SendFriendMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
@@ -28,7 +28,7 @@
                 @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "materialize-textarea" })
                 <label for="Login">Treść:</label>
             </div>
-            <button type="submit" class="btn waves-effect waves-light sentMessageBtn" id="friendMessage" name="action">Wyślij</button>
+            <button type="submit" class="btn waves-effect waves-light sendMessageBtn" id="friendMessage" name="action">Wyślij</button>
         }
     </div>
 </div>
@@ -78,15 +78,15 @@
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('.sentMessageBtn').attr("disabled", true);
+        $('#friendMessage').attr("disabled", true);
 
         $(".friendMessage").keyup(function () {
             if ($("#viewModel_Theme").val() != ""
                 && $("#viewModel_Content").val() != "") {
-                $('.sentMessageBtn').attr("readonly", false);
+                $('#friendMessage').attr("disabled", false);
             }
             else {
-                $('.sentMessageBtn').attr("readonly", true);
+                $('#friendMessage').attr("disabled", true);
             }
         })
         $('.modal-trigger').leanModal();
@@ -95,7 +95,7 @@
 
     $('.userMessage').click(function(){
         $("#viewModel_Friend_Login").val($(this).data('friendlogin'));
-        $("#viewModel_Friend_Login").attr('disabled',true);
+        $("#viewModel_Friend_Login").attr('readonly',true);
 
     });
 

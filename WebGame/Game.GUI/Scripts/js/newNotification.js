@@ -10,7 +10,7 @@ $(".addButton").click(function () {
     pin = "Nowa wiadomość";
 });
 
-$(".sentMessageBtn").click(function () {
+$(".sendMessageBtn").click(function () {
     var customer_login = $("#Login").val();
     pin = "Nowa wiadomość";
 });
@@ -131,7 +131,7 @@ $(document).ready(function () {
 
         };
         $.connection.hub.start().done(function () {
-            $('.sentMessageBtn').click(function () {
+            $('.sendMessageBtn').click(function () {
                 if ($("#viewModel_Customer_Login").val() == undefined) {
                     game.server.sentNotification($("#Login").val(), pin);
                 }

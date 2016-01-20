@@ -179,8 +179,8 @@ namespace Game.GUI.Controllers
                 DealDay = x.DayTime
             }).ToList();
 
-            dealModel.buildingList = _buildingsHelper.GetBuildings().Select(x => x.Alias).ToArray();
-            dealModel.userList = _userService.GetUser().Select(x => x.Login).ToArray();
+            dealModel.buildingList = _buildingsHelper.GetBuildings().OrderBy(x=>x.Alias).Select(x => x.Alias).ToArray();
+            dealModel.userList = _userService.GetUser().OrderBy(x=>x.Login).Select(x => x.Login).ToArray();
             return View(dealModel);
         }
 

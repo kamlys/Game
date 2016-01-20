@@ -6,7 +6,7 @@
 
 <div id="answerButton" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("SentMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.Hidden(User.Identity.Name);
 
@@ -23,7 +23,7 @@
                 @Html.TextAreaFor(m => m.viewModel.Content, new { @placeholder = "", @class = "materialize-textarea inputContent" })
                 <label for="Login">Treść:</label>
             </div>
-            <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sentMessage sentMessageBtn" name="action" />
+            <input type="submit" value="Wyślij" class="btn waves-effect waves-light addButton sendMessage sendMessageBtn" name="action" />
         }
     </div>
 </div>

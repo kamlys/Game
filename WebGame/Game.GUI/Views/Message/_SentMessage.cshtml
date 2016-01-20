@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<div class="sentMessage" id="sentMessage">
+<div class="sentMessage" id="sendMessage">
     @if (!Model.listModel.Any())
     {
         <span class="noRow">Brak wiadomości</span>
@@ -47,7 +47,7 @@
                 type: 'GET',
                 cache: false,
                 success: function (result) {
-                    $('#sentMessage').html(result);
+                    $('#sendMessage').html(result);
                 }
             });
         }
