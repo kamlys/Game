@@ -22,5 +22,6 @@ namespace Game.Core.DTO
         public int PriceLvlUp { get; set; }
         public bool Owner { get; set; }
         public int Percent_Product { get; set; }
+        public string Color { get; set; }
     }
 }

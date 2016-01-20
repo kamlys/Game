@@ -137,7 +137,8 @@ namespace Game.GUI.Controllers
                 Produkcja = x.Produkcja,
                 ifCan = _userBuildingService.ifLvlUp(x.ID, User.Identity.Name),
                 Percent_price_per_lvl = x.PriceLvlUp,
-                Percent_product_per_lvl = x.ProdukcjaLvlUp
+                Percent_product_per_lvl = x.ProdukcjaLvlUp,
+                Color = x.Color
             }).ToList();
 
             return View(userBuildingModel);

@@ -7,6 +7,7 @@ namespace Game.GUI.ViewModels.Building.UserBuildings
 {
     public class UserBuildingsViewModel
     {
+        public int id;
         public int x_left;
         public int x_right;
         public int y_bottom;
@@ -18,6 +19,7 @@ namespace Game.GUI.ViewModels.Building.UserBuildings
         public int BuildTime;
         public string Status;
         public int BuildDone;
+        public string Color;
         public string Alias { get; set; }
 
         public ItemUserBuildingViewModel viewModel { get; set; }

@@ -55,6 +55,7 @@ namespace Game.GUI.Controllers
                     bTime = building.DestructionTime;
                 }
                 ubv.Add(new UserBuildingsViewModel {
+                    id = a.ID,
                     BuildingID = a.Building_ID,
                     level = a.Lvl,
                     name = building.Name,
@@ -66,7 +67,8 @@ namespace Game.GUI.Controllers
                     Status = a.Status,
                     BuildTime = bTime,
                     BuildDone = bTime - _buildingsHelper.BuildingTimeLeft(User.Identity.Name, a.ID),
-                    Alias = building.Alias
+                    Alias = building.Alias,
+                    Color = a.Color
                 });
             }
             vm.UserBuildings = ubv;

@@ -125,5 +125,12 @@ namespace Game.GUI.Controllers
             _userBuildingService.LvlUp(id, User.Identity.Name);
             return View("~/Views/Office/Index.cshtml");
         }
+
+        [Authorize]
+        public void ChangeColor(string color, int id)
+        {
+            _userBuildingService.ChangeColor(color, id, User.Identity.Name);
+        }
+
     }
 }

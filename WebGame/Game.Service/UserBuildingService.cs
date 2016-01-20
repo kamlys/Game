@@ -81,7 +81,8 @@ namespace Game.Service
                 User_ID = uID,
                 Status = "budowa",
                 Percent_product = percent,
-                Owner = true
+                Owner = true,
+                Color = "bbbbbb"
 
             });
             if (dealID == 0)
@@ -264,7 +265,8 @@ namespace Game.Service
                         Building_ID = item.Building_ID,
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
                         Status = item.Status,
-                        Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl
+                        Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl,
+                        Color = item.Color
                     });
                 }
                 catch (Exception)
@@ -301,7 +303,8 @@ namespace Game.Service
                         Status = item.Status,
                         Produkcja = Product_per_sec + ( Percent_per_lvl * BuildLvl * Product_per_sec)/100,
                         ProdukcjaLvlUp = Product_per_sec + (Percent_per_lvl * (BuildLvl+1) * Product_per_sec) / 100,
-                        PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_price_per_lvl / 10
+                        PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_price_per_lvl / 10,
+                        Color = item.Color
                     });
                 }
                 catch (Exception)
@@ -396,6 +399,17 @@ namespace Game.Service
             }
 
             return dealBuilding;
+        }
+
+        public void ChangeColor(string color, int id, string user)
+        {
+            int uID = _users.GetAll().First(i => i.Login == user).ID;
+
+            if (_userBuildings.GetAll().Any(i => i.ID == id && i.User_ID == uID))
+            {
+                _userBuildings.Get(id).Color = color;
+                _unitOfWork.Commit();
+            }
         }
     }
 }

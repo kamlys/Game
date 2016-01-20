@@ -741,7 +741,11 @@ nav {
       color: #fff;
       margin-top: -5px;
       margin-bottom: 5px;
-      border: none; }
+      border: none;
+      height: 100%; }
+      .office .uBuildingList .collapsible-body .btn {
+        color: #000;
+        font-weight: bold; }
   @media screen and (max-width: 950px) {
     .office .uProductList {
       width: 100% !important; } }
@@ -1045,7 +1049,7 @@ nav {
   height: 450px;
   padding: 10px 30px 30px 30px;
   background-color: #fff; }
-  .newMessage .sentMessageBtn {
+  .newMessage .sendMessageBtn {
     float: right;
     margin-bottom: 30px;
     background-color: #617487; }

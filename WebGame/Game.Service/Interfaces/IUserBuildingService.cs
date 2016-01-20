@@ -20,5 +20,6 @@ namespace Game.Service.Interfaces
         bool ifLvlUp(int id, string User);
         bool LvlUp(int id, string User);
         List<DealBuildingDto> GetDealBuildingList(string user);
+        void ChangeColor(string color, int id, string user);
     }
 }

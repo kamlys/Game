@@ -1106,6 +1106,12 @@ nav {
             margin-top: -5px;
             margin-bottom: 5px;
             border: none;
+            height: 100%;
+
+            .btn{
+                color: #000;
+                font-weight: bold;
+            }
         }
     }
 

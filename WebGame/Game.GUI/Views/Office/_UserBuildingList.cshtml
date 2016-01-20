@@ -1,4 +1,4 @@
-﻿@model Game.GUI.ViewModels.Building.UserBuildings.UserBuildingsViewModel 
+﻿@model Game.GUI.ViewModels.Building.UserBuildings.UserBuildingsViewModel
 @{
     Layout = null;
 }
@@ -29,7 +29,23 @@
                     <p>
                         Lvl: @item.Lvl<br />
                         Produkcja(s): @item.Produkcja<br />
-                        Status: @item.Status
+                        Status: @item.Status<br />
+                        <button class='dropdown-button btn' style='background: repeating-linear-gradient(
+                135deg,
+                #fff,
+                #fff 10px,
+                #@item.Color 10px,
+                #@item.Color 20px)' data-activates='dropdown1'>
+                            Wybierz kolor
+                        </button>
+
+                        <ul id='dropdown1' class='dropdown-content'>
+                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="ff0000" style="background-color: #ff0000">1.</a></li>
+                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="edff00" style="background-color: #edff00">2.</a></li>
+                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="51ff00" style="background-color: #51ff00">3.</a></li>
+                        </ul>
+
+
                     </p>
                 </div>
             </li>
@@ -51,4 +67,19 @@
         height: '350px',
         alwaysVisible: true
     });
+
+    $(".buildingColor").click(function () {
+        var bcolor = $(this).data('bcolor');
+        var bid = $(this).data('bid');
+        $.ajax({
+            type: "POST",
+            url: 'UserBuilding/ChangeColor',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ color: bcolor, id: bid }),
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
+
 </script>

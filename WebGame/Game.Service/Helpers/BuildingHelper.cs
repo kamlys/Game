@@ -89,7 +89,8 @@ namespace Game.Service
                         Y_pos = a.Y_pos,
                         Status = a.Status,
                         Building_Name = a.Buildings.Name,
-                         Owner = a.Owner
+                         Owner = a.Owner,
+                         Color = a.Color
                     }
                 );
             }
