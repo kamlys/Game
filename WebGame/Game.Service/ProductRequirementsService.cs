@@ -45,7 +45,7 @@ namespace Game.Service
 
             List<ProductRequirementDto> productRDto = new List<ProductRequirementDto>();
             ProductRequirementDto productDictionary = new ProductRequirementDto();
-            productDictionary.RequireProduct = new List<Dictionary<string, int>>();
+            productDictionary.RequireProduct = new List<Dictionary<string, int[]>>();
             bool temp = true;
             bool temp2 = false;
             string building = String.Empty;
@@ -84,7 +84,7 @@ namespace Game.Service
                 productRDto.Add(new ProductRequirementDto
                 {
                     Base_Name = _product.Get(item.Key).Name,
-                    RequireProduct = item.Select(i => new Dictionary<string, int>() { { _product.Get(i.Require_ID).Alias, i.Value }, }).ToList(),
+                    RequireProduct = item.Select(i => new Dictionary<string, int[]>() { { _product.Get(i.Require_ID).Alias,new int[]{ i.Value, i.Require_ID } }, }).ToList(),
                     IfCanProduct = temp,
                     RequireBuilding = building
                 });

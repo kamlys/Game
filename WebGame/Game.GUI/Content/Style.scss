@@ -1277,6 +1277,14 @@ nav {
         padding: 20px 20px 20px 20px;
         width: 49%;
 
+        .costProduct{
+            float: right;
+            display: inline-block;
+            color: #fff;
+            text-align: left;
+            padding-left: -20px;
+        }
+
         .slimScrollBar {
             background: $officeColor !important;
         }
@@ -1318,11 +1326,12 @@ nav {
                 float: right;
                 background-color: #8581ce;
                 height: 44px;
+                width: 65%;
                 line-height: 44px;
                 padding-left: 15px;
 
                 #productValue {
-                    width: 50%;
+                    width: 45%;
                     display: inline-block;
                     height: 40px;
                     border-bottom: 5px solid $officeColor;
@@ -1335,6 +1344,9 @@ nav {
 
                 .createButton {
                     background-color: $officeColor;
+                    width: 50%;
+                    font-size: 70%;
+                    padding: 0;
                 }
             }
         }
@@ -1447,6 +1459,13 @@ nav {
     margin-top: 30px;
     min-height: 500px;
 
+    .searchInput{
+        width: 40% !important;
+        display: inline-block !important;
+        margin: 15px 0 0 15px !important;
+        color: #fff;
+    }
+
 
     .paginationBtn {
         float: right;
@@ -1479,6 +1498,12 @@ nav {
     }
 
     tbody {
+
+        .yourLogin{
+            background-color: rgba(166, 210, 195, 0.77);
+            font-weight: bold;
+        }
+
         tr {
             background: #fff;
         }

@@ -849,6 +849,12 @@ nav {
     float: left;
     padding: 20px 20px 20px 20px;
     width: 49%; }
+    .office .uProductRequirementList .costProduct {
+      float: right;
+      display: inline-block;
+      color: #fff;
+      text-align: left;
+      padding-left: -20px; }
     .office .uProductRequirementList .slimScrollBar {
       background: #343256 !important; }
     .office .uProductRequirementList h5 {
@@ -879,10 +885,11 @@ nav {
         float: right;
         background-color: #8581ce;
         height: 44px;
+        width: 65%;
         line-height: 44px;
         padding-left: 15px; }
         .office .uProductRequirementList .productRequirementItem .inputValue #productValue {
-          width: 50%;
+          width: 45%;
           display: inline-block;
           height: 40px;
           border-bottom: 5px solid #343256;
@@ -890,7 +897,10 @@ nav {
         .office .uProductRequirementList .productRequirementItem .inputValue input[type=number]:focus:not([readonly]) {
           box-shadow: none; }
         .office .uProductRequirementList .productRequirementItem .inputValue .createButton {
-          background-color: #343256; }
+          background-color: #343256;
+          width: 50%;
+          font-size: 70%;
+          padding: 0; }
     .office .uProductRequirementList .disabled {
       background-color: #a8a8a8; }
 
@@ -962,6 +972,11 @@ nav {
   background-color: #18212A;
   margin-top: 30px;
   min-height: 500px; }
+  .Ranking .searchInput {
+    width: 40% !important;
+    display: inline-block !important;
+    margin: 15px 0 0 15px !important;
+    color: #fff; }
   .Ranking .paginationBtn {
     float: right;
     margin-right: 10px; }
@@ -982,6 +997,9 @@ nav {
     background: #2e8367;
     font-weight: bold;
     cursor: default; }
+  .Ranking tbody .yourLogin {
+    background-color: rgba(166, 210, 195, 0.77);
+    font-weight: bold; }
   .Ranking tbody tr {
     background: #fff; }
   .Ranking tbody tr:hover {

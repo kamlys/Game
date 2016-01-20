@@ -15,7 +15,7 @@ namespace Game.Core.DTO
         public string Require_Name { get; set; }
         public int Value { get; set; }
         public string RequireBuilding { get; set; }
-        public List<Dictionary<string, int>> RequireProduct { get; set; }
+        public List<Dictionary<string, int[]>> RequireProduct { get; set; }
         public bool IfCanProduct { get; set; }
     }
 }
