@@ -12,12 +12,12 @@
             </div>
 
                 <div class="input-field col s6" id="Number">
-                    @Html.TextBoxFor(m => m.viewModel.Value, new {  @type = "number", @min="0", @placeholder = "", @class = "validate inputNumber" })
+                    @Html.TextBoxFor(m => m.viewModel.Value, new {  @type = "number", @min="0", @placeholder = "", @class = "validate inputNumber", @onkeypress = "return isNumberKey(event)" })
                     <label for="Number">Ilość</label>
                 </div>
 
                 <div class="input-field col s6" id="Price">
-                    @Html.TextBoxFor(m => m.viewModel.Price, new { @type = "number", @placeholder = "", @class = "validate" })
+                    @Html.TextBoxFor(m => m.viewModel.Price, new { @type = "number", @placeholder = "", @class = "validate", @onkeypress = "return isNumberKey(event)" })
                     <label for="Price">Cena za sztukę</label>
                 </div>
 
@@ -39,6 +39,16 @@
 <script src="~/Scripts/js/UpdateRow.js"></script>
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 47 || charCode > 57)) {
+
+            return false;
+        }
+        return true;
+    }
+
     $(document).ready(function () {
         $('.officeOfferAdd').leanModal();
     });

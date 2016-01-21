@@ -39,7 +39,7 @@ namespace Game.GUI.Controllers
         public ActionResult Register(RegisterViewModel register)
         {
             List<string> errors;
-            if(Session["val"] != null)
+            if (Session["val"] != null)
             {
                 errors = ((string[])Session["val"]).ToList();
             }
@@ -61,15 +61,15 @@ namespace Game.GUI.Controllers
                     FormsAuthentication.SetAuthCookie(user.Login, true);
                     return RedirectToAction("Index", "Home");
                 }
-                else if(item == 1)
+                else if (item == 1)
                 {
                     errors.Add("Login już istnieje");
                 }
-                else if(item==2)
+                else if (item == 2)
                 {
-                errors.Add("Email już istnieje");
+                    errors.Add("Email już istnieje");
                 }
-               
+
             }
 
             Session["val"] = errors.ToArray<string>();
@@ -204,7 +204,7 @@ namespace Game.GUI.Controllers
             profilView.EmailAddress = userDto.Email;
             profilView.RegDays = (DateTime.Now - userDto.Registration_Date).Days;
             profilView.LogDays = (DateTime.Now - userDto.Last_Log).Days;
-            profilView.Value = _userService.ifFriend(User.Identity.Name,user);
+            profilView.Value = _userService.ifFriend(User.Identity.Name, user);
             profilView.IfIgnored = _userService.Ignored(user, User.Identity.Name);
             profilView.Ignor = _userService.Ignored(User.Identity.Name, user);
 
@@ -402,15 +402,15 @@ namespace Game.GUI.Controllers
             userDto.Code = user.RecoveryCode;
             userDto.Email = user.Email;
 
-            if(_userService.RecoveryPass(userDto) == 1)
+            if (_userService.RecoveryPass(userDto) == 1)
             {
                 errors.Add("Hasło zostało zmienione.");
             }
-            else if(_userService.RecoveryPass(userDto) == 2)
+            else if (_userService.RecoveryPass(userDto) == 2)
             {
                 errors.Add("Niepoprawny kod.");
             }
-            else if(_userService.RecoveryPass(userDto) == 3)
+            else if (_userService.RecoveryPass(userDto) == 3)
             {
                 errors.Add("Kod stracił ważność.");
             }

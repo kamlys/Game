@@ -6,62 +6,65 @@
     int temp = 1;
 }
 <div class="Ranking">
-    <input type="text" id="search" class="searchInput" placeholder="Szukaj użytkownika"/>
-    <div class="paginationBtn">
-        @Html.PagedListPager(Model, Page_No => Url.Action("Index", new { Page_No }))
-    </div>
-    <table class="bordered centered">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Użytkownik</th>
-                <th>Kwota</th>
-            </tr>
-        </thead>
+    <input type="text" id="search" class="searchInput" placeholder="Nazwa użytkownika" /> <button id="searchButton" class="btn searchButton">Szukaj</button>
+    <div id="divRankign">
+        <div class="paginationBtn">
+            @Html.PagedListPager(Model, Page_No => Url.Action("Index", new { Page_No }))
+        </div>
+        <table class="bordered centered">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Użytkownik</th>
+                    <th>Kwota</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            @foreach (var item in Model)
+            <tbody>
+                @foreach (var item in Model)
             {
                 if (item.User_Login == User.Identity.Name)
                 {
-                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'" class="yourLogin">
-                        <td>@Html.DisplayFor(modelItem => item.Position)</td>
-                        <td class="login">@Html.DisplayFor(modelItem => item.User_Login)</td>
-                        <td>@Html.DisplayFor(modelItem => item.UserDolar)</td>
-                    </tr>
+                        <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'" class="yourLogin">
+                            <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                            <td class="login">@Html.DisplayFor(modelItem => item.User_Login)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserDolar)</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">
+                            <td>@Html.DisplayFor(modelItem => item.Position)</td>
+                            <td class="login">@Html.DisplayFor(modelItem => item.User_Login)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserDolar)</td>
+                        </tr>
+                    }
                 }
-                else
-                {
-                    <tr onclick="location.href='@Url.Action("Profil", "User", new { User = @item.User_Login })'">
-                        <td>@Html.DisplayFor(modelItem => item.Position)</td>
-                        <td class="login">@Html.DisplayFor(modelItem => item.User_Login)</td>
-                        <td>@Html.DisplayFor(modelItem => item.UserDolar)</td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
+    </div>
 </div>
-
 <script>
-    $("#search").on("keyup", function () {
-        var value = $(this).val();
-
-        $("table tr").each(function (index) {
-            if (index !== 0) {
-
-                $row = $(this);
-
-                var id = $row.find("td.login").text();
-
-                if (id.indexOf(value) !== 0) {
-                    $row.hide();
-                }
-                else {
-                    $row.show();
-                }
-            }
-        });
+    $("#searchButton").click(function() {
+        var searchValue = $("#search").val();
+        console.log(searchValue);
+        if(searchValue!="")
+        {
+            $.ajax({
+                type: "POST",
+                url: "Ranking/goToProfile",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ searchString: searchValue }),
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        window.location.replace("/User/Profil?User=" + $("#search").val());
+                    }
+                    else {
+                        location.reload();
+                    }
+                },
+            });
+        }
     });
 </script>

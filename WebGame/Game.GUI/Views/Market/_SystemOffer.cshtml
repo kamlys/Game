@@ -8,19 +8,25 @@
 <ul id='systemOffer' class='dropdown-content systemOffer'>
     @foreach (var item in Model.systemOfferList)
             {
-        <li class="systemOfferItem">
-            <p class="productName">@item.Product_Name</p><p class="productPrice">$@item.Price/szt</p>
-            <button class="btn sellProduct" id="sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
-            <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" onkeypress="return isNumberKey()">
-        </li>
+    <li class="systemOfferItem">
+        <p class="productName">@item.Product_Name</p><p class="productPrice">$@item.Price/szt</p>
+        <button class="btn sellProduct" id="sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
+        <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" onkeypress="return isNumberKey(event)">
+    </li>
     }
 </ul>
 
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script>
-    function isNumberKey() {
-        return false;
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 47 || charCode > 57)) {
+
+            return false;
+        }
+        return true;
     }
 
     $("input[name='numValue']").change(function () {
@@ -57,7 +63,7 @@
         var number = $("#numberValue_" + id).val();
         var money = $(this).data('price') * number;
         var productname = $(this).data('productname');
-        console.log(id,number,money,productname);
+        console.log(id, number, money, productname);
         $.ajax({
             type: "POST",
             url: 'Market/SellProduct',

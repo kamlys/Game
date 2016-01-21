@@ -16,7 +16,10 @@
 
                         <span class="inputValue">
 
-                            @Html.TextBox("productValue", null, new { @class = "productreq", @onkeypress = "return isNumberKey()",
+                            @Html.TextBox("productValue", null, new
+                       {
+                           @class = "productreq",
+                           @onkeypress = "return isNumberKey(event)",
                            @type = "number",
                            @min = "1",
                            @placeholder = "Ilość",
@@ -24,7 +27,7 @@
                            @data_baseid = item.BaseName
                        })
 
-                           
+
 
                             <button class="btn createButton" data-productname="@item.BaseName">Produkuj</button>
                         </span>
@@ -57,7 +60,9 @@
     var productName;
     var productValue;
 
-    $(".productreq").change(function () {
+
+
+    $(".productreq").bind("keyup change", function () {
         var inputvalue = $(this).val();
         var temp = $(this).data('product');
         var basename = $(this).data('baseid');
@@ -84,6 +89,14 @@
         else {
             $(this).attr({ "max": maxValue[0] })
         }
+        console.log($(this).val(), $(this).attr("max"));
+        if ($(this).val() > $(this).attr("max")) {
+            var maxV = $(this).attr("max");
+            console.log(maxV, $(this).val());
+            $(this).val(maxV);
+
+            console.log("Więcej");
+        }
 
         setTimeout(function clear() {
             $("#costProduct_" + basename).empty();
@@ -104,8 +117,13 @@
         });
     });
 
-    function isNumberKey() {
-        return false;
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 47 || charCode > 57)) {
+
+            return false;
+        }
+        return true;
     }
 
     $('#requirementBox').slimScroll({
