@@ -38,7 +38,19 @@ namespace Game.GUI.Controllers
         public ActionResult _NewMessage()
         {
             MessageViewModel messageModel = new MessageViewModel();
-            messageModel.userList = _userService.GetUser().OrderBy(x => x.Login).Select(x => x.Login).ToArray();
+            int i = 0;
+            List<string> temp = new List<string>();
+            foreach (var item in _userService.GetUser())
+            {
+                if (!_userService.Ignored(User.Identity.Name, item.Login))
+                {
+                    temp.Add(item.Login);
+                }
+                i++;
+            }
+
+            messageModel.userList = temp.ToArray();
+            Array.Sort(messageModel.userList);
             return View(messageModel);
         }
 

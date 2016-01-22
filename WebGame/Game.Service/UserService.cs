@@ -167,8 +167,7 @@ namespace Game.Service
                         Email = item.Email,
                         Last_Log = (DateTime)item.Last_Log,
                         Last_Update = (DateTime)item.Last_Update,
-                        Registration_Date = (DateTime)item.Registration_Date
-
+                        Registration_Date = (DateTime)item.Registration_Date,
                     });
                 }
                 catch (Exception)
@@ -334,14 +333,12 @@ namespace Game.Service
         {
             int uID = _user.GetAll().First(i => i.Login == user_login).ID;
             int iID = _user.GetAll().First(i => i.Login == ignored_login).ID;
-            bool ignored = false;
 
-            foreach (var item in _ignored.GetAll().Where(i => i.Ignored_ID == iID && i.User_ID == uID))
+            if(_ignored.GetAll().Any(i => i.Ignored_ID == iID && i.User_ID == uID))
             {
-                ignored = true;
+                return true;
             }
-
-            return ignored;
+            return false;
         }
 
         public void AddIgnore(string userlogin, string ignorelogin)

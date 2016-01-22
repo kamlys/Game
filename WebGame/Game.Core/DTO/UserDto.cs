@@ -17,5 +17,7 @@ namespace Game.Core.DTO
         public DateTime Last_Log { get; set; }
         public DateTime Registration_Date { get; set; }
         public DateTime Last_Update { get; set; }
+        public bool ifFriend { get; set; }
+        public bool ifIgnored { get; set; }
     }
 }

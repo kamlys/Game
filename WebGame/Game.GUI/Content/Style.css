@@ -497,8 +497,7 @@ nav {
 
 .product {
   display: inline-block;
-  margin-right: 2%;
-  width: 5%; }
+  margin: 0 1% 1% 0; }
 
 #products {
   cursor: default;

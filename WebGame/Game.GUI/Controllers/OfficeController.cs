@@ -177,11 +177,26 @@ namespace Game.GUI.Controllers
                 IsActive = x.IsActive,
                 Owner = x.MyMap,
                 Value = x.FinishDate.Value.Subtract(DateTime.Now).Days,
-                DealDay = x.DayTime
+                DealDay = x.DayTime,
             }).ToList();
 
-            dealModel.buildingList = _buildingsHelper.GetBuildings().OrderBy(x=>x.Alias).Select(x => x.Alias).ToArray();
-            dealModel.userList = _userService.GetUser().OrderBy(x=>x.Login).Select(x => x.Login).ToArray();
+            dealModel.buildingList = _buildingsHelper.GetBuildings().OrderBy(x => x.Alias).Select(x => x.Alias).ToArray();
+
+            List<string> temp = new List<string>();
+            int i = 0;
+            foreach (var item in _userService.GetUser())
+            {
+                if (!_userService.Ignored(User.Identity.Name, item.Login))
+                {
+                    temp.Add(item.Login);
+                }
+                i++;
+            }
+
+            dealModel.userList = temp.ToArray();
+
+            Array.Sort(dealModel.userList);
+
             return View(dealModel);
         }
 
@@ -289,7 +304,7 @@ namespace Game.GUI.Controllers
 
             if (dealDto.User2_Login != User.Identity.Name)
             {
-                foreach(var item in _dealService.AddDeal(dealDto))
+                foreach (var item in _dealService.AddDeal(dealDto))
                 {
                     if (item == 1)
                     {
@@ -302,17 +317,17 @@ namespace Game.GUI.Controllers
 
                         errors.Add("Oferta złożona");
                     }
-                    else if(item == 2)
+                    else if (item == 2)
                     {
                         errors.Add("Taki budyenk nie istnieje.");
                     }
-                    else if(item==0)
+                    else if (item == 0)
                     {
                         errors.Add("Taki użytkownik nie istnieje.");
                     }
                 }
             }
-            else if(dealDto.User2_Login == User.Identity.Name)
+            else if (dealDto.User2_Login == User.Identity.Name)
             {
                 errors.Add("Nie możesz złożyć oferty samemu sobie");
             }
