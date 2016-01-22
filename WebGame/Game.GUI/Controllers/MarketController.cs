@@ -34,6 +34,29 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
+        public ActionResult _MarketList(int? Page_No)
+        {
+            MarketViewModel marketModel = new MarketViewModel();
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+            int temp = No_Of_Page;
+
+            marketModel.listModel = _marketService.GetOffer().Select(x => new ItemMarketViewModel
+            {
+                Number = x.Number,
+                ID = x.ID,
+                Price = x.Price,
+                Product_ID = x.Product_ID,
+                Product_Name = x.Product_Name,
+                TypeOffer = x.TypeOffer,
+                User_ID = x.User_ID,
+                User_Login = x.Login
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
+
+            return View("~/Views/Admin/_MarketList.cshtml", marketModel);
+        }
+
+        [Authorize]
         public ActionResult _SellOffer(int? Page_No)
         {
             MarketViewModel marketList = new MarketViewModel();

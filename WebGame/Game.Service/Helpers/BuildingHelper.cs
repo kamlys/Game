@@ -144,7 +144,7 @@ namespace Game.Service
             List<string[]> names = new List<string[]>();
             foreach(var a in _userProducts.GetAll().Where(a => a.Users.Login == User))
             {
-                names.Add(new string[]{ a.Product_ID.ToString(), a.Product_Name});
+                names.Add(new string[]{ a.Product_ID.ToString(), a.Products.Alias});
             }
 
             return names.ToArray();

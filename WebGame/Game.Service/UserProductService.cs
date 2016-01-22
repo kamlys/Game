@@ -147,6 +147,14 @@ namespace Game.Service.Table
                         }
 
                         _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value -= temp;
+
+                        if((_userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value - temp) == 0)
+                        {
+                            int upID = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).ID;
+
+                            _userProducts.Delete(_userProducts.Get(upID));
+                        }
+
                     }
                 }
 

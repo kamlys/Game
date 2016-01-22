@@ -1,4 +1,5 @@
 ﻿@model Game.GUI.ViewModels.Product.ProductViewModel
+    @using PagedList.Mvc
 @{
     Layout = null;
 }
@@ -83,7 +84,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.tableList)
+            @foreach (var item in Model.listModel)
             {
                 <tr>
                     <td>@item.ID</td>
@@ -107,6 +108,9 @@
             }
         </tbody>
     </table>
+    <div class="paginationBtn" id="paginationBtnBuyOffer">
+        @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+    </div>
 </div>
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>

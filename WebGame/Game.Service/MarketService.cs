@@ -62,13 +62,22 @@ namespace Game.Service
                         TypeOffer = offer.TypeOffer
                     });
 
+
+                    if ((_userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value - offer.Number) == 0)
+                    {
+                        int upID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).ID;
+                        _userProduct.Delete(_userProduct.Get(upID));
+                    }
+                    else
+                    {
                         _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value -= offer.Number;
+                    }
                     _unitOfWork.Commit();
 
                     return true;
                 }
-            
-            return false;
+
+                return false;
             }
             else
             {
@@ -181,9 +190,20 @@ namespace Game.Service
             int uID = _market.Get(id).User_ID;
             int productID = _market.Get(id).Product_ID;
             int value = _market.Get(id).Number;
-
-
-            _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == productID).Value += value;
+            if (_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == productID))
+            {
+                _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == productID).Value += value;
+            }
+            else
+            {
+                _userProduct.Add(new UserProducts
+                {
+                    Product_ID = productID,
+                    User_ID = uID,
+                    Value = value,
+                    Product_Name = _product.Get(productID).Name,
+                });
+            }
 
             _market.Delete(_market.Get(id));
             _unitOfWork.Commit();
@@ -265,7 +285,7 @@ namespace Game.Service
                 int suserProductValue = _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == market.Product_ID).Value;
                 int totalPrice = (market.Price * market.Number);
 
-                if (suserProductValue>=market.Number)
+                if (suserProductValue >= market.Number)
                 {
                     if (_userProduct.GetAll().Any(i => i.User_ID == suID && i.Product_ID == market.Product_ID))
                     {
@@ -323,7 +343,15 @@ namespace Game.Service
 
             if (_userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value >= value)
             {
-                _userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value -= value;
+                int upID = _userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).ID;
+                if ((_userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value - value) > 0)
+                {
+                    _userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value -= value;
+                }
+                else
+                {
+                    _userProduct.Delete(_userProduct.Get(upID));
+                }
                 _dolar.GetAll().First(i => i.User_ID == uID).Value += money;
 
                 _unitOfWork.Commit();

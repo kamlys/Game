@@ -4,7 +4,7 @@
 }
 <div id="officeOfferAdd" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("AddOffer", "Office", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddOffer", "Office", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal sellProduct", role = "form" }))
             {
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.Product_Name, new {  @placeholder = "", @class = "validate inputProductName" })
@@ -31,7 +31,7 @@
     {
         <div class="officeProduct">
             <span class="name">@item.Product_Name: @item.Value</span>
-            <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd" onclick="fillData('@item.Product_Name',@item.Value)"><i class="fa fa-shopping-cart"></i></button>
+            <button data-target="officeOfferAdd" class="btn modal-trigger officeOfferAdd"  onclick="fillData('@item.Product_Name',@item.Value)"><i class="fa fa-shopping-cart"></i></button>
         </div>
     }
 </div>
@@ -48,6 +48,14 @@
         }
         return true;
     }
+
+    $(".sellProduct").bind('keyup change', function(){
+        if (parseInt($('.inputNumber').val()) > $('.inputNumber').attr("max")) {
+            var maxV = $('.inputNumber').attr("max");
+            console.log($('.inputNumber').val(),maxV);
+            $('.inputNumber').val(maxV);
+        }
+    });
 
     $(document).ready(function () {
         $('.officeOfferAdd').leanModal();

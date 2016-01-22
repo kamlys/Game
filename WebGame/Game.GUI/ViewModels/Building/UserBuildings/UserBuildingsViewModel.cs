@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,5 +25,7 @@ namespace Game.GUI.ViewModels.Building.UserBuildings
 
         public ItemUserBuildingViewModel viewModel { get; set; }
         public List<ItemUserBuildingViewModel> listModel { get; set; }
+        public IPagedList<ItemUserBuildingViewModel> pagedList { get; set; }
+
     }
 }

@@ -3,6 +3,7 @@ using Game.GUI.ViewModels.Building;
 using Game.GUI.ViewModels.Building.UserBuildings;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
+using PagedList;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -27,11 +28,12 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult _UserBuildingList()
+        public ActionResult _UserBuildingList(int? Page_No)
         {
             UserBuildingsViewModel userBuildingModel = new UserBuildingsViewModel();
-
-            userBuildingModel.listModel = _userBuildingService.GetUserBuilding().Where(i => !i.Owner).Select(x => new ItemUserBuildingViewModel
+            int Size_Of_Page = 10;
+            int No_Of_Page = (Page_No ?? 1);
+            userBuildingModel.pagedList = _userBuildingService.GetUserBuilding().Where(i => !i.Owner).Select(x => new ItemUserBuildingViewModel
             {
                 ID = x.ID,
                 User_ID = x.User_ID,
@@ -42,7 +44,7 @@ namespace Game.GUI.Controllers
                 Building_ID = x.Building_ID,
                 Building_Name = x.Building_Name,
                 Status = x.Status
-            }).ToList();
+            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
             return View("~/Views/Admin/_UserBuildingList.cshtml", userBuildingModel);
         }

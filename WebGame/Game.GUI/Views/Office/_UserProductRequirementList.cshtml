@@ -89,13 +89,11 @@
         else {
             $(this).attr({ "max": maxValue[0] })
         }
-        console.log($(this).val(), $(this).attr("max"));
-        if ($(this).val() > $(this).attr("max")) {
-            var maxV = $(this).attr("max");
-            console.log(maxV, $(this).val());
-            $(this).val(maxV);
 
-            console.log("Więcej");
+        if (parseInt($(this).val()) > $(this).attr("max")) {
+            var maxV = $(this).attr("max");
+            console.log($(this).val(),maxV);
+            $(this).val(maxV);
         }
 
         setTimeout(function clear() {
