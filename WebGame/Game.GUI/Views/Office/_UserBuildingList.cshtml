@@ -10,7 +10,7 @@
             <li>
                 @if (item.ifCan == true)
                 {
-                    <button class="right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
+                    <button class="right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl \\n Produkcja: @item.Percent_product_per_lvl"
                             id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
                         <i class="fa fa-arrow-up"></i> Level UP
                     </button>

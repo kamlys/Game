@@ -118,7 +118,7 @@ namespace Game.Service
             {
                 return 4;
             }
-            else
+            else if(_ban.GetAll().Any(i => i.User_ID == uID))
             {
                 int id = _ban.GetAll().First(i => i.User_ID == uID).ID;
 

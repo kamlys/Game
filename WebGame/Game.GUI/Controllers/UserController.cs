@@ -69,6 +69,10 @@ namespace Game.GUI.Controllers
                 {
                     errors.Add("Email już istnieje");
                 }
+                else if(item==3)
+                {
+                    errors.Add("Hasło musi zawierać minimum 5 znaków, w tym jedną cyfrę.");
+                }
 
             }
 

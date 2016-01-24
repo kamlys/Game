@@ -118,14 +118,24 @@ function ClearAllIntervals() {
         window.clearInterval(i);
 }
 
-function progressBar()
-{
+function progressBar() {
     $('.progress-bar').each(function () {
         $(this).val($(this).val() + 1);
-        if($(this).val() == $(this).attr('max'))
-        {
-            if(canReload)
-            {
+        var total = $(this).attr('max');
+        var current = $(this).val() + 1;
+        var left = total - current;
+        if (left < 0) {
+            left = 0;
+        }
+        var totalSec = left;
+        var hours = parseInt(totalSec / 3600) % 24;
+        var minutes = parseInt(totalSec / 60) % 60;
+        var seconds = totalSec % 60;
+        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+        $($(this).parent().siblings(".time-left")[0]).html(result);
+        if ($(this).val() == $(this).attr('max')) {
+            if (canReload) {
                 ClearAllIntervals();
                 location.reload(true);
             }

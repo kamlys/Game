@@ -6,7 +6,7 @@
 
 
 <div class="receivedMessage" id="receivedMessage">
-    @if (!Model.listModel.Any())
+    @if (!Model.pagedList.Any())
     {
         <span class="noRow">Brak wiadomości</span>
     }
@@ -24,7 +24,7 @@
             </thead>
 
             <tbody id="receivedMessage">
-                @foreach (var item in Model.listModel)
+                @foreach (var item in Model.pagedList)
                 {
                     if (item.IfRead == false)
                     {
@@ -47,7 +47,7 @@
         </table>
 
             <div class="paginationBtn" id="paginationBtnReceived">
-                @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+                @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
             </div>
     }
 </div>

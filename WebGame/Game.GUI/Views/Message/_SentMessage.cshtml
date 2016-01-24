@@ -5,7 +5,7 @@
 }
 
 <div class="sentMessage" id="sendMessage">
-    @if (!Model.listModel.Any())
+    @if (!Model.pagedList.Any())
     {
         <span class="noRow">Brak wiadomości</span>
     }
@@ -21,7 +21,7 @@
             </thead>
 
             <tbody>
-                @foreach (var item in Model.listModel)
+                @foreach (var item in Model.pagedList)
                 {
                     <tr onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
                         <td>@Html.DisplayFor(modelItem => item.Customer_Login)</td>
@@ -33,7 +33,7 @@
         </table>
 
         <div class="paginationBtn" id="paginationBtnSent">
-            @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_SentMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "sentMessage" }))
+            @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_SentMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "sentMessage" }))
         </div>
     }
 </div>

@@ -46,7 +46,7 @@ namespace Game.GUI.Controllers
                 }
                 var building = _buildingsHelper.GetBuildings().Where(b => b.ID == a.Building_ID).First();
                 var bTime = 0;
-                if(a.Status == "budowa")
+                if(a.Status == "budowa" || a.Status == "rozbudowa")
                 {
                     bTime = building.BuildingTime;
                 }
