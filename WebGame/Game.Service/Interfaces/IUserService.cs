@@ -31,7 +31,13 @@ namespace Game.Service.Interfaces
         List<string> GetIgnored(string user);
         bool ForgetPassword(string email);
         int RecoveryPass(UserDto user);
-
-
+        List<FriendDto> GetFriends();
+        void UpdateFriendAdmin(FriendDto friendDto);
+        void DeleteFriendAdmin(int id);
+        void AddFriendAdmin(FriendDto friendDto);
+        List<IgnoredDto> GetIgnored();
+        void UpdateIgnoredAdmin(IgnoredDto friendDto);
+        void DeleteIgnoredAdmin(int id);
+        void AddIgnoredAdmin(IgnoredDto friendDto);
     }
 }

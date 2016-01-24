@@ -1,12 +1,11 @@
 ﻿@model Game.GUI.ViewModels.Product.ProductViewModel
-    @using PagedList.Mvc
 @{
     Layout = null;
 }
 
 <div id="productAdd" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("Add", "Product", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddProduct", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
 
             <div class="input-field col s12">
@@ -37,12 +36,9 @@
 
 <div id="productUpdate" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("Update", "Product", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("UpdateProduct", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
-                <label for="ID">ID</label>
-            </div>
+                @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
 
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.ProductName, new { placeholder = "", @class = "validate inputName" })
@@ -70,8 +66,8 @@
     </div>
 </div>
 
-<div class="tableList">
-    <h4>Produkty</h4><br />
+<div class="tableList" id="productsAdmin">
+    <h4>Produkty</h4><input type="text" id="productSearch" class="searchAdmin" placeholder="Nazwa produktu..." /><br />
     <button data-target="productAdd" class="btn modal-trigger productAdd">Dodaj produkt</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
@@ -88,7 +84,7 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.ProductName</td>
+                    <td class="search">@item.ProductName</td>
                     <td>@item.Price_per_unit</td>
                     <td>@item.Unit</td>
                     <td>@item.Alias</td>
@@ -100,7 +96,7 @@
                             <ul>
                                 <li><button data-target="productUpdate" class="btn-floating #00695c teal darken-3 modal-trigger productUpdate" onclick="updaterow(['inputID','inputName','inputPrice_per_unit','inputUnit','inputAlias'],
                                              ['@item.ID','@item.ProductName','@item.Price_per_unit','@item.Unit','@item.Alias'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Product", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteProduct", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>
@@ -108,13 +104,17 @@
             }
         </tbody>
     </table>
-    <div class="paginationBtn" id="paginationBtnBuyOffer">
-        @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
-    </div>
 </div>
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/js/UpdateRow.js"></script>
 <script>
+    $('#productsAdmin').slimScroll({
+        size: '10px',
+        height: '600px',
+        alwaysVisible: true
+    });
     $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.productAdd').leanModal();

@@ -139,7 +139,7 @@ namespace Game.GUI.Controllers
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
 
-            messageModel.listModel = _messageService.GetSentMessage(User.Identity.Name).Select(x => new ItemMessageViewModel
+            messageModel.pagedList = _messageService.GetSentMessage(User.Identity.Name).Select(x => new ItemMessageViewModel
             {
                 ID = x.ID,
                 Customer_Login = x.Customer_Login,
@@ -159,7 +159,7 @@ namespace Game.GUI.Controllers
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
 
-            messageModel.listModel = _messageService.GetReceivedMessages(User.Identity.Name).Select(x=>new ItemMessageViewModel
+            messageModel.pagedList = _messageService.GetReceivedMessages(User.Identity.Name).Select(x=>new ItemMessageViewModel
             {
                 ID = x.ID,
                 Sender_Login = x.Sender_Login,

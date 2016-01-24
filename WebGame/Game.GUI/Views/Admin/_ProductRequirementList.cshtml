@@ -1,0 +1,108 @@
+﻿@model Game.GUI.ViewModels.Product.ProductRequirement.ProductRequirementViewModel
+@{
+    Layout = null;
+}
+
+<div id="productReqAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddProductRequirementAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.BaseName, new SelectList(Model.allProduct), new { @class = "validate" })
+                <label for="BaseName">Produkt</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.RequireName, new SelectList(Model.allProduct), new { @class = "validate" })
+                <label for="RequireName">Produkt wymagany</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Value, new { placeholder = "", @class = "validate" })
+                <label for="Value">Ilość</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div id="productReqUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("UpdateProductRequirementAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Base_ID, new { @placeholder = "", @class = "validate inputBase" })
+                <label for="BaseName">Produkt</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Require_ID, new { @placeholder = "", @class = "validate inputReq" })
+                <label for="RequireName">Produkt wymagany</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Value, new { placeholder = "", @class = "validate inputValue" })
+                <label for="Value">Ilość</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div class="tableList" id="productReqAdmin">
+    <h4>Admini</h4> <input type="text" id="adminSearch" class="searchAdmin" placeholder="Login..." /><br />
+    <button data-target="productReqAdd" class="btn modal-trigger productReqAdd">Dodaj admina</button>
+    <table class="highlight bordered responsive-table centered">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="baseID">ID produktu</th>
+                <th data-field="baseName">Nazwa produktu</th>
+                <th data-field="reqID">ID wymaganego</th>
+                <th data-field="reqName">Nazwa wymaganego</th>
+                <th data-field="value">Wartość</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.listModel)
+            {
+                <tr>
+
+                    <td>@item.ID</td>
+                    <td>@item.Base_ID</td>
+                    <td>@item.BaseName</td>
+                    <td>@item.Require_ID</td>
+                    <td>@item.RequireName</td>
+                    <td>@item.Value</td>
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn btn-floating btn-large">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button data-target="productReqUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger productReqUpdate" onclick="updaterow(['inputID','inputBase','inputReq','inputValue'], ['@item.ID','@item.Base_ID','@item.Require_ID','@item.Value'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteProductRequirementAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/js/UpdateRow.js"></script>
+<script>
+    $('#productReqAdmin').slimScroll({
+        size: '10px',
+        height: '600px',
+        alwaysVisible: true
+    });
+
+    $(document).ready(function () {
+        $('.productReqAdd').leanModal();
+        $('.productReqUpdate').leanModal();
+    });
+</script>
+

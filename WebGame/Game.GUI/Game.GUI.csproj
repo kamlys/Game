@@ -327,6 +327,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Building\DealBuildings\DealBuildingViewModel.cs" />
+    <Compile Include="ViewModels\Building\DealBuildings\ItemDealBuildingViewModel.cs" />
     <Compile Include="ViewModels\User\Admin\AdminViewModel.cs" />
     <Compile Include="ViewModels\User\Admin\ItemAdminViewModel.cs" />
     <Compile Include="ViewModels\User\Ban\BanViewModel.cs" />
@@ -359,6 +361,8 @@
     <Compile Include="ViewModels\Building\UserBuildings\UserBuildingsViewModel.cs" />
     <Compile Include="ViewModels\Product\UserProduct\ItemUserProductViewModel.cs" />
     <Compile Include="ViewModels\Product\UserProduct\UserProductViewModel.cs" />
+    <Compile Include="ViewModels\User\Ignored\IgnoredViewModel.cs" />
+    <Compile Include="ViewModels\User\Ignored\ItemIgnoredViewModel.cs" />
     <Compile Include="ViewModels\User\ItemUserViewModel.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
     <Compile Include="ViewModels\User\ProfileViewModel.cs" />
@@ -383,7 +387,7 @@
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\Admin\_AdminList.cshtml" />
     <Content Include="Views\Admin\_BanList.cshtml" />
-    <Content Include="Views\Admin\_BuildingList2.cshtml" />
+    <Content Include="Views\Admin\_BuildingList.cshtml" />
     <Content Include="Views\Admin\_BuildingQueueList.cshtml" />
     <Content Include="Views\Admin\_DolarList.cshtml" />
     <Content Include="Views\Admin\_MapList.cshtml" />
@@ -414,6 +418,12 @@
     <Content Include="Views\Office\_UserProduct.cshtml" />
     <Content Include="Views\Market\_BuyOffer.cshtml" />
     <Content Include="Views\Market\_SellOffer.cshtml" />
+    <Content Include="Views\Admin\_DealList.cshtml" />
+    <Content Include="Views\Admin\_DealBuildingList.cshtml" />
+    <Content Include="Views\Admin\_FriendList.cshtml" />
+    <Content Include="Views\Admin\_IgnoredList.cshtml" />
+    <Content Include="Views\Admin\_MessageList.cshtml" />
+    <Content Include="Views\Admin\_ProductRequirementList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

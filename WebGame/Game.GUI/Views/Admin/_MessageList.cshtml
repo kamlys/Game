@@ -1,0 +1,133 @@
+﻿@model Game.GUI.ViewModels.Message.MessageViewModel
+@{
+    Layout = null;
+}
+
+<div id="messageAdminAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddMessageAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Sender_Login, new SelectList(Model.userList), new { @class = "validate" })
+                <label for="Sender_Login">Wysyłający</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Customer_Login, new SelectList(Model.userList), new { @class = "validate" })
+                <label for="Customer_Login">Odbiorca</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Theme, new { placeholder = "", @class = "validate" })
+                <label for="Theme">Tytuł</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "validate" })
+                <label for="Content">Treść</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.PostDate, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                <label for="PostDate">Data wysłania</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.IfRead, new SelectList(new List<bool>(new bool[] { true, false })), new { @class = "validate" })
+                <label for="IfRead">Czy przeczytane</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div id="messageAdminUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("UpdateMessageAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
+
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Sender_Login, new SelectList(Model.userList), new { @class = "validate inputSender" })
+                <label for="Sender_Login">Wysyłający</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Customer_Login, new SelectList(Model.userList), new { @class = "validate inputCustomer" })
+                <label for="Customer_Login">Odbiorca</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Theme, new { placeholder = "", @class = "validate inputTheme" })
+                <label for="Theme">Tytuł</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "validate inputContent" })
+                <label for="Content">Treść</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.PostDate, new { placeholder = "", @type = "date", @class = "validate datepicker inputDate" })
+                <label for="PostDate">Data wysłania</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.IfRead, new SelectList(new List<bool>(new bool[] { true, false })), new { @class = "validate inputRead" })
+                <label for="IfRead">Czy przeczytane</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div class="tableList" id="messagesAdmin">
+    <h4>Wiadomości</h4> <input type="text" id="adminSearch" class="searchAdmin" placeholder="Login..." /><br />
+    <button data-target="messageAdminAdd" class="btn modal-trigger messageAdminAdd">Dodaj admina</button>
+    <table class="highlight bordered responsive-table centered">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="sender">Wysyłający</th>
+                <th data-field="customer">Odbiorca</th>
+                <th data-field="theme">Tytuł</th>
+                <th data-field="content">Treść</th>
+                <th data-field="postDate">Data wysłania</th>
+                <th data-field="read">Czy przeczytane</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.listModel)
+            {
+                <tr>
+
+                    <td>@item.ID</td>
+                    <td>@item.Sender_Login</td>
+                    <td>@item.Customer_Login</td>
+                    <td>@item.Theme</td>
+                    <td>@item.Content</td>
+                    <td>@item.PostDate</td>
+                    <td>@item.IfRead</td>
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn btn-floating btn-large">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button data-target="messageAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger messageAdminUpdate" onclick="updaterow(['inputID','inputSender','inputCustomer','inputTheme','inputContent','inputDate', 'inputRead'], ['@item.ID','@item.Sender_Login','@item.Customer_Login','@item.Theme','@item.Content','@item.PostDate','@item.PostDate'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/js/UpdateRow.js"></script>
+<script>
+    $('#messagesAdmin').slimScroll({
+        size: '10px',
+        height: '600px',
+        alwaysVisible: true
+    });
+
+    $(document).ready(function () {
+        $('.messageAdminAdd').leanModal();
+        $('.messageAdminUpdate').leanModal();
+    });
+</script>

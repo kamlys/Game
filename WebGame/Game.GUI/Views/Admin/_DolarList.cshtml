@@ -3,15 +3,13 @@
     Layout = null;
 }
 
-
-
 <div id="dolarAdd" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("Add", "Dolar", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddDolar", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
-                <label for="Login">Login</label>
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate" })
+                <label for="User_Login">Login</label>
             </div>
 
             <div class="input-field col s12">
@@ -26,12 +24,9 @@
 
 <div id="dolarUpdate" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("Update", "Dolar", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("UpdateDolar", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
-                <label for="ID">ID</label>
-            </div>
+                @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
 
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
@@ -48,8 +43,8 @@
     </div>
 </div>
 
-<div class="tableList">
-    <h4>Monety</h4><br />
+<div class="tableList" id="dolarsAdmin">
+    <h4>Monety</h4><input type="text" id="dolarSearch" class="searchAdmin" placeholder="Login..." /><br />
     <button data-target="dolarAdd" class="btn modal-trigger" href="#dolarAdd">Dodaj monety</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
@@ -64,7 +59,7 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.User_Login</td>
+                    <td class="search">@item.User_Login</td>
                     <td>@item.DolarValue</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
@@ -73,7 +68,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="dolarUpdate" class="btn-floating #00695c teal darken-3 modal-trigger dolarUpdate" onclick="updaterow(['inputID','inputLogin','inputValue'], ['@item.ID','@item.User_Login','@item.DolarValue'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Dolar", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteDolar", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>
@@ -84,7 +79,14 @@
 </div>
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/js/UpdateRow.js"></script>
 <script>
+    $('#dolarsAdmin').slimScroll({
+        size: '10px',
+        height: '600px',
+        alwaysVisible: true
+    });
     $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.dolarAdd').leanModal();

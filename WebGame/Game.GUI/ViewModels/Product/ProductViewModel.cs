@@ -9,6 +9,6 @@ namespace Game.GUI.ViewModels.Product
     public class ProductViewModel
     {
         public ItemProductViewModel viewModel { get; set; }
-        public IPagedList<ItemProductViewModel> listModel { get; set; }
+        public List<ItemProductViewModel> listModel { get; set; }
     }
 }

@@ -7,6 +7,7 @@ namespace Game.GUI.ViewModels.Product.ProductRequirement
 {
     public class ItemProductRequirementViewModel
     {
+        public int ID { get; set; }
         public int Base_ID { get; set; }
         public string BaseName { get; set; }
         public int Require_ID { get; set; }
@@ -14,5 +15,6 @@ namespace Game.GUI.ViewModels.Product.ProductRequirement
         public string BuildingName { get; set; }
         public List<Dictionary<string, int[]>> RequireProduct { get; set; }
         public bool ifCan { get; set; }
+        public int Value { get; set; }
     }
 }

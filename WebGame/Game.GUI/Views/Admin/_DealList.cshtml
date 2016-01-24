@@ -1,0 +1,152 @@
+﻿@model Game.GUI.ViewModels.Deal.DealViewModel
+@{
+    Layout = null;
+}
+
+<div id="dealAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddDeal", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.User1_Login, new SelectList(Model.userList), new { @class = "validate" })
+                <label for="User1_Login">Login 1</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Percent_User1, new { @type = "number", @min = "1", @placeholder = "", @class = "validate" })
+                <label for="Percent_User1">Procent dla 1</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.User2_Login, new SelectList(Model.userList), new { @class = "validate" })
+                <label for="User2_Login">Login 2</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Percent_User2, new { @type = "number", @min = "1", @placeholder = "", @class = "validate" })
+                <label for="Percent_User2">Procent dla 2</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Building_Name, new SelectList(Model.buildingList), new { @class = "validate" })
+                <label for="Building_Name">Nazwa budynku</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Value, new { @type = "number", @min = "1", @placeholder = "", @class = "validate" })
+                <label for="Value">ID Mapy</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.DealDay, new { @type = "number", @min = "10", @max = "30", @step = "10", @placeholder = "", @class = "validate" })
+                <label for="DealDay">Czas (dni)</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.IsActive, new SelectList(new List<bool>(new bool[] { true,false })), new { @class = "validate" })
+                <label for="IsActive">Aktywna</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div id="dealUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("UpdateDeal", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.User1_Login, new SelectList(Model.userList), new { @class = "validate inputLogin1" })
+                <label for="User1_Login">Login 1</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Percent_User1, new { @type = "number", @min = "1", @placeholder = "", @class = "validate inputPercent1" })
+                <label for="Percent_User1">Procent dla 1</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.User2_Login, new SelectList(Model.userList), new { @class = "validate inputLogin2" })
+                <label for="User2_Login">Login 2</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Percent_User2, new { @type = "number", @min = "1", @placeholder = "", @class = "validate inputPercent2" })
+                <label for="Percent_User2">Procent dla 2</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Building_Name, new SelectList(Model.buildingList), new { @class = "validate inputBuildingName" })
+                <label for="Building_Name">Nazwa budynku</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Value, new { @type = "number", @min = "1", @placeholder = "", @class = "validate inputMapID" })
+                <label for="Value">ID Mapy</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.DealDay, new { @type = "number", @min = "10", @max = "30", @step = "10", @placeholder = "", @class = "validate inputDealDay" })
+                <label for="DealDay">Czas (dni)</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.IsActive, new SelectList(new List<bool>(new bool[] { true, false })), new { @class = "validate inputActive" })
+                <label for="IsActive">Aktywna</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div class="tableList">
+    <h4>Umowy</h4> <input type="text" id="dealSearch" class="searchAdmin" placeholder="Login..." /><br />
+    <button data-target="dealAdd" class="btn modal-trigger adminAdd">Dodaj umowe</button>
+    <table class="highlight bordered responsive-table centered">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="id">Login 1</th>
+                <th data-field="id">Procent 1</th>
+                <th data-field="id">Login 2</th>
+                <th data-field="id">Procent 2</th>
+                <th data-field="id">Nazwa budynku</th>
+                <th data-field="id">ID mapy</th>
+                <th data-field="id">Czas (dni)</th>
+                <th data-field="id">Aktywna</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.listModel)
+            {
+                <tr>
+
+                    <td>@item.ID</td>
+                    <td>@item.User1_Login</td>
+                    <td>@item.Percent_User1</td>
+                    <td>@item.User2_Login</td>
+                    <td>@item.Percent_User2</td>
+                    <td>@item.Building_Name</td>
+                    <td>@item.Value</td>
+                    <td>@item.DealDay</td>
+                    <td>@item.IsActive</td>
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn btn-floating btn-large">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button data-target="dealUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger dealUpdate" onclick="updaterow(['inputID','inputLogin1','inputPercent1','inputLogin2','inputPercent2','inputBuildingName', 'inputMapID', 'inputDealDay','inputActive'], ['@item.ID','@item.User1_Login', '@item.Percent_User1','@item.User2_Login','@item.Percent_User2','@item.Building_Name', '@item.Value','@item.DealDay','@item.IsActive'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/js/UpdateRow.js"></script>
+<script>
+    $('#dealsAdmin').slimScroll({
+        size: '10px',
+        height: '600px',
+        alwaysVisible: true
+    });
+
+    $(document).ready(function () {
+        $('.dealAdd').leanModal();
+        $('.dealUpdate').leanModal();
+    });
+</script>

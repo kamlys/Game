@@ -30,7 +30,7 @@
 </div>
 <button data-target="offerSellAdd" class="btn modal-trigger offerAdd offerSellAdd">Wystaw ofertę sprzedaży</button>
 
-@if (!Model.listModel.Any())
+@if (!Model.pagedList.Any())
             {
     <span class="noOffer">Brak ofert</span>
 }
@@ -50,7 +50,7 @@ else
             </thead>
             <tbody>
 
-                @foreach (var item in Model.listModel)
+                @foreach (var item in Model.pagedList)
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.User_Login)</td>
@@ -77,7 +77,7 @@ else
 
 
         <div class="paginationBtn" id="paginationBtnSellOffer">
-            @Html.PagedListPager(Model.listModel, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+            @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
         </div>
     </div>
 }

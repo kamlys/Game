@@ -5,7 +5,7 @@
 
 <div id="buildingAdd" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("Add", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddBuilding", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.BuildingName, new { placeholder = "", @class = "validate" })
@@ -45,27 +45,27 @@
                 @Html.TextBoxFor(m => m.viewModel.Percent_product_per_lvl, new { placeholder = "", @class = "validate" })
                 <label for="Percent_product_per_lvl">% proukcji za lvl</label>
             </div>
-            
+
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate" })
                 <label for="Nazwa produktu">Nazwa produktu</label>
             </div>
-            
+
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.Alias, new { placeholder = "", @class = "validate" })
                 <label for="Alias">Alias</label>
             </div>
-            
+
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.BuildingTime, new { placeholder = "", @class = "validate" })
                 <label for="BuildingTime">Czas budowy [s]</label>
             </div>
-            
+
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.DestructionTime, new { placeholder = "", @class = "validate" })
                 <label for="DestructionTime">Czas burzenia [s]</label>
             </div>
-            
+
             <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
 
         }
@@ -74,12 +74,9 @@
 
 <div id="buildingUpdate" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("Update", "Building", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("UpdateBuilding", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
-                <label for="ID">ID</label>
-            </div>
+            @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
 
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.BuildingName, new { placeholder = "", @class = "validate inputName" })
@@ -148,8 +145,8 @@
 
 
 
-<div class="tableList">
-    <h4>Budynki</h4><br />
+<div class="tableList" id="buildingsAdmin">
+    <h4>Budynki</h4><input type="text" id="buildingSearch" class="searchAdmin" placeholder="Szukaj..." /><br />
     <button data-target="buildingAdd" class="btn modal-trigger buildingAdd">Dodaj budynek</button>
 
     <table class="highlight bordered responsive-table centered">
@@ -171,11 +168,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.pagedModel)
+            @foreach (var item in Model.listModel)
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.BuildingName</td>
+                    <td class="search">@item.BuildingName</td>
                     <td>@item.Price</td>
                     <td>@item.Percent_price_per_lvl</td>
                     <td>@item.Width</td>
@@ -193,15 +190,18 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="buildingUpdate" class="btn-floating #00695c teal darken-3 modal-trigger buildingUpdate" 
+                                <li>
+                                    <button data-target="buildingUpdate" class="btn-floating #00695c teal darken-3 modal-trigger buildingUpdate"
                                             onclick="updaterow(['inputID','inputName','inputPrice','inputPercent_price_per_lvl',
                                             'inputWidth','inputHeight','inputProduct_per_sec','inputDestPrice','inputPercent_product_per_lvl',
-                                            'inputProductName','inputAlias','inputBuildingTime','inputDesctructionTime'], 
+                                            'inputProductName','inputAlias','inputBuildingTime','inputDesctructionTime'],
                                             ['@item.ID','@item.BuildingName','@item.Price','@item.Percent_price_per_lvl','@item.Width','@item.Height',
                                             '@item.Product_per_sec','@item.DestPrice','@item.Percent_product_per_lvl','@item.Product_Name','@item.Alias',
                                             '@item.BuildingTime','@item.DestructionTime'])">
-                                    <i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Building", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>
@@ -212,9 +212,17 @@
 </div>
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/js/UpdateRow.js"></script>
 <script>
+    $('#buildingsAdmin').slimScroll({
+        size: '10px',
+        height: '600px',
+        alwaysVisible: true
+    });
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.buildingAdd').leanModal();
         $('.buildingUpdate').leanModal();
-    });</script>
+    });
+</script>

@@ -16,6 +16,60 @@ html, body {
 }
 
 
+/* index page */
+.game-description {
+    article {
+        font-size: 14px !important;
+
+        p:first-child {
+            font-size: 16px !important;
+        }
+    }
+}
+
+.login-right {
+    padding: 50px !important;
+    max-width: 450px;
+
+    .logowanieButton {
+        display: inline-block;
+        float: left;
+        width: auto;
+        margin-top: 5%;
+    }
+
+    .loginRegister {
+        color: #9E9E9E;
+        font-size: 15px;
+        margin: 20px 0 40px 0;
+        text-decoration: none;
+    }
+
+    .loginButton {
+        padding-left: 10px;
+        padding-right: 15px;
+    }
+
+    input {
+        height: 30px;
+    }
+
+    .loginForm {
+        border-top: 5px solid #73467B !important;
+        min-height: 460px !important;
+        background-color: #18212A !important;
+        padding: 20px 30px 0 30px !important;
+        width: 400px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-top: -10px;
+
+        .input-field {
+            padding-top: 5px !important;
+        }
+    }
+}
+
 .preloader-wrapper {
     .spinner-layer {
         background: none;
@@ -409,7 +463,75 @@ nav {
     }
 
     .tabs {
-        margin-top: 0px;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        position: relative;
+        height: 48px;
+        background-color: $secondColor;
+        margin: 0;
+        width: 100%;
+        white-space: nowrap;
+    }
+
+    .tabs .tab {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        display: block;
+        float: left;
+        text-align: center;
+        line-height: 48px;
+        height: 48px;
+        padding: 0;
+        margin: 0;
+        text-transform: uppercase;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        letter-spacing: .8px;
+        width: 15%;
+        min-width: 80px;
+
+
+        a {
+            color: #fff !important;
+            font-size: 10px;
+        }
+
+        a:hover {
+            color: #51B3CE !important;
+            font-weight: bold;
+        }
+
+        .tab a {
+            color: #fff;
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-transition: color .28s ease;
+            -moz-transition: color .28s ease;
+            -o-transition: color .28s ease;
+            -ms-transition: color .28s ease;
+            transition: color .28s ease;
+        }
+
+        .tab.disabled a {
+            color: #f9c9cb;
+            cursor: default;
+        }
+
+        .indicator {
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            background-color: #f6b2b5;
+            will-change: left, right;
+        }
     }
 
     .btn {
@@ -670,11 +792,12 @@ nav {
 /******************/
 /*List znajomych*/
 .infoBox {
-    
+
     .friendMessage {
-            color: black !important;
-            width: 30% !important;
-        }
+        color: black !important;
+        width: 30% !important;
+    }
+
     .friend {
         background-color: $friendColorList;
         margin-top: 10px;
@@ -685,7 +808,7 @@ nav {
         margin-left: auto;
         margin-right: auto;
 
-        
+
 
 
         .slimScrollBar {
@@ -745,7 +868,7 @@ nav {
     }
 }
 
-.product{
+.product {
     display: inline-block;
     margin: 0 1% 1% 0;
 }
@@ -775,77 +898,76 @@ nav {
     }
 }
 /*TabsAdmin*/
-.tabs {
-    margin-top: 30px;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    position: relative;
-    height: 48px;
-    background-color: $secondColor;
-    margin: 30px 0 0 0;
-    width: 100%;
-    white-space: nowrap;
-}
+.adminDiv {
+    overflow-x: no-display;
 
-.tabs .tab {
-    -webkit-box-flex: 1;
-    -webkit-flex-grow: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    display: block;
-    float: left;
-    text-align: center;
-    line-height: 48px;
-    height: 48px;
-    padding: 0;
-    margin: 0;
-    text-transform: uppercase;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    letter-spacing: .8px;
-    width: 15%;
-    min-width: 80px;
-
-    a {
-        color: #fff !important;
-        font-size: 10px;
-    }
-
-    a:hover {
-        font-weight: bold;
-    }
-
-    .tab a {
-        color: #fff;
+    .tabs {
+        margin-top: 30px;
         display: block;
+        position: relative;
+        height: 180px !important;
+        background-color: $secondColor;
+        margin: 30px 0 0 0;
         width: 100%;
-        height: 100%;
+        white-space: nowrap;
+    }
+
+    .tabs .tab {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        display: block;
+        float: left;
+        text-align: center;
+        line-height: 48px;
+        height: 48px;
+        padding: 0;
+        margin: 0;
+        text-transform: uppercase;
         text-overflow: ellipsis;
         overflow: hidden;
-        -webkit-transition: color .28s ease;
-        -moz-transition: color .28s ease;
-        -o-transition: color .28s ease;
-        -ms-transition: color .28s ease;
-        transition: color .28s ease;
-    }
+        letter-spacing: .8px;
+        width: 15%;
+        min-width: 80px;
 
-    .tab.disabled a {
-        color: #f9c9cb;
-        cursor: default;
+        a {
+            color: #fff !important;
+            font-size: 10px;
+        }
+
+        a:hover {
+            font-weight: bold;
+        }
+
+        .tab a {
+            color: #fff;
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-transition: color .28s ease;
+            -moz-transition: color .28s ease;
+            -o-transition: color .28s ease;
+            -ms-transition: color .28s ease;
+            transition: color .28s ease;
+        }
+
+        .active {
+            border-bottom: 3px solid #26A69A !important;
+        }
+
+        .tab.disabled a {
+            color: #f9c9cb;
+            cursor: default;
+        }
     }
 
     .indicator {
-        position: absolute;
-        bottom: 0;
-        height: 2px;
-        background-color: #f6b2b5;
-        will-change: left, right;
+        display: none !important;
     }
 }
-
 
 .market {
     background-color: $secondColor;
@@ -881,15 +1003,76 @@ nav {
         font-size: 18px;
     }
 
+    .tabs {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        position: relative;
+        height: 48px;
+        background-color: $secondColor;
+        margin: 0;
+        width: 100%;
+        white-space: nowrap;
+    }
+
     .tabs .tab {
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        display: block;
+        float: left;
+        text-align: center;
+        line-height: 48px;
+        height: 48px;
+        padding: 0;
+        margin: 0;
+        text-transform: uppercase;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        letter-spacing: .8px;
+        width: 15%;
+        min-width: 80px;
+
+
+        a {
+            color: #fff !important;
+            font-size: 10px;
+        }
+
         a:hover {
+            color: $marketColoR !important;
             font-weight: bold;
-            border: none;
+        }
+
+        .tab a {
+            color: #fff;
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-transition: color .28s ease;
+            -moz-transition: color .28s ease;
+            -o-transition: color .28s ease;
+            -ms-transition: color .28s ease;
+            transition: color .28s ease;
+        }
+
+        .tab.disabled a {
+            color: #f9c9cb;
+            cursor: default;
         }
     }
 
     .tabs .indicator {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
         background-color: $marketColoR;
+        will-change: left, right;
     }
 
     h5 {
@@ -1012,6 +1195,15 @@ nav {
     background-color: white;
     padding: 20px 20px 20px 20px;
 
+    h4 {
+        display: inline;
+    }
+
+    .searchAdmin {
+        width: 50%;
+        margin-left: 20px;
+    }
+
     .table {
         text-align: center !important;
 
@@ -1107,7 +1299,7 @@ nav {
             border: none;
             height: 100%;
 
-            .btn{
+            .btn {
                 color: #000;
                 font-weight: bold;
             }
@@ -1282,7 +1474,7 @@ nav {
         padding: 20px 20px 20px 20px;
         width: 49%;
 
-        .costProduct{
+        .costProduct {
             float: right;
             display: inline-block;
             color: #fff;
@@ -1464,14 +1656,14 @@ nav {
     margin-top: 30px;
     min-height: 500px;
 
-    .searchInput{
+    .searchInput {
         width: 30% !important;
         display: inline-block !important;
         margin: 15px 0 0 15px !important;
         color: #fff;
     }
 
-    .searchButton{
+    .searchButton {
         display: inline-block;
         background-color: #2e8367;
         color: #fff;
@@ -1509,7 +1701,7 @@ nav {
 
     tbody {
 
-        .yourLogin{
+        .yourLogin {
             background-color: rgba(166, 210, 195, 0.77);
             font-weight: bold;
         }

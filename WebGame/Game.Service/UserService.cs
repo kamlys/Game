@@ -334,7 +334,7 @@ namespace Game.Service
             int uID = _user.GetAll().First(i => i.Login == user_login).ID;
             int iID = _user.GetAll().First(i => i.Login == ignored_login).ID;
 
-            if(_ignored.GetAll().Any(i => i.Ignored_ID == iID && i.User_ID == uID))
+            if (_ignored.GetAll().Any(i => i.Ignored_ID == iID && i.User_ID == uID))
             {
                 return true;
             }
@@ -461,6 +461,102 @@ namespace Game.Service
             smtpClient.Send(msg);
         }
 
+        public List<FriendDto> GetFriends()
+        {
+            List<FriendDto> friendDto = new List<FriendDto>();
 
+            foreach (var item in _friend.GetAll())
+            {
+                friendDto.Add(new FriendDto
+                {
+                    ID = item.Id,
+                    Friend_Login = _user.GetAll().First(i => i.ID == item.Friend_ID).Login,
+                    Friend_ID = item.Friend_ID,
+                    User_ID = item.User_ID,
+                    User_Login = _user.GetAll().First(i => i.ID == item.User_ID).Login,
+                    OrAccepted = item.OrAccepted
+                });
+            }
+
+            return friendDto;
+        }
+
+        public void UpdateFriendAdmin(FriendDto friendDto)
+        {
+            foreach (var item in _friend.GetAll().Where(i => i.Id == friendDto.ID))
+            {
+                item.Id = friendDto.ID;
+                item.Friend_ID = _user.GetAll().First(i => i.Login == friendDto.Friend_Login).ID;
+                item.User_ID = _user.GetAll().First(i => i.Login == friendDto.User_Login).ID;
+                item.OrAccepted = friendDto.OrAccepted;
+            };
+
+            _unitOfWork.Commit();
+        }
+
+        public void DeleteFriendAdmin(int id)
+        {
+            _friend.Delete(_friend.Get(id));
+        }
+
+        public void AddFriendAdmin(FriendDto friendDto)
+        {
+            _friend.Add(new Friends
+            {
+                Friend_ID = friendDto.Friend_ID,
+                User_ID = friendDto.User_ID,
+                OrAccepted = friendDto.OrAccepted
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public List<IgnoredDto> GetIgnored()
+        {
+            List<IgnoredDto> ignoredDto = new List<IgnoredDto>();
+
+            foreach (var item in _ignored.GetAll())
+            {
+                ignoredDto.Add(new IgnoredDto
+                {
+                    ID = item.ID,
+                    Ignored_ID = item.Ignored_ID,
+                    Ignored_Login = _user.GetAll().First(i => i.ID == item.Ignored_ID).Login,
+                    User_ID = item.User_ID,
+                    User_Login = _user.GetAll().First(i => i.ID == item.User_ID).Login
+                });
+            }
+
+            return ignoredDto;
+        }
+
+        public void UpdateIgnoredAdmin(IgnoredDto ignoredDto)
+        {
+            foreach (var item in _ignored.GetAll().Where(i => i.ID == ignoredDto.ID))
+            {
+                item.ID = ignoredDto.ID;
+                item.Ignored_ID = _user.GetAll().First(i => i.Login == ignoredDto.Ignored_Login).ID;
+                item.User_ID = _user.GetAll().First(i => i.Login == ignoredDto.User_Login).ID;
+            }
+
+            _unitOfWork.Commit();
+        }
+
+        public void DeleteIgnoredAdmin(int id)
+        {
+            _ignored.Delete(_ignored.Get(id));
+            _unitOfWork.Commit();
+        }
+
+        public void AddIgnoredAdmin(IgnoredDto ignoredDto)
+        {
+            _ignored.Add(new Ignored
+            {
+                Ignored_ID = _user.GetAll().First(i => i.Login == ignoredDto.Ignored_Login).ID,
+                User_ID = _user.GetAll().First(i => i.Login == ignoredDto.User_Login).ID
+            });
+
+            _unitOfWork.Commit();
+        }
     }
 }

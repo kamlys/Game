@@ -1,28 +1,29 @@
 ﻿@model Game.GUI.ViewModels.User.Ban.BanViewModel
+@{
     Layout = null;
 }
 
 <div id="banAdd" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("Add", "Ban", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddBan", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
-                <label for="Login">Login</label>
-            </div>
-            
-            <div class="input-field col s12">
-                @Html.TextAreaFor(m => m.viewModel.Description, new { placeholder = "", @class = "materialize-textarea" })
-                <label for="Description">Opis</label>
-            </div>
-            
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", @type = "date", @class = "validate datepicker" })
-                <label for="Finish_Date">Data końca</label>
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate" })
+                <label for="User_Login">Login</label>
             </div>
 
-            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+                <div class="input-field col s12">
+                    @Html.TextAreaFor(m => m.viewModel.Description, new { placeholder = "", @class = "materialize-textarea" })
+                    <label for="Description">Opis</label>
+                </div>
+
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", @type = "date", @class = "validate datepicker" })
+                    <label for="Finish_Date">Data końca</label>
+                </div>
+
+                <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
 
         }
     </div>
@@ -30,28 +31,25 @@
 
 <div id="banUpdate" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("Update", "Ban", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("UpdateBan", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
-                <label for="Login">Login</label>
-            </div>
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
-                <label for="Login">Login</label>
-            </div>
+                @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
+                    <label for="Login">Login</label>
+                </div>
 
-            <div class="input-field col s12">
-                @Html.TextAreaFor(m => m.viewModel.Description, new { placeholder = "", @class = "materialize-textarea inputDescription" })
-                <label for="Description">Opis</label>
-            </div>
+                <div class="input-field col s12">
+                    @Html.TextAreaFor(m => m.viewModel.Description, new { placeholder = "", @class = "materialize-textarea inputDescription" })
+                    <label for="Description">Opis</label>
+                </div>
 
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", @type = "date", @class = "validate datepicker inputFinishDate" })
-                <label for="Finish_Date">Data końca</label>
-            </div>
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", @type = "date", @class = "validate datepicker inputFinishDate" })
+                    <label for="Finish_Date">Data końca</label>
+                </div>
 
-            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+                <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
 
         }
     </div>
@@ -59,8 +57,8 @@
 
 
 
-<div class="tableList">
-    <h4>Bany</h4><br />
+<div class="tableList" id="bansAdmin">
+    <h4>Bany</h4><input type="text" id="banSearch" class="searchAdmin" placeholder="Szukaj..." /><br />
     <button data-target="banAdd" class="btn modal-trigger banAdd">Zbanuj</button>
 
     <table class="highlight bordered responsive-table centered">
@@ -78,7 +76,7 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.User_Login</td>
+                    <td class="search">@item.User_Login</td>
                     <td>@item.Description</td>
                     <td>@item.StartDate</td>
                     <td>@item.FinishDate</td>
@@ -89,7 +87,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="banUpdate" class="btn-floating #00695c teal darken-3 modal-trigger banUpdate" onclick="updaterow(['inputID','inputLogin','inputDescription','inputFinishDate'], ['@item.ID','@item.User_Login','@item.Description','@item.FinishDate'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("Delete", "Ban", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteBan", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>
@@ -102,7 +100,17 @@
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/js/UpdateRow.js"></script>
 <script>
+    $('#bansAdmin').slimScroll({
+        size: '10px',
+        height: '600px',
+        alwaysVisible: true
+    });
+
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.banAdd').leanModal();
@@ -111,4 +119,5 @@
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
-    });</script>
+    });
+</script>

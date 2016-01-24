@@ -10,6 +10,7 @@ namespace Game.GUI.ViewModels.Message
     {
         public string[] userList { get; set; }
         public ItemMessageViewModel viewModel { get; set; }
-        public IPagedList<ItemMessageViewModel> listModel { get; set; }
+        public IPagedList<ItemMessageViewModel> pagedList { get; set; }
+        public List<ItemMessageViewModel> listModel { get; set; }
     }
 }

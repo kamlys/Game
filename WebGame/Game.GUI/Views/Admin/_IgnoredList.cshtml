@@ -1,46 +1,49 @@
-﻿@model Game.GUI.ViewModels.User.Admin.AdminViewModel
+﻿@model Game.GUI.ViewModels.User.Ignored.IgnoredViewModel
 @{
     Layout = null;
 }
 
-<div id="adminAdd" class="modal">
+<div id="ignoredAdminAdd" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddIgnored", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
                 @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate" })
                 <label for="User_Login">Login</label>
             </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Ignored_Login, new SelectList(Model.allUser), new { @class = "validate" })
+                <label for="User_Login">Login</label>
+            </div>
+
             <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
         }
     </div>
 </div>
 
-<div id="adminUpdate" class="modal">
+<div id="ignoredAdminUpdate" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("UpdateAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
+        @using (Html.BeginForm("UpdateIgnored", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+                @Html.HiddenFor(m => m.viewModel.User_ID, new { @placeholder = "", @class = "validate inputUserID" })
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
-                <label for="ID">ID</label>
-            </div>
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { @placeholder = "", @class = "validate inputLogin" })
-                <label for="Login">Login</label>
+                @Html.TextBoxFor(m => m.viewModel.Ignored_ID, new { @placeholder = "", @class = "validate inputFriendID" })
+                <label for="Ignored_ID">ID ignorowanego</label>
             </div>
             <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
         }
     </div>
 </div>
 
-<div class="tableList" id="adminsAdmin">
-    <h4>Admini</h4> <input type="text" id="adminSearch" class="searchAdmin" placeholder="Szukaj..." /><br />
-    <button data-target="adminAdd" class="btn modal-trigger adminAdd">Dodaj admina</button>
+<div class="tableList" id="ignoredAdmin">
+    <h4>Ignorowani</h4> <input type="text" id="adminSearch" class="searchAdmin" placeholder="Login..." /><br />
+    <button data-target="ignoredAdminAdd" class="btn modal-trigger ignoredAdminAdd">Dodaj ignora</button>
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
                 <th data-field="id">ID</th>
-                <th data-field="login">Login</th>
+                <th data-field="login">Login użytkownika</th>
+                <th data-field="ignoredLogin">Login ignorowanego</th>
             </tr>
         </thead>
         <tbody>
@@ -50,13 +53,14 @@
 
                     <td>@item.ID</td>
                     <td class="search">@item.User_Login</td>
+                    <td class="search">@item.Ignored_Login</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
                             <button class="btn btn-floating btn-large">
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="adminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger adminUpdate" onclick="updaterow(['inputID','inputLogin'], ['@item.ID','@item.User_Login'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="ignoredAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ignoredAdminUpdate" onclick="updaterow(['inputUserID','inputIgnoredID'], ['@item.User_ID','@item.Ignored_ID'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
@@ -72,14 +76,15 @@
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script src="~/Scripts/js/UpdateRow.js"></script>
 <script>
-    $('#adminsAdmin').slimScroll({
+
+    $('#ignoredAdmin').slimScroll({
         size: '10px',
         height: '600px',
         alwaysVisible: true
     });
 
     $(document).ready(function () {
-        $('.adminAdd').leanModal();
-        $('.adminUpdate').leanModal();
+        $('.ignoredAdminAdd').leanModal();
+        $('.ignoredAdminUpdate').leanModal();
     });
 </script>

@@ -9,6 +9,6 @@ namespace Game.GUI.ViewModels.Building.QueueBuilding
     public class QueueViewModel
     {
         public ItemQueueViewModel viewModel { get; set; }
-        public IPagedList<ItemQueueViewModel> listModel { get; set; }
+        public List<ItemQueueViewModel> listModel { get; set; }
     }
 }

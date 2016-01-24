@@ -33,28 +33,7 @@ namespace Game.GUI.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult _MarketList(int? Page_No)
-        {
-            MarketViewModel marketModel = new MarketViewModel();
-            int Size_Of_Page = 10;
-            int No_Of_Page = (Page_No ?? 1);
-            int temp = No_Of_Page;
-
-            marketModel.listModel = _marketService.GetOffer().Select(x => new ItemMarketViewModel
-            {
-                Number = x.Number,
-                ID = x.ID,
-                Price = x.Price,
-                Product_ID = x.Product_ID,
-                Product_Name = x.Product_Name,
-                TypeOffer = x.TypeOffer,
-                User_ID = x.User_ID,
-                User_Login = x.Login
-            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
-
-            return View("~/Views/Admin/_MarketList.cshtml", marketModel);
-        }
+        
 
         [Authorize]
         public ActionResult _SellOffer(int? Page_No)
@@ -63,7 +42,7 @@ namespace Game.GUI.Controllers
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
 
-            marketList.listModel = _marketService.GetSellOffer().Select(x => new ItemMarketViewModel
+            marketList.pagedList = _marketService.GetSellOffer().Select(x => new ItemMarketViewModel
             {
                 ID = x.ID,
                 User_Login = x.Login,
@@ -88,7 +67,7 @@ namespace Game.GUI.Controllers
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
 
-            marketList.listModel = _marketService.GetBuyOffer().Select(x => new ItemMarketViewModel
+            marketList.pagedList = _marketService.GetBuyOffer().Select(x => new ItemMarketViewModel
             {
                 ID = x.ID,
                 User_Login = x.Login,
@@ -206,38 +185,7 @@ namespace Game.GUI.Controllers
             }
         }
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult Add(MarketViewModel marketModel)
-        {
-            MarketDto _marketDto = new MarketDto();
-
-            _marketDto.Login = marketModel.viewModel.User_Login;
-            _marketDto.Product_Name = marketModel.viewModel.Product_Name;
-            _marketDto.Number = marketModel.viewModel.Number;
-            _marketDto.Price = marketModel.viewModel.Price;
-
-            _marketService.Add(_marketDto);
-
-            return View("~/Views/Admin/Admin.cshtml");
-        }
-
-        [HttpPost]
-        [Authorize]
-        public ActionResult Update(MarketViewModel marketModel)
-        {
-            MarketDto _marketDto = new MarketDto();
-
-            _marketDto.Login = marketModel.viewModel.User_Login;
-            _marketDto.Product_Name = marketModel.viewModel.Product_Name;
-            _marketDto.Number = marketModel.viewModel.Number;
-            _marketDto.Price = marketModel.viewModel.Price;
-
-            _marketService.Update(_marketDto);
-
-            return View("~/Views/Admin/Admin.cshtml");
-        }
-
+        
 
         [HttpGet]
         [Authorize]
@@ -247,13 +195,6 @@ namespace Game.GUI.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        [Authorize]
-        public ActionResult DeleteOfferAdmin(int id)
-        {
-            _marketService.Delete(id);
-            return View("~/Views/Admin/Admin.cshtml");
-        }
-
+        
     }
 }

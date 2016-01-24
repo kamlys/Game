@@ -10,7 +10,9 @@ namespace Game.Core.DTO
     {
         public int DealBuilding_ID { get; set; }
         public int User_ID { get; set; }
+        public string Login { get; set; }
         public int Building_ID { get; set; }
+        public string BuildingName { get; set; }
         public int Deal_ID { get; set; }
     }
 }

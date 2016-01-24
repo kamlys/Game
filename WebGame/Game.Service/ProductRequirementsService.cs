@@ -92,5 +92,62 @@ namespace Game.Service
 
             return productRDto;
         }
+
+        public List<ProductRequirementDto> GetProducts()
+        {
+            List<ProductRequirementDto> productDto = new List<ProductRequirementDto>();
+
+            try
+            {
+                foreach (var item in _productR.GetAll())
+                {
+                    productDto.Add(new ProductRequirementDto
+                    {
+                        ID = item.ID,
+                        Base_ID = item.Base_ID,
+                        Base_Name = _product.Get(item.Base_ID).Alias,
+                        Require_ID = item.Require_ID,
+                        Require_Name = _product.Get(item.Require_ID).Alias,
+                        Value = item.Value
+                    });
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return productDto;
+        }
+
+        public void AddProduct(ProductRequirementDto productDto)
+        {
+            _productR.Add(new ProductRequirements
+            {
+                Base_ID = _product.GetAll().First(i=> i.Alias == productDto.Base_Name).ID,
+                Require_ID = _product.GetAll().First(i=> i.Alias == productDto.Require_Name).ID,
+                Value = productDto.Value
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public void UpdateProduct(ProductRequirementDto productDto)
+        {
+            foreach (var item in _productR.GetAll().Where(i=>i.ID==productDto.ID))
+            {
+                item.Base_ID = item.Base_ID;
+                item.Require_ID = item.Require_ID;
+                item.Value = item.Value;
+            }
+
+            _unitOfWork.Commit();
+        }
+
+        public void DeleteProduct(int id)
+        {
+            _productR.Delete(_productR.Get(id));
+
+            _unitOfWork.Commit();
+        }
     }
 }

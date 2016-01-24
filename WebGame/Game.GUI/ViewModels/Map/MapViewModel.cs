@@ -16,7 +16,8 @@ namespace Game.GUI.ViewModels.Map
         public String ProductNames;
         public String BuildingsArray;
 
+        public string[] allUser { get; set; }
         public ItemMapViewModel viewModel { get; set; }
-        public IPagedList<ItemMapViewModel> listModel { get; set; }
+        public List<ItemMapViewModel> listModel { get; set; }
     }
 }

@@ -1,27 +1,70 @@
-﻿@model Game.GUI.RouteConfig
+﻿@model Game.GUI.ViewModels.User.LoginViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
+<div class="row clearfix">
     @if (!User.Identity.IsAuthenticated)
     {
-        <article class="uk-article" id="homeArticle">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dapibus ligula ex, eget cursus lorem finibus vel.
-            Sed faucibus justo magna, ut ullamcorper ex euismod et. Ut at ullamcorper sapien. Morbi vitae gravida purus. Nullam
-            volutpat est justo, eu posuere augue iaculis in. Nullam lorem mi, pretium ut enim et, egestas mattis est. Nulla auctor
-            nibh vel ultrices cursus. Integer cursus, elit nec hendrerit tristique, ex augue posuere libero, non vehicula ligula magna
-            id urna. Nullam pulvinar ullamcorper magna ac tincidunt. Cras eu vestibulum nisl. Mauris ultricies metus vel fringilla
-            venenatis. In a luctus velit. Proin consequat nibh nulla, vel lacinia dolor volutpat vel. Fusce est nibh, viverra in
-            bibendum vel, hendrerit sit amet leo.
+        <div class="col l1">&nbsp;</div>
+        <div class="col l6 s12 login-right">
+            <div class="login-inner loginForm ">
+                <img src="~/Content/Images/logo.png" class="responsive-img" />
+                @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <form>
+                        @Html.AntiForgeryToken()
 
-            Quisque sagittis mi ut justo vulputate placerat. Praesent malesuada dui quis velit eleifend ultrices. Nullam porta,
-            dui at eleifend sodales, ante lacus vehicula nulla, et tempus orci neque tincidunt mauris. Curabitur et auctor justo,
-            id sodales ipsum. Quisque laoreet lacus odio. Suspendisse consequat tincidunt risus, sed pulvinar tortor venenatis sit
-            amet. Praesent ultrices sapien erat, ut dapibus tortor luctus et. Nam viverra, lectus a viverra blandit, mi erat lobortis
-            urna, ut cursus felis lacus non augue.
-        </article>
+                        <div class="input-field col s12">
+                            @Html.TextBoxFor(m => m.Login, new { @class = "validate" })
+                            <label for="Login">Login</label>
+                        </div>
+                        <div class="input-field col s12">
+                            @Html.PasswordFor(m => m.Password, new { @class = "validate" })
+                            <label for="Password">Hasło</label>
+                        </div>
+
+
+                        <div class="loginButton">
+                            <div class="logowanieButton">
+                                <button type="submit" class="waves-effect waves-light btn-large">Zaloguj</button>
+                            </div>
+                            <div class="loginRegister right">
+                                <a href='@Url.Action("Register", "User")'>Utwórz konto</a><br />
+                                <a href='@Url.Action("RecoveryPassword", "User")'>Zapomniałeś hasła?</a>
+                            </div>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+        <div class="col l5 game-description center-block">
+            <article class="uk-article" id="homeArticle">
+                <p>Marzysz o wielkich pieniądzach? Chcesz sprawdzić swoje umiejętności w świecie biznesu?<br /> Dołącz do naszej społeczności i przekonaj się, że pierwszego miliona nie trzeba ukraść!</p>
+
+                <p>Pierwszy Milion to strategiczna gra przeglądarkowa, w której celem gracza jest wzbogacenie się. Stawiasz na wydobycie surowców? Handel? Opłacalne umowy z innymi graczami? A może zamierzasz przetwarzać kupione na rynku produkty? Wszystko zależy od Ciebie!</p>
+
+                <p>Zasady gry są bardzo proste: każdy gracz dostaje trochę funduszy i działkę. Co dalej? Buduj, sprzedawaj, buduj jeszcze więcej i bogać się!</p>
+
+                <p>
+                    Budynki dzielimy na dwie grupy: produkujące dobra oraz przetwarzające je.
+                    Przykładowo: zainwestuj w kopalnię złota oraz diamentu. Wydobyte dobra możesz od razu sprzedać na rynku lub... wyprodukować biżuterię, która jest więcej warta niż nieprzetworzone surowce.
+                </p>
+
+                <p>Chcesz wytwarzać bardziej złożone produkty, ale nie chcesz sam wydobywać niezbędnych surowców? Kup je na rynku! Czujesz, że przepłacasz za złoto, ale nie chcesz budować własnej kopalni? Zaproś znajomego do współpracy - podpiszcie umowę!</p>
+
+                <p>
+                    Zasady umów są następujące: proponujący umowę sugeruje podział kosztów. Zapłaciłeś 75 % ceny budowy kopalni - 75 % wydobywanego złota trafia do Ciebie. Jest jeden haczyk... budynek musi stać na działce jednego z graczy, więc wykaż się zdolnościami negocjacyjnymi i namów drugiego gracza na użyczenie miejsca na działce.
+                    Co zyskujesz podpisując umowę? Oczywiście czas, a jak wiadomo - czas to pieniądz!
+                </p>
+
+                <p>
+                    Zainteresowany? Zatem <a href='@Url.Action("Register", "User")'>zarejestuj</a>  się za darmo i wejdź do świata wielkich pieniędzy!
+                </p>
+            </article>
+        </div>
+
     }
     else
     {

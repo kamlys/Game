@@ -14,7 +14,7 @@
         @Html.Action("_Validation", "Validation")
     </div>
     <nav>
-        @if (!User.Identity.IsAuthenticated)
+        @*@if (!User.Identity.IsAuthenticated)
         {
             <div class="nav-wrapper" style="width: 360px">
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars"></i>Menu</a>
@@ -42,7 +42,7 @@
                     <li><a href='@Url.Action("Login", "User")'>Zaloguj</a></li>
                 </ul>
             </div>
-        }
+        }*@
 
 
         @if (User.Identity.IsAuthenticated)

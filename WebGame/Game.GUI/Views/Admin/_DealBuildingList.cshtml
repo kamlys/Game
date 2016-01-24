@@ -1,0 +1,108 @@
+﻿@model Game.GUI.ViewModels.Building.DealBuildings.DealBuildingViewModel
+@{
+    Layout = null;
+}
+
+<div id="dealBuildingAdd" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddDealBuilding", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate" })
+                <label for="User_Login">Login</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Building_Name, new SelectList(Model.allBuilding), new { @class = "validate" })
+                <label for="Building_Name">Budynek</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Deal_ID, new { placeholder = "", @class = "validate inputID" })
+                <label for="Deal_ID">ID umowy</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div id="dealBuildingUpdate" class="modal">
+    <div class="modal-content">
+        @using (Html.BeginForm("UpdateDealBuilding", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.User_ID, new { @placeholder = "", @class = "validate inputUserID" })
+                <label for="User_ID">ID użytkownika</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Building_ID, new { @placeholder = "", @class = "validate inputBuildingID" })
+                <label for="Building_ID">ID budynku</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Deal_ID, new { @placeholder = "", @class = "validate inputDealID" })
+                <label for="Deal_ID">ID budynku</label>
+            </div>
+            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+        }
+    </div>
+</div>
+
+<div class="tableList" id="dealBuildingaAdmin">
+    <h4>Budynki z umów</h4> <input type="text" id="DealBuildingSearch" class="searchAdmin" placeholder="Szukaj..." /><br />
+    <button data-target="dealBuildingAdd" class="btn modal-trigger dealBuildingAdd">Dodaj budynek</button>
+    <table class="highlight bordered responsive-table centered">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="userID">ID użytkownika</th>
+                <th data-field="login">Login</th>
+                <th data-field="buildingID">ID budynku</th>
+                <th data-field="buildingName">Nazwa budynku</th>
+                <th data-field="dealID">ID umowy</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.listModel)
+            {
+                <tr>
+
+                    <td>@item.ID</td>
+                    <td>@item.User_ID</td>
+                    <td>@item.User_Login</td>
+                    <td>@item.Building_ID</td>
+                    <td>@item.Building_Name</td>
+                    <td>@item.Deal_ID</td>
+
+                    <td>
+                        <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
+                            <button class="btn btn-floating btn-large">
+                                <i class="fa fa-align-justify #00695c teal darken-5"></i>
+                            </button>
+                            <ul>
+                                <li><button data-target="dealBuildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger dealBuildingUpdate" onclick="updaterow(['inputID','inputUserID','inputBuildingID','inputDealID'], ['@item.ID','@item.User_ID','@item.Building_ID', '@item.Deal_ID'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteDealBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
+<script src="~/Scripts/js/UpdateRow.js"></script>
+<script>
+
+    $('#dealBuildingAdmin').slimScroll({
+        size: '10px',
+        height: '600px',
+        alwaysVisible: true
+    });
+
+    $(document).ready(function () {
+        $('.dealBuildingAdd').leanModal();
+        $('.dealBuildingUpdate').leanModal();
+    });
+</script>

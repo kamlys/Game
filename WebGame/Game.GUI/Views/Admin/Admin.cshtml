@@ -3,34 +3,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="row">
+<div class="adminDiv">
     <div class="col s12">
         <ul class="tabs">
-            <li class="tab col s3"><a href="#Użytkownicy">Użytkownicy</a></li>
-            <li class="tab col s3"><a href="#Admini">Admini</a></li>
-            <li class="tab col s3"><a href="#Bany">Bany</a></li>
-            <li class="tab col s3"><a href="#Dolar">Dolar</a></li>
-            <li class="tab col s3"><a href="#Mapy">Mapy</a></li>
-            <li class="tab col s3"><a href="#MarketList">Market</a></li>
-            <li class="tab col s3"><a href="#Produkty">Produkty</a></li>
-            <li class="tab col s3"><a href="#Budynki">Budynki</a></li>
-            <li class="tab col s3"><a href="#Budynki_użytkownika">Budynki użytkownika</a></li>
-            <li class="tab col s3"><a href="#Produkty_użytkownika">Produkty użytkownika</a></li>
-            <li class="tab col s3"><a href="#Kolejka_budowy">Kolejka budowy</a></li>
+            <li class="tab col s3"><a href="#Users">Użytkownicy</a></li>
+            <li class="tab col s3"><a href="#Admins">Admini</a></li>
+            <li class="tab col s3"><a href="#Bans">Bany</a></li>
+            <li class="tab col s3"><a href="#Dolars">Dolar</a></li>
+            <li class="tab col s3"><a href="#Maps">Mapy</a></li>
+            <li class="tab col s3"><a href="#Market">Market</a></li>
+            <li class="tab col s3"><a href="#Products">Produkty</a></li>
+            <li class="tab col s3"><a href="#Buildings">Budynki</a></li>
+            <li class="tab col s3"><a href="#UserBuildings">Budynki użytkownika</a></li>
+            <li class="tab col s3"><a href="#UserProducts">Produkty użytkownika</a></li>
+            <li class="tab col s3"><a href="#BuildingQueue">Kolejka budowy</a></li>
+            <li class="tab col s3"><a href="#Deals">Umowy</a></li>
+            <li class="tab col s3"><a href="#DealBuildings">Budynki z umów</a></li>
+            <li class="tab col s3"><a href="#Friends">Znajomi</a></li>
+            <li class="tab col s3"><a href="#Ignored">Ignorowani</a></li>
+            <li class="tab col s3"><a href="#Messages">Wiadomości</a></li>
+            <li class="tab col s3"><a href="#ProductRequirements">Produkty do stworzenia</a></li>
+            @*<li class="tab col s3"><a href="#Kolejka_budowy">Powiadomienia</a></li>
+
+            <li class="tab col s3"><a href="#Kolejka_budowy">Kody</a></li>*@
         </ul>
     </div>
-    <div id="Użytkownicy" class="col s12">@Html.Action("_UserList", "User")</div>
-    <div id="Admini" class="col s12">@Html.Action("_AdminList", "Admin")</div>
-    <div id="Bany" class="col s12">@Html.Action("_BanList", "Ban")</div>
-    <div id="Dolar" class="col s12">@Html.Action("_DolarList", "Dolar")</div>
-    <div id="Mapy" class="col s12">@Html.Action("_MapList", "Map")</div>
-    <div id="MarketList" class="col s12">@Html.Action("_MarketList", "Market")</div>
-    <div id="Produkty" class="col s12">@Html.Action("_ProductList", "Product")</div>
-    <div id="Budynki" class="col s12">@Html.Action("_BuildingList2", "Building")</div>
-    <div id="Budynki_użytkownika" class="col s12">@Html.Action("_UserBuildingList", "UserBuilding")</div>
-    <div id="Produkty_użytkownika" class="col s12">@Html.Action("_UserProductList", "UserProduct")</div>
-    <div id="Kolejka_budowy" class="col s12">@Html.Action("_BuildingQueueList", "BuildingQueue")</div>
+
+    <div id="Users" class="col s12">@Html.Action("_UserList", "Admin")</div>
+    <div id="Admins" class="col s12">@Html.Action("_AdminList", "Admin")</div>
+    <div id="Bans" class="col s12">@Html.Action("_BanList", "Admin")</div>
+    <div id="Dolars" class="col s12">@Html.Action("_DolarList", "Admin")</div>
+    <div id="Maps" class="col s12">@Html.Action("_MapList", "Admin")</div>
+    <div id="Market" class="col s12">@Html.Action("_MarketList", "Admin")</div>
+    <div id="Products" class="col s12">@Html.Action("_ProductList", "Admin")</div>
+    <div id="Buildings" class="col s12">@Html.Action("_BuildingList", "Admin")</div>
+    <div id="UserBuildings" class="col s12">@Html.Action("_UserBuildingList", "Admin")</div>
+    <div id="UserProducts" class="col s12">@Html.Action("_UserProductList", "Admin")</div>
+    <div id="BuildingQueue" class="col s12">@Html.Action("_BuildingQueueList", "Admin")</div>
+    <div id="Deals" class="col s12">@Html.Action("_DealList", "Admin")</div>
+    <div id="DealBuildings" class="col s12">@Html.Action("_DealBuildingList", "Admin")</div>
+    <div id="Friends" class="col s12">@Html.Action("_FriendList", "Admin")</div>
+    <div id="Ignored" class="col s12">@Html.Action("_IgnoredList", "Admin")</div>
+    <div id="Messages" class="col s12">@Html.Action("_MessageList", "Admin")</div>
+    <div id="ProductRequirements" class="col s12">@Html.Action("_ProductRequirementList", "Admin")</div>
 </div>
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
@@ -38,5 +53,20 @@
 <script>
     $(document).ready(function () {
         $('ul.tabs').tabs('select_tab', 'tab_id');
+        $('select').material_select();
+    });
+
+    $(".tab").click(function () {
+        $("table tr").each(function (index) {
+            $(this).show();
+        });
+    });
+
+    $(".searchAdmin").on("keyup", function () {
+        var value = $(this).val();
+
+
+        var id = $('table tr').hide().filter(":contains(" + value + ")").show();
+
     });
 </script>

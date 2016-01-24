@@ -27,27 +27,6 @@ namespace Game.GUI.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult _UserBuildingList(int? Page_No)
-        {
-            UserBuildingsViewModel userBuildingModel = new UserBuildingsViewModel();
-            int Size_Of_Page = 10;
-            int No_Of_Page = (Page_No ?? 1);
-            userBuildingModel.pagedList = _userBuildingService.GetUserBuilding().Where(i => !i.Owner).Select(x => new ItemUserBuildingViewModel
-            {
-                ID = x.ID,
-                User_ID = x.User_ID,
-                User_Login = x.Login,
-                X_pos = x.X_pos,
-                Y_pos = x.Y_pos,
-                Lvl = x.Lvl,
-                Building_ID = x.Building_ID,
-                Building_Name = x.Building_Name,
-                Status = x.Status
-            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
-
-            return View("~/Views/Admin/_UserBuildingList.cshtml", userBuildingModel);
-        }
 
         [Authorize]
         public ActionResult _DealBuildings()
@@ -69,56 +48,6 @@ namespace Game.GUI.Controllers
             return View("~/Views/Building/_DealBuildings.cshtml", buildingList);
         }
 
-
-        [HttpPost]
-        [Authorize]
-        public ActionResult Add(UserBuildingsViewModel userBuildingModel)
-        {
-            UserBuildingDto _userBuildingDto = new UserBuildingDto();
-
-            _userBuildingDto.User_ID = userBuildingModel.viewModel.User_ID;
-            _userBuildingDto.Login = userBuildingModel.viewModel.User_Login;
-            _userBuildingDto.X_pos = userBuildingModel.viewModel.X_pos;
-            _userBuildingDto.Y_pos = userBuildingModel.viewModel.Y_pos;
-            _userBuildingDto.Lvl = userBuildingModel.viewModel.Lvl;
-            _userBuildingDto.Building_ID = userBuildingModel.viewModel.Building_ID;
-            _userBuildingDto.Building_Name = userBuildingModel.viewModel.Building_Name;
-            _userBuildingDto.Status = userBuildingModel.viewModel.Status;
-
-            _userBuildingService.Add(_userBuildingDto);
-
-            return View("~/Views/Admin/Admin.cshtml");
-        }
-
-        [HttpPost]
-        [Authorize]
-        public ActionResult Update(UserBuildingsViewModel userBuildingModel)
-        {
-            UserBuildingDto _userBuildingDto = new UserBuildingDto();
-
-            _userBuildingDto.ID = userBuildingModel.viewModel.ID;
-            _userBuildingDto.User_ID = userBuildingModel.viewModel.User_ID;
-            _userBuildingDto.Login = userBuildingModel.viewModel.User_Login;
-            _userBuildingDto.X_pos = userBuildingModel.viewModel.X_pos;
-            _userBuildingDto.Y_pos = userBuildingModel.viewModel.Y_pos;
-            _userBuildingDto.Lvl = userBuildingModel.viewModel.Lvl;
-            _userBuildingDto.Building_ID = userBuildingModel.viewModel.Building_ID;
-            _userBuildingDto.Building_Name = userBuildingModel.viewModel.Building_Name;
-            _userBuildingDto.Status = userBuildingModel.viewModel.Status;
-
-            _userBuildingService.Update(_userBuildingDto);
-
-            return View("~/Views/Admin/Admin.cshtml");
-        }
-
-
-        [HttpGet]
-        [Authorize]
-        public ActionResult Delete(int id)
-        {
-            _userBuildingService.Delete(id);
-            return View("~/Views/Admin/Admin.cshtml");
-        }
 
         [HttpGet]
         [Authorize]

@@ -120,5 +120,64 @@ namespace Game.Service
 
             return message;
         }
+
+        public List<MessageDto> GetMessage()
+        {
+            List<MessageDto> messageDto = new List<MessageDto>();
+
+            foreach (var item in _message.GetAll())
+            {
+                messageDto.Add(new MessageDto
+                {
+                    Content = item.Content,
+                    Customer_ID = item.Customer_ID,
+                    Customer_Login = _user.GetAll().First(i => i.ID == item.Customer_ID).Login,
+                    ID = item.ID,
+                    IfRead = item.IfRead,
+                    PostDate = item.PostDate,
+                    Sender_ID = item.Sender_ID,
+                    Sender_Login = _user.GetAll().First(i=> i.ID == item.Sender_ID).Login,
+                    Theme = item.Theme
+                });
+            }
+
+            return messageDto;
+        }
+
+        public void AddMessageAdmin(MessageDto messageDto)
+        {
+            _message.Add(new Messages
+            {
+                Theme = messageDto.Theme,
+                Content = messageDto.Content,
+                Customer_ID = _user.GetAll().First(i => i.Login == messageDto.Customer_Login).ID,
+                IfRead = messageDto.IfRead,
+                PostDate = messageDto.PostDate,
+                Sender_ID = _user.GetAll().First(i => i.Login == messageDto.Sender_Login).ID
+            });
+
+            _unitOfWork.Commit();
+        }
+
+        public void UpdateMessageAdmin(MessageDto messageDto)
+        {
+            foreach (var item in _message.GetAll().Where(i=> i.ID == messageDto.ID))
+            {
+                item.IfRead = messageDto.IfRead;
+                item.PostDate = messageDto.PostDate;
+                item.Sender_ID = messageDto.Sender_ID;
+                item.Content = messageDto.Content;
+                item.Customer_ID = messageDto.Customer_ID;
+                item.Theme = messageDto.Theme;
+            }
+
+            _unitOfWork.Commit();
+        }
+
+        public void DeleteMessageAdmin(int id)
+        {
+            _message.Delete(_message.Get(id));
+            _unitOfWork.Commit();
+        }
     }
 }
