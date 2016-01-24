@@ -1,0 +1,1108 @@
+-- --------------------------------------------------------
+-- Host:                         mssql.webserwer.pl,54339
+-- Wersja serwera:               Microsoft SQL Server 2008 R2 (RTM) - 10.50.1600.1
+-- Serwer OS:                    Windows NT 6.1 <X64> (Build 7600: )
+-- HeidiSQL Wersja:              9.3.0.4984
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES  */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Zrzut struktury bazy danych game_BusinessDb
+CREATE DATABASE IF NOT EXISTS "game_BusinessDb";
+USE "game_BusinessDb";
+
+
+-- Zrzut struktury tabela game_BusinessDb.Admins
+CREATE TABLE IF NOT EXISTS "Admins" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	UNIQUE KEY ("User_ID"),
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Admins: -1 rows
+/*!40000 ALTER TABLE "Admins" DISABLE KEYS */;
+INSERT INTO "Admins" ("ID", "User_ID") VALUES
+	(1, 62),
+	(12, 63),
+	(16, 64),
+	(17, 65),
+	(22, 73),
+	(19, 76);
+/*!40000 ALTER TABLE "Admins" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Bans
+CREATE TABLE IF NOT EXISTS "Bans" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Description" NVARCHAR(max) NOT NULL,
+	"Start_Date" DATETIME(3) NOT NULL,
+	"Finish_Date" DATETIME(3) NOT NULL,
+	UNIQUE KEY ("User_ID"),
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Bans: -1 rows
+/*!40000 ALTER TABLE "Bans" DISABLE KEYS */;
+/*!40000 ALTER TABLE "Bans" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.BuildingQueue
+CREATE TABLE IF NOT EXISTS "BuildingQueue" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"UserBuilding_ID" INT(10,0) NOT NULL,
+	"FinishTime" DATETIME2(0) NULL DEFAULT NULL,
+	"NewStatus" NVARCHAR(50) NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.BuildingQueue: -1 rows
+/*!40000 ALTER TABLE "BuildingQueue" DISABLE KEYS */;
+INSERT INTO "BuildingQueue" ("ID", "User_ID", "UserBuilding_ID", "FinishTime", "NewStatus") VALUES
+	(365, 63, 684, '2016-01-24 13:21:42', 'gotowy'),
+	(371, 64, 690, '2016-01-24 15:01:48', 'gotowy');
+/*!40000 ALTER TABLE "BuildingQueue" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Buildings
+CREATE TABLE IF NOT EXISTS "Buildings" (
+	"ID" INT(10,0) NOT NULL,
+	"Name" NVARCHAR(200) NOT NULL,
+	"Price" INT(10,0) NOT NULL,
+	"Percent_price_per_lvl" INT(10,0) NOT NULL,
+	"Width" INT(10,0) NOT NULL,
+	"Height" INT(10,0) NOT NULL,
+	"Product_per_sec" INT(10,0) NOT NULL,
+	"Dest_price" FLOAT(53) NOT NULL,
+	"Percent_product_per_lvl" INT(10,0) NOT NULL,
+	"Product_ID" INT(10,0) NOT NULL,
+	"Alias" NVARCHAR(100) NOT NULL,
+	"BuildingTime" INT(10,0) NOT NULL,
+	"DestructionTime" INT(10,0) NOT NULL,
+	"Stock" BIT NOT NULL DEFAULT ((0)),
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Buildings: -1 rows
+/*!40000 ALTER TABLE "Buildings" DISABLE KEYS */;
+INSERT INTO "Buildings" ("ID", "Name", "Price", "Percent_price_per_lvl", "Width", "Height", "Product_per_sec", "Dest_price", "Percent_product_per_lvl", "Product_ID", "Alias", "BuildingTime", "DestructionTime", "Stock") VALUES
+	(19, 'Tartak', 20000, 15, 2, 2, 3, 5000, 12, 11, 'Tartak', 720, 40, 'True'),
+	(20, 'Zwirownia', 80000, 15, 2, 2, 3, 30000, 12, 13, 'Żwirownia', 60, 40, 'True'),
+	(21, 'Kopalnia_wegla', 100000, 18, 4, 4, 1, 70000, 15, 7, 'Kopalnia węgla', 60, 40, 'True'),
+	(22, 'Szyb_naftowy', 150000, 12, 3, 3, 2, 70000, 12, 12, 'Szyb naftowy', 60, 40, 'True'),
+	(23, 'Kopalnia_diamentow', 300000, 12, 4, 4, 1, 100000, 13, 10, 'Kopalnia diamentów', 60, 40, 'True'),
+	(27, 'Kopalnia_zlota', 290000, 13, 4, 4, 1, 89000, 11, 16, 'Kopalnia złota', 120, 100, 'True'),
+	(28, 'Huta_zelaza', 90000, 17, 3, 3, 2, 67000, 14, 15, 'Huta żelaza', 100, 50, 'True'),
+	(29, 'Stolarnia', 50000, 12, 3, 3, 1, 35000, 13, 17, 'Stolarnia', 80, 35, 'False'),
+	(30, 'Jubiler', 130000, 10, 3, 3, 1, 100000, 10, 18, 'Jubiler', 95, 55, 'False');
+/*!40000 ALTER TABLE "Buildings" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Deals
+CREATE TABLE IF NOT EXISTS "Deals" (
+	"ID" INT(10,0) NOT NULL,
+	"User1_ID" INT(10,0) NOT NULL,
+	"User2_ID" INT(10,0) NOT NULL,
+	"Building_ID" INT(10,0) NOT NULL,
+	"Map_ID" INT(10,0) NOT NULL,
+	"Percent_User1" INT(10,0) NOT NULL,
+	"Percent_User2" INT(10,0) NOT NULL,
+	"FinishDate" DATETIME2(0) NOT NULL,
+	"DayTime" INT(10,0) NOT NULL,
+	"IsActive" BIT NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Deals: -1 rows
+/*!40000 ALTER TABLE "Deals" DISABLE KEYS */;
+INSERT INTO "Deals" ("ID", "User1_ID", "User2_ID", "Building_ID", "Map_ID", "Percent_User1", "Percent_User2", "FinishDate", "DayTime", "IsActive") VALUES
+	(11, 62, 64, 19, 46, 50, 50, '2016-02-07 22:02:33', 20, 'True'),
+	(12, 64, 84, 28, 62, 50, 50, '2016-02-08 12:09:47', 20, 'False'),
+	(13, 64, 62, 19, 44, 30, 70, '2016-02-11 16:54:57', 20, 'False'),
+	(16, 64, 65, 28, 47, 50, 50, '2016-02-11 17:01:14', 20, 'False');
+/*!40000 ALTER TABLE "Deals" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.DealsBuildings
+CREATE TABLE IF NOT EXISTS "DealsBuildings" (
+	"ID" INT(10,0) NOT NULL,
+	"Building_ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Deal_ID" INT(10,0) NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.DealsBuildings: -1 rows
+/*!40000 ALTER TABLE "DealsBuildings" DISABLE KEYS */;
+/*!40000 ALTER TABLE "DealsBuildings" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Dolars
+CREATE TABLE IF NOT EXISTS "Dolars" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Value" INT(10,0) NOT NULL,
+	UNIQUE KEY ("User_ID"),
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Dolars: -1 rows
+/*!40000 ALTER TABLE "Dolars" DISABLE KEYS */;
+INSERT INTO "Dolars" ("ID", "User_ID", "Value") VALUES
+	(5, 62, 3788633),
+	(6, 63, 581545227),
+	(7, 64, 44595812),
+	(8, 65, 6807200),
+	(11, 68, 1000),
+	(12, 70, 1000),
+	(13, 71, 1000),
+	(14, 72, 1000),
+	(15, 73, 1000),
+	(16, 74, 1000),
+	(17, 75, 1000),
+	(18, 76, 1000),
+	(22, 80, 20000),
+	(23, 84, 3441655),
+	(24, 85, 20000);
+/*!40000 ALTER TABLE "Dolars" ENABLE KEYS */;
+
+
+-- Zrzut struktury funkcja game_BusinessDb.fn_diagramobjects
+DELIMITER //
+
+	CREATE FUNCTION dbo.fn_diagramobjects() 
+	RETURNS int
+	WITH EXECUTE AS N'dbo'
+	AS
+	BEGIN
+		declare @id_upgraddiagrams		int
+		declare @id_sysdiagrams			int
+		declare @id_helpdiagrams		int
+		declare @id_helpdiagramdefinition	int
+		declare @id_creatediagram	int
+		declare @id_renamediagram	int
+		declare @id_alterdiagram 	int 
+		declare @id_dropdiagram		int
+		declare @InstalledObjects	int
+
+		select @InstalledObjects = 0
+
+		select 	@id_upgraddiagrams = object_id(N'dbo.sp_upgraddiagrams'),
+			@id_sysdiagrams = object_id(N'dbo.sysdiagrams'),
+			@id_helpdiagrams = object_id(N'dbo.sp_helpdiagrams'),
+			@id_helpdiagramdefinition = object_id(N'dbo.sp_helpdiagramdefinition'),
+			@id_creatediagram = object_id(N'dbo.sp_creatediagram'),
+			@id_renamediagram = object_id(N'dbo.sp_renamediagram'),
+			@id_alterdiagram = object_id(N'dbo.sp_alterdiagram'), 
+			@id_dropdiagram = object_id(N'dbo.sp_dropdiagram')
+
+		if @id_upgraddiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 1
+		if @id_sysdiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 2
+		if @id_helpdiagrams is not null
+			select @InstalledObjects = @InstalledObjects + 4
+		if @id_helpdiagramdefinition is not null
+			select @InstalledObjects = @InstalledObjects + 8
+		if @id_creatediagram is not null
+			select @InstalledObjects = @InstalledObjects + 16
+		if @id_renamediagram is not null
+			select @InstalledObjects = @InstalledObjects + 32
+		if @id_alterdiagram  is not null
+			select @InstalledObjects = @InstalledObjects + 64
+		if @id_dropdiagram is not null
+			select @InstalledObjects = @InstalledObjects + 128
+		
+		return @InstalledObjects 
+	END
+	//
+DELIMITER ;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Friends
+CREATE TABLE IF NOT EXISTS "Friends" (
+	"Id" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Friend_ID" INT(10,0) NOT NULL,
+	"OrAccepted" BIT NOT NULL,
+	PRIMARY KEY ("Id")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Friends: -1 rows
+/*!40000 ALTER TABLE "Friends" DISABLE KEYS */;
+INSERT INTO "Friends" ("Id", "User_ID", "Friend_ID", "OrAccepted") VALUES
+	(229, 65, 71, 'True'),
+	(232, 64, 72, 'False'),
+	(247, 62, 64, 'True'),
+	(248, 84, 64, 'True');
+/*!40000 ALTER TABLE "Friends" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Ignored
+CREATE TABLE IF NOT EXISTS "Ignored" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Ignored_ID" INT(10,0) NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Ignored: -1 rows
+/*!40000 ALTER TABLE "Ignored" DISABLE KEYS */;
+INSERT INTO "Ignored" ("ID", "User_ID", "Ignored_ID") VALUES
+	(7, 74, 65),
+	(9, 65, 64);
+/*!40000 ALTER TABLE "Ignored" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Maps
+CREATE TABLE IF NOT EXISTS "Maps" (
+	"Map_ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Width" INT(10,0) NOT NULL,
+	"Height" INT(10,0) NOT NULL,
+	UNIQUE KEY ("User_ID"),
+	PRIMARY KEY ("Map_ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Maps: -1 rows
+/*!40000 ALTER TABLE "Maps" DISABLE KEYS */;
+INSERT INTO "Maps" ("Map_ID", "User_ID", "Width", "Height") VALUES
+	(44, 62, 10, 10),
+	(45, 63, 10, 10),
+	(46, 64, 10, 10),
+	(47, 65, 10, 10),
+	(50, 68, 10, 10),
+	(51, 70, 10, 10),
+	(52, 71, 10, 10),
+	(53, 72, 10, 10),
+	(54, 73, 10, 10),
+	(55, 74, 10, 10),
+	(56, 75, 10, 10),
+	(61, 80, 10, 10),
+	(62, 84, 10, 10),
+	(63, 85, 10, 10);
+/*!40000 ALTER TABLE "Maps" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Market
+CREATE TABLE IF NOT EXISTS "Market" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Product_ID" INT(10,0) NOT NULL,
+	"Number" INT(10,0) NOT NULL,
+	"Price" INT(10,0) NOT NULL,
+	"TypeOffer" BIT NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Market: -1 rows
+/*!40000 ALTER TABLE "Market" DISABLE KEYS */;
+/*!40000 ALTER TABLE "Market" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Messages
+CREATE TABLE IF NOT EXISTS "Messages" (
+	"ID" INT(10,0) NOT NULL,
+	"Sender_ID" INT(10,0) NOT NULL,
+	"Customer_ID" INT(10,0) NOT NULL,
+	"Theme" NVARCHAR(150) NOT NULL,
+	"Content" NVARCHAR(max) NOT NULL,
+	"PostDate" DATETIME2(0) NOT NULL,
+	"IfRead" BIT NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Messages: -1 rows
+/*!40000 ALTER TABLE "Messages" DISABLE KEYS */;
+INSERT INTO "Messages" ("ID", "Sender_ID", "Customer_ID", "Theme", "Content", "PostDate", "IfRead") VALUES
+	(199, 64, 63, 'pijbn', 'wiadomość', '2015-12-12 11:11:50', 'False'),
+	(200, 64, 63, 'gsdnojg', 'sgsdgdsg', '2015-12-12 11:14:07', 'False'),
+	(202, 64, 63, 'ojb', 'o[''j', '2015-12-12 11:18:00', 'False'),
+	(204, 64, 63, 'ojn', '''psdg', '2015-12-12 11:21:59', 'False'),
+	(205, 64, 63, 'gsdo[jn', '[ojnd', '2015-12-12 11:29:10', 'False'),
+	(206, 64, 63, ';oj;b', ';pbi', '2015-12-12 11:31:32', 'False'),
+	(207, 64, 63, 'ojh', 'fsdfsd', '2015-12-12 11:31:55', 'False'),
+	(208, 64, 63, 'o[h', 'pksfdg', '2015-12-12 11:34:45', 'False'),
+	(209, 64, 63, 'o['';kjh', 'o[]sdgsd', '2015-12-12 11:39:46', 'False'),
+	(210, 64, 63, 'o[ih', '[pnko', '2015-12-12 11:40:53', 'True'),
+	(211, 64, 63, 'laga', 'l;ijksgdsd', '2015-12-12 14:42:36', 'False'),
+	(212, 64, 63, 'ojigf', 'pibsdgsg', '2015-12-12 14:44:21', 'False'),
+	(213, 64, 63, ';sjkbg', 'pihbjsdfsdf', '2015-12-12 14:50:43', 'False'),
+	(214, 64, 63, 'pio;jbn', '[onjsdfsf', '2015-12-12 14:51:06', 'False'),
+	(215, 64, 63, ';oijbsdgsibjn', 'hipbsgsdg', '2015-12-12 14:53:08', 'False'),
+	(216, 64, 63, 'gas', 'ag', '2015-12-12 14:53:31', 'False'),
+	(217, 64, 63, 'ojpibsgjiobn', 'iphbdsgsdg', '2015-12-12 14:54:41', 'False'),
+	(218, 64, 63, 'ojbsdjgn', 'ojnsdfsdf', '2015-12-12 14:56:21', 'False'),
+	(219, 64, 63, 'ojdsb', 'pnsdgsdfgsdg', '2015-12-12 14:57:51', 'False'),
+	(220, 62, 63, 'aeifgoeafgo', 'aegeagargbdrrf', '2015-12-12 14:59:54', 'False'),
+	(226, 64, 62, 'qwe', 'qwe', '2015-12-17 20:00:38', 'True'),
+	(227, 62, 64, 'Re: qwe', 'qwe', '2015-12-17 21:00:56', 'False'),
+	(228, 64, 62, 'qwe', 'qwe', '2015-12-17 21:52:04', 'False'),
+	(229, 62, 71, 'Siema', 'Działają powiadomienia ??', '2015-12-17 22:29:14', 'False'),
+	(230, 62, 65, 'Siema', 'Karwa działa xD', '2015-12-17 22:31:51', 'True'),
+	(231, 65, 62, 'Re: Siema', 'nie', '2015-12-17 22:32:16', 'False'),
+	(232, 65, 62, 'Re: Siema', 'asdasd', '2015-12-17 22:37:02', 'True'),
+	(233, 62, 65, 'Re: Re: Siema', 'Ale powiem ci że działa dużo szybciej niż na lokalu :D', '2015-12-17 22:41:30', 'True'),
+	(234, 65, 62, 'Re: Re: Re: Siema', 'rererererrereeererere', '2015-12-17 22:54:05', 'True'),
+	(236, 62, 65, 'Test', 'Test', '2015-12-17 22:59:14', 'False'),
+	(237, 62, 64, 'qwe', 'qwewqeqwe', '2015-12-23 19:26:27', 'False'),
+	(238, 64, 65, 'Cześć', 'Co tam ?', '2015-12-23 19:34:02', 'True'),
+	(239, 65, 64, 'Re: Cześć', 'Spoko, a tam?
+', '2015-12-23 19:58:40', 'False'),
+	(240, 62, 65, 'Re: Re: Re: Re: Siema', 'test', '2015-12-23 21:07:46', 'True'),
+	(241, 64, 62, 'Test', 'test', '2015-12-23 21:09:55', 'False'),
+	(242, 62, 64, 'test', 'test', '2015-12-23 21:11:00', 'True'),
+	(243, 62, 64, 'test', 'test', '2015-12-23 21:11:13', 'False'),
+	(244, 62, 64, 'test', 'test', '2015-12-23 21:12:25', 'False'),
+	(245, 62, 64, 'qwe', 'qwe', '2015-12-23 21:13:26', 'True'),
+	(246, 64, 62, 'Re: qwe', 'qwe', '2015-12-23 21:14:23', 'False'),
+	(247, 64, 62, 'Działa coś ', '???', '2015-12-28 22:37:03', 'False'),
+	(248, 64, 62, 'HALO', 'DZIAŁA COŚ ?', '2015-12-28 22:41:45', 'True'),
+	(249, 64, 62, 'QQQQ', 'QQQQQQ', '2015-12-28 22:44:01', 'False'),
+	(250, 64, 62, 'qweqewqerq', 'ftefgaefefaergrdgrfgfgh', '2015-12-28 22:45:28', 'False'),
+	(251, 65, 62, 'aegtagragr', 'fgarfgafgrfgh', '2015-12-28 22:45:58', 'False'),
+	(252, 65, 64, 'qwe', 'qwe', '2015-12-28 22:47:10', 'True'),
+	(253, 65, 64, 'qwe', 'qwe', '2015-12-28 22:47:21', 'True'),
+	(254, 64, 65, 'test', 'test', '2015-12-30 14:25:55', 'False'),
+	(255, 64, 84, 'Siema', 'Działa?', '2016-01-03 22:25:33', 'True'),
+	(256, 64, 84, 'SSSS', 'SSSS', '2016-01-03 22:26:36', 'True'),
+	(257, 84, 64, 'Re: Siema', 'n co jest k', '2016-01-03 22:26:43', 'True'),
+	(258, 64, 84, 'Re: Re: Siema', 'O karwa :D', '2016-01-03 22:27:04', 'True'),
+	(259, 64, 63, 'qwe', 'qwe', '2016-01-07 15:49:07', 'False'),
+	(260, 64, 63, 'aaaaaaaaaaaaaaaaaaaaaaaaaa', 'aaaaaaaaaaaaaaa', '2016-01-07 16:04:53', 'True'),
+	(261, 64, 62, 'qwe', 'qwe', '2016-01-14 22:48:44', 'True'),
+	(263, 64, 62, 'qwe', 'qwe', '2016-01-16 16:40:29', 'False'),
+	(264, 64, 62, 'qwe', 'qwe', '2016-01-16 16:56:23', 'False'),
+	(265, 64, 62, 'qwe', 'qwe', '2016-01-16 16:57:25', 'False'),
+	(266, 64, 62, 'qwe', 'qwe', '2016-01-16 16:58:13', 'False'),
+	(267, 64, 62, 'qwe', 'qwe', '2016-01-16 17:00:08', 'False'),
+	(268, 64, 62, 'qwe', 'qwe', '2016-01-16 17:00:35', 'False'),
+	(269, 64, 62, 'qwe', 'qe', '2016-01-16 17:03:21', 'False'),
+	(270, 64, 62, 'qwe', 'qe', '2016-01-16 17:03:33', 'False'),
+	(271, 64, 62, 'qwe', 'qwe', '2016-01-16 17:04:42', 'False'),
+	(272, 64, 62, 'qwe', 'qwe', '2016-01-16 17:07:07', 'False'),
+	(273, 64, 62, 'qew', 'qwe', '2016-01-16 17:07:25', 'False'),
+	(274, 64, 62, 'qwe', 'qwe', '2016-01-16 18:01:30', 'True'),
+	(275, 62, 64, 'qwe', 'qwe', '2016-01-16 23:53:31', 'False'),
+	(276, 62, 64, 'qwe', 'qwe', '2016-01-16 23:55:28', 'False'),
+	(277, 62, 64, 'qwe', 'qwe', '2016-01-16 23:56:37', 'False'),
+	(278, 62, 64, 'qwe', 'qwe', '2016-01-16 23:58:21', 'False'),
+	(279, 62, 64, 'qwe', 'qwe', '2016-01-17 00:02:44', 'False'),
+	(280, 62, 64, 'qwe', 'qwe', '2016-01-17 00:04:20', 'False'),
+	(281, 62, 64, 'qwe', 'qwe', '2016-01-17 00:07:01', 'True'),
+	(282, 62, 64, 'qwe', 'qwe', '2016-01-17 00:07:52', 'False'),
+	(283, 62, 64, 'qwe', 'qwe', '2016-01-17 00:08:11', 'False'),
+	(284, 64, 62, 'qwe', 'qwe', '2016-01-17 13:21:01', 'True'),
+	(285, 64, 62, 'asd', 'qwe', '2016-01-19 16:35:00', 'True'),
+	(286, 62, 68, 'qwe', 'qwe', '2016-01-20 19:26:15', 'False'),
+	(287, 62, 64, 'Re: asd', 'qwe', '2016-01-20 19:26:46', 'False'),
+	(288, 62, 64, 'qwe', 'qwe', '2016-01-20 19:48:11', 'True'),
+	(289, 62, 64, 'ters', 'tdhtgj', '2016-01-22 00:31:06', 'False'),
+	(290, 65, 71, 'qwe', 'qwe', '2016-01-22 16:50:51', 'False'),
+	(291, 64, 62, 'qwe', 'qwe', '2016-01-22 16:54:20', 'False'),
+	(292, 64, 62, 'qwe', 'qwe', '2016-01-22 16:54:39', 'False'),
+	(294, 64, 62, 'Re: Re: HALO', 'Nie', '2016-01-22 16:56:51', 'False');
+/*!40000 ALTER TABLE "Messages" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Notifications
+CREATE TABLE IF NOT EXISTS "Notifications" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Temp_ID" INT(10,0) NOT NULL,
+	"Description" NVARCHAR(300) NOT NULL,
+	"IfRead" BIT NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Notifications: -1 rows
+/*!40000 ALTER TABLE "Notifications" DISABLE KEYS */;
+INSERT INTO "Notifications" ("ID", "User_ID", "Temp_ID", "Description", "IfRead") VALUES
+	(1, 62, 274, 'Nowa wiadomość', 'False'),
+	(2, 62, 64, 'Nowa zaproszenie do znajomych', 'False'),
+	(3, 62, 6, 'Nowa umowa', 'False'),
+	(5, 62, 64, 'Nowa zaproszenie do znajomych', 'False'),
+	(17, 62, 64, 'Nowa zaproszenie do znajomych', 'False'),
+	(18, 62, 284, 'Nowa wiadomość', 'False'),
+	(19, 62, 64, 'Nowa zaproszenie do znajomych', 'False'),
+	(20, 62, 64, 'Nowa zaproszenie do znajomych', 'False'),
+	(21, 62, 64, 'Nowa zaproszenie do znajomych', 'False'),
+	(22, 71, 8, 'Nowa umowa', 'False'),
+	(23, 65, 9, 'Nowa umowa', 'False'),
+	(24, 62, 0, 'Umowa zaakceptowana', 'False'),
+	(25, 62, 10, 'Nowa umowa', 'False'),
+	(28, 62, 0, 'Umowa zaakceptowana', 'False'),
+	(29, 84, 12, 'Nowa umowa', 'False'),
+	(32, 62, 285, 'Nowa wiadomość', 'False'),
+	(33, 68, 286, 'Nowa wiadomość', 'False'),
+	(37, 71, 290, 'Nowa wiadomość', 'False'),
+	(38, 62, 291, 'Nowa wiadomość', 'False'),
+	(39, 62, 292, 'Nowa wiadomość', 'False'),
+	(40, 62, 13, 'Nowa umowa', 'False'),
+	(42, 62, 294, 'Nowa wiadomość', 'False'),
+	(43, 65, 64, 'Nowa zaproszenie do znajomych', 'False'),
+	(44, 65, 14, 'Nowa umowa', 'False'),
+	(45, 65, 15, 'Nowa umowa', 'False'),
+	(48, 65, 16, 'Nowa umowa', 'False');
+/*!40000 ALTER TABLE "Notifications" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.ProductRequirements
+CREATE TABLE IF NOT EXISTS "ProductRequirements" (
+	"ID" INT(10,0) NOT NULL,
+	"Base_ID" INT(10,0) NOT NULL,
+	"Require_ID" INT(10,0) NOT NULL,
+	"Value" INT(10,0) NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.ProductRequirements: -1 rows
+/*!40000 ALTER TABLE "ProductRequirements" DISABLE KEYS */;
+INSERT INTO "ProductRequirements" ("ID", "Base_ID", "Require_ID", "Value") VALUES
+	(2, 17, 11, 100),
+	(3, 17, 15, 30),
+	(4, 18, 10, 80),
+	(5, 18, 16, 55);
+/*!40000 ALTER TABLE "ProductRequirements" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Products
+CREATE TABLE IF NOT EXISTS "Products" (
+	"ID" INT(10,0) NOT NULL,
+	"Name" NVARCHAR(200) NOT NULL,
+	"Price_per_unit" INT(10,0) NOT NULL,
+	"Unit" NVARCHAR(50) NOT NULL,
+	"Alias" NVARCHAR(100) NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Products: -1 rows
+/*!40000 ALTER TABLE "Products" DISABLE KEYS */;
+INSERT INTO "Products" ("ID", "Name", "Price_per_unit", "Unit", "Alias") VALUES
+	(7, 'Wegiel', 600, 'kg', 'Węgiel'),
+	(10, 'Diament', 1000, 'kg', 'Diament'),
+	(11, 'Drewno', 60, 'kg', 'Drewno'),
+	(12, 'Ropa', 80, 'l', 'Ropa'),
+	(13, 'Piasek', 100, 'kg', 'Piasek'),
+	(15, 'Zelazo', 650, 'kg', 'Żelazo'),
+	(16, 'Zloto', 900, 'kg', 'Złoto'),
+	(17, 'Meble', 200, 'szt', 'Meble'),
+	(18, 'Bizuteria', 500, 'szt', 'Biżuteria');
+/*!40000 ALTER TABLE "Products" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.RecoveryCodes
+CREATE TABLE IF NOT EXISTS "RecoveryCodes" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"LiveTime" DATETIME2(0) NOT NULL,
+	"Code" NVARCHAR(5) NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.RecoveryCodes: -1 rows
+/*!40000 ALTER TABLE "RecoveryCodes" DISABLE KEYS */;
+/*!40000 ALTER TABLE "RecoveryCodes" ENABLE KEYS */;
+
+
+-- Zrzut struktury procedura game_BusinessDb.sp_alterdiagram
+DELIMITER //
+
+	CREATE PROCEDURE dbo.sp_alterdiagram
+	(
+		@diagramname 	sysname,
+		@owner_id	int	= null,
+		@version 	int,
+		@definition 	varbinary(max)
+	)
+	WITH EXECUTE AS 'dbo'
+	AS
+	BEGIN
+		set nocount on
+	
+		declare @theId 			int
+		declare @retval 		int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+		declare @ShouldChangeUID	int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR ('Invalid ARG', 16, 1)
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID();	 
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		revert;
+	
+		select @ShouldChangeUID = 0
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		
+		if(@DiagId IS NULL or (@IsDbo = 0 and @theId <> @UIDFound))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1);
+			return -3
+		end
+	
+		if(@IsDbo <> 0)
+		begin
+			if(@UIDFound is null or USER_NAME(@UIDFound) is null) -- invalid principal_id
+			begin
+				select @ShouldChangeUID = 1 ;
+			end
+		end
+
+		-- update dds data			
+		update dbo.sysdiagrams set definition = @definition where diagram_id = @DiagId ;
+
+		-- change owner
+		if(@ShouldChangeUID = 1)
+			update dbo.sysdiagrams set principal_id = @theId where diagram_id = @DiagId ;
+
+		-- update dds version
+		if(@version is not null)
+			update dbo.sysdiagrams set version = @version where diagram_id = @DiagId ;
+
+		return 0
+	END
+	//
+DELIMITER ;
+
+
+-- Zrzut struktury procedura game_BusinessDb.sp_creatediagram
+DELIMITER //
+
+	CREATE PROCEDURE dbo.sp_creatediagram
+	(
+		@diagramname 	sysname,
+		@owner_id		int	= null, 	
+		@version 		int,
+		@definition 	varbinary(max)
+	)
+	WITH EXECUTE AS 'dbo'
+	AS
+	BEGIN
+		set nocount on
+	
+		declare @theId int
+		declare @retval int
+		declare @IsDbo	int
+		declare @userName sysname
+		if(@version is null or @diagramname is null)
+		begin
+			RAISERROR (N'E_INVALIDARG', 16, 1);
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID(); 
+		select @IsDbo = IS_MEMBER(N'db_owner');
+		revert; 
+		
+		if @owner_id is null
+		begin
+			select @owner_id = @theId;
+		end
+		else
+		begin
+			if @theId <> @owner_id
+			begin
+				if @IsDbo = 0
+				begin
+					RAISERROR (N'E_INVALIDARG', 16, 1);
+					return -1
+				end
+				select @theId = @owner_id
+			end
+		end
+		-- next 2 line only for test, will be removed after define name unique
+		if EXISTS(select diagram_id from dbo.sysdiagrams where principal_id = @theId and name = @diagramname)
+		begin
+			RAISERROR ('The name is already used.', 16, 1);
+			return -2
+		end
+	
+		insert into dbo.sysdiagrams(name, principal_id , version, definition)
+				VALUES(@diagramname, @theId, @version, @definition) ;
+		
+		select @retval = @@IDENTITY 
+		return @retval
+	END
+	//
+DELIMITER ;
+
+
+-- Zrzut struktury procedura game_BusinessDb.sp_dropdiagram
+DELIMITER //
+
+	CREATE PROCEDURE dbo.sp_dropdiagram
+	(
+		@diagramname 	sysname,
+		@owner_id	int	= null
+	)
+	WITH EXECUTE AS 'dbo'
+	AS
+	BEGIN
+		set nocount on
+		declare @theId 			int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR ('Invalid value', 16, 1);
+			return -1
+		end
+	
+		EXECUTE AS CALLER;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		REVERT; 
+		
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1)
+			return -3
+		end
+	
+		delete from dbo.sysdiagrams where diagram_id = @DiagId;
+	
+		return 0;
+	END
+	//
+DELIMITER ;
+
+
+-- Zrzut struktury procedura game_BusinessDb.sp_helpdiagramdefinition
+DELIMITER //
+
+	CREATE PROCEDURE dbo.sp_helpdiagramdefinition
+	(
+		@diagramname 	sysname,
+		@owner_id	int	= null 		
+	)
+	WITH EXECUTE AS N'dbo'
+	AS
+	BEGIN
+		set nocount on
+
+		declare @theId 		int
+		declare @IsDbo 		int
+		declare @DiagId		int
+		declare @UIDFound	int
+	
+		if(@diagramname is null)
+		begin
+			RAISERROR (N'E_INVALIDARG', 16, 1);
+			return -1
+		end
+	
+		execute as caller;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner');
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		revert; 
+	
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname;
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId ))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1);
+			return -3
+		end
+
+		select version, definition FROM dbo.sysdiagrams where diagram_id = @DiagId ; 
+		return 0
+	END
+	//
+DELIMITER ;
+
+
+-- Zrzut struktury procedura game_BusinessDb.sp_helpdiagrams
+DELIMITER //
+
+	CREATE PROCEDURE dbo.sp_helpdiagrams
+	(
+		@diagramname sysname = NULL,
+		@owner_id int = NULL
+	)
+	WITH EXECUTE AS N'dbo'
+	AS
+	BEGIN
+		DECLARE @user sysname
+		DECLARE @dboLogin bit
+		EXECUTE AS CALLER;
+			SET @user = USER_NAME();
+			SET @dboLogin = CONVERT(bit,IS_MEMBER('db_owner'));
+		REVERT;
+		SELECT
+			[Database] = DB_NAME(),
+			[Name] = name,
+			[ID] = diagram_id,
+			[Owner] = USER_NAME(principal_id),
+			[OwnerID] = principal_id
+		FROM
+			sysdiagrams
+		WHERE
+			(@dboLogin = 1 OR USER_NAME(principal_id) = @user) AND
+			(@diagramname IS NULL OR name = @diagramname) AND
+			(@owner_id IS NULL OR principal_id = @owner_id)
+		ORDER BY
+			4, 5, 1
+	END
+	//
+DELIMITER ;
+
+
+-- Zrzut struktury procedura game_BusinessDb.sp_renamediagram
+DELIMITER //
+
+	CREATE PROCEDURE dbo.sp_renamediagram
+	(
+		@diagramname 		sysname,
+		@owner_id		int	= null,
+		@new_diagramname	sysname
+	
+	)
+	WITH EXECUTE AS 'dbo'
+	AS
+	BEGIN
+		set nocount on
+		declare @theId 			int
+		declare @IsDbo 			int
+		
+		declare @UIDFound 		int
+		declare @DiagId			int
+		declare @DiagIdTarg		int
+		declare @u_name			sysname
+		if((@diagramname is null) or (@new_diagramname is null))
+		begin
+			RAISERROR ('Invalid value', 16, 1);
+			return -1
+		end
+	
+		EXECUTE AS CALLER;
+		select @theId = DATABASE_PRINCIPAL_ID();
+		select @IsDbo = IS_MEMBER(N'db_owner'); 
+		if(@owner_id is null)
+			select @owner_id = @theId;
+		REVERT;
+	
+		select @u_name = USER_NAME(@owner_id)
+	
+		select @DiagId = diagram_id, @UIDFound = principal_id from dbo.sysdiagrams where principal_id = @owner_id and name = @diagramname 
+		if(@DiagId IS NULL or (@IsDbo = 0 and @UIDFound <> @theId))
+		begin
+			RAISERROR ('Diagram does not exist or you do not have permission.', 16, 1)
+			return -3
+		end
+	
+		-- if((@u_name is not null) and (@new_diagramname = @diagramname))	-- nothing will change
+		--	return 0;
+	
+		if(@u_name is null)
+			select @DiagIdTarg = diagram_id from dbo.sysdiagrams where principal_id = @theId and name = @new_diagramname
+		else
+			select @DiagIdTarg = diagram_id from dbo.sysdiagrams where principal_id = @owner_id and name = @new_diagramname
+	
+		if((@DiagIdTarg is not null) and  @DiagId <> @DiagIdTarg)
+		begin
+			RAISERROR ('The name is already used.', 16, 1);
+			return -2
+		end		
+	
+		if(@u_name is null)
+			update dbo.sysdiagrams set [name] = @new_diagramname, principal_id = @theId where diagram_id = @DiagId
+		else
+			update dbo.sysdiagrams set [name] = @new_diagramname where diagram_id = @DiagId
+		return 0
+	END
+	//
+DELIMITER ;
+
+
+-- Zrzut struktury procedura game_BusinessDb.sp_upgraddiagrams
+DELIMITER //
+
+	CREATE PROCEDURE dbo.sp_upgraddiagrams
+	AS
+	BEGIN
+		IF OBJECT_ID(N'dbo.sysdiagrams') IS NOT NULL
+			return 0;
+	
+		CREATE TABLE dbo.sysdiagrams
+		(
+			name sysname NOT NULL,
+			principal_id int NOT NULL,	-- we may change it to varbinary(85)
+			diagram_id int PRIMARY KEY IDENTITY,
+			version int,
+	
+			definition varbinary(max)
+			CONSTRAINT UK_principal_name UNIQUE
+			(
+				principal_id,
+				name
+			)
+		);
+
+
+		/* Add this if we need to have some form of extended properties for diagrams */
+		/*
+		IF OBJECT_ID(N'dbo.sysdiagram_properties') IS NULL
+		BEGIN
+			CREATE TABLE dbo.sysdiagram_properties
+			(
+				diagram_id int,
+				name sysname,
+				value varbinary(max) NOT NULL
+			)
+		END
+		*/
+
+		IF OBJECT_ID(N'dbo.dtproperties') IS NOT NULL
+		begin
+			insert into dbo.sysdiagrams
+			(
+				[name],
+				[principal_id],
+				[version],
+				[definition]
+			)
+			select	 
+				convert(sysname, dgnm.[uvalue]),
+				DATABASE_PRINCIPAL_ID(N'dbo'),			-- will change to the sid of sa
+				0,							-- zero for old format, dgdef.[version],
+				dgdef.[lvalue]
+			from dbo.[dtproperties] dgnm
+				inner join dbo.[dtproperties] dggd on dggd.[property] = 'DtgSchemaGUID' and dggd.[objectid] = dgnm.[objectid]	
+				inner join dbo.[dtproperties] dgdef on dgdef.[property] = 'DtgSchemaDATA' and dgdef.[objectid] = dgnm.[objectid]
+				
+			where dgnm.[property] = 'DtgSchemaNAME' and dggd.[uvalue] like N'_EA3E6268-D998-11CE-9454-00AA00A3F36E_' 
+			return 2;
+		end
+		return 1;
+	END
+	//
+DELIMITER ;
+
+
+-- Zrzut struktury tabela game_BusinessDb.sysdiagrams
+CREATE TABLE IF NOT EXISTS "sysdiagrams" (
+	"name" NVARCHAR(128) NOT NULL,
+	"principal_id" INT(10,0) NOT NULL,
+	"diagram_id" INT(10,0) NOT NULL,
+	"version" INT(10,0) NULL DEFAULT NULL,
+	"definition" VARBINARY(max) NULL DEFAULT NULL,
+	PRIMARY KEY ("diagram_id"),
+	UNIQUE KEY ("principal_id","name")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.sysdiagrams: -1 rows
+/*!40000 ALTER TABLE "sysdiagrams" DISABLE KEYS */;
+INSERT INTO "sysdiagrams" ("name", "principal_id", "diagram_id", "version", "definition") VALUES
+	('Diagram_0', 5, 1, 1, ĐĎŕˇ±á                >  ţ˙	                               ţ˙˙˙        ˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙ý˙˙˙   ţ˙˙˙               	   
+         
+                        ţ˙˙˙"   ţ˙˙˙                            !   ţ˙˙˙#   ţ˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙R o o t   E n t r y                                               ˙˙˙˙˙˙˙˙                                9sGíĐ   €      f                                                                ˙˙˙˙˙˙˙˙˙˙˙˙                                        –      o                                                                      ˙˙˙˙                                              C o m p O b j                                                  ˙˙˙˙˙˙˙˙˙˙˙˙                                       _                               	   
+         
+                                                      ţ˙˙˙    ţ˙˙˙ţ˙˙˙#   $   %   &   '   (   )   *   +   ,   -   .   /   0   ţ˙˙˙ţ˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙˙ 8 
+Đ
+  €    ˙˙2           }  ™‡  ľ8  ® Ť  ‡˙˙%ý˙˙Ţ€[ń•Đ°  Ş ˝Ë\   0         8 +   	   Ůć°éĐ­Q  ÉW9ô;„aÇC…5)†áŐRř 2}˛Řb•BŤ'<%˘Ú-  , C           SDMŇŃŽc `—ŇßH4ÉŇwywŘp [„
+ś  , C           QDMŇŃŽc `—ŇßH4ÉŇwywŘp [„
+ś         0 Ą	    €   ś   €    €SchGrid đń˙˙ň+  Usersid   ` Ą	    €   R   €  7  €Control Oú˙˙ęE  Relationship 'FK_Maps_Users' between 'Users' and 'Maps'   ( µ    €   1   M   €  Control ¨ň˙˙BM    , Ą	    €   š   €    €SchGrid đń˙˙R  Maps  0 Ą	    €   ž   €    €SchGrid Ň  v/  Adminsd   d Ą	    €   R   €  ;  €Control 0  k8  Relationship 'FK_Admins_Users' between 'Users' and 'Admins'   ( µ    €   1   Q   €  Control J  ±:    , Ą	    €   š   €    €SchGrid đń˙˙î  Bans  ` Ą	    €	   R   €  7  €Control Oú˙˙‰!  Relationship 'FK_Bans_Users' between 'Users' and 'Bans'   ( µ    €
+   1   M   €  Control •ü˙˙%&    t Ą	    €   b   €  I  €Control ĺ˙˙y  Relationship 'FK_UserBuildings_Users' between 'Users' and 'UserBuildings' }   ( µ    €
+   1   _   €  Control NÝ˙˙‰.    8 Ą	    €   ¬   €  
+  €SchGrid ŔÇ˙˙`	  UserBuildings     4 Ą	    €   ¤   €  	  €SchGrid hĹ˙˙č5  Buildings     | Ą	    €   R   €  Q  €Control eŐ˙˙Č)  Relationship 'FK_UserBuildings_Buildings' between 'Buildings' and 'UserBuildings'    ( µ    €   1   g   €  Control âÇ˙˙™/    0 Ą	    €   ˘   €    €SchGrid dś˙˙š)  Products  p Ą	    €   R   €  G  €Control »˙˙6  Relationship 'FK_Buildings_Products' between 'Products' and 'Buildings'   ( µ    €   1   ]   €  Control }ş˙˙Ł5    4 Ą	    €   Ş   €    €SchGrid ˘š˙˙O  UserProducts  x Ą	    €   R   €  M  €Control źŞ˙˙NC  Relationship 'FK_UserProducts_Products' between 'Products' and 'UserProducts'     ( µ    €   1   c   €  Control ĺ¬˙˙)K    p Ą	    €   b   €  G  €Control Ł˝˙˙—9  Relationship 'FK_UserProducts_Users' between 'Users' and 'UserProducts'   ( µ    €   1   ]   €  Control #Ő˙˙ŤZ                                             ţ˙
+  ˙˙˙˙                   Microsoft DDS Form 2.0    Embed!C4   l  Ż  xV4     U s e r s                                            
+                                                                                               °vĽzˇĽzˇ                                 đzˇ         {ˇţ˙˙˙                           T   ,   ,   ,   4           §)        -             ÷  S  ¤  
+  h  Ý    Ń    Ţ  Ł         l  Ż                    	         ň  N                    ÷         ň                        ÷          U2  Ý#          
+           ÷  ›
+    xV4   T                                        	   
+      d b o      U s e r s     ćű˙˙ˇH  ćű˙˙R        đđđ                           ¨ň˙˙BM  Ź  X  9       Ź  X         €  €       DB Tahoma
+ F K _ M a p s _ U s e r s !C4   l  ÷  xV4     M a p s                                   qÇ       
+                                                                                               °věgˇěgˇ                                  hˇ        0hˇţ˙˙˙                          T   ,   ,   ,   4           §)  9      -             ÷  S  ¤  
+  h  Ý    Ń    Ţ  Ł         l  ÷                    	         ň  N                    ÷         ň                        ÷          U2  Ý#          
+           ÷  ›
+    xV4   R                                        	   
+      d b o      M a p s   !C4   â"  ł  xV4     A d m i n s                               ¸ÖĽ       
+                                                                                               °v”MŞ”MŞ                                 ČMŞ        ŘMŞţ˙˙˙                           T   ,   ,   ,   4           â"  ł      -  
+           F    ¤  
+  h  e    Ń    Ţ  Ł         ň                        ÷         ň                        ÷         ň                        ÷          U2  Ý#          
+           ÷  ›
+    xV4   V                                        	   
+      d b o      A d m i n s     \  :  Ň  :        đđđ                           J  ±:  “	  X  ;       “	  X         €  €       DB Tahoma F K _ A d m i n s _ U s e r s !C4   ô$  Ç  xV4     B a n s   m . W i n d o w s . F o r m s ,   V e r s i o n = 4 . 0 . 0 . 0 ,   C u l t u r e = n e u t r a l ,   P u b l i c K e y T o k e n = b 7 7 a 5 c 5 6 1 9 3 4 e 0 8 9                                                                                  T   ,   ,   ,   4           ô$  Ç      -  
+           F  F  ¤  
+  h  e    Ń    Ţ  Ł         L                        E         L                        E         L                        E          Ë$  |$          
+           E  q  ’  xV4   R                                        	   
+      d b o      B a n s     ćű˙˙ň+  ćű˙˙µ"        đđđ                    
+       •ü˙˙%&  V  X  8       V  X         €  €       DB Tahoma
+ F K _ B a n s _ U s e r s   đń˙˙l9  Ôę˙˙l9  Ôę˙˙ô  =ć˙˙ô         đđđ                    
+       NÝ˙˙‰.  ×  X  ,       ×  X         €  €       DB Tahoma F K _ U s e r B u i l d i n g s _ U s e r s !C4   }  ##  xV4     U s e r B u i l d i n g s                                                                                                                                                                                                                                     T   ,   ,   ,   4           }  ##      -  
+           F    ¤  
+  h  e    Ń    Ţ  Ł         g  "                               g  "                               g  "                                  j%          
+             U  H  xV4   d                                        	   
+      d b o      U s e r B u i l d i n g s   !C4   g#  “0  xV4     B u i l d i n g s                                    
+                                                                                               °v4HŞ4HŞ                                 hHŞ        xHŞţ˙˙˙                            T   ,   ,   ,   4           g#  “0      -  
+           S  Î  ¤  
+  h  e    Ń    Ţ  Ł         g  "                               g  "                               g  "                                  j%          
+             U  H  xV4   \                                        	   
+      d b o   
+   B u i l d i n g s     üÖ˙˙č5  üÖ˙˙,         đđđ                           âÇ˙˙™/  k  X  >       k  X         €  €       DB Tahoma F K _ U s e r B u i l d i n g s _ B u i l d i n g s !C4   Ę  k  xV4     P r o d u c t s   n d o w s . F o r m s ,   V e r s i o n = 4 . 0 . 0 . 0 ,   C u l t u r e = n e u t r a l ,   P u b l i c K e y T o k e n = b 7 7 a 5 c 5 6 1 9 3 4 e 0 8 9                                                                                  T   ,   ,   ,   4           Ę  k      -  
+           F  Î  ¤  
+  h  e    Ń    Ţ  Ł         Ů
+  "                      d         Ů
+  "                      d         Ů
+  "                      d          Y   ć$          
+           d  c  í  xV4   Z                                        	   
+      d b o   	   P r o d u c t s     .Ľ˙˙Ş7  hĹ˙˙Ş7         đđđ                           }ş˙˙Ł5  
+  X  <       
+  X       ˙˙˙   €       DB Tahoma F K _ B u i l d i n g s _ P r o d u c t s !C4   -$  ×  xV4     U s e r P r o d u c t s   s . F o r m s ,   V e r s i o n = 4 . 0 . 0 . 0 ,   C u l t u r e = n e u t r a l ,   P u b l i c K e y T o k e n = b 7 7 a 5 c 5 6 1 9 3 4 e 0 8 9                                                                                  T   ,   ,   ,   4           -$  ×      -  
+           F  Î  ¤  
+  h  e    Ń    Ţ  Ł         ő
+  =                      “         ő
+  =                      “         ő
+  =                      “          v  >&          
+           “  8  ”  xV4   b                                        	   
+      d b o   
+   U s e r P r o d u c t s     6¬˙˙F  6¬˙˙O         đđđ                           ĺ¬˙˙)K  Ą  X  B       Ą  X       ˙˙˙   €       DB Tahoma F K _ U s e r P r o d u c t s _ P r o d u c t s   đń˙˙.;  Ôę˙˙.;  Ôę˙˙”\  Ďľ˙˙”\         đđđ                           #Ő˙˙ŤZ  ô  X  >       ô  X       ˙˙˙   €       DB Tahoma F K _ U s e r P r o d u c t s _ U s e r s                                                                                                                                                                                                                                                                                                                                                                                         ded Object     ô9˛q                                                           NaĽ                                           Űć°éĐ­Q  ÉW9   ĐeGíĐ  HE                 Ä  D a t a   S o u r c e = m s s q l . w e b s e r w e r . p l , 5 4 3 3 9 ; I n i t i a l   C a t a l o g = g a m e _ B u s i n e s s D b ; P e r s i s t   S e c u r i t y   I n f o = T r u e ; U s e r   I D = g a m e _ B u s i n e s s D b ; M u l t i p l e A c t i v e R e s u l t S e t s = F a l s e ; P a c k e t   S i z e = 4  D d s S t r e a m                                                     ˙˙˙˙                                       r      S c h e m a   U D V   D e f a u l t                             &  ˙˙˙˙˙˙˙˙˙˙˙˙                                    !          D S R E F - S C H E M A - C O N T E N T S                       ,       ˙˙˙˙                                    "   Ş      S c h e m a   U D V   D e f a u l t   P o s t   V 6             6  ˙˙˙˙˙˙˙˙˙˙˙˙                                    1             ‡˙˙%ý˙˙ &   s c h _ l a b e l s _ v i s i b l e                            d                                               Đ   (   A c t i v e T a b l e V i e w M o d e          1       T a b l e V i e w M o d e : 0       :   4 , 0 , 2 8 4 , 0 , 2 2 9 5 , 1 , 1 8 7 5 , 5 , 1 2 4 5       T a b l e V i e w M o d e : 1          2 , 0 , 2 8 4 , 0 , 2 3 1 0       T a b l e V i e w M o d e : 2          2 , 0 , 2 8 4 , 0 , 2 2 9 5       T a b l e V i e w M o d e : 3          2 , 0 , 2 8 4 , 0 , 2 2 9 5       T a b l e V i e w M o d e : 4       >   4 , 0 , 2 8 4 , 0 , 2 2 9 5 , 1 2 , 2 7 1 5 , 1 1 , 1 6 6 5                         Đ   (   A c t i v e T a b l e V i e w M o d e          1       T a b l e V i e w M o d e : 0       :   4 , 0 , 2 8 4 , 0 , 2 2 9 5 , 1 , 1 8 7 5 , 5 , 1 2 4 5       T a b l e V i e w M o d e : 1          2 , 0 , 2 8 4 , 0 , 2 3 1 0       T a b l e V i e w M o d e : 2          2 , 0 , 2 8 4 , 0 , 2 2 9 5       T a b l e V i e w M o d e : 3          2 , 0 , 2 8 4 , 0 , 2 2 9 5       T a b l e V i e w M o d e : 4       >   4 , 0 , 2 8 4 , 0 , 2 2 9 5 , 1 2 , 2 7 1 5 , 1 1 , 1 6 6 5             ,         d b o   F K _ M a p s _ U s e r s           Ä                ZČŕZČ        ­                          Đ   (   A c t i v e T a b l e V i e w M o d e          0       T a b l e V i e w M o d e : 0       :   4 , 0 , 2 8 4 , 0 , 1 3 5 0 , 1 , 1 0 5 0 , 5 , 1 1 2 5       T a b l e V i e w M o d e : 1          2 , 0 , 2 8 4 , 0 , 2 2 9 5       T a b l e V i e w M o d e : 2          2 , 0 , 2 8 4 , 0 , 2 2 9 5       T a b l e V i e w M o d e : 3          2 , 0 , 2 8 4 , 0 , 2 2 9 5       T a b l e V i e w M o d e : 4       >   4 , 0 , 2 8 4 , 0 , 2 2 9 5 , 1 2 , 2 7 1 5 , 1 1 , 1 6 6 5             0   nÜ   d b o   F K _ A d m i n s _ U s e r s           Ä                š]	Xš]	        ­                          Đ   (   A c t i v e T a b l e V i e w M o d e          0       T a b l e V i e w M o d e : 0       :   4 , 0 , 2 8 4 , 0 , 1 3 5 0 , 1 , 1 3 5 0 , 5 , 1 1 2 5       T a b l e V i e w M o d e : 1          2 , 0 , 2 8 4 , 0 , 1 6 0 5       T a b l e V i e w M o d e : 2          2 , 0 , 2 8 4 , 0 , 1 6 0 5       T a b l e V i e w M o d e : 3          2 , 0 , 2 8 4 , 0 , 1 6 0 5       T a b l e V i e w M o d e : 4       >   4 , 0 , 2 8 4 , 0 , 1 6 0 5 , 1 2 , 1 9 0 5 , 1 1 , 1 1 7 0   	   	       ,   JÉ[   d b o   F K _ B a n s _ U s e r s           Ä    
+   
+   	      łpł        ­                          Đ   (   A c t i v e T a b l e V i e w M o d e          0       T a b l e V i e w M o d e : 0       :   4 , 0 , 2 8 4 , 0 , 1 3 5 0 , 1 , 1 0 5 0 , 5 , 1 1 2 5       T a b l e V i e w M o d e : 1          2 , 0 , 2 8 4 , 0 , 1 1 5 5       T a b l e V i e w M o d e : 2          2 , 0 , 2 8 4 , 0 , 1 1 5 5       T a b l e V i e w M o d e : 3          2 , 0 , 2 8 4 , 0 , 1 1 5 5       T a b l e V i e w M o d e : 4       <   4 , 0 , 2 8 4 , 0 , 1 1 5 5 , 1 2 , 1 3 6 5 , 1 1 , 8 4 0             >         d b o   F K _ U s e r B u i l d i n g s _ U s e r s           Ä    
+   
+         #ł°#ł        ­                          Đ   (   A c t i v e T a b l e V i e w M o d e          0       T a b l e V i e w M o d e : 0       :   4 , 0 , 2 8 4 , 0 , 1 8 7 5 , 1 , 1 2 3 0 , 5 , 1 1 2 5       T a b l e V i e w M o d e : 1          2 , 0 , 2 8 4 , 0 , 1 1 5 5       T a b l e V i e w M o d e : 2          2 , 0 , 2 8 4 , 0 , 1 1 5 5       T a b l e V i e w M o d e : 3          2 , 0 , 2 8 4 , 0 , 1 1 5 5       T a b l e V i e w M o d e : 4       <   4 , 0 , 2 8 4 , 0 , 1 1 5 5 , 1 2 , 1 3 6 5 , 1 1 , 8 4 0             F   µĽ   d b o   F K _ U s e r B u i l d i n g s _ B u i l d i n g s           Ä                $ł°$ł        ­                          Đ   (   A c t i v e T a b l e V i e w M o d e          0       T a b l e V i e w M o d e : 0       :   4 , 0 , 2 8 4 , 0 , 1 3 5 0 , 1 , 1 2 3 0 , 5 , 1 1 2 5       T a b l e V i e w M o d e : 1          2 , 0 , 2 8 4 , 0 , 1 3 8 0       T a b l e V i e w M o d e : 2          2 , 0 , 2 8 4 , 0 , 1 3 8 0       T a b l e V i e w M o d e : 3          2 , 0 , 2 8 4 , 0 , 1 3 8 0       T a b l e V i e w M o d e : 4       >   4 , 0 , 2 8 4 , 0 , 1 3 8 0 , 1 2 , 1 6 3 5 , 1 1 , 1 0 0 5             <         d b o   F K _ B u i l d i n g s _ P r o d u c t s           Ä                ›]	Ř›]	        ­                          Đ   (   A c t i v e T a b l e V i e w M o d e          0       T a b l e V i e w M o d e : 0       :   4 , 0 , 2 8 4 , 0 , 1 3 5 0 , 1 , 1 2 3 0 , 5 , 1 1 2 5       T a b l e V i e w M o d e : 1          2 , 0 , 2 8 4 , 0 , 9 1 5       T a b l e V i e w M o d e : 2          2 , 0 , 2 8 4 , 0 , 9 1 5       T a b l e V i e w M o d e : 3          2 , 0 , 2 8 4 , 0 , 9 1 5       T a b l e V i e w M o d e : 4       :   4 , 0 , 2 8 4 , 0 , 9 1 5 , 1 2 , 1 0 8 0 , 1 1 , 6 6 0             B   ČZg   d b o   F K _ U s e r P r o d u c t s _ P r o d u c t s           Ä                PČ PČ        ­              <   /Â   d b o   F K _ U s e r P r o d u c t s _ U s e r s           Ä                łđł        ­    (            v   Ą            p   ˇ   	             !            s   –            !                :   3            5   :            ™   z                                                                                                                                                 0 9 6 ; A p p l i c a t i o n   N a m e = " M i c r o s o f t   S Q L   S e r v e r   M a n a g e m e n t   S t u d i o "    €    D i a g r a m _ 0    &    U s e r s      d b o    & 
+   M a p s      d b o    &    A d m i n s      d b o    & 
+   B a n s      d b o    &    U s e r B u i l d i n g s      d b o    &    B u i l d i n g s      d b o    &    P r o d u c t s      d b o    $    U s e r P r o d u c t s      d b o      Ö…	ł»kňEš¸7dđ2p N   { 1 6 3 4 C D D 7 - 0 8 8 8 - 4 2 E 3 - 9 F A 2 - B 6 D 3 2 5 6 3 B 9 1 D }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     bR);
+/*!40000 ALTER TABLE "sysdiagrams" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.UserBuildings
+CREATE TABLE IF NOT EXISTS "UserBuildings" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"X_pos" INT(10,0) NOT NULL,
+	"Y_pos" INT(10,0) NOT NULL,
+	"Lvl" INT(10,0) NOT NULL,
+	"Building_ID" INT(10,0) NOT NULL,
+	"Status" NVARCHAR(50) NOT NULL,
+	"Owner" BIT NOT NULL DEFAULT ((1)),
+	"Percent_product" INT(10,0) NOT NULL DEFAULT ((100)),
+	"Color" VARCHAR(6) NULL DEFAULT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.UserBuildings: -1 rows
+/*!40000 ALTER TABLE "UserBuildings" DISABLE KEYS */;
+INSERT INTO "UserBuildings" ("ID", "User_ID", "X_pos", "Y_pos", "Lvl", "Building_ID", "Status", "Owner", "Percent_product", "Color") VALUES
+	(676, 64, 6, 0, 1, 23, 'gotowy', 'True', 100, 'ff0000'),
+	(677, 62, 0, 0, 1, 19, 'gotowy', 'True', 100, '51ff00'),
+	(678, 62, 0, 3, 1, 29, 'gotowy', 'True', 100, 'ff0000'),
+	(679, 64, 2, 4, 1, 20, 'gotowy', 'True', 100, 'bbbbbb'),
+	(680, 64, 4, 0, 1, 19, 'gotowy', 'True', 50, 'bbbbbb'),
+	(682, 63, 8, 8, 1, 19, 'gotowy', 'True', 100, 'bbbbbb'),
+	(684, 63, 0, 0, 1, 22, 'budowa', 'True', 100, 'bbbbbb'),
+	(685, 64, 2, 8, 1, 19, 'gotowy', 'True', 100, 'bbbbbb'),
+	(686, 64, 5, 5, 1, 21, 'gotowy', 'True', 100, 'bbbbbb'),
+	(687, 64, 1, 2, 1, 19, 'gotowy', 'True', 100, 'bbbbbb'),
+	(688, 64, 0, 0, 1, 20, 'gotowy', 'True', 100, 'bbbbbb'),
+	(689, 64, 2, 0, 1, 19, 'gotowy', 'True', 100, 'bbbbbb'),
+	(690, 64, 3, 2, 1, 19, 'budowa', 'True', 100, 'bbbbbb');
+/*!40000 ALTER TABLE "UserBuildings" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.UserProducts
+CREATE TABLE IF NOT EXISTS "UserProducts" (
+	"ID" INT(10,0) NOT NULL,
+	"User_ID" INT(10,0) NOT NULL,
+	"Product_Name" NVARCHAR(200) NOT NULL,
+	"Value" INT(10,0) NOT NULL,
+	"Product_ID" INT(10,0) NOT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.UserProducts: -1 rows
+/*!40000 ALTER TABLE "UserProducts" DISABLE KEYS */;
+INSERT INTO "UserProducts" ("ID", "User_ID", "Product_Name", "Value", "Product_ID") VALUES
+	(156, 62, 'Drewno', 7964775, 11),
+	(157, 62, 'Zelazo', 42705, 15),
+	(158, 62, 'Meble', 38, 17),
+	(159, 64, 'Drewno', 96675051, 11),
+	(160, 64, 'Ropa', 22193238, 12),
+	(161, 62, 'Diament', 5750929, 10),
+	(162, 64, 'Zloto', 26668461, 16),
+	(163, 64, 'Wegiel', 22225532, 7),
+	(164, 64, 'Piasek', 115271301, 13),
+	(165, 84, 'Drewno', 6942112, 11),
+	(166, 65, 'Drewno', 11687843, 11),
+	(167, 65, 'Ropa', 9137729, 12),
+	(168, 65, 'Zloto', 9137729, 16),
+	(169, 65, 'Wegiel', 2555033, 7),
+	(170, 63, 'Drewno', 78077390, 11),
+	(171, 63, 'Meble', 10, 17),
+	(172, 63, 'Ropa', 79656288, 12),
+	(173, 63, 'Zloto', 1443, 16),
+	(174, 64, 'Zelazo', 23293950, 15),
+	(175, 64, 'Meble', 10, 17),
+	(176, 64, 'Bizuteria', 10, 18),
+	(177, 84, 'Meble', 0, 17),
+	(178, 84, 'Wegiel', 5896202, 7),
+	(179, 84, 'Zloto', 5896043, 16),
+	(180, 84, 'Piasek', 17685727, 13),
+	(181, 84, 'Zelazo', 5895488, 15),
+	(182, 84, 'Diament', 5895197, 10),
+	(183, 84, 'Ropa', 5895112, 12),
+	(184, 84, 'Bizuteria', 0, 18),
+	(186, 62, 'Bizuteria', 0, 18),
+	(187, 62, 'Zloto', 100, 16),
+	(188, 64, 'Diament', 1674085, 10),
+	(189, 62, 'Wegiel', 0, 7);
+/*!40000 ALTER TABLE "UserProducts" ENABLE KEYS */;
+
+
+-- Zrzut struktury tabela game_BusinessDb.Users
+CREATE TABLE IF NOT EXISTS "Users" (
+	"ID" INT(10,0) NOT NULL,
+	"Login" NVARCHAR(30) NOT NULL,
+	"Password" NVARCHAR(max) NOT NULL,
+	"Email" NVARCHAR(150) NOT NULL,
+	"Last_Log" DATETIME2(7) NULL DEFAULT NULL,
+	"Registration_Date" DATETIME2(7) NULL DEFAULT NULL,
+	"Last_Update" DATETIME2(7) NULL DEFAULT NULL,
+	PRIMARY KEY ("ID")
+);
+
+-- Zrzucanie danych dla tabeli game_BusinessDb.Users: -1 rows
+/*!40000 ALTER TABLE "Users" DISABLE KEYS */;
+INSERT INTO "Users" ("ID", "Login", "Password", "Email", "Last_Log", "Registration_Date", "Last_Update") VALUES
+	(62, 'asd', 'pzm8fxteIehr1YQlawcxirwiVQ+2BYiYUk3CXX/kslw=', 'lysek.kamil@gmail.com', '2016-01-24 14:32:28.3572462', '2015-11-04 15:01:40.0000000', '2016-01-24 14:32:33.9489741'),
+	(63, 'gwymbleidd', 'IaLg1nlQD8EQktyVEvBkApdwllMkkqh2Zjr3GjCp4PI=', 'gwymbleidd', '2016-01-24 13:19:06.0562977', '2015-11-05 19:25:39.5293869', '2016-01-24 13:20:46.0269253'),
+	(64, 'qwe', 'Oep0aulTqpi0qfeGFGo47sFzKdgoZvmk5qXP2zrhylw=', 'qwe@gmail.com', '2016-01-24 14:05:19.8568257', '2015-11-07 20:41:07.3254096', '2016-01-24 14:53:33.7142497'),
+	(65, 'test', '/lIGdrGh2T2rqyMZ7qA2dPNjLq7rFj0eiCRPXrHeEOs=', 'test@test', '2016-01-22 16:58:05.6469134', '2015-11-07 21:00:37.1006516', '2016-01-22 17:03:29.6745134'),
+	(68, 'nowy', '3tW1ZhJs4jdGW346bwplOVxGYYWsWwY1R/wFBgi+cvg=', 'nowy@nowy.pl', '2015-12-24 00:12:44.2289371', '2015-11-17 23:13:25.9607492', '2015-12-24 00:12:46.0443410'),
+	(70, 'bored', '4gEGXQVUZSYVwyDACh1byO3KRp1ywnkOJBUtDB4rYYk=', 'kamilkosyl@gmail.com', '2015-12-17 21:49:25.7853460', '2015-12-17 21:49:25.7853460', NULL),
+	(71, 'gwym', 'IaLg1nlQD8EQktyVEvBkApdwllMkkqh2Zjr3GjCp4PI=', 'faraon5593@gmail.com', '2015-12-17 21:57:31.3207667', '2015-12-17 21:57:31.3207667', NULL),
+	(72, 'gwym333', 'eJGSaD5ZdVF4BDLPNuEcCdtNx7Oz2FNZ88jb6X9uiPc=', 'faraon5593@gmail2.com', '2015-12-27 19:42:32.2638126', '2015-12-27 19:42:32.2638126', NULL),
+	(73, 'zxc', 'ptQrb5SDHhDDFdt2QFPcOqT4k3aXoku4FZbgBdWRE+k=', 'zxc@zxc.com', '2015-12-27 19:49:46.2526756', '2015-12-27 19:49:46.2526756', '2015-12-27 19:49:53.9227649'),
+	(74, 'nowyUser', '3tW1ZhJs4jdGW346bwplOVxGYYWsWwY1R/wFBgi+cvg=', 'nowyUser@gmail.com', '2016-01-04 10:14:49.5527199', '2015-12-27 19:56:22.1945085', '2016-01-04 10:14:49.7555199'),
+	(75, 'ewq', 'YcP/dkW8L3W62J4PEkmEWuASeqLA4GJT95QS57AFG5g=', 'ewq@ewq.com', '2015-12-29 21:36:06.7585819', '2015-12-29 21:36:06.7585819', NULL),
+	(76, 'dsa', 'ptQrb5SDHhDDFdt2QFPcOqT4k3aXoku4FZbgBdWRE+k=', 'dsa@dsa.com', '2015-12-29 21:44:57.2596592', '2015-12-29 21:44:57.2591596', '2015-12-29 21:45:05.2081806'),
+	(80, 'limak', 'Oep0aulTqpi0qfeGFGo47sFzKdgoZvmk5qXP2zrhylw=', 'limak@email.com', '2015-12-30 16:07:45.5193572', '2015-12-30 16:07:45.5193572', '2015-12-30 16:07:48.3407200'),
+	(84, 'kluska1993', 'UpC7KSucXaDdh6MIG6aGUWAwK8TkR/Zkllliim8cMzY=', 'kluska1993@gmail.com', '2016-01-19 15:45:19.3567150', '2016-01-03 22:22:56.2599822', '2016-01-19 15:56:29.1115150'),
+	(85, 't', '/+mq6qKi1QSBdN8LgFme8Bl+wCTEsFG8mGDP9Y73+fM=', 'example@example.com', '2016-01-21 00:10:54.3073037', '2016-01-21 00:09:32.5009037', '2016-01-21 00:10:54.8065037');
+/*!40000 ALTER TABLE "Users" ENABLE KEYS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
