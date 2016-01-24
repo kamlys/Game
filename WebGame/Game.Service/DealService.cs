@@ -157,7 +157,14 @@ namespace Game.Service
 
         public void UpdateDealBuildingAdmin(DealBuildingDto dealDto)
         {
-            throw new NotImplementedException();
+            foreach (var item in _dealsBuildings.GetAll().Where(i=>i.ID == dealDto.ID))
+            {
+                item.Building_ID = dealDto.Building_ID;
+                item.Deal_ID = item.Deal_ID;
+                item.User_ID = item.User_ID;
+            }
+
+            _unitOfWork.Commit();
         }
 
         public List<DealDto> GetUserDeals(string User)

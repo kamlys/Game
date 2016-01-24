@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-
-    @*@Styles.Render("~/Styles")*@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -14,37 +13,6 @@
         @Html.Action("_Validation", "Validation")
     </div>
     <nav>
-        @*@if (!User.Identity.IsAuthenticated)
-        {
-            <div class="nav-wrapper" style="width: 360px">
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars"></i>Menu</a>
-                <ul class="hide-on-med-and-down">
-                    <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i></a></li>
-
-                    <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
-
-                    <li><a href='@Url.Action("##", "##")'>Jak grać</a></li>
-
-                    <li><a href='@Url.Action("##", "##")'>Support</a></li>
-
-                    <li><a href='@Url.Action("Login", "User")'>Zaloguj</a></li>
-                </ul>
-
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a href='@Url.Action("Index", "Home")'><i class="fa fa-home"></i>Home</a></li>
-
-                    <li><a href='@Url.Action("Register", "User")'>Rejestracja</a></li>
-
-                    <li><a href='@Url.Action("##", "##")'>Jak grać</a></li>
-
-                    <li><a href='@Url.Action("##", "##")'>Support</a></li>
-
-                    <li><a href='@Url.Action("Login", "User")'>Zaloguj</a></li>
-                </ul>
-            </div>
-        }*@
-
-
         @if (User.Identity.IsAuthenticated)
         {
             <div class="userDolar">

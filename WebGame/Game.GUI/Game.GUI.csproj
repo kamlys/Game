@@ -424,6 +424,10 @@
     <Content Include="Views\Admin\_IgnoredList.cshtml" />
     <Content Include="Views\Admin\_MessageList.cshtml" />
     <Content Include="Views\Admin\_ProductRequirementList.cshtml" />
+    <Content Include="Views\Error\_500.cshtml" />
+    <Content Include="Views\Error\_505.cshtml" />
+    <Content Include="Views\Error\_404.cshtml" />
+    <Content Include="Views\Error\_Blocked.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -435,7 +439,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Styles\" />
-    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.Core\Game.Core.csproj">

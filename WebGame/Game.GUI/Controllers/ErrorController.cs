@@ -13,5 +13,25 @@ namespace Game.GUI.Controllers
         {
             return View();
         }
+
+        public ActionResult _505()
+        {
+            return View();
+        }
+
+        public ActionResult _500()
+        {
+            return View();
+        }
+
+        public ActionResult _404()
+        {
+            return View();
+        }
+
+        public ActionResult _Blocked()
+        {
+            return View();
+        }
     }
 }

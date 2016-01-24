@@ -10,7 +10,7 @@ namespace Game.Service.Interfaces
     public interface IUserService
     {
         int[] RegisterUser(UserDto user);
-        bool LoginUser(UserDto user);
+        int LoginUser(UserDto user);
         List<UserDto> GetUser();
         void Add(UserDto user);
         void Update(UserDto user);

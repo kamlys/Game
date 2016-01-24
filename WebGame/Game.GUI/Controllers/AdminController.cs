@@ -264,6 +264,7 @@ namespace Game.GUI.Controllers
         {
             BuildingDto _buildingDto = new BuildingDto();
 
+            _buildingDto.ID = buildingModel.viewModel.ID;
             _buildingDto.Name = buildingModel.viewModel.BuildingName;
             _buildingDto.Price = buildingModel.viewModel.Price;
             _buildingDto.Height = buildingModel.viewModel.Height;
@@ -494,7 +495,7 @@ namespace Game.GUI.Controllers
                 Product_Name = x.Product_Name,
                 TypeOffer = x.TypeOffer,
                 User_ID = x.User_ID,
-                User_Login = x.Login
+                User_Login = x.Login,
             }).ToList();
 
             marketModel.allProduct = _productService.GetProduct().Select(x => x.Alias).ToArray();
@@ -513,6 +514,7 @@ namespace Game.GUI.Controllers
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
             _marketDto.Number = marketModel.viewModel.Number;
             _marketDto.Price = marketModel.viewModel.Price;
+            _marketDto.TypeOffer = marketModel.viewModel.TypeOffer;
 
             _marketService.Add(_marketDto);
 
@@ -525,10 +527,12 @@ namespace Game.GUI.Controllers
         {
             MarketDto _marketDto = new MarketDto();
 
+            _marketDto.ID = marketModel.viewModel.ID;
             _marketDto.Login = marketModel.viewModel.User_Login;
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
             _marketDto.Number = marketModel.viewModel.Number;
             _marketDto.Price = marketModel.viewModel.Price;
+            _marketDto.TypeOffer = marketModel.viewModel.TypeOffer;
 
             _marketService.Update(_marketDto);
 
@@ -721,6 +725,7 @@ namespace Game.GUI.Controllers
             UserProductDto _userProductDto = new UserProductDto();
 
             _userProductDto.ID = userProductModel.viewModel.ID;
+            _userProductDto.ID = userProductModel.viewModel.ID;
             _userProductDto.Login = userProductModel.viewModel.User_Login;
             _userProductDto.Product_Name = userProductModel.viewModel.Product_Name;
             _userProductDto.Value = userProductModel.viewModel.Value;
@@ -781,6 +786,7 @@ namespace Game.GUI.Controllers
         {
             BuildingQueueDto _buildingQueueDto = new BuildingQueueDto();
 
+            _buildingQueueDto.ID = queueModel.viewModel.ID;
             _buildingQueueDto.ID = queueModel.viewModel.ID;
             _buildingQueueDto.Login = queueModel.viewModel.User_Login;
 
@@ -846,6 +852,7 @@ namespace Game.GUI.Controllers
         {
             DealDto dealDto = new DealDto();
 
+            dealDto.ID = dealModel.viewModel.ID;
             dealDto.Building_Name = dealModel.viewModel.Building_Name;
             dealDto.DayTime = dealModel.viewModel.DealDay;
             dealDto.IsActive = dealModel.viewModel.IsActive;
@@ -899,7 +906,30 @@ namespace Game.GUI.Controllers
             dealbDto.Login = dealbModel.viewModel.User_Login;
             dealbDto.Deal_ID = dealbModel.viewModel.Deal_ID;
 
+            _dealService.UpdateDealBuildingAdmin(dealbDto);
 
+            return RedirectToAction("Admin");
+        }
+
+        [Authorize]
+        public ActionResult UpdateDealBuilding(DealBuildingViewModel dealbModel)
+        {
+            DealBuildingDto dealbDto = new DealBuildingDto();
+
+            dealbDto.ID = dealbModel.viewModel.ID;
+            dealbDto.Building_ID = dealbModel.viewModel.Building_ID;
+            dealbDto.User_ID = dealbModel.viewModel.User_ID;
+            dealbDto.Deal_ID = dealbModel.viewModel.Deal_ID;
+
+            _dealService.UpdateDealBuildingAdmin(dealbDto);
+
+            return RedirectToAction("Admin");
+        }
+
+        [Authorize]
+        public ActionResult DeleteDealBuilding(int id)
+        {
+            _dealService.DeleteDealBuildingAdmin(id);
 
             return RedirectToAction("Admin");
         }
@@ -931,6 +961,7 @@ namespace Game.GUI.Controllers
         {
             FriendDto friendDto = new FriendDto();
 
+            friendDto.ID = friendModel.viewModel.ID;
             friendDto.Friend_Login = friendModel.viewModel.Friend_Login;
             friendDto.User_Login = friendModel.viewModel.User_Login;
             friendDto.OrAccepted = friendModel.viewModel.OrAccepted;
@@ -1003,7 +1034,7 @@ namespace Game.GUI.Controllers
         {
             IgnoredDto ignoredDto = new IgnoredDto();
 
-
+            ignoredDto.ID = ignoredModel.viewModel.ID;
             ignoredDto.Ignored_ID = ignoredModel.viewModel.Ignored_ID;
             ignoredDto.User_ID = ignoredModel.viewModel.User_ID;
 
@@ -1067,6 +1098,7 @@ namespace Game.GUI.Controllers
         {
             MessageDto messageDto = new MessageDto();
 
+            messageDto.ID = messageModel.viewModel.ID;
             messageDto.Content = messageModel.viewModel.Content;
             messageDto.Customer_ID = messageModel.viewModel.Customer_ID;
             messageDto.Sender_ID = messageModel.viewModel.Sender_ID;
@@ -1129,6 +1161,7 @@ namespace Game.GUI.Controllers
         {
             ProductRequirementDto productrDto = new ProductRequirementDto();
 
+            productrDto.ID = productrMode.viewModel.ID;
             productrDto.Base_ID = productrMode.viewModel.Base_ID;
             productrDto.Require_ID = productrMode.viewModel.Require_ID;
             productrDto.Value = productrMode.viewModel.Value;

@@ -43,11 +43,11 @@
             @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
 
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.Sender_Login, new SelectList(Model.userList), new { @class = "validate inputSender" })
+                @Html.TextBoxFor(m => m.viewModel.Sender_ID, new { @class = "validate inputSender" })
                 <label for="Sender_Login">Wysyłający</label>
             </div>
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.Customer_Login, new SelectList(Model.userList), new { @class = "validate inputCustomer" })
+                @Html.TextBoxFor(m => m.viewModel.Customer_ID, new { @class = "validate inputCustomer" })
                 <label for="Customer_Login">Odbiorca</label>
             </div>
             <div class="input-field col s12">
@@ -104,7 +104,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="messageAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger messageAdminUpdate" onclick="updaterow(['inputID','inputSender','inputCustomer','inputTheme','inputContent','inputDate', 'inputRead'], ['@item.ID','@item.Sender_Login','@item.Customer_Login','@item.Theme','@item.Content','@item.PostDate','@item.PostDate'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="messageAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger messageAdminUpdate" onclick="updaterow(['inputID','inputSender','inputCustomer','inputTheme','inputContent','inputDate', 'inputRead'], ['@item.ID','@item.Sender_ID','@item.Customer_ID','@item.Theme','@item.Content','@item.PostDate','@item.IfRead'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

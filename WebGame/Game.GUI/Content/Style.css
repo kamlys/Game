@@ -214,7 +214,7 @@ nav {
 
 /*Recovery View*/
 .recoveryForm {
-  border-top: 5px solid #75bf3b;
+  border-top: 5px solid #395D1C;
   min-height: 500px;
   background-color: #18212A;
   margin-top: 100px;
@@ -236,10 +236,10 @@ nav {
   .recoveryForm .input-field input[type=text]:focus,
   .recoveryForm .input-field input[type=password]:focus,
   .recoveryForm .input-field input[type=email]:focus {
-    border-bottom: 3px solid #75bf3b;
+    border-bottom: 3px solid #395D1C;
     box-shadow: none; }
   .recoveryForm .btn {
-    background-color: #75bf3b !important; }
+    background-color: #395D1C !important; }
   .recoveryForm .regTopText .registerText {
     float: left;
     display: inline-block;
@@ -255,7 +255,9 @@ nav {
     margin-left: auto;
     margin-right: auto; }
     .recoveryForm .registerButton .btn, .recoveryForm .registerButton .btn-large {
-      background-color: #75bf3b !important; }
+      background-color: #395D1C !important; }
+  .recoveryForm .input-field label {
+    width: 100%; }
   .recoveryForm .uk-form-danger {
     color: red !important;
     background-color: #18212A !important; }
@@ -1056,6 +1058,11 @@ nav {
   margin-top: 40px;
   padding: 5px 20px 20px 20px;
   min-height: 650px; }
+  .profil .upBtnProfil {
+    float: right;
+    margin-top: 30px;
+    background-color: #4dd0e1;
+    margin-right: 10px; }
   .profil h4 {
     color: #fff;
     display: inline-block; }

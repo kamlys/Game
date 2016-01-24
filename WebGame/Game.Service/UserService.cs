@@ -5,10 +5,7 @@ using Game.Dal.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Game.Service.Interfaces;
-using Game.Service.Helpers;
 using System.Net;
 using System.Net.Mail;
 
@@ -25,6 +22,7 @@ namespace Game.Service
         private IRepository<RecoveryCodes> _recoveryCodes;
         private IUnitOfWork _unitOfWork;
         private IHashPass _hassPass;
+        private IRepository<Bans> _ban;
 
         public UserService(
             IRepository<Users> user,
@@ -34,7 +32,8 @@ namespace Game.Service
             IRepository<Ignored> ignored,
             IRepository<RecoveryCodes> recoveryCodes,
             IUnitOfWork unitOfWork,
-            IHashPass hassPass)
+            IHashPass hassPass,
+            IRepository<Bans> ban)
         {
             _user = user;
             _map = map;
@@ -44,6 +43,7 @@ namespace Game.Service
             _recoveryCodes = recoveryCodes;
             _unitOfWork = unitOfWork;
             _hassPass = hassPass;
+            _ban = ban;
         }
 
 
@@ -102,18 +102,29 @@ namespace Game.Service
 
                 _unitOfWork.Commit();
             }
-
-
-            //if (user.Password.Length < 5 || user.Password.ToCharArray().All(char.IsDigit))
-            //{
-            //    val.Add(3);
-            //}
+            if (user.Password.Length < 5 || user.Password.ToCharArray().All(char.IsDigit))
+            {
+                val.Add(3);
+            }
 
             return val.ToArray();
         }
 
-        public bool LoginUser(UserDto userLogin)
+        public int LoginUser(UserDto userLogin)
         {
+            int uID = _user.GetAll().First(i => i.Login == userLogin.Login).ID;
+
+            if (_ban.GetAll().Any(i => i.User_ID == uID && i.Finish_Date>DateTime.Now))
+            {
+                return 4;
+            }
+            else
+            {
+                int id = _ban.GetAll().First(i => i.User_ID == uID).ID;
+
+                _ban.Delete(_ban.Get(id));
+                _unitOfWork.Commit();
+            }
             if (_user.GetAll().Any(u => u.Login == userLogin.Login))
             {
                 var user = _user.GetAll().First(u => u.Login == userLogin.Login);
@@ -121,14 +132,14 @@ namespace Game.Service
                 {
                     user.Last_Log = DateTime.Now;
                     _unitOfWork.Commit();
-                    return true;
+                    return 1;
                 }
                 else
                 {
-                    return false;
+                    return 2;
                 }
             }
-            return false;
+            return 3;
         }
 
         public void Add(UserDto user)

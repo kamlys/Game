@@ -100,15 +100,19 @@ namespace Game.GUI.Controllers
             user.Login = modelLogin.Login;
             user.Password = modelLogin.Password;
 
-            if (_userService.LoginUser(user))
+            if (_userService.LoginUser(user) == 1)
             {
                 FormsAuthentication.SetAuthCookie(modelLogin.Login, true);
 
                 return RedirectToAction("Index", "Home");
             }
-            else
+            else if(_userService.LoginUser(user) == 2)
             {
                 errors.Add("Login bądź hasło niepoprawne.");
+            }
+            else if(_userService.LoginUser(user) == 4)
+            {
+                return View("~/Views/Error/_Blocked.cshtml");
             }
             Session["val"] = errors.ToArray<string>();
 

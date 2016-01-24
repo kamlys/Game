@@ -10,9 +10,19 @@
         @Html.Hidden("UserLogin", Model.Login)
         <h2>@Model.Login</h2>
 
+
+        if (!Model.Ignor)
+        {
+            <button class="btn upBtnProfil addIgnore" data-ignorlogin="@Model.Login">Ignoruj</button>
+        }
+        else
+        {
+            <button class="btn upBtnProfil deleteIgnore" data-ignorlogin="@Model.Login">Przestań ignorować</button>
+        }
+
         if (Model.Value == 1)
         {
-            <button class="btn btn-large deleteFriend" data-loginfriend="@Model.Login">Usuń znajomego</button>
+            <button class="btn upBtnProfil deleteFriend" data-loginfriend="@Model.Login">Usuń znajomego</button>
         }
         else if (Model.Value == 2)
         {
@@ -22,18 +32,11 @@
         {
             if (!Model.IfIgnored)
             {
-                <button class="btn btn-large addFriend">Dodaj znajomego</button>
+                <button class="btn upBtnProfil addFriend">Dodaj znajomego</button>
             }
         }
 
-        if (!Model.Ignor)
-        {
-            <button class="btn btn-large addIgnore" data-ignorlogin="@Model.Login">Ignoruj</button>
-        }
-        else
-        {
-            <button class="btn btn-large deleteIgnore" data-ignorlogin="@Model.Login">Przestań ignorować</button>
-        }
+        
 
         <hr />
         <div id="left">
@@ -82,7 +85,7 @@
     }
     else
     {
-        <h4>Jesteś zalogowany jako</h4> <h2>@Model.Login</h2>
+        <h4>Witaj </h4> <h2>@Model.Login</h2>
         <hr />
         <div id="left">
             @if (Model.RegDays <= 1)
