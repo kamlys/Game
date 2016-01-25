@@ -19,7 +19,7 @@ html, body {
     text-align: center;
     bottom: 0;
     position: absolute;
-    width:100%;
+    width: 100%;
     background: rgba(100,100,100,0.4);
 }
 
@@ -120,7 +120,6 @@ nav {
 
         li {
         }
-
     }
 
     @media screen and (max-width: 992px) {
@@ -1492,18 +1491,18 @@ nav {
 
         .costProduct {
             float: right;
-      display: flex;
-      color: #fff;
-      background-color: $officeColor;
-      text-align: left;
-      width: 65%;
-      z-index: 1000;
-      position: absolute;
-      margin-top: 45px;
+            display: flex;
+            color: #fff;
+            background-color: $officeColor;
+            text-align: left;
+            width: 65%;
+            z-index: 1000;
+            position: absolute;
+            margin-top: 45px;
 
-      .costName{
-          margin-right: 5px;
-      }
+            .costName {
+                margin-right: 5px;
+            }
         }
 
         .slimScrollBar {
@@ -1752,7 +1751,6 @@ nav {
 .Message {
     background-color: $secondColor;
     //min-height: 600px;
-
     .tabs {
         display: -webkit-box;
         display: -moz-box;
@@ -2082,8 +2080,9 @@ footer {
 
 /* kasyno */
 .bx-viewport {
-    background-color:midnightblue !important;
+    background-color: midnightblue !important;
     height: 300px !important;
+
     i {
         font-size: 250px;
         width: 100%;
@@ -2094,15 +2093,17 @@ footer {
 .slots {
     background: #18212A;
     padding: 20px;
+    margin-top: 30px;
 }
 
 #result {
-    margin-top: 150px;
-    margin-bottom: 20px;
     color: #D9F2F3;
     font-size: 20px;
     text-align: center;
+    display: inline-block;
+    margin-left: 20px;
 }
+
 input#bet {
     width: 300px;
     margin-top: 50px;
@@ -2111,6 +2112,6 @@ input#bet {
     margin-right: 25px;
 }
 
-        .nav-wrapper {
-            max-width: 600px !important;
-        }
+/*.nav-wrapper {
+    max-width: 600px !important;
+}*/

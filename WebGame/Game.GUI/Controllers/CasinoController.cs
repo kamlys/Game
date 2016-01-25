@@ -17,6 +17,7 @@ namespace Game.GUI.Controllers
             _dolarTableService = dolarTableService;
         }
 
+        [Authorize]
         // GET: Casino
         public ActionResult Index()
         {

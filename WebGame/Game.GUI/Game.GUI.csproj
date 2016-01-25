@@ -227,6 +227,7 @@
     <Content Include="Scripts\jquery.bxslider.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\js\Casino.js" />
     <Content Include="Scripts\js\circle-progress.js" />
     <Content Include="Content\site.css" />
     <Content Include="Content\Style.css">
