@@ -59,7 +59,7 @@ else
                         <td id="buyTd">
                             @if (User.Identity.Name != item.User_Login)
                             {
-                                <input type="number" class="numValue" id='numValue_@item.ID' data-id="@item.ID" data-productid="@item.Product_ID" name="numValue" min="1" value="1" onkeypress="return isNumberKey(event)">
+                                <input type="number" class="numValue" id='numberValue_@item.ID' data-id="@item.ID" data-productid="@item.Product_ID" data-number="@item.Number" name="numValue" min="1" value="1" onkeypress="return isNumberKey(event)">
                                 <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, false)">Sprzedaj</button>
                             }
                             else
@@ -93,18 +93,35 @@ else
         return true;
     }
 
-
-    $("input[name='numValue']").change(function () {
+    $(".numValue").bind("keyup change", function () {
         var id = $(this).data('id');
         var productid = $(this).data('productid');
+        console.log(id, productid, $("#product_" + productid).text(), $(this).data('number'));
 
-        if (!$("#product_" + productid).text().trim().length) {
-            $("#numValue_" + id).attr({ "max": 0 });
-            $("#numValue_" + id).val(0);
+        if ($("#product_" + productid).text() == "") {
+            $("#numberValue_" + id).val(0);
         }
         else {
-            $("#numValue_" + id).attr({ "max": $("#product_" + productid).text() });
-            console.log($("#product_" + productid).text());
+            var val;
+            if (parseInt($("#product_" + productid).text()) > $(this).data('number')) {
+                val = $(this).data('number');
+                console.log("1");
+            }
+            else {
+                val = parseInt($("#product_" + productid).text());
+                console.log("2");
+            }
+            console.log(val);
+
+            $("#numberValue_" + id).attr({ "max": val });
+            if (parseInt($("#numberValue_" + id).val()) > $("#numberValue_" + id).attr("max")) {
+                if (parseInt($("#numberValue_" + id).val()) > val) {
+                    $("#numberValue_" + id).val($("#numberValue_" + id).attr("max"));
+                }
+                else {
+                    $("#numberValue_" + id).val(val);
+                }
+            }
         }
     });
 

@@ -60,13 +60,10 @@ namespace Game.Service
         {
             int uID = _users.GetAll().First(u => u.Login == User).ID;
 
-            foreach (var item in _admins.GetAll())
-            {
-                if (item.User_ID == uID)
+                if (_admins.GetAll().Any(i=> i.User_ID == uID))
                 {
                     return true;
                 }
-            }
             return false;
         }
 
