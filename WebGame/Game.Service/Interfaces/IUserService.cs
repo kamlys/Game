@@ -39,5 +39,6 @@ namespace Game.Service.Interfaces
         void UpdateIgnoredAdmin(IgnoredDto friendDto);
         void DeleteIgnoredAdmin(int id);
         void AddIgnoredAdmin(IgnoredDto friendDto);
+        void HelpMessage(string email, string content, string theme);
     }
 }

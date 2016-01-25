@@ -114,11 +114,11 @@ namespace Game.Service
         {
             int uID = _user.GetAll().First(i => i.Login == userLogin.Login).ID;
 
-            if (_ban.GetAll().Any(i => i.User_ID == uID && i.Finish_Date>DateTime.Now))
+            if (_ban.GetAll().Any(i => i.User_ID == uID && i.Finish_Date > DateTime.Now))
             {
                 return 4;
             }
-            else if(_ban.GetAll().Any(i => i.User_ID == uID))
+            else if (_ban.GetAll().Any(i => i.User_ID == uID))
             {
                 int id = _ban.GetAll().First(i => i.User_ID == uID).ID;
 
@@ -569,5 +569,37 @@ namespace Game.Service
 
             _unitOfWork.Commit();
         }
+
+
+        public void HelpMessage(string email, string content, string theme)
+        {
+            string code = RandomString();
+            string user = _user.GetAll().First(i => i.Email == email).Login;
+            int uID = _user.GetAll().First(i => i.Email == email).ID;
+            var date = DateTime.Now.AddMinutes(10);
+            _unitOfWork.Commit();
+            string t = "Support -" + theme;
+            SendSupport(content,t );
+        }
+
+        private void SendSupport(string body, string subject)
+        {
+            string email = "game@game.webserwer.pl";
+            string password = "HaD1FfF1To$4";
+            var loginInfo = new NetworkCredential(email, password);
+            var msg = new MailMessage();
+            var smtpClient = new SmtpClient("poczta.webserwer.pl", 587);
+
+            msg.From = new MailAddress(email);
+            msg.To.Add(new MailAddress(email));
+            msg.Subject = subject;
+            msg.Body = body;
+            msg.IsBodyHtml = true;
+
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(msg);
+        }
+
+
     }
 }

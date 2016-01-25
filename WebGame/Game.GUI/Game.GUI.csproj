@@ -317,6 +317,7 @@
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
     <Compile Include="Controllers\UserBuildingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
@@ -428,6 +429,7 @@
     <Content Include="Views\Error\_505.cshtml" />
     <Content Include="Views\Error\_404.cshtml" />
     <Content Include="Views\Error\_Blocked.cshtml" />
+    <Content Include="Views\Support\Help.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

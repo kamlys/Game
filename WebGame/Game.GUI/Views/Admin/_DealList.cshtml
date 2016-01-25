@@ -124,7 +124,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="dealUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger dealUpdate" onclick="updaterow(['inputID','inputLogin1','inputPercent1','inputLogin2','inputPercent2','inputBuildingName', 'inputMapID', 'inputDealDay','inputActive'], ['@item.ID','@item.User1_Login', '@item.Percent_User1','@item.User2_Login','@item.Percent_User2','@item.Building_Name', '@item.Value','@item.DealDay','@item.IsActive'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.DeleteDeal("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

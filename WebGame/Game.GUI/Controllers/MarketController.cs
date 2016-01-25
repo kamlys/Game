@@ -101,7 +101,7 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public JsonResult SellProduct(int productid, int value, int money, string name)
+        public ActionResult SellProduct(int productid, int valueproduct, int money, string name)
         {
             List<string> errors;
             if (Session["val"] != null)
@@ -112,22 +112,23 @@ namespace Game.GUI.Controllers
             {
                 errors = new List<string>();
             }
-            if (value <= 0)
+            if (valueproduct <= 0)
             {
                 errors.Add("Coś poszło nie tak.");
             }
-            else if (_marketService.SellProduct(productid, value, User.Identity.Name))
+            else if (_marketService.SellProduct(productid, valueproduct, User.Identity.Name))
             {
                 errors.Add("Sukces!");
                 errors.Add("+$" + money);
-                errors.Add(name + " -" + value);
+                errors.Add(name + " -" + valueproduct);
             }
             else
             {
                 errors.Add("Nie posiadasz tyle produktów");
             }
             Session["val"] = errors.ToArray<string>();
-            return new JsonResult { Data = true };
+
+            return View("~/Views/Market/Index.cshtml");
         }
 
         [HttpPost]
@@ -144,18 +145,25 @@ namespace Game.GUI.Controllers
                 errors = new List<string>();
             }
 
-            MarketDto _marketDto = new MarketDto();
-
-            _marketDto.Login = User.Identity.Name;
-            _marketDto.Product_Name = marketList.viewModel.Product_Name;
-            _marketDto.Number = marketList.viewModel.Number;
-            _marketDto.Price = marketList.viewModel.Price;
-            _marketDto.TypeOffer = marketList.viewModel.TypeOffer;
-
-            if (!_marketService.AddOffer(_marketDto))
+            if((marketList.viewModel.Number == 0) || marketList.viewModel.Price == 0)
             {
                 errors.Add("Coś poszło nie tak. Spróbuj ponownie.");
                 Session["val"] = errors.ToArray<string>();
+            }
+            else{
+                MarketDto _marketDto = new MarketDto();
+
+                _marketDto.Login = User.Identity.Name;
+                _marketDto.Product_Name = marketList.viewModel.Product_Name;
+                _marketDto.Number = marketList.viewModel.Number;
+                _marketDto.Price = marketList.viewModel.Price;
+                _marketDto.TypeOffer = marketList.viewModel.TypeOffer;
+
+                if (!_marketService.AddOffer(_marketDto))
+                {
+                    errors.Add("Coś poszło nie tak. Spróbuj ponownie.");
+                    Session["val"] = errors.ToArray<string>();
+                }
             }
             return View("~/Views/Market/Index.cshtml");
 

@@ -61,7 +61,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="ignoredAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ignoredAdminUpdate" onclick="updaterow(['inputUserID','inputIgnoredID'], ['@item.User_ID','@item.Ignored_ID'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteIgnored", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,5 +18,9 @@ namespace Game.GUI.ViewModels.Message
         public bool IfRead { get; set; }
         public DateTime PostDate { get; set; }
         public DateTime SentDate { get; set; }
+
+        [Required]
+        [Display(Name = "E-mail")]
+        public string Email { get; set; }
     }
 }

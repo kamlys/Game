@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Pierwszy Milion</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -72,11 +72,13 @@
 
     <footer>
         <p>
-            &copy; @DateTime.Now.Year - My ASP.NET Application
+            <a href='@Url.Action("Help", "Support")'><i class="fa fa-question-circle"></i> Support</a>
+            &copy; <i>Pierwszy Milion</i> - Wszelkie prawa zastrzeżone.
             @if (User.Identity.IsAuthenticated)
             {
                 <a href='@Url.Action("Admin", "Admin")'><i class="fa fa-lock"></i></a>
             }
+
         </p>
     </footer>
 

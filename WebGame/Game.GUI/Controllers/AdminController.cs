@@ -303,7 +303,6 @@ namespace Game.GUI.Controllers
             {
                 ID = x.ID,
                 User_Login = x.Login,
-                Password = x.Password,
                 Email = x.Email,
                 LastUpdate = x.Last_Update,
                 RegistrationDate = x.Registration_Date,
@@ -319,7 +318,6 @@ namespace Game.GUI.Controllers
             UserDto _userDto = new UserDto();
 
             _userDto.Login = userModel.viewModel.User_Login;
-            _userDto.Password = userModel.viewModel.Password;
             _userDto.Email = userModel.viewModel.Email;
             _userDto.Last_Log = userModel.viewModel.LastLog;
             _userDto.Registration_Date = userModel.viewModel.RegistrationDate;
@@ -338,7 +336,6 @@ namespace Game.GUI.Controllers
 
             _userDto.ID = userModel.viewModel.ID;
             _userDto.Login = userModel.viewModel.User_Login;
-            _userDto.Password = userModel.viewModel.Password;
             _userDto.Email = userModel.viewModel.Email;
             _userDto.Last_Log = userModel.viewModel.LastLog;
             _userDto.Registration_Date = userModel.viewModel.RegistrationDate;

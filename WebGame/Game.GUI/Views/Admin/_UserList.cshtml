@@ -14,11 +14,6 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.PasswordFor(m => m.viewModel.Password, new { placeholder = "", @class = "validate" })
-                <label for="Password">Hasło</label>
-            </div>
-
-            <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.Email, new { placeholder = "", @class = "validate" })
                 <label for="Email">Email</label>
             </div>
@@ -55,11 +50,6 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.PasswordFor(m => m.viewModel.Password, new { placeholder = "", @class = "validate inputPassword" })
-                <label for="Password">Hasło</label>
-            </div>
-
-            <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.Email, new { placeholder = "", @class = "validate inputEmail" })
                 <label for="Email">Email</label>
             </div>
@@ -93,7 +83,6 @@
             <tr>
                 <th>ID</th>
                 <th>Login</th>
-                <th>Password</th>
                 <th>E-mail</th>
                 <th>Data rejestracji</th>
                 <th>Ostatnie logowanie</th>
@@ -112,7 +101,6 @@
                     <tr>
                         <td>@item.ID</td>
                         <td class="search">@item.User_Login</td>
-                        <td>@item.Password</td>
                         <td>@item.Email</td>
                         <td>@item.RegistrationDate</td>
                         <td>@item.LastLog</td>
@@ -125,8 +113,8 @@
                                 <ul>
                                     <li>
                                         <button data-target="userUpdate" class="btn-floating #00695c teal darken-3 modal-trigger userUpdate"
-                                                onclick="updaterow(['inputID','inputLogin','inputPassword','inputEmail','inputLastLog', 'inputRegistrationDate','inputLastUpdate'],
-                                            ['@item.ID','@item.User_Login','@item.Password','@item.Email','@item.LastLog','@item.RegistrationDate','@item.LastUpdate'])">
+                                                onclick="updaterow(['inputID','inputLogin','inputEmail','inputLastLog', 'inputRegistrationDate','inputLastUpdate'],
+                                            ['@item.ID','@item.User_Login','@item.Email','@item.LastLog','@item.RegistrationDate','@item.LastUpdate'])">
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </li>

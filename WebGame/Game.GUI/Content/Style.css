@@ -4,7 +4,9 @@ html, body {
 
 .time-left {
   text-align: center;
-  margin-top: 30px;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
   background: rgba(100, 100, 100, 0.4); }
 
 .progress.demo-wrapper.html5-progress-bar {
@@ -1332,7 +1334,7 @@ nav {
     margin-top: 20px;
     float: right; }
     .contentMessage .contentButton .btn {
-      background-color: #617487; }
+      background-color: #617487 !important; }
     .contentMessage .contentButton i {
       margin-right: 5px; }
 
@@ -1383,8 +1385,23 @@ nav {
 /*Footer*/
 footer {
   width: 100% !important;
-  min-height: 20%;
   margin-top: 20px;
-  background-color: #18212A;
   position: absolute; }
+  footer p {
+    float: right;
+    margin-right: 10px; }
+
+.support {
+  margin-top: 30px;
+  background-color: #18212A; }
+  .support .game-description article p:first-child {
+    font-size: 20px !important; }
+  .support h4 {
+    color: #becbd6;
+    font-size: 30px;
+    padding: 20px 20px 20px 20px; }
+  .support .btn {
+    background-color: #becbd6; }
+  .support .validate {
+    color: #fff; }
 

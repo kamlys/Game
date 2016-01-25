@@ -8,11 +8,11 @@
 <ul id='systemOffer' class='dropdown-content systemOffer'>
     @foreach (var item in Model.systemOfferList)
             {
-    <li class="systemOfferItem">
-        <p class="productName">@item.Product_Name</p><p class="productPrice">$@item.Price/szt</p>
-        <button class="btn sellProduct" id="sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
-        <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" onkeypress="return isNumberKey(event)">
-    </li>
+        <li class="systemOfferItem">
+            <p class="productName">@item.Product_Name</p><p class="productPrice">$@item.Price/szt</p>
+            <button class="btn sellProduct" data-productid="@item.Product_ID" data-price="@item.Price" data-productname="@item.Product_Name">Sprzedaj</button>
+            <input type="number" class="numberValue" id="numberValue_@item.Product_ID" placeholder="Ilość" name="numValue" min="1" data-productid="@item.Product_ID" onkeypress="return isNumberKey(event)">
+        </li>
     }
 </ul>
 
@@ -29,18 +29,16 @@
         return true;
     }
 
-    $("input[name='numValue']").change(function () {
+    $(".numberValue").bind("keyup change", function () {
         var id = $(this).data('id');
         var productid = $(this).data('productid');
-
-        if (!$("#product_" + productid).text().length) {
-            $("#numberValue_" + id).attr({ "max": 0 });
-            $("#numberValue_" + id).val(0);
+        var val = parseInt($("#product_" + productid).text());
+        console.log(val);
+        $("#numberValue_" + productid).attr({ "max": val });
+        if (parseInt($("#numberValue_" + productid).val()) > $("#numberValue_" + productid).attr("max")) {
+            $("#numberValue_" + productid).val(val);
         }
-        else {
-            $("#numberValue_" + productid).attr({ "max": $("#product_" + productid).text() });
-            console.log($("#product_" + productid).text());
-        }
+        console.log($("#product_" + productid).text());
     });
 
 
@@ -53,26 +51,25 @@
             gutter: 0, // Spacing from edge
             belowOrigin: false, // Displays dropdown below the button
             alignment: 'left' // Displays dropdown with edge aligned to the left of button
-        }
-   );
-
-    });
-
-    $(".sellProduct").click(function () {
-        var id = $(this).data('productid');
-        var number = $("#numberValue_" + id).val();
-        var money = $(this).data('price') * number;
-        var productname = $(this).data('productname');
-        console.log(id, number, money, productname);
-        $.ajax({
-            type: "POST",
-            url: 'SellProduct',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ productid: id, value: number, money: money, name: productname }),
-            success: function (data) {
-                location.reload();
-            },
         });
     });
 
+    $(".sellProduct").on('click', function () {
+        var id = $(this).data('productid');
+        var number = parseInt($("#numberValue_" + id).val());
+        var money = $(this).data('price') * number;
+        var productname = $(this).data('productname');
+
+        console.log(id, number, money, productname);
+
+        $.ajax({
+            type: "POST",
+            url: 'Market/SellProduct',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ productid: id, valueproduct: number, money: money, name: productname }),
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
 </script>

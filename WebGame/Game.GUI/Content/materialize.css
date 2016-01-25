@@ -7312,7 +7312,7 @@ nav {
     color: #fff; }
   nav .nav-wrapper {
     position: relative;
-    max-width: 550px;		
+    max-width: 509px;		
     margin: auto;
     height: 100%; }
     nav .nav-wrapper i {
@@ -8351,6 +8351,7 @@ a.waves-effect .waves-ripple {
   right: 0;
   background-color: #fafafa;
   padding: 0;
+  min-height: 500px;
   max-height: 70%;
   width: 55%;
   margin: auto;
@@ -8889,6 +8890,7 @@ textarea.materialize-textarea + label:after {
   font-size: 0.8rem;
   -webkit-transform: translateY(-140%);
           transform: translateY(-140%);
+          width:100%;
 }
 
 .input-field .prefix {

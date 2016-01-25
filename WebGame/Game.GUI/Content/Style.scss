@@ -17,7 +17,9 @@ html, body {
 
 .time-left {
     text-align: center;
-    margin-top: 30px;
+    bottom: 0;
+    position: absolute;
+    width:100%;
     background: rgba(100,100,100,0.4);
 }
 
@@ -1803,7 +1805,7 @@ nav {
             color: #f9c9cb;
             cursor: default;
         }
-        }
+    }
 
 
     .paginationBtn {
@@ -1967,8 +1969,10 @@ nav {
         margin-top: 20px;
         float: right;
 
+
+
         .btn {
-            background-color: #617487;
+            background-color: #617487 !important;
         }
 
         i {
@@ -2033,8 +2037,35 @@ nav {
 /*Footer*/
 footer {
     width: 100% !important;
-    min-height: 20%;
     margin-top: 20px;
-    background-color: $secondColor;
     position: absolute;
+
+    p {
+        float: right;
+        margin-right: 10px;
+    }
+}
+
+
+.support {
+    margin-top: 30px;
+    background-color: $secondColor;
+
+    .game-description article p:first-child {
+        font-size: 20px !important;
+    }
+
+    h4 {
+        color: #becbd6;
+        font-size: 30px;
+        padding: 20px 20px 20px 20px;
+    }
+
+    .btn {
+        background-color: #becbd6;
+    }
+
+    .validate {
+        color: #fff;
+    }
 }
