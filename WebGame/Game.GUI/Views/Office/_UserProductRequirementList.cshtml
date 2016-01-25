@@ -95,7 +95,7 @@
     });
 
     $(".createButton").click(function () {
-        var value = $("#productValue").val();
+        var value = $(this).siblings('input').val();
         var product = $(this).data('productname');
         $.ajax({
             type: "POST",

@@ -1,0 +1,59 @@
+﻿@model Game.GUI.ViewModels.Message.MessageViewModel
+@{
+    ViewBag.Title = "Help";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row support">
+    <div class="col l5 game-description center-block">
+        <article class="uk-article" id="homeArticle">
+            <p>
+                Masz jakieś pytanie ?
+                <br />
+                <br />
+                A może jakiś pomysł, który rozwinie grę ?
+                <br />
+                <br />
+                Lub nie podoba ci się zachowanie gracza ?
+                <br />
+                <br />
+                Napisz do nas podając swój adres e-mail abyśmy mogli odpowiedzieć.
+            </p>
+        </article>
+    </div>
+    <div class="col l1">&nbsp;</div>
+    <div class="col l6 s12 ">
+            <h4>Wiadomość do supportu:</h4>
+            @using (Html.BeginForm("HelpSupport", "Support", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.viewModel.Email, new { @type = "email", @placeholder = "", @class = "validate" })
+                    <label for="Email" data-error="To nie jest email.">Twój E-mail:</label>
+                </div>
+
+                <div class="input-field col s12">
+                    @Html.TextBoxFor(m => m.viewModel.Theme, new { placeholder = "", @class = "validate" })
+                    <label for="Theme">Tytuł:</label>
+                </div>
+
+                <div class="input-field col s12">
+                    @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "validate materialize-textarea" })
+                    <label for="Content">Treść:</label>
+                </div>
+                <button type="submit" class="btn waves-effect waves-light sendMessageBtn" name="action">Wyślij</button>
+            }
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

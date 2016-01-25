@@ -83,7 +83,7 @@ namespace Game.Service
 
                 productRDto.Add(new ProductRequirementDto
                 {
-                    Base_Name = _product.Get(item.Key).Name,
+                    Base_Name = _product.Get(item.Key).Alias,
                     RequireProduct = item.Select(i => new Dictionary<string, int[]>() { { _product.Get(i.Require_ID).Alias,new int[]{ i.Value, i.Require_ID } }, }).ToList(),
                     IfCanProduct = temp,
                     RequireBuilding = building
