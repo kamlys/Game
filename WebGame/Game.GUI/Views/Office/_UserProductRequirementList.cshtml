@@ -3,7 +3,6 @@
     Layout = null;
 }
 
-
 <div id="requirementBox" class="requirementBox">
     <ul class="productRequirement">
         @foreach (var item in Model.listModel)
@@ -31,8 +30,8 @@
 
                             <button class="btn createButton" data-productname="@item.BaseName">Produkuj</button>
                         </span>
-                        <span class="costProduct" id="costProduct_@item.BaseName">
-                        </span>
+                        <div class="costProduct" id="costProduct_@item.BaseName">
+                        </div>
                     </div>
                 </li>
             }
@@ -80,15 +79,9 @@
                 maxValue[i] = m;
 
             });
-            $("#costProduct_" + basename).append("<div class='costName'>" + productName + ": -" + productValue + "</div>");
+            $("#costProduct_" + basename).append("<div class='costName'>" +" "+ productName + ": -" + productValue +" "+"</div> ");
         });
-
-        if (maxValue[0] > maxValue[1]) {
-            $(this).attr({ "max": maxValue[1] })
-        }
-        else {
-            $(this).attr({ "max": maxValue[0] })
-        }
+        $(this).attr({ "max": Math.min.apply(Math, maxValue) })
 
         if (parseInt($(this).val()) > $(this).attr("max")) {
             var maxV = $(this).attr("max");

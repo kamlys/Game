@@ -1009,10 +1009,16 @@ nav {
     width: 49%; }
     .office .uProductRequirementList .costProduct {
       float: right;
-      display: inline-block;
+      display: flex;
       color: #fff;
+      background-color: #343256;
       text-align: left;
-      padding-left: -20px; }
+      width: 65%;
+      z-index: 1000;
+      position: absolute;
+      margin-top: 45px; }
+      .office .uProductRequirementList .costProduct .costName {
+        margin-right: 5px; }
     .office .uProductRequirementList .slimScrollBar {
       background: #343256 !important; }
     .office .uProductRequirementList h5 {
@@ -1036,8 +1042,8 @@ nav {
       .office .uProductRequirementList .productRequirementItem .conditions {
         float: right;
         display: inline-block;
-        line-height: 45px;
-        margin-right: 15px; }
+        margin-left: 5px;
+        position: absolute; }
       .office .uProductRequirementList .productRequirementItem .inputValue {
         display: inline-block;
         float: right;
@@ -1045,7 +1051,8 @@ nav {
         height: 44px;
         width: 65%;
         line-height: 44px;
-        padding-left: 15px; }
+        position: absolute;
+        right: 0; }
         .office .uProductRequirementList .productRequirementItem .inputValue #productValue {
           width: 45%;
           display: inline-block;

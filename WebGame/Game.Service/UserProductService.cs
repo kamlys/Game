@@ -116,9 +116,9 @@ namespace Game.Service.Table
             var uID = _user.GetAll().First(i => i.Login == user).ID;
             bool ifcan = true;
 
-            if (value>0)
+            if (value > 0)
             {
-                if (_userProducts.GetAll().Any(i => i.Product_ID == product.ID))
+                if (_userProducts.GetAll().Any(i => i.Product_ID == product.ID && i.User_ID == uID))
                 {
                     _userProducts.GetAll().First(i => i.Product_ID == product.ID && i.User_ID == uID).Value += value;
                 }
@@ -133,28 +133,25 @@ namespace Game.Service.Table
                     });
                 }
 
-                foreach (var item in _userProducts.GetAll().Where(i => i.Product_ID == product.ID))
+                foreach (var item2 in _productRequirement.GetAll().Where(i => i.Base_ID == product.ID))
                 {
-                    foreach (var item2 in _productRequirement.GetAll().Where(i => i.Base_ID == product.ID))
+                    int temp = value * item2.Value;
+                    int productValue = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value;
+
+
+                    if (item2.Value > productValue)
                     {
-                        int temp = value * item2.Value;
-                        int productValue = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value;
+                        ifcan = false;
+                    }
+                    int tempValue = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value - temp;
+
+                    _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value -= temp;
 
 
-                        if (item2.Value > productValue)
-                        {
-                            ifcan = false;
-                        }
-
-                        _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value -= temp;
-
-                        if((_userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).Value - temp) == 0)
-                        {
-                            int upID = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).ID;
-
-                            _userProducts.Delete(_userProducts.Get(upID));
-                        }
-
+                    if (tempValue == 0)
+                    {
+                        int upID = _userProducts.GetAll().First(i => i.Product_ID == item2.Require_ID && i.User_ID == uID).ID;
+                        _userProducts.Delete(_userProducts.Get(upID));
                     }
                 }
 

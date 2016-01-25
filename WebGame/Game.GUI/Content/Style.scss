@@ -1491,10 +1491,18 @@ nav {
 
         .costProduct {
             float: right;
-            display: inline-block;
-            color: #fff;
-            text-align: left;
-            padding-left: -20px;
+      display: flex;
+      color: #fff;
+      background-color: $officeColor;
+      text-align: left;
+      width: 65%;
+      z-index: 1000;
+      position: absolute;
+      margin-top: 45px;
+
+      .costName{
+          margin-right: 5px;
+      }
         }
 
         .slimScrollBar {
@@ -1529,8 +1537,8 @@ nav {
             .conditions {
                 float: right;
                 display: inline-block;
-                line-height: 45px;
-                margin-right: 15px;
+                margin-left: 5px;
+                position: absolute;
             }
 
             .inputValue {
@@ -1540,7 +1548,8 @@ nav {
                 height: 44px;
                 width: 65%;
                 line-height: 44px;
-                padding-left: 15px;
+                position: absolute;
+                right: 0;
 
                 #productValue {
                     width: 45%;
