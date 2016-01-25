@@ -106,5 +106,24 @@ namespace Game.Service.Table
 
             return _dolars.GetAll().First(i => i.User_ID == uID).Value;
         }
+
+        public void PayForBet(string user, int bet)
+        {
+            int uID = _users.GetAll().First(i => i.Login == user).ID;
+            int dolar = _dolars.GetAll().First(i => i.User_ID == uID).Value;
+
+            _dolars.GetAll().First(i => i.User_ID == uID).Value -= bet;
+            _unitOfWork.Commit();
+        }
+
+        public int AddFromBet(string user, int bet, int mul)
+        {
+            int uID = _users.GetAll().First(i => i.Login == user).ID;
+            int dolar = _dolars.GetAll().First(i => i.User_ID == uID).Value;
+
+            _dolars.GetAll().First(i => i.User_ID == uID).Value += mul*bet;
+            _unitOfWork.Commit();
+            return mul * bet;
+        }
     }
 }

@@ -36,6 +36,7 @@ namespace Game.GUI
             bundles.Add(new ScriptBundle("~/Scripts/js").Include(
                     "~/Scripts/js/main_page.js",
                     "~/Scripts/js/ProductShow.js",
+                    "~/Scripts/jquery.bxslider.js",
                     "~/Scirpts/js/circle-progress.js",
                     "~/Scripts/js/AdminScripts.js"));
 

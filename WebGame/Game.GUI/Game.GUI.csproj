@@ -216,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Pickaxe.png" />
+    <Content Include="Content\jquery.bxslider.css" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -223,6 +224,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\material-design-icons\LICENSE.txt" />
     <Content Include="fonts\material-design-icons\Material-Design-Icons.svg" />
+    <Content Include="Scripts\jquery.bxslider.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\js\circle-progress.js" />
@@ -307,6 +309,7 @@
     <Compile Include="Controllers\BanController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\BuildingQueueController.cs" />
+    <Compile Include="Controllers\CasinoController.cs" />
     <Compile Include="Controllers\DolarController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -430,6 +433,7 @@
     <Content Include="Views\Error\_404.cshtml" />
     <Content Include="Views\Error\_Blocked.cshtml" />
     <Content Include="Views\Support\Help.cshtml" />
+    <Content Include="Views\Casino\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

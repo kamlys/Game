@@ -16,7 +16,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="userDolar">
-                @User.Identity.Name <i class="fa fa-usd"></i>  @{Html.RenderAction("dolar", "Dolar");}
+                @User.Identity.Name <i class="fa fa-usd"></i> <span id="currDolars">@{Html.RenderAction("dolar", "Dolar");}</span> 
             </div>
 
             <div class="nav-wrapper">
@@ -29,6 +29,8 @@
                     <li><a href='@Url.Action("Index", "Message")' id="message"><i class="fa fa-envelope"></i> Wiadomości</a></li>
 
                     <li><a href='@Url.Action("Index", "Market")'><i class="fa fa-shopping-cart"></i> Market</a></li>
+
+                    <li><a href='@Url.Action("Index", "Casino")'><i class="fa fa-usd"></i> Kasyno</a></li>
 
                     <li><a href='@Url.Action("Index", "Ranking")'><img src="~/Content/Images/trophy42.png" /> Ranking</a></li>
 
@@ -46,6 +48,8 @@
                     <li><a href='@Url.Action("Index", "Message")' id="message"><i class="fa fa-envelope"></i> Wiadomości</a></li>
 
                     <li><a href='@Url.Action("Index", "Market")'><i class="fa fa-shopping-cart"></i> Market</a></li>
+
+                    <li><a href='@Url.Action("Index", "Casino")'><i class="fa fa-usd"></i> Kasyno</a></li>
 
                     <li><a href='@Url.Action("Index", "Ranking")'><img src="~/Content/Images/trophy42.png" /> Ranking</a></li>
 
@@ -70,7 +74,7 @@
 
     </div>
 
-    <footer>
+    <footer class="center">
         <p>
             <a href='@Url.Action("Help", "Support")'><i class="fa fa-question-circle"></i> Support</a>
             &copy; <i>Pierwszy Milion</i> - Wszelkie prawa zastrzeżone.

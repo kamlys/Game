@@ -120,6 +120,7 @@ nav {
 
         li {
         }
+
     }
 
     @media screen and (max-width: 992px) {
@@ -2050,8 +2051,8 @@ footer {
     position: absolute;
 
     p {
-        float: right;
-        margin-right: 10px;
+        margin-top: 20px;
+        color: #6692BF;
     }
 }
 
@@ -2078,3 +2079,38 @@ footer {
         color: #fff;
     }
 }
+
+/* kasyno */
+.bx-viewport {
+    background-color:midnightblue !important;
+    height: 300px !important;
+    i {
+        font-size: 250px;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.slots {
+    background: #18212A;
+    padding: 20px;
+}
+
+#result {
+    margin-top: 150px;
+    margin-bottom: 20px;
+    color: #D9F2F3;
+    font-size: 20px;
+    text-align: center;
+}
+input#bet {
+    width: 300px;
+    margin-top: 50px;
+    color: white;
+    margin-left: 20px;
+    margin-right: 25px;
+}
+
+        .nav-wrapper {
+            max-width: 600px !important;
+        }

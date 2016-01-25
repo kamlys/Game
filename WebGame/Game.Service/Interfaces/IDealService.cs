@@ -23,6 +23,5 @@ namespace Game.Service.Interfaces
         void DeleteDealBuildingAdmin(int id);
         void UpdateDealBuildingAdmin(DealBuildingDto dealDto);
 
-
     }
 }

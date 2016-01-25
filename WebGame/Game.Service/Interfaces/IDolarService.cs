@@ -15,6 +15,8 @@ namespace Game.Service.Interfaces.TableInterface
         void Update(DolarDto admin);
         void Delete(int id);
         int UserDolar(string user);
+        void PayForBet(string user, int bet);
+        int AddFromBet(string user, int bet, int mul);
 
 
     }
