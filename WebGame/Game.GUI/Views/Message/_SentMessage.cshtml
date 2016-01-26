@@ -39,7 +39,6 @@
 </div>
 <script>
     $('#paginationBtnSent').on('click', 'a', function (e) {
-        console.log(this,"paginationBtnSent");
         e.preventDefault();
         if(!$(this).parents("li:first").hasClass("active")){
             $.ajax({

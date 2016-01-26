@@ -43,7 +43,7 @@
                     </div>
 
 
-                    <button type="submit" class="btn waves-effect waves-light addButton" id="addDeal" name="action">Złóż ofertę</button>
+                    <button type="submit" class="btn addButton" id="addDeal" name="action">Złóż ofertę</button>
                 </form>
             }
         </div>
@@ -175,8 +175,6 @@
     $("#addDeal").click(function () {
         if ($('input[id=test1]:checked').val() == "on") {
             $("#viewModel_DealDay").val() = 7;
-            console.log($("#viewModel_DealDay").val());
-            console.log($('input[id=test1]:checked').val());
         }
         else if ($('input[id=test2]:checked').val() == "on") {
             $("#viewModel_DealDay").val() = 10;
@@ -247,7 +245,6 @@
 
         offer_id = $(this).data('id');
 
-        console.log(offer_id);
         $.ajax({
             type: "POST",
             url: '/Office/CancelDeal',
@@ -255,7 +252,6 @@
             data: JSON.stringify({ a: offer_id }),
             success: function (data) {
                 location.reload();
-                console.log(offer_id);
             }
         });
     });
@@ -271,7 +267,6 @@
             user = $(this).data('user1');
         }
 
-        console.log(offer_id);
         $.ajax({
             type: "POST",
             url: '/Office/RerunDeal',
@@ -279,7 +274,6 @@
             data: JSON.stringify({ a: offer_id, user: user }),
             success: function (data) {
                 location.reload();
-                console.log(offer_id);
             }
         });
     });

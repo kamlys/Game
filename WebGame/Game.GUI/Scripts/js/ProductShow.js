@@ -34,7 +34,6 @@ function TakeValues() {
         type: 'Post',
         dataType: 'Json',
         success: function (dataProduct) {
-            console.log(dataProduct);
             fillWithData(dataProduct);
             setInterval(function () { updateProduct(dataProduct); }, 1000);
         },

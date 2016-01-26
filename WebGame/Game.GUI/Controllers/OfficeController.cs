@@ -338,14 +338,15 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult AddOffer(MarketViewModel marketModel)
+        public ActionResult AddOffer(UserProductViewModel marketModel)
         {
             MarketDto _marketDto = new MarketDto();
 
             _marketDto.Login = User.Identity.Name;
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
-            _marketDto.Number = marketModel.viewModel.Number;
+            _marketDto.Number = marketModel.viewModel.Value;
             _marketDto.Price = marketModel.viewModel.Price;
+            _marketDto.TypeOffer = true;
 
             _marketService.AddOffer(_marketDto);
 

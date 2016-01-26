@@ -6,7 +6,6 @@ $(".addButton").click(function () {
     var sender_login = $("#User_Identity_Name").val();
     var theme = $("#viewModel_Theme").val();
     var customer_login = $("#viewModel_Customer_Login").val();
-    console.log(customer_login);
     pin = "Nowa wiadomość";
 });
 
@@ -49,7 +48,6 @@ $(".agree").click(function () {
     var id = $(this).data('userid');
     user_friend = $(this).data('userlogin');
     friend_user = $(this).data('friendlogin');
-    console.log(id);
     $.ajax({
         type: "POST",
         url: 'User/AcceptFriend',
@@ -65,7 +63,6 @@ $(".disagree").click(function () {
     var id = $(this).data('userid');
     user_friend = $(this).data('userlogin');
     friend_user = $(this).data('friendlogin');
-    console.log(id);
     $.ajax({
         type: "POST",
         url: 'User/DontAcceptFriend',
@@ -74,7 +71,6 @@ $(".disagree").click(function () {
         success: function (data) {
         }
     });
-    console.log(user_friend, friend_user)
 });
 
 function getFriendList() {
@@ -140,7 +136,6 @@ $(document).ready(function () {
                 }
             });
             $('#friendMessage').click(function () {
-                console.log($("#viewModel_Friend_Login").val());
                 game.server.sentNotification($("#viewModel_Friend_Login").val(), pin);
             });
             $('.addFriend').click(function () {

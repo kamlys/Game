@@ -13,7 +13,6 @@ function buyoffer(ID, user_ID, product_ID, price, typeOff) {
     price = price;
     typeOffer = typeOff;
 
-    console.log(ID, user_ID, product_ID, number, price, typeOffer);
 
     marketbuyoffer(ID, user_ID, product_ID, price, typeOffer);
 }
@@ -21,7 +20,6 @@ function buyoffer(ID, user_ID, product_ID, price, typeOff) {
 function marketbuyoffer(ID, user_ID, product_ID, price,type) {
     var data = { ID : ID, User_ID: user_ID, Product_ID: product_ID, Price: price, Number: number, TypeOffer: typeOffer };
     var me = $(this);
-    console.log(data);
     if (me.data('requestRunning')) {
         return;
     }

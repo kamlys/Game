@@ -13,7 +13,7 @@
                 <img src="~/Content/Images/logo.png" class="responsive-img" />
                 @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    <form>
+                    <form class="col s12">
                         @Html.AntiForgeryToken()
 
                         <div class="input-field col s12">
@@ -28,9 +28,9 @@
 
                         <div class="loginButton">
                             <div class="logowanieButton">
-                                <button type="submit" class="waves-effect waves-light btn-large">Zaloguj</button>
+                                <button type="submit" class="btn btn-large">Zaloguj</button>
                             </div>
-                            <div class="loginRegister right">
+                            <div class="loginRegister">
                                 <a href='@Url.Action("Register", "User")'>Utwórz konto</a><br />
                                 <a href='@Url.Action("RecoveryPassword", "User")'>Zapomniałeś hasła?</a>
                             </div>

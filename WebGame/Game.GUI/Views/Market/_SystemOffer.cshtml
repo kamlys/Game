@@ -33,12 +33,10 @@
         var id = $(this).data('id');
         var productid = $(this).data('productid');
         var val = parseInt($("#product_" + productid).text());
-        console.log(val);
         $("#numberValue_" + productid).attr({ "max": val });
         if (parseInt($("#numberValue_" + productid).val()) > $("#numberValue_" + productid).attr("max")) {
             $("#numberValue_" + productid).val(val);
         }
-        console.log($("#product_" + productid).text());
     });
 
 
@@ -60,7 +58,6 @@
         var money = $(this).data('price') * number;
         var productname = $(this).data('productname');
 
-        console.log(id, number, money, productname);
 
         $.ajax({
             type: "POST",

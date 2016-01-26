@@ -1,6 +1,5 @@
 ﻿$(".deleteMessage").click(function () {
     var id = $("#viewModel_ID").val();
-    console.log(id);
     $.ajax({
         type: "POST",
         url: 'DeleteMessage',

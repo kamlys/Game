@@ -1,6 +1,5 @@
 ﻿function AdminAjax(id, tabela, user) {
     var data = { tabela: tabela, id: id, user: user};
-    console.log(data);
     var me = $(this);
 
     $.ajax({

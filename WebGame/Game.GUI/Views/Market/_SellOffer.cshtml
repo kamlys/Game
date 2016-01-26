@@ -24,7 +24,7 @@
                 <label for="Price" data-error="Wartość nie może być mniejsza niż 1.">Cena za sztukę</label>
             </div>
 
-            <button type="submit" class="btn waves-effect waves-light addButton" name="action">Zapisz</button>
+            <button type="submit" class="btn addButton" name="action">Zapisz</button>
         }
     </div>
 </div>
@@ -61,11 +61,11 @@ else
                             @if (User.Identity.Name != item.User_Login)
                             {
                                 <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" data-id="@item.ID" data-productid="@item.Product_ID" data-number="@item.Number"  value="1" onkeypress="return isNumberKey(event)">
-                                <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, true)">Kup</button>
+                                <button type="submit" class="btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, true)">Kup</button>
                             }
                             else
                             {
-                                <button type="submit" class="waves-effect waves-light btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
+                                <button type="submit" class="btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
                             }
                         </td>
                     </tr>

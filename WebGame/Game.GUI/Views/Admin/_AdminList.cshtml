@@ -11,7 +11,7 @@
                 @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate" })
                 <label for="User_Login">Login</label>
             </div>
-            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+            <input type="submit" value="Zapisz" class="btn addButton" name="action" />
         }
     </div>
 </div>
@@ -28,7 +28,7 @@
                 @Html.TextBoxFor(m => m.viewModel.User_Login, new { @placeholder = "", @class = "validate inputLogin" })
                 <label for="Login">Login</label>
             </div>
-            <input type="submit" value="Zapisz" class="btn waves-effect waves-light addButton" name="action" />
+            <input type="submit" value="Zapisz" class="btn addButton" name="action" />
         }
     </div>
 </div>

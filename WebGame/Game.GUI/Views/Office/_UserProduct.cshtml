@@ -36,7 +36,6 @@
                     var product = document.getElementById("product_" + id).innerHTML;
 
                     document.getElementById("product_" + id).innerHTML = parseInt(product) + parseInt(value);
-                    //console.log(document.getElementById("product_" + id).innerHTML);
                 }
 
             }
@@ -64,7 +63,6 @@
                     type: 'Post',
                     dataType: 'Json',
                     success: function (dataProduct) {
-                        console.log(dataProduct);
                         fillWithData(dataProduct);
                         setInterval(function () { updateProduct(dataProduct); }, 1000);
                     },

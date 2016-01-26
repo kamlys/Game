@@ -14,5 +14,6 @@ namespace Game.GUI.ViewModels.Product.UserProduct
         public string Product_Name { get; set; }
         public int Value { get; set; }
         public int Price { get; set; }
+        public bool TypeOffer { get; set; }
     }
 }
