@@ -48,6 +48,7 @@ namespace Game.Service
             productDictionary.RequireProduct = new List<Dictionary<string, int[]>>();
             bool temp = true;
             bool temp2 = false;
+            bool can = false;
             string building = String.Empty;
 
             var products = _productR.GetAll().GroupBy(i => i.Base_ID);
@@ -55,37 +56,28 @@ namespace Game.Service
             {
                 foreach (var item2 in item)
                 {
-                    if (!_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == item2.Require_ID))
-                    {
-                        temp = false;
-                    }
-                    else if (_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value < item2.Value)
+                    if ((_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value < item2.Value)
+                        && (!_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == item2.Require_ID)))
                     {
                         temp = false;
                     }
                     var buildingID = _building.GetAll().FirstOrDefault(p => p.Product_ID == item2.Base_ID).ID;
-                    foreach (var item3 in _userBuilding.GetAll().Where(i => i.User_ID == uID && i.Building_ID == buildingID))
+                    if (_userBuilding.GetAll().Any(i => i.User_ID == uID && i.Building_ID == buildingID && i.Status.Contains("gotowy")))
                     {
                         temp2 = true;
                     }
 
-                    if (temp && temp2)
-                    {
-                        temp = true;
-                    }
-                    else
-                    {
-                        temp = false;
-                    }
-
                     building = _building.Get(buildingID).Alias;
                 }
-
+                if (temp && temp2)
+                {
+                    can = true;
+                }
                 productRDto.Add(new ProductRequirementDto
                 {
                     Base_Name = _product.Get(item.Key).Alias,
-                    RequireProduct = item.Select(i => new Dictionary<string, int[]>() { { _product.Get(i.Require_ID).Alias,new int[]{ i.Value, i.Require_ID } }, }).ToList(),
-                    IfCanProduct = temp,
+                    RequireProduct = item.Select(i => new Dictionary<string, int[]>() { { _product.Get(i.Require_ID).Alias, new int[] { i.Value, i.Require_ID } }, }).ToList(),
+                    IfCanProduct = can,
                     RequireBuilding = building
                 });
             }
@@ -123,8 +115,8 @@ namespace Game.Service
         {
             _productR.Add(new ProductRequirements
             {
-                Base_ID = _product.GetAll().First(i=> i.Alias == productDto.Base_Name).ID,
-                Require_ID = _product.GetAll().First(i=> i.Alias == productDto.Require_Name).ID,
+                Base_ID = _product.GetAll().First(i => i.Alias == productDto.Base_Name).ID,
+                Require_ID = _product.GetAll().First(i => i.Alias == productDto.Require_Name).ID,
                 Value = productDto.Value
             });
 
@@ -133,7 +125,7 @@ namespace Game.Service
 
         public void UpdateProduct(ProductRequirementDto productDto)
         {
-            foreach (var item in _productR.GetAll().Where(i=>i.ID==productDto.ID))
+            foreach (var item in _productR.GetAll().Where(i => i.ID == productDto.ID))
             {
                 item.Base_ID = productDto.Base_ID;
                 item.Require_ID = productDto.Require_ID;

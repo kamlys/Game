@@ -1054,7 +1054,7 @@ nav {
         height: 44px;
         width: 65%;
         line-height: 44px;
-        position: absolute;
+        position: relative;
         right: 0; }
         .office .uProductRequirementList .productRequirementItem .inputValue #productValue {
           width: 45%;

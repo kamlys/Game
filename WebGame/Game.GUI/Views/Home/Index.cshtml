@@ -96,10 +96,8 @@
     }
 </div>
 
-<script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('ul.tabs').tabs();
         if ($('#Notification ul li').length >= 1) {
             $('.infoBox .tabs').tabs('select_tab', 'Notification');

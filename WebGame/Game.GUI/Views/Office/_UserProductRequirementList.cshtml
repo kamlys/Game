@@ -25,9 +25,6 @@
                            @data_product = Json.Encode(item.RequireProduct),
                            @data_baseid = item.BaseName
                        })
-
-
-
                             <button class="btn createButton" data-productname="@item.BaseName">Produkuj</button>
                         </span>
                         <div class="costProduct" id="costProduct_@item.BaseName">
@@ -58,8 +55,6 @@
 <script>
     var productName;
     var productValue;
-
-
 
     $(".productreq").bind("keyup change", function () {
         var inputvalue = $(this).val();
