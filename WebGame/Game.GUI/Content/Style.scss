@@ -1301,7 +1301,6 @@ nav {
             border: none;
 
             #lvlUp:hover {
-                background-color: green;
                 border-radius: 0;
             }
         }
@@ -1317,6 +1316,14 @@ nav {
             .btn {
                 color: #000;
                 font-weight: bold;
+            }
+
+            .dropdown-content {
+                max-height: 100px !important;
+
+                a {
+                    color: #000 !important;
+                }
             }
         }
     }

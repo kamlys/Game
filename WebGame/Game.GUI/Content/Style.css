@@ -888,7 +888,6 @@ nav {
       margin-bottom: 5px;
       border: none; }
       .office .uBuildingList .collapsible-header #lvlUp:hover {
-        background-color: green;
         border-radius: 0; }
     .office .uBuildingList .collapsible-body {
       background-color: rgba(52, 50, 86, 0.5);
@@ -900,6 +899,10 @@ nav {
       .office .uBuildingList .collapsible-body .btn {
         color: #000;
         font-weight: bold; }
+      .office .uBuildingList .collapsible-body .dropdown-content {
+        max-height: 100px !important; }
+        .office .uBuildingList .collapsible-body .dropdown-content a {
+          color: #000 !important; }
   @media screen and (max-width: 950px) {
     .office .uProductList {
       width: 100% !important; } }

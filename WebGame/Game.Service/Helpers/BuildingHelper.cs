@@ -153,8 +153,6 @@ namespace Game.Service
 
         public int[][] AddProductValue(string User)
         {
-            //_productService.UpdateUserProduct(User);
-
             List<int[]> AddProduct = new List<int[]>();
 
             int uID = _users.GetAll().First(u => u.Login == User).ID;
