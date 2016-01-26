@@ -25,7 +25,7 @@ namespace Game.GUI.Controllers
 
         public ActionResult HelpSupport(MessageViewModel model)
         {
-            _userService.HelpMessage(model.viewModel.Customer_Login, model.viewModel.Content, model.viewModel.Theme);
+            _userService.HelpMessage(model.viewModel.Email, model.viewModel.Content, model.viewModel.Theme);
             return RedirectToAction("Help");
         }
     }

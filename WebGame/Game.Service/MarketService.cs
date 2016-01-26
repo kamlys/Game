@@ -43,7 +43,6 @@ namespace Game.Service
             {
                 int userID = _user.GetAll().First(i => i.Login == offer.Login).ID;
                 int totalPrice = (offer.Price * offer.Number);
-                //var temp = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == offer.Product_Name);
                 int ProductID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == offer.Product_Name).Product_ID;
                 int userProductValue = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value;
 

@@ -23,8 +23,7 @@
             </p>
         </article>
     </div>
-    <div class="col l1">&nbsp;</div>
-    <div class="col l6 s12 ">
+    <div class="col l6 s12 supMessage">
             <h4>Wiadomość do supportu:</h4>
             @using (Html.BeginForm("HelpSupport", "Support", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -44,11 +43,26 @@
                     @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "validate materialize-textarea" })
                     <label for="Content">Treść:</label>
                 </div>
-                <button type="submit" class="btn waves-effect waves-light sendMessageBtn" name="action">Wyślij</button>
+                <button type="submit" class="btn suppBtn" name="action">Wyślij</button>
             }
     </div>
 </div>
-
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.suppBtn').attr("disabled", true);
+        $(".supMessage").keyup(function () {
+            if ($("#viewModel_Email").val() != ""
+                && $("#viewModel_Theme").val() != ""
+                && $("#viewModel_Content").val() != "") {
+                $('.suppBtn').attr("disabled", false);
+            }
+            else {
+                $('.suppBtn').attr("disabled", true);
+            }
+        })
+    })
+</script>
 
 
 

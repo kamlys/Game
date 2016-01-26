@@ -51,22 +51,12 @@ function setMapSize(wys, szer) {
 }
 
 function budujAjax(col, row, id, deali) {
-    var data = {
-        id: id,
-        col: col,
-        row: row,
-        dealid : dealid
-    };
-
-    console.log(data);
+    var data = { id: id, col: col,  row: row, dealid : dealid };
     var me = $(this);
-
     if (me.data('requestRunning')) {
         return;
     }
-
     me.data('requestRunning', true);
-
     $.ajax({
         type: "POST",
         url: 'ajax/build',
@@ -79,7 +69,6 @@ function budujAjax(col, row, id, deali) {
         complete: function () {
             me.data('requestRunning', false);
         }
-
     });
 }
 
@@ -197,10 +186,6 @@ $(document).ready(function () {
 
     $('div[name=remove]').click(function () {
         var ID = $(this).data("buildingid");
-
-        //UIkit.modal.confirm("Na pewno chcesz zburzyć ten budynek?", function () {
         burzAjax(ID);
-        //});
-
     });
 });

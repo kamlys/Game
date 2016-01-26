@@ -573,16 +573,12 @@ namespace Game.Service
 
         public void HelpMessage(string email, string content, string theme)
         {
-            string code = RandomString();
-            string user = _user.GetAll().First(i => i.Email == email).Login;
-            int uID = _user.GetAll().First(i => i.Email == email).ID;
-            var date = DateTime.Now.AddMinutes(10);
-            _unitOfWork.Commit();
             string t = "Support -" + theme;
-            SendSupport(content,t );
+            string userEmail = email;
+            SendSupport(userEmail,content,t );
         }
 
-        private void SendSupport(string body, string subject)
+        private void SendSupport(string userEmail, string body, string subject)
         {
             string email = "game@game.webserwer.pl";
             string password = "HaD1FfF1To$4";
@@ -590,7 +586,7 @@ namespace Game.Service
             var msg = new MailMessage();
             var smtpClient = new SmtpClient("poczta.webserwer.pl", 587);
 
-            msg.From = new MailAddress(email);
+            msg.From = new MailAddress(userEmail);
             msg.To.Add(new MailAddress(email));
             msg.Subject = subject;
             msg.Body = body;
