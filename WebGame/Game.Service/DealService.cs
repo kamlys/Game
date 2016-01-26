@@ -97,7 +97,7 @@ namespace Game.Service
 
         public void UpdateDealAdmin(DealDto dealDto)
         {
-            foreach (var item in _deals.GetAll().Where(i=> i.ID == dealDto.ID))
+            foreach (var item in _deals.GetAll().Where(i => i.ID == dealDto.ID))
             {
                 item.IsActive = dealDto.IsActive;
                 item.Map_ID = dealDto.Map_ID;
@@ -157,7 +157,7 @@ namespace Game.Service
 
         public void UpdateDealBuildingAdmin(DealBuildingDto dealDto)
         {
-            foreach (var item in _dealsBuildings.GetAll().Where(i=>i.ID == dealDto.ID))
+            foreach (var item in _dealsBuildings.GetAll().Where(i => i.ID == dealDto.ID))
             {
                 item.Building_ID = dealDto.Building_ID;
                 item.Deal_ID = item.Deal_ID;
@@ -271,30 +271,11 @@ namespace Game.Service
             int price = _buildings.Get(buildingID).Price;
             int myPercent = _deals.Get(ID).Percent_User2;
             int myPrice = ((price * myPercent) / 100);
-
+            int day = _deals.Get(ID).DayTime;
             if (_dolars.GetAll().First(i => i.User_ID == uID).Value >= myPrice)
             {
                 _deals.Get(ID).IsActive = true;
-                if ((_deals.Get(ID).FinishDate.Subtract(DateTime.Now)).Days > 20)
-                {
-                    _deals.Get(ID).FinishDate = DateTime.Now.AddDays(30);
-                    _deals.Get(ID).DayTime = 30;
-                }
-                else if ((_deals.Get(ID).FinishDate.Subtract(DateTime.Now)).Days < 20 && (_deals.Get(ID).FinishDate.Subtract(DateTime.Now)).Days > 10)
-                {
-                    _deals.Get(ID).FinishDate = DateTime.Now.AddDays(20);
-                    _deals.Get(ID).DayTime = 20;
-                }
-                else if ((_deals.Get(ID).FinishDate.Subtract(DateTime.Now)).Days < 10 && (_deals.Get(ID).FinishDate.Subtract(DateTime.Now)).Days > 7)
-                {
-                    _deals.Get(ID).FinishDate = DateTime.Now.AddDays(10);
-                    _deals.Get(ID).DayTime = 10;
-                }
-                else
-                {
-                    _deals.Get(ID).FinishDate = DateTime.Now.AddDays(7);
-                    _deals.Get(ID).DayTime = 7;
-                }
+                _deals.Get(ID).FinishDate = DateTime.Now.AddDays(day);
                 _dolars.GetAll().First(i => i.User_ID == uID).Value -= myPrice;
                 var ownerID = _deals.Get(ID).Maps.User_ID;
                 _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = ownerID, Deal_ID = ID });

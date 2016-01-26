@@ -162,24 +162,24 @@ namespace Game.Service
             foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID && u.Status.Contains("gotowy") && u.Buildings.Stock == true))
             {
                 int BuildLvl = item.Lvl;
-                int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec;
+                int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec * item.Lvl;
                 float Percent_per_lvl;
                 if (item.Lvl > 1)
                 {
-                    Percent_per_lvl = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl / 100;
+                    Percent_per_lvl = (_buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl * item.Lvl)+item.Lvl;
 
                 }else
                 {
-                    Percent_per_lvl = 1;
+                    Percent_per_lvl = 0;
                 }
 
                 if (tab2.Keys.Contains(item.Buildings.Product_ID))
                 {
-                    tab2[item.Buildings.Product_ID] += (int)(Product_per_sec * Percent_per_lvl * BuildLvl * (float)item.Percent_product / 100);
+                    tab2[item.Buildings.Product_ID] += (int)(Percent_per_lvl);
                 }
                 else
                 {
-                    tab2[item.Buildings.Product_ID] = (int)(Product_per_sec * Percent_per_lvl * BuildLvl * (float)item.Percent_product / 100);
+                    tab2[item.Buildings.Product_ID] = (int)(Percent_per_lvl);
                 }
             }
 

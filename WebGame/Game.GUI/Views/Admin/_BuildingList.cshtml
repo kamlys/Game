@@ -143,8 +143,6 @@
     </div>
 </div>
 
-
-
 <div class="tableList" id="buildingsAdmin">
     <h4>Budynki</h4><input type="text" id="buildingSearch" class="searchAdmin" placeholder="Szukaj..." /><br />
     <button data-target="buildingAdd" class="btn modal-trigger buildingAdd">Dodaj budynek</button>
@@ -186,12 +184,12 @@
                     <td>@item.DestructionTime</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
-                            <button class="btn-floating btn-large red">
+                            <button class="btn btn-floating btn-large red">
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
                                 <li>
-                                    <button data-target="buildingUpdate" class="btn-floating #00695c teal darken-3 modal-trigger buildingUpdate"
+                                    <button data-target="buildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger buildingUpdate"
                                             onclick="updaterow(['inputID','inputName','inputPrice','inputPercent_price_per_lvl',
                                             'inputWidth','inputHeight','inputProduct_per_sec','inputDestPrice','inputPercent_product_per_lvl',
                                             'inputProductName','inputAlias','inputBuildingTime','inputDesctructionTime'],
@@ -201,7 +199,7 @@
                                         <i class="fa fa-pencil"></i>
                                     </button>
                                 </li>
-                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

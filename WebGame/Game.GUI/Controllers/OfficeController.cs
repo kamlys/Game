@@ -186,7 +186,7 @@ namespace Game.GUI.Controllers
             int i = 0;
             foreach (var item in _userService.GetUser())
             {
-                if (!_userService.Ignored(User.Identity.Name, item.Login))
+                if (!_userService.Ignored(User.Identity.Name, item.Login) && (item.Login != User.Identity.Name))
                 {
                     temp.Add(item.Login);
                 }

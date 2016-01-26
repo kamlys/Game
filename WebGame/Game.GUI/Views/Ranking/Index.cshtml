@@ -7,10 +7,11 @@
 }
 <div class="Ranking">
     <input type="text" id="search" class="searchInput" placeholder="Nazwa użytkownika" /> <button id="searchButton" class="btn searchButton">Szukaj</button>
+    <div class="paginationBtn">
+        @Html.PagedListPager(Model, Page_No => Url.Action("Index", new { Page_No }))
+    </div>
     <div id="divRankign">
-        <div class="paginationBtn">
-            @Html.PagedListPager(Model, Page_No => Url.Action("Index", new { Page_No }))
-        </div>
+
         <table class="bordered centered">
             <thead>
                 <tr>

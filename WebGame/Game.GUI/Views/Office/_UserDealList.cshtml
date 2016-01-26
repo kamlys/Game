@@ -25,7 +25,7 @@
                     <div class="col s12">
                         <div class="range-field col s6" id="Number">
                             <label for="Percent_User1">Czas trwania (dni):</label>
-                            @Html.TextBoxFor(m => m.viewModel.DealDay, new { @type = "range", @min = "10", @max = "30", @step = "10", @placeholder = "", @class = "validate inputpercent_user" })
+                            @Html.TextBoxFor(m => m.viewModel.DealDay, new { @type = "range", @min = "30", @max = "60", @step = "15", @placeholder = "", @class = "validate inputpercent_user" })
                         </div>
                         <div class="range-field col s6" id="Number">
                             <label for="Percent_User1">Wkład własny i procent produkcji (%): </label>

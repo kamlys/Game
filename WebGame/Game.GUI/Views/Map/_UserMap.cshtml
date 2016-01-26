@@ -43,7 +43,10 @@
                 #@a.Color 10px,
                 #@a.Color 20px)">
                 <div class="building-name">@a.Alias</div>
+                @if (a.Status == "gotowy")
+                {
                 <div name="remove" class="building-remove" data-buildingid="@a.ID"><i class="fa fa-times"></i></div>
+                }
                 @if (a.Status != "gotowy")
                 {
                     <div class="progress demo-wrapper html5-progress-bar">

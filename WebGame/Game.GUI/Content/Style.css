@@ -680,7 +680,7 @@ nav {
 
 .market {
   background-color: #18212A;
-  margin-top: 30px;
+  /*margin-top: 30px;*/
   padding-bottom: 80px;
   min-height: 500px; }
   .market .paginationBtn {
@@ -1045,8 +1045,10 @@ nav {
       .office .uProductRequirementList .productRequirementItem .conditions {
         float: right;
         display: inline-block;
-        margin-left: 5px;
-        position: absolute; }
+        margin-right: 5px;
+        position: static;
+        font-size: 11px;
+        line-height: 45px; }
       .office .uProductRequirementList .productRequirementItem .inputValue {
         display: inline-block;
         float: right;
@@ -1075,7 +1077,7 @@ nav {
 /*Profil*/
 .profil {
   background-color: #18212A;
-  margin-top: 40px;
+  /*margin-top: 40px;*/
   padding: 5px 20px 20px 20px;
   min-height: 650px; }
   .profil .upBtnProfil {
@@ -1143,7 +1145,7 @@ nav {
 /*Ranking*/
 .Ranking {
   background-color: #18212A;
-  margin-top: 30px;
+  /*margin-top: 30px;*/
   min-height: 500px; }
   .Ranking .searchInput {
     width: 30% !important;

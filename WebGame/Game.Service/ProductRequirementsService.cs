@@ -46,20 +46,21 @@ namespace Game.Service
             List<ProductRequirementDto> productRDto = new List<ProductRequirementDto>();
             ProductRequirementDto productDictionary = new ProductRequirementDto();
             productDictionary.RequireProduct = new List<Dictionary<string, int[]>>();
-            bool temp = true;
-            bool temp2 = false;
-            bool can = false;
+
             string building = String.Empty;
 
             var products = _productR.GetAll().GroupBy(i => i.Base_ID);
             foreach (var item in products)
             {
+                bool temp = false;
+                bool temp2 = false;
+                bool can = false;
                 foreach (var item2 in item)
                 {
-                    if ((_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value < item2.Value)
-                        || (!_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == item2.Require_ID)))
+                    if ((_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == item2.Require_ID))
+                        && (_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value > 0))
                     {
-                        temp = false;
+                        temp = true;
                     }
                     var buildingID = _building.GetAll().FirstOrDefault(p => p.Product_ID == item2.Base_ID).ID;
                     if (_userBuilding.GetAll().Any(i => i.User_ID == uID && i.Building_ID == buildingID && i.Status.Contains("gotowy")))

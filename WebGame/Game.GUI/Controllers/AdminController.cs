@@ -279,7 +279,7 @@ namespace Game.GUI.Controllers
             _buildingDto.BuildingTime = buildingModel.viewModel.BuildingTime;
             _buildingDto.DestructionTime = buildingModel.viewModel.DestructionTime;
 
-            _buildingService.Add(_buildingDto);
+            _buildingService.Update(_buildingDto);
 
             return RedirectToAction("Admin");
         }
@@ -462,7 +462,7 @@ namespace Game.GUI.Controllers
             _mapDto.Height = mapModel.viewModel.Height;
             _mapDto.Width = mapModel.viewModel.Width;
 
-            _mapService.Add(_mapDto);
+            _mapService.Update(_mapDto);
 
             return RedirectToAction("Admin");
         }
@@ -593,7 +593,7 @@ namespace Game.GUI.Controllers
             _productDto.Unit = productModel.viewModel.Unit;
             _productDto.Alias = productModel.viewModel.Alias;
 
-            _productService.Add(_productDto);
+            _productService.Update(_productDto);
 
             return RedirectToAction("Admin");
         }
@@ -903,7 +903,7 @@ namespace Game.GUI.Controllers
             dealbDto.Login = dealbModel.viewModel.User_Login;
             dealbDto.Deal_ID = dealbModel.viewModel.Deal_ID;
 
-            _dealService.UpdateDealBuildingAdmin(dealbDto);
+            _dealService.AddDealBuildingAdmin(dealbDto);
 
             return RedirectToAction("Admin");
         }

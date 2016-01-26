@@ -285,8 +285,7 @@ namespace Game.Service
             {
                 int BuildLvl = item.Lvl;
                 var temp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID);
-                int Product_per_sec = temp.Product_per_sec;
-                int Percent_per_lvl = temp.Percent_product_per_lvl;
+                int Product_per_sec = (temp.Product_per_sec * BuildLvl)+ (BuildLvl);
 
                 try
                 {
@@ -301,9 +300,9 @@ namespace Game.Service
                         Building_ID = item.Building_ID,
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
                         Status = item.Status,
-                        Produkcja = Product_per_sec + ( Percent_per_lvl * BuildLvl * Product_per_sec)/100,
-                        ProdukcjaLvlUp = Product_per_sec + (Percent_per_lvl * (BuildLvl+1) * Product_per_sec) / 100,
-                        PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_price_per_lvl / 10,
+                        Produkcja = Product_per_sec,
+                        ProdukcjaLvlUp = (temp.Product_per_sec * (BuildLvl+1)) + (BuildLvl+1),
+                        PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * (BuildLvl+1),
                         Color = item.Color
                     });
                 }
@@ -334,11 +333,10 @@ namespace Game.Service
             int uID = _users.GetAll().First(i => i.Login == User).ID;
             int temp = _userBuildings.Get(id).Building_ID;
             int userDolars = _dolars.GetAll().First(i => i.User_ID == uID).Value;
-            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Percent_price_per_lvl / 10;
+            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Price * (_userBuildings.Get(id).Lvl + 1);
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
-            int lvlPrice = percentPricePerLvl * buildingPrice;
 
-            if (userDolars >= lvlPrice && _userBuildings.GetAll().First(i=> i.ID == id && i.User_ID == uID).Percent_product == 100)
+            if (userDolars >= percentPricePerLvl && _userBuildings.GetAll().First(i=> i.ID == id && i.User_ID == uID).Percent_product == 100)
             {
                 return true;
             }
@@ -351,9 +349,8 @@ namespace Game.Service
             int temp = _userBuildings.Get(id).Building_ID;
             int buildingTime = _buildings.GetAll().First(i => i.ID == temp).BuildingTime;
             int userDolars = _dolars.GetAll().First(i => i.User_ID == uID).Value;
-            int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Percent_price_per_lvl / 100;
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
-            int lvlPrice = percentPricePerLvl * buildingPrice;
+            int percentPricePerLvl = buildingPrice * (_userBuildings.Get(id).Lvl + 1);
 
             if (ifLvlUp(id, User))
             {
@@ -369,7 +366,7 @@ namespace Game.Service
                 _userBuildings.Get(id).Status = "rozbudowa";
                 _userBuildings.Get(id).Lvl += 1;
 
-                _dolars.GetAll().First(i => i.User_ID == uID).Value -= lvlPrice;
+                _dolars.GetAll().First(i => i.User_ID == uID).Value -= percentPricePerLvl;
 
                 _unitOfWork.Commit();
 

@@ -37,12 +37,12 @@
                 <li>
                     <div class="productRequirementItem disabled">
                         <span class="productName">@item.BaseName</span> <span class="conditions">
-                            Warunki:  @item.BuildingName, oraz
+                            Warunki:  @item.BuildingName, oraz 
                             @foreach (var product in item.RequireProduct)
                             {
                                 foreach (KeyValuePair<string, int[]> p in product)
                                 {
-                                    <span>@p.Key: @p.Value[0]</span>
+                                    <span>@p.Key.</span>
                                 }
                             }
                         </span>

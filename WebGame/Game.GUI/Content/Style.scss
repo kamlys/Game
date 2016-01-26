@@ -986,7 +986,7 @@ nav {
 
 .market {
     background-color: $secondColor;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     padding-bottom: 80px;
     min-height: 500px;
 
@@ -1544,8 +1544,10 @@ nav {
             .conditions {
                 float: right;
                 display: inline-block;
-                margin-left: 5px;
-                position: absolute;
+                margin-right: 5px;
+                position: static;
+                font-size: 11px;
+                line-height: 45px;
             }
 
             .inputValue {
@@ -1587,7 +1589,7 @@ nav {
 /*Profil*/
 .profil {
     background-color: $secondColor;
-    margin-top: 40px;
+    /*margin-top: 40px;*/
     padding: 5px 20px 20px 20px;
     min-height: 650px;
 
@@ -1691,7 +1693,7 @@ nav {
 /*Ranking*/
 .Ranking {
     background-color: $secondColor;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     min-height: 500px;
 
     .searchInput {
@@ -1888,8 +1890,6 @@ nav {
 .receivedMessage {
     min-height: 660px;
 
-
-
     thead {
         background-color: rgba(97, 116, 135, 0.62);
         border: none;
@@ -1915,7 +1915,6 @@ nav {
 
 .sentMessage {
     min-height: 660px;
-
 
     thead {
         background-color: rgba(97, 116, 135, 0.62);
