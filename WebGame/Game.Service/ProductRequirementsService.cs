@@ -57,7 +57,7 @@ namespace Game.Service
                 foreach (var item2 in item)
                 {
                     if ((_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value < item2.Value)
-                        && (!_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == item2.Require_ID)))
+                        || (!_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == item2.Require_ID)))
                     {
                         temp = false;
                     }
