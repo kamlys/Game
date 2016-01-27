@@ -281,12 +281,18 @@ namespace Game.Service
             int uID = _users.GetAll().First(i => i.Login == User).ID;
 
             List<UserBuildingDto> userBuildingsDto = new List<UserBuildingDto>();
+            int Product_per_sec = 0;
             foreach (var item in _userBuildings.GetAll().Where(i => i.User_ID == uID))
             {
                 int BuildLvl = item.Lvl;
                 var temp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID);
-                int Product_per_sec = (temp.Product_per_sec * BuildLvl)+ (BuildLvl);
-
+                if (BuildLvl == 1)
+                {
+                    Product_per_sec = 1;
+                }
+                else {
+                    Product_per_sec = (temp.Product_per_sec * BuildLvl) + (BuildLvl);
+                }
                 try
                 {
                     userBuildingsDto.Add(new UserBuildingDto
@@ -301,7 +307,7 @@ namespace Game.Service
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
                         Status = item.Status,
                         Produkcja = Product_per_sec,
-                        ProdukcjaLvlUp = (temp.Product_per_sec * (BuildLvl + 1)) + (BuildLvl + 1),
+                        ProdukcjaLvlUp = (Product_per_sec + (BuildLvl + 1)),
                         PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * (BuildLvl + 1),
                         Color = item.Color,
                         Stock = item.Buildings.Stock
@@ -337,7 +343,7 @@ namespace Game.Service
             int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Price * (_userBuildings.Get(id).Lvl + 1);
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
 
-            if (userDolars >= percentPricePerLvl && _userBuildings.GetAll().First(i=> i.ID == id && i.User_ID == uID).Percent_product == 100)
+            if (userDolars >= percentPricePerLvl && _userBuildings.GetAll().First(i => i.ID == id && i.User_ID == uID).Percent_product == 100)
             {
                 return true;
             }

@@ -170,7 +170,7 @@ namespace Game.Service
 
                 }else
                 {
-                    Percent_per_lvl = 0;
+                    Percent_per_lvl = 1;
                 }
 
                 if (tab2.Keys.Contains(item.Buildings.Product_ID))
