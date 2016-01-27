@@ -23,5 +23,6 @@ namespace Game.Core.DTO
         public bool Owner { get; set; }
         public int Percent_Product { get; set; }
         public string Color { get; set; }
+        public bool Stock { get; set; }
     }
 }

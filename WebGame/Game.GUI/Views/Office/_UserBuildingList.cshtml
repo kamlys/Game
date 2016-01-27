@@ -8,7 +8,7 @@
         @foreach (var item in Model.listModel)
         {
             <li>
-                @if (item.ifCan == true)
+                @if (item.ifCan && item.Stock)
                 {
                     <button class="right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
                             id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
@@ -26,32 +26,37 @@
                     }
                 </div>
                 <div class="collapsible-body">
-                    <p>
-                        Lvl: @item.Lvl<br />
-                        Produkcja(s): @item.Produkcja<br />
-                        Status: @item.Status<br />
-                        <button class='dropdown-button btn' style='background: repeating-linear-gradient(
+                    
+                        @if (item.Stock)
+                        {
+                            <p>
+                                Lvl: @item.Lvl<br />
+                                Produkcja(s): @item.Produkcja<br />
+                                </p>
+                        }
+                                <p>Status: @item.Status<br />
+                                <button class='dropdown-button btn' style='background: repeating-linear-gradient(
                 135deg,
                 #fff,
                 #fff 10px,
                 #@item.Color 10px,
                 #@item.Color 20px)' data-activates='dropdown_@item.ID'>
-                            Wybierz kolor
-                        </button>
+                                    Wybierz kolor
+                                </button>
 
-                        <ul id='dropdown_@item.ID' class='dropdown-content'>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="b04242" style="background-color: #b04242">1.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="b2b95b" style="background-color: #b2b95b">2.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="527c3e" style="background-color: #527c3e">3.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="78C1DD" style="background-color: #78C1DD">4.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="674ea7" style="background-color: #674ea7">5.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="84368a" style="background-color: #84368a">6.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="eaeaea" style="background-color: #eaeaea">7.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="6e8283" style="background-color: #6e8283">8.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="d5c459" style="background-color: #d5c459">9.</a></li>
-                            <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="d54cdb" style="background-color: #d54cdb">10.</a></li>
-                        </ul>
-                    </p>
+                                <ul id='dropdown_@item.ID' class='dropdown-content'>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="b04242" style="background-color: #b04242">1.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="b2b95b" style="background-color: #b2b95b">2.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="527c3e" style="background-color: #527c3e">3.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="78C1DD" style="background-color: #78C1DD">4.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="674ea7" style="background-color: #674ea7">5.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="84368a" style="background-color: #84368a">6.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="eaeaea" style="background-color: #eaeaea">7.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="6e8283" style="background-color: #6e8283">8.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="d5c459" style="background-color: #d5c459">9.</a></li>
+                                    <li><a class="buildingColor" data-bid="@item.ID" data-bcolor="d54cdb" style="background-color: #d54cdb">10.</a></li>
+                                </ul>
+                            </p>
                 </div>
             </li>
         }

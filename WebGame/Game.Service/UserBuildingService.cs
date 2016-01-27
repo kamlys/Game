@@ -301,9 +301,10 @@ namespace Game.Service
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
                         Status = item.Status,
                         Produkcja = Product_per_sec,
-                        ProdukcjaLvlUp = (temp.Product_per_sec * (BuildLvl+1)) + (BuildLvl+1),
-                        PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * (BuildLvl+1),
-                        Color = item.Color
+                        ProdukcjaLvlUp = (temp.Product_per_sec * (BuildLvl + 1)) + (BuildLvl + 1),
+                        PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * (BuildLvl + 1),
+                        Color = item.Color,
+                        Stock = item.Buildings.Stock
                     });
                 }
                 catch (Exception)
