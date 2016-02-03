@@ -11,7 +11,7 @@
             {
                 if (item.Description.Contains("zaproszenie"))
                 {
-                    <li><div class="chip newNotification" ><span class="notificationLink" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.SenderLogin })'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification('@item.ID')"></i></div></li>
+                    <li><div class="chip newNotification"><span class="notificationLink" onclick="location.href='@Url.Action("Profil", "User", new { User = @item.SenderLogin })'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification('@item.ID')"></i></div></li>
                 }
                 else if (item.Description.Contains("umowa"))
                 {
@@ -19,7 +19,7 @@
                 }
                 else
                 {
-                    <li><div class="chip newNotification" ><span class="notificationLink" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.Temp_ID })'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification(@item.ID)"></i></div></li>
+                    <li><div class="chip newNotification"><span class="notificationLink" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.Temp_ID })'">@item.Description </span><i class="material-icons fa fa-times-circle" onclick="disableNotification(@item.ID)"></i></div></li>
                 }
             }
         </ul>
@@ -29,6 +29,10 @@
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 
 <script>
+    $(document).ready(function(){
+        initNot();
+        disableNotification(id);
+    });
     function disableNotification(id)
     {
         $.ajax({
@@ -39,11 +43,14 @@
             dataType: "json"
         });
         return true;
+    } 
+    function initNot(){
+        $('#NotificationInner').slimScroll({
+            size: '10px',
+            height: '350px',
+            alwaysVisible: true
+        });
     }
 
-    $('#NotificationInner').slimScroll({
-        size: '10px',
-        height: '350px',
-        alwaysVisible: true
-    });
+   
 </script>

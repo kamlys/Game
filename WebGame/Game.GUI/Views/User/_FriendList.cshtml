@@ -77,6 +77,9 @@
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function () {
+        initFriend();
+    });
+    function initFriend(){
         $('#friendMessage').attr("disabled", true);
 
         $(".friendMessage").keyup(function () {
@@ -90,17 +93,17 @@
         })
         $('.modal-trigger').leanModal();
 
-    });
 
-    $('.userMessage').click(function(){
-        $("#viewModel_Friend_Login").val($(this).data('friendlogin'));
-        $("#viewModel_Friend_Login").attr('readonly',true);
+        $('.userMessage').click(function(){
+            $("#viewModel_Friend_Login").val($(this).data('friendlogin'));
+            $("#viewModel_Friend_Login").attr('readonly',true);
 
-    });
+        });
 
-    $('#FriendInner').slimScroll({
-        size: '10px',
-        height: '350px',
-        alwaysVisible: true
-    });
+        $('#FriendInner').slimScroll({
+            size: '10px',
+            height: '350px',
+            alwaysVisible: true
+        });
+    }
 </script>

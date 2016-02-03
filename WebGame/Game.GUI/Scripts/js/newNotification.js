@@ -2,76 +2,80 @@
 var user_friend;
 var friend_user;
 
-$(".addButton").click(function () {
-    var sender_login = $("#User_Identity_Name").val();
-    var theme = $("#viewModel_Theme").val();
-    var customer_login = $("#viewModel_Customer_Login").val();
-    pin = "Nowa wiadomość";
-});
-
-$(".sendMessageBtn").click(function () {
-    var customer_login = $("#Login").val();
-    pin = "Nowa wiadomość";
-});
-
-$(".addFriend").click(function () {
-    var login = $("#UserLogin").val();
-    pin = "Nowe zaproszenie do znajomych";
-    $.ajax({
-        type: "POST",
-        url: 'AddFriend',
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ a: login }),
-        dataType: "json",
-        success: function (data) {
-            location.reload();
-        }
+function initialization() {
+    $(".addButton").click(function () {
+        var sender_login = $("#User_Identity_Name").val();
+        var theme = $("#viewModel_Theme").val();
+        var customer_login = $("#viewModel_Customer_Login").val();
+        pin = "Nowa wiadomość";
     });
-});
 
-$("#acceptDeal").click(function () {
-    user_login = user;
-    pin = "Umowa zaakceptowana";
-});
-
-$("#cancelDeal").click(function () {
-    user_login = user;
-    pin = "Umowa odrzucona";
-})
-
-$("#addDeal").click(function () {
-    pin = "Nowa umowa";
-});
-
-$(".agree").click(function () {
-    pin = "Zaproszenie zaakceptowane";
-    var id = $(this).data('userid');
-    user_friend = $(this).data('userlogin');
-    friend_user = $(this).data('friendlogin');
-    $.ajax({
-        type: "POST",
-        url: 'User/AcceptFriend',
-        data: JSON.stringify({ a: id }),
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-        }
+    $(".sendMessageBtn").click(function () {
+        var customer_login = $("#Login").val();
+        pin = "Nowa wiadomość";
     });
-});
 
-$(".disagree").click(function () {
-    pin = "Zaproszenie odrzucone";
-    var id = $(this).data('userid');
-    user_friend = $(this).data('userlogin');
-    friend_user = $(this).data('friendlogin');
-    $.ajax({
-        type: "POST",
-        url: 'User/DontAcceptFriend',
-        data: JSON.stringify({ a: id }),
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-        }
+    $(".addFriend").click(function () {
+        var login = $("#UserLogin").val();
+        pin = "Nowe zaproszenie do znajomych";
+        $.ajax({
+            type: "POST",
+            url: 'AddFriend',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ a: login }),
+            dataType: "json",
+            success: function (data) {
+                location.reload();
+            }
+        });
     });
-});
+
+    $("#acceptDeal").click(function () {
+        user_login = user;
+        pin = "Umowa zaakceptowana";
+    });
+
+    $("#cancelDeal").click(function () {
+        user_login = user;
+        pin = "Umowa odrzucona";
+    })
+
+    $("#addDeal").click(function () {
+        pin = "Nowa umowa";
+    });
+
+    $(".agree").click(function () {
+        pin = "Zaproszenie zaakceptowane";
+        var id = $(this).data('userid');
+        user_friend = $(this).data('userlogin');
+        friend_user = $(this).data('friendlogin');
+        $.ajax({
+            type: "POST",
+            url: 'User/AcceptFriend',
+            data: JSON.stringify({ a: id }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                window.setTimeout(getFriendList, 2000);
+            }
+        });
+    });
+
+    $(".disagree").click(function () {
+        pin = "Zaproszenie odrzucone";
+        var id = $(this).data('userid');
+        user_friend = $(this).data('userlogin');
+        friend_user = $(this).data('friendlogin');
+        $.ajax({
+            type: "POST",
+            url: 'User/DontAcceptFriend',
+            data: JSON.stringify({ a: id }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                window.setTimeout(getFriendList, 2000);
+            }
+        });
+    });
+}
 
 function getFriendList() {
     $.ajax({
@@ -81,8 +85,9 @@ function getFriendList() {
         success: function (data) {
             var $temp = $(data).filter("#FriendBox");
             $("#FriendBox").html($temp);
+            initialization();
+            initFriend();
         }
-
     });
 }
 
@@ -94,32 +99,33 @@ function getNotifications() {
         success: function (data) {
             $("#NotificationBox").html($(data).html());
             $('.infoBox .tabs').tabs('select_tab', 'Notification');
+            initialization();
+            initNot();
         }
 
     });
 }
 
 function getDeals() {
-
     $.ajax({
         type: "GET",
         url: 'Office/_UserDealList',
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             $("#dealBox").html($(data).html());
+            initialization();
         }
-
     });
 }
 
 $(document).ready(function () {
+    initialization();
     $(function () {
-
         var user = $("#User_Identity_Name").val();
         var game = $.connection.gameHub;
         game.client.shownotification = function (user, pin) {
             window.setTimeout(getDeals, 2000);
-            window.setTimeout(getFriendList(), 2000);
+            window.setTimeout(getFriendList, 2000);
             window.setTimeout(getNotifications, 2000);
 
             var $toastContent = $('<span>' + pin + '</span>');

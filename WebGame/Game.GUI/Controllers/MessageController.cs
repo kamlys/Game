@@ -191,9 +191,11 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public void DeleteMessage(int a)
+        public ActionResult DeleteMessage(int a)
         {
             _messageService.DeleteMessage(a);
+
+            return _ReceivedMessage(1);
         }
 
 
