@@ -1188,6 +1188,13 @@ nav {
 /*Wiadomości*/
 .Message {
   background-color: #18212A; }
+  .Message .deleteM {
+    background: none;
+    border: none; }
+  .Message td.toContent:hover {
+    text-decoration: underline !important;
+    color: #000 !important;
+    cursor: pointer; }
   .Message .tabs {
     display: -webkit-box;
     display: -moz-box;
@@ -1289,8 +1296,7 @@ nav {
     border: none;
     cursor: default; }
   .receivedMessage tbody tr:hover {
-    background-color: rgba(97, 116, 135, 0.32);
-    cursor: pointer; }
+    background-color: rgba(97, 116, 135, 0.32); }
   .receivedMessage .indeterminate {
     background-color: #8581ce !important; }
 
@@ -1305,8 +1311,7 @@ nav {
     border: none;
     cursor: default; }
   .sentMessage tbody tr:hover {
-    background-color: rgba(97, 116, 135, 0.32);
-    cursor: pointer; }
+    background-color: rgba(97, 116, 135, 0.32); }
 
 .contentMessage {
   margin-top: 30px;

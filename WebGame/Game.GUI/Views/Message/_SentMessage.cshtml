@@ -17,16 +17,18 @@
                     <th>Odbiorca</th>
                     <th>Temat</th>
                     <th>Data wysłania</th>
+                    <th></th>
                 </tr>
             </thead>
 
             <tbody>
                 @foreach (var item in Model.pagedList)
                 {
-                    <tr onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">
+                    <tr >
                         <td>@Html.DisplayFor(modelItem => item.Customer_Login)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Theme)</td>
+                        <td class="toContent" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">@Html.DisplayFor(modelItem => item.Theme)</td>
                         <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
+                        <td><button class="deleteM deleteSM" data-messageID="@item.ID"><i class="fa fa-trash"></i></button></td>
                     </tr>
                 }
             </tbody>
@@ -38,17 +40,37 @@
     }
 </div>
 <script>
-    $('#paginationBtnSent').on('click', 'a', function (e) {
-        e.preventDefault();
-        if(!$(this).parents("li:first").hasClass("active")){
+    
+    function initS(){
+        $(".deleteSM").click(function(){
+            console.log($(this).data('messageid'));
             $.ajax({
-                url: this.href,
-                type: 'GET',
-                cache: false,
-                success: function (result) {
-                    $('#sendMessage').html(result);
+                type: "POST",
+                url: 'Message/DeleteSMessage',
+                data: {a: $(this).data('messageid') },
+                success: function (data) {
+                    $("#sendMessage").html($(data).html());
+                    initS();
                 }
             });
-        }
+        });
+
+        $('#paginationBtnSent').on('click', 'a', function (e) {
+            e.preventDefault();
+            if(!$(this).parents("li:first").hasClass("active")){
+                $.ajax({
+                    url: this.href,
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+                        $('#sendMessage').html(result);
+                    }
+                });
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        initS();
     });
 </script>
