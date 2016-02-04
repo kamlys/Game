@@ -49,6 +49,7 @@ function initialization() {
         var id = $(this).data('userid');
         user_friend = $(this).data('userlogin');
         friend_user = $(this).data('friendlogin');
+        console.log(user_friend, friend_user);
         $.ajax({
             type: "POST",
             url: 'User/AcceptFriend',
@@ -114,6 +115,7 @@ function getDeals() {
         success: function (data) {
             $("#dealBox").html($(data).html());
             initialization();
+            initDeal();
         }
     });
 }

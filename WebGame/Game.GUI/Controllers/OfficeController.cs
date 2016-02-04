@@ -239,11 +239,11 @@ namespace Game.GUI.Controllers
 
         }
 
+
         [Authorize]
         public JsonResult CancelDeal(int a, string user)
         {
             _dealService.CancelDeal(a);
-
             if (user != null)
             {
                 NotificationDto notificationDto = new NotificationDto();
@@ -253,6 +253,14 @@ namespace Game.GUI.Controllers
 
                 _notificationService.SentNotification(notificationDto);
             }
+
+            return new JsonResult { Data = true };
+        }
+
+        [Authorize]
+        public JsonResult CancelRerun(int a, string user)
+        {
+            _dealService.CancelRerun(a);
 
             return new JsonResult { Data = true };
         }

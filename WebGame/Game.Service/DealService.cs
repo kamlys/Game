@@ -289,6 +289,22 @@ namespace Game.Service
 
         public void CancelDeal(int ID)
         {
+            int user1ID = _deals.Get(ID).User1_ID;
+            int user2ID = _deals.Get(ID).User2_ID;
+            int buildingID = _deals.Get (ID).Building_ID;
+            int buildingPrice = _buildings.Get(buildingID).Price;
+            int percent = _deals.Get(ID).Percent_User1;
+            double temp1 = (double)buildingPrice * ((double)percent / 100.0);
+            double temp2 = (double)buildingPrice * ((double)(100-percent) / 100.0);
+            _dolars.GetAll().First(i => i.User_ID == user1ID).Value += (int)temp1;
+            _dolars.GetAll().First(i => i.User_ID == user2ID).Value += (int)temp2;
+
+            _deals.Delete(_deals.Get(ID));
+            _unitOfWork.Commit();
+        }
+
+        public void CancelRerun(int ID)
+        {
             foreach (var item in _dealsBuildings.GetAll().Where(i => i.Deal_ID == ID))
             {
                 _dealsBuildings.Delete(_dealsBuildings.Get(item.ID));

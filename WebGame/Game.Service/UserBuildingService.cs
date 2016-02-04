@@ -147,8 +147,8 @@ namespace Game.Service
                     User_ID = userDealID,
                     Status = "budowa",
                     Percent_product = 100 - percent,
-                    Owner = false
-
+                    Owner = false,
+                    Color = "bbbbbb"
                 });
 
                 _unitOfWork.Commit();
@@ -158,7 +158,7 @@ namespace Game.Service
                 _buildingQueue.Add(new BuildingQueue
                 {
                     User_ID = userDealID,
-                    UserBuilding_ID = userBuildingID,
+                    UserBuilding_ID = userDealBuildingID,
                     FinishTime = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime),
                     NewStatus = "gotowy"
                 });
