@@ -7,14 +7,14 @@
 
     @Html.Action("_SystemOffer", "Market")
     <br />
-    <h5>Oferty społeczności</h5>@*<button data-target="offerAdd" class="btn modal-trigger offerAdd">Wystaw ofertę</button>*@
+    <h5>Oferty społeczności</h5>
 
     <ul class="tabs">
         <li class="tab col s3"><a href="#SellOffer">Oferty sprzedaży</a></li>
         <li class="tab col s3"><a href="#BuyOffer">Oferty kupna</a></li>
     </ul>
-    <div id="SellOffer" class="col s12">@Html.Action("_SellOffer", "Market")</div>
-    <div id="BuyOffer" class="col s12">@Html.Action("_BuyOffer", "Market")</div>
+    <div id="SellOffer" class="col s12">@Html.Action("_SellOffer", "Market", new { productName="" })</div>
+    <div id="BuyOffer" class="col s12">@Html.Action("_BuyOffer", "Market", new { productName = "" })</div>
 
 </div>
 
@@ -22,19 +22,10 @@
 <script src="~/Scripts/js/Market.js"></script>
 <script>
     $(document).ready(function () {
-        $(document).on("click", "[type='checkbox']", function (e) {
-            if (this.checked) {
-                $(this).attr("value", "true");
-            } else {
-                $(this).attr("value", "false");
-            }
-        });
         $('ul.tabs').tabs();
     });
-
     $('.tab').click(function () {
-        $('#SellOffer').load("/Market/_SellOffer");
-        $('#BuyOffer').load("/Market/_BuyOffer");
-
+        $('#SellOffer').load("/Market/_SellOffer", { productName: "" });
+        $('#BuyOffer').load("/Market/_BuyOffer", { productName : "" });
     });
 </script>

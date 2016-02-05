@@ -33,16 +33,48 @@ namespace Game.GUI.Controllers
             return View();
         }
 
-        
+        //[Authorize]
+        //public ActionResult _SellOffer(int? Page_No)
+        //{
+        //    MarketViewModel marketList = new MarketViewModel();
+        //    int Size_Of_Page = 10;
+        //    int No_Of_Page = (Page_No ?? 1);
+
+        //    marketList.pagedList = _marketService.GetSellOffer().Select(x => new ItemMarketViewModel
+        //    {
+        //        ID = x.ID,
+        //        User_Login = x.Login,
+        //        User_ID = x.User_ID,
+        //        Product_ID = x.Product_ID,
+        //        Product_Name = x.Product_Name,
+        //        Number = x.Number,
+        //        Price = x.Price,
+        //        TypeOffer = x.TypeOffer
+        //    }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
+
+        //    marketList.userProduct = _userProductService.GetUserProductList(User.Identity.Name).OrderBy(x => x.Alias).Select(i => i.Product_Name).ToArray();
+        //    marketList.allProduct = _productService.GetProduct().OrderBy(x => x.Alias).Select(i => i.Alias).ToArray();
+
+        //    return View("~/Views/Market/_SellOffer.cshtml", marketList);
+        //}
 
         [Authorize]
-        public ActionResult _SellOffer(int? Page_No)
+        public ActionResult _SellOffer(int? Page_No, string productName, int? minPrice, int? maxPrice)
         {
             MarketViewModel marketList = new MarketViewModel();
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
 
-            marketList.pagedList = _marketService.GetSellOffer().Select(x => new ItemMarketViewModel
+            if (minPrice == null)
+            {
+                minPrice = 0;
+            }
+            if(maxPrice == null)
+            {
+                maxPrice = Int32.MaxValue;
+            }
+
+            marketList.pagedList = _marketService.GetSellOffer().Where(i=> i.Product_Name.Contains(productName) && i.Price>=minPrice && i.Price<=maxPrice).Select(x => new ItemMarketViewModel
             {
                 ID = x.ID,
                 User_Login = x.Login,
@@ -54,20 +86,29 @@ namespace Game.GUI.Controllers
                 TypeOffer = x.TypeOffer
             }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
 
-            marketList.userProduct = _userProductService.GetUserProductList(User.Identity.Name).OrderBy(x=>x.Alias).Select(i => i.Product_Name).ToArray();
+            marketList.userProduct = _userProductService.GetUserProductList(User.Identity.Name).OrderBy(x => x.Alias).Select(i => i.Product_Name).ToArray();
+            marketList.allProduct = _productService.GetProduct().OrderBy(x => x.Alias).Select(i => i.Alias).ToArray();
 
-            
             return View("~/Views/Market/_SellOffer.cshtml", marketList);
         }
 
         [Authorize]
-        public ActionResult _BuyOffer(int? Page_No)
+        public ActionResult _BuyOffer(int? Page_No, string productName, int? minPrice, int? maxPrice)
         {
             MarketViewModel marketList = new MarketViewModel();
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
 
-            marketList.pagedList = _marketService.GetBuyOffer().Select(x => new ItemMarketViewModel
+            if (minPrice == null)
+            {
+                minPrice = 0;
+            }
+            if (maxPrice == null)
+            {
+                maxPrice = Int32.MaxValue;
+            }
+
+            marketList.pagedList = _marketService.GetBuyOffer().Where(i => i.Product_Name.Contains(productName) && i.Price >= minPrice && i.Price <= maxPrice).Select(x => new ItemMarketViewModel
             {
                 ID = x.ID,
                 User_Login = x.Login,
