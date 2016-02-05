@@ -334,6 +334,10 @@ namespace Game.GUI.Controllers
                     {
                         errors.Add("Taki użytkownik nie istnieje.");
                     }
+                    else if(item==3)
+                    {
+                        errors.Add("Nie stać Cię na taką umowę.");
+                    }
                 }
             }
             else if (dealDto.User2_Login == User.Identity.Name)

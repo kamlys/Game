@@ -36,7 +36,7 @@
                         <label for="Price">Budynek na mojej mapie: </label>
                         <label>
                             Nie
-                            <input type="checkbox" id="tableView_Owner" name="tableView.Owner" />
+                            <input type="checkbox" id="viewModel_Owner" name="viewModel.Owner" />
                             <span class="lever"></span>
                             Tak
                         </label>
@@ -179,7 +179,7 @@
         $("#procentproduktu").append(100 - percent);
         $("#budynek").append(building);
 
-        if (owner == true) {
+        if (owner == "True") {
             $("#mapa").append("twojej mapie");
         }
         else {

@@ -12,7 +12,7 @@ namespace Game.Service.Interfaces
     {
         List<BuildingDto> GetBuildings();
         List<UserBuildingDto> GetBuildings(string User);
-        bool BuildingValidation(int id, int col, int row, string user);
+        bool BuildingValidation(int id, int col, int row, string user, int dealid);
         int[][] AddProductValue(string User);
         void ChangeStatus(string User);
         int BuildingTimeLeft(string user, int building_id);

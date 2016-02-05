@@ -226,29 +226,40 @@ namespace Game.Service
                         mapID = _maps.GetAll().First(i => i.User_ID == user2ID).Map_ID;
                     }
 
+
+
                     if (dealDto.Percent_User1 >= 10 && dealDto.Percent_User1 <= 90)
                     {
-                        _deals.Add(new Deals
+                        double tempPrice = (double)_buildings.Get(buildingID).Price * ((double)dealDto.Percent_User1 / 100.0);
+                        int tempDolar = _dolars.GetAll().First(i => i.User_ID == user1ID).Value;
+                        if (tempDolar >= (int)tempPrice)
                         {
-                            User1_ID = user1ID,
-                            User2_ID = user2ID,
-                            Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID,
-                            Map_ID = mapID,
-                            IsActive = false,
-                            Percent_User1 = dealDto.Percent_User1,
-                            Percent_User2 = 100 - dealDto.Percent_User1,
-                            FinishDate = (DateTime)dealDto.FinishDate,
-                            DayTime = dealDto.DayTime
-                        });
+                            _deals.Add(new Deals
+                            {
+                                User1_ID = user1ID,
+                                User2_ID = user2ID,
+                                Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID,
+                                Map_ID = mapID,
+                                IsActive = false,
+                                Percent_User1 = dealDto.Percent_User1,
+                                Percent_User2 = 100 - dealDto.Percent_User1,
+                                FinishDate = (DateTime)dealDto.FinishDate,
+                                DayTime = dealDto.DayTime
+                            });
 
-                        _unitOfWork.Commit();
-                        int price = ((_buildings.Get(buildingID).Price * dealDto.Percent_User1) / 100);
-                        int dolar = _dolars.GetAll().First(i => i.User_ID == user1ID).Value;
+                            _unitOfWork.Commit();
+                            int price = ((_buildings.Get(buildingID).Price * dealDto.Percent_User1) / 100);
+                            int dolar = _dolars.GetAll().First(i => i.User_ID == user1ID).Value;
 
-                        _dolars.GetAll().First(i => i.User_ID == user1ID).Value -= price;
-                        _unitOfWork.Commit();
+                            _dolars.GetAll().First(i => i.User_ID == user1ID).Value -= price;
+                            _unitOfWork.Commit();
 
-                        val.Add(1); //Oferta złożona
+                            val.Add(1); //Oferta złożona
+                        }
+                        else
+                        {
+                            val.Add(3); //Brak funduszy
+                        }
                     }
                 }
                 else
@@ -277,8 +288,9 @@ namespace Game.Service
                 _deals.Get(ID).IsActive = true;
                 _deals.Get(ID).FinishDate = DateTime.Now.AddDays(day);
                 _dolars.GetAll().First(i => i.User_ID == uID).Value -= myPrice;
-                var ownerID = _deals.Get(ID).Maps.User_ID;
-                _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = ownerID, Deal_ID = ID });
+                var mapID= _deals.Get(ID).Map_ID;
+                int userID = _maps.Get(mapID).User_ID;
+                _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = userID, Deal_ID = ID });
 
                 _unitOfWork.Commit();
 
@@ -295,9 +307,7 @@ namespace Game.Service
             int buildingPrice = _buildings.Get(buildingID).Price;
             int percent = _deals.Get(ID).Percent_User1;
             double temp1 = (double)buildingPrice * ((double)percent / 100.0);
-            double temp2 = (double)buildingPrice * ((double)(100-percent) / 100.0);
             _dolars.GetAll().First(i => i.User_ID == user1ID).Value += (int)temp1;
-            _dolars.GetAll().First(i => i.User_ID == user2ID).Value += (int)temp2;
 
             _deals.Delete(_deals.Get(ID));
             _unitOfWork.Commit();

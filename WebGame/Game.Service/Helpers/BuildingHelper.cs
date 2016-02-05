@@ -98,7 +98,7 @@ namespace Game.Service
         }
 
 
-        public bool BuildingValidation(int id, int col, int row, string user)
+        public bool BuildingValidation(int id, int col, int row, string user, int dealid)
         {
             int uID = _users.GetAll().First(u => u.Login == user).ID;
             int buildingHeight = _buildings.GetAll().First(b => b.ID == id).Height;
@@ -119,9 +119,23 @@ namespace Game.Service
                 {
                     freePlace = false;
                 }
-                else if (freePlace && ((row + buildingWidth) <= mapWidth) && ((col + buildingHeight) <= mapHeight) && (userDolars >= buildPrice))
+                else if (freePlace && ((row + buildingWidth) <= mapWidth) && ((col + buildingHeight) <= mapHeight))
                 {
-                    return true;
+                    if (dealid == 0)
+                    {
+                        if (userDolars >= buildPrice)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
                 else
                 {
@@ -129,9 +143,23 @@ namespace Game.Service
                 }
             }
 
-            if (freePlace && ((row + buildingWidth) <= mapWidth) && ((col + buildingHeight) <= mapHeight) && (userDolars >= buildPrice))
+            if (freePlace && ((row + buildingWidth) <= mapWidth) && ((col + buildingHeight) <= mapHeight))
             {
-                return true;
+                if (dealid == 0)
+                {
+                    if (userDolars >= buildPrice)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
             {
