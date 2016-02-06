@@ -67,7 +67,7 @@ namespace Game.Service
                             int pID = item.Product_ID;
                             foreach (var item2 in _buildingHelper.AddProductValue(User))
                             {
-                                item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * intervals));
+                                item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * intervals * 10));
                             }
                         }
                     }else // wpp obliczamy ile można dodać
@@ -80,7 +80,7 @@ namespace Game.Service
                             int pID = item.Product_ID;
                             foreach (var item2 in _buildingHelper.AddProductValue(User))
                             {
-                                item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * newIntervals));
+                                item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * newIntervals * 10));
                             }
                         }
                     }
