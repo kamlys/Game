@@ -28,7 +28,7 @@ namespace Game.GUI.Controllers
         [Authorize]
         public JsonResult Build(AjaxBuildViewModel a)
         {
-            if (_buildingsHelper.BuildingValidation(a.Id, a.Col, a.Row, User.Identity.Name))
+            if (_buildingsHelper.BuildingValidation(a.Id, a.Col, a.Row, User.Identity.Name,a.DealID))
             {
                 ProductUpdate();
                 _userBuildingsService.Build(a.Id, a.Col, a.Row, a.DealID, User.Identity.Name);

@@ -4,86 +4,186 @@
     Layout = null;
 }
 
-<div id="offerBuyAdd" class="modal">
-    <div class="modal-content">
-        @using (Html.BeginForm("AddOffer", "Market", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.HiddenFor(m => m.viewModel.TypeOffer, new { @value = false })
-            <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.allProduct), new { @class = "validate" })
-                <label for="Product_Name">Nazwa produktu</label>
-            </div>
-            <div class="input-field col s6" id="Number">
-                @Html.TextBoxFor(m => m.viewModel.Number, new { @type = "number", @value="1", @min = "1", @placeholder = "", @class = "validate", @onkeypress = "return isNumberKey(event)" })
-                <label for="Number" data-error="Wartość nie może być mniejsza niż 1.">Ilość</label>
-            </div>
+<div id="buyDiv">
+    <div id="offerBuyAdd" class="modal">
+        <div class="modal-content">
+            @using (Html.BeginForm("AddOffer", "Market", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.HiddenFor(m => m.viewModel.TypeOffer, new { @value = false })
+                <div class="input-field col s12">
+                    @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.allProduct), new { @class = "validate" })
+                    <label for="Product_Name">Nazwa produktu</label>
+                </div>
+                <div class="input-field col s6" id="Number">
+                    @Html.TextBoxFor(m => m.viewModel.Number, new { @type = "number", @value = "1", @min = "1", @placeholder = "", @class = "validate", @onkeypress = "return isNumberKey(event)" })
+                    <label for="Number" data-error="Wartość nie może być mniejsza niż 1.">Ilość</label>
+                </div>
 
-            <div class="input-field col s6" id="Price">
-                @Html.TextBoxFor(m => m.viewModel.Price, new { @type = "number", @value = "1", @min = "1", @placeholder = "", @class = "validate", @onkeypress = "return isNumberKey(event)" })
-                <label for="Price" data-error="Wartość nie może być mniejsza niż 1.">Cena za sztukę</label>
-            </div>
+                <div class="input-field col s6" id="Price">
+                    @Html.TextBoxFor(m => m.viewModel.Price, new { @type = "number", @value = "1", @min = "1", @placeholder = "", @class = "validate", @onkeypress = "return isNumberKey(event)" })
+                    <label for="Price" data-error="Wartość nie może być mniejsza niż 1.">Cena za sztukę</label>
+                </div>
 
-            <button type="submit" class="btn addButton" name="action">Zapisz</button>
-        }
-    </div>
-</div>
-<button data-target="offerBuyAdd" class="btn modal-trigger offerAdd offerBuyAdd">Wystaw ofertę kupna</button>
-
-@if (!Model.pagedList.Any())
-{
-    <span class="noOffer">Brak ofert</span>
-}
-else
-{
-    <div id="buyOffer">
-        <table class="highlight bordered centered">
-
-            <thead>
-                <tr>
-                    <th>Wystwaiający</th>
-                    <th>Produkt</th>
-                    <th>Ilość</th>
-                    <th>Cena/szt.</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var item in Model.pagedList)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => @item.User_Login)</td>
-                        <td>@Html.DisplayFor(modelItem => @item.Product_Name)</td>
-                        <td>@Html.DisplayFor(modelItem => @item.Number)</td>
-                        <td>@Html.DisplayFor(modelItem => @item.Price)</td>
-                        <td id="buyTd">
-                            @if (User.Identity.Name != item.User_Login)
-                            {
-                                <input type="number" class="numValue" id='numberValue_@item.ID' data-id="@item.ID" data-productid="@item.Product_ID" data-number="@item.Number" name="numValue" min="1" value="1" onkeypress="return isNumberKey(event)">
-                                <button type="submit" class="btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, false)">Sprzedaj</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
-                            }
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-
-        <div class="paginationBtn" id="paginationBtnBuyOffer">
-            @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+                <button type="submit" class="btn addButton" name="action">Zapisz</button>
+            }
         </div>
     </div>
-}
+    <button data-target="offerBuyAdd" class="btn modal-trigger offerAdd offerBuyAdd">Wystaw ofertę kupna</button>
+    <div class="filterAll">
+        <div class="btn filter" id="filterBuy">Filtruj</div>
+        <div class="filterBox" id="filterBoxBuy">
+            @Html.DropDownList("productNameBuy", new SelectList(Model.allProduct), "Nazwa produktu", new { @placeholder = "Nazwa produktu", @class = "validate" })
+            @Html.TextBox("minPriceBuy", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena minimalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
+            @Html.TextBox("maxPriceBuy", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena maksymalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
+            <div class="filterA">
+                <button type="submit" class="filterBtn" id="filterBuyButton" name="action">Filtruj</button><br />
 
+                <button type="submit" class="filterBtn" id="filterBuyClear" name="action">Wyczyść filtry</button>
+            </div>
+
+        </div>
+    </div>
+    @if (!Model.pagedList.Any())
+    {
+        <span class="noOffer">Brak ofert</span>
+    }
+    else
+    {
+        <div id="buyOffer">
+            <table class="highlight bordered centered">
+
+                <thead>
+                    <tr>
+                        <th>Wystwaiający</th>
+                        <th>Produkt</th>
+                        <th>Ilość</th>
+                        <th>Cena/szt.</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.pagedList)
+                {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => @item.User_Login)</td>
+                            <td>@Html.DisplayFor(modelItem => @item.Product_Name)</td>
+                            <td>@Html.DisplayFor(modelItem => @item.Number)</td>
+                            <td>@Html.DisplayFor(modelItem => @item.Price)</td>
+                            <td id="buyTd">
+                                @if (User.Identity.Name != item.User_Login)
+                                {
+                                    <input type="number" class="numValue" id='numberValue_@item.ID' data-id="@item.ID" data-productid="@item.Product_ID" data-number="@item.Number" name="numValue" min="1" value="1" onkeypress="return isNumberKey(event)">
+                                    <button type="submit" class="btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, false)">Sprzedaj</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+            <div class="paginationBtn" id="paginationBtnBuyOffer">
+                @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+            </div>
+        </div>
+    }
+</div>
 
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/materialize.min.js"></script>
 <script>
+    $(document).ready(function(){
+        initBuy();
+    });
+    
+    function initBuy(){
+        $('.offerBuyAdd').leanModal();
+        $('select').material_select();
 
+        $("#filterBuyButton").click(function(){
+            var product = $("#productNameBuy").val();
+            var min = $("#minPriceBuy").val();
+            var max =$("#maxPriceBuy").val();
+            $.ajax({
+                type: "POST",
+                url: 'Market/_BuyOffer',
+                data: {Page_No: 1, productName: product, minPrice: min, maxPrice: max},
+                success: function (data) {
+                    $("#buyDiv").html($(data).html());
+                    initBuy();
+                }
+            });
+
+        });
+
+        $("#filterBuyClear").click(function(){
+            $.ajax({
+                type: "POST",
+                url: 'Market/_BuyOffer',
+                data: {Page_No: 1, productName: "", minPrice: null, maxPrice: null},
+                success: function (data) {
+                    $("#buyDiv").html($(data).html());
+                    initBuy();
+                }
+            });
+
+        });
+
+        $("#filterBuy").click(function () {
+            if ($("#filterBoxBuy").is(":hidden")) {
+                $("#filterBoxBuy").slideDown("slow");
+            } else {
+                $("#filterBoxBuy").slideUp("slow");
+            }
+        });
+
+        $(".numValue").bind("keyup change", function () {
+            var id = $(this).data('id');
+            var productid = $(this).data('productid');
+
+            if ($("#product_" + productid).text() == "") {
+                $("#numberValue_" + id).val(0);
+            }
+            else {
+                var val;
+                if (parseInt($("#product_" + productid).text()) > $(this).data('number')) {
+                    val = $(this).data('number');
+                }
+                else {
+                    val = parseInt($("#product_" + productid).text());
+                }
+
+                $("#numberValue_" + id).attr({ "max": val });
+                if (parseInt($("#numberValue_" + id).val()) > $("#numberValue_" + id).attr("max")) {
+                    if (parseInt($("#numberValue_" + id).val()) > val) {
+                        $("#numberValue_" + id).val($("#numberValue_" + id).attr("max"));
+                    }
+                    else {
+                        $("#numberValue_" + id).val(val);
+                    }
+                }
+            }
+        });
+
+        $('#paginationBtnBuyOffer').on('click', 'a', function (e) {
+            e.preventDefault();
+            if (!$(this).parents("li:first").hasClass("active")) {
+                $.ajax({
+                    url: this.href,
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+                        $('#buyOffer').html(result);
+                    }
+                });
+            }
+        });
+    }
     function isNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode
         if (charCode > 31 && (charCode < 47 || charCode > 57)) {
@@ -92,50 +192,4 @@ else
         }
         return true;
     }
-
-    $(".numValue").bind("keyup change", function () {
-        var id = $(this).data('id');
-        var productid = $(this).data('productid');
-
-        if ($("#product_" + productid).text() == "") {
-            $("#numberValue_" + id).val(0);
-        }
-        else {
-            var val;
-            if (parseInt($("#product_" + productid).text()) > $(this).data('number')) {
-                val = $(this).data('number');
-            }
-            else {
-                val = parseInt($("#product_" + productid).text());
-            }
-
-            $("#numberValue_" + id).attr({ "max": val });
-            if (parseInt($("#numberValue_" + id).val()) > $("#numberValue_" + id).attr("max")) {
-                if (parseInt($("#numberValue_" + id).val()) > val) {
-                    $("#numberValue_" + id).val($("#numberValue_" + id).attr("max"));
-                }
-                else {
-                    $("#numberValue_" + id).val(val);
-                }
-            }
-        }
-    });
-
-    $('.offerBuyAdd').leanModal();
-    $('select').material_select();
-
-    $('#paginationBtnBuyOffer').on('click', 'a', function (e) {
-        e.preventDefault();
-        if (!$(this).parents("li:first").hasClass("active")) {
-            $.ajax({
-                url: this.href,
-                type: 'GET',
-                cache: false,
-                success: function (result) {
-                    $('#buyOffer').html(result);
-                }
-            });
-        }
-    });
-
 </script>

@@ -683,6 +683,34 @@ nav {
   /*margin-top: 30px;*/
   padding-bottom: 80px;
   min-height: 500px; }
+  .market .filterAll {
+    width: auto;
+    display: inline-block;
+    padding-bottom: 20px;
+    margin-bottom: 20px; }
+    .market .filterAll .filter {
+      color: #fff; }
+    .market .filterAll .filterBox {
+      margin: -5px 0 0 10px;
+      width: auto;
+      height: 40px;
+      display: none;
+      float: right; }
+      .market .filterAll .filterBox .filterA {
+        float: right;
+        text-align: center; }
+        .market .filterAll .filterBox .filterA .filterBtn {
+          background: none;
+          border: none;
+          color: #563232;
+          cursor: pointer; }
+      .market .filterAll .filterBox .select-wrapper, .market .filterAll .filterBox input[type=number] {
+        display: inline-block !important;
+        width: 25%;
+        color: #fff;
+        text-align: center; }
+        .market .filterAll .filterBox .select-wrapper .dropdown-content li > a, .market .filterAll .filterBox .select-wrapper .dropdown-content li > span, .market .filterAll .filterBox input[type=number] .dropdown-content li > a, .market .filterAll .filterBox input[type=number] .dropdown-content li > span {
+          color: #563232 !important; }
   .market .paginationBtn {
     float: right;
     margin-right: 10px; }
@@ -1188,6 +1216,13 @@ nav {
 /*Wiadomości*/
 .Message {
   background-color: #18212A; }
+  .Message .deleteM {
+    background: none;
+    border: none; }
+  .Message td.toContent:hover {
+    text-decoration: underline !important;
+    color: #000 !important;
+    cursor: pointer; }
   .Message .tabs {
     display: -webkit-box;
     display: -moz-box;
@@ -1289,8 +1324,7 @@ nav {
     border: none;
     cursor: default; }
   .receivedMessage tbody tr:hover {
-    background-color: rgba(97, 116, 135, 0.32);
-    cursor: pointer; }
+    background-color: rgba(97, 116, 135, 0.32); }
   .receivedMessage .indeterminate {
     background-color: #8581ce !important; }
 
@@ -1305,8 +1339,7 @@ nav {
     border: none;
     cursor: default; }
   .sentMessage tbody tr:hover {
-    background-color: rgba(97, 116, 135, 0.32);
-    cursor: pointer; }
+    background-color: rgba(97, 116, 135, 0.32); }
 
 .contentMessage {
   margin-top: 30px;

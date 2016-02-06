@@ -34,9 +34,9 @@ namespace Game.GUI.Controllers
             _dolarTableService.PayForBet(User.Identity.Name, bet);
 
             Random r = new Random();
-            int s1 = r.Next(0, 5);
-            int s2 = r.Next(0, 5);
-            int s3 = r.Next(0, 5);
+            int s1 = r.Next(0, 7);
+            int s2 = r.Next(0, 7);
+            int s3 = r.Next(0, 7);
             var win = 0;
             if (s1 == s2 && s2 == s3)
             {

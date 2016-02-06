@@ -17,6 +17,7 @@ namespace Game.Service.Interfaces
         int[] AddDeal(DealDto dealDto);
         bool AcceptDeal(int ID, string user);
         void CancelDeal(int ID);
+        void CancelRerun(int ID);
         void RerunDeal(int ID, string user);
         List<DealBuildingDto> GetDealBuildings();
         void AddDealBuildingAdmin(DealBuildingDto dealDto);

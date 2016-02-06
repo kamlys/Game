@@ -990,6 +990,46 @@ nav {
     padding-bottom: 80px;
     min-height: 500px;
 
+    .filterAll {
+        width: auto;
+        display: inline-block;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+
+        .filter {
+            color: #fff;
+        }
+
+        .filterBox {
+            margin: -5px 0 0 10px;
+            width: auto;
+            height: 40px;
+            display: none;
+            float: right;
+
+            .filterA{
+                float: right;
+                text-align: center;
+            .filterBtn{
+                background: none;
+                border:none;
+                color: $marketColoR;
+                cursor: pointer;
+            }
+            }
+            .select-wrapper, input[type=number] {
+                display: inline-block !important;
+                width: 25%;
+                color: #fff;
+                text-align: center;
+
+                .dropdown-content li > a, .dropdown-content li > span{
+                    color:$marketColoR !important;
+                }
+            }
+        }
+    }
+
     .paginationBtn {
         float: right;
         margin-right: 10px;
@@ -1760,6 +1800,17 @@ nav {
 .Message {
     background-color: $secondColor;
     //min-height: 600px;
+    .deleteM {
+        background: none;
+        border: none;
+    }
+
+    td.toContent:hover {
+        text-decoration: underline !important;
+        color: #000 !important;
+        cursor: pointer;
+    }
+
     .tabs {
         display: -webkit-box;
         display: -moz-box;
@@ -1899,7 +1950,6 @@ nav {
     tbody {
         tr:hover {
             background-color: rgba(97, 116, 135, 0.32);
-            cursor: pointer;
         }
     }
 
@@ -1925,7 +1975,6 @@ nav {
     tbody {
         tr:hover {
             background-color: rgba(97, 116, 135, 0.32);
-            cursor: pointer;
         }
     }
 }

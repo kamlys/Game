@@ -82,7 +82,8 @@ namespace Game.Service
                 Status = "budowa",
                 Percent_product = percent,
                 Owner = true,
-                Color = "bbbbbb"
+                Color = "bbbbbb",
+                DateOfConstruction = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime)
 
             });
             if (dealID == 0)
@@ -147,8 +148,9 @@ namespace Game.Service
                     User_ID = userDealID,
                     Status = "budowa",
                     Percent_product = 100 - percent,
-                    Owner = false
-
+                    Owner = false,
+                    Color = "bbbbbb",
+                    DateOfConstruction = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime)
                 });
 
                 _unitOfWork.Commit();
@@ -158,7 +160,7 @@ namespace Game.Service
                 _buildingQueue.Add(new BuildingQueue
                 {
                     User_ID = userDealID,
-                    UserBuilding_ID = userBuildingID,
+                    UserBuilding_ID = userDealBuildingID,
                     FinishTime = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime),
                     NewStatus = "gotowy"
                 });

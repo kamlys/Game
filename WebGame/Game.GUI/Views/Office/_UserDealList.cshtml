@@ -36,7 +36,7 @@
                         <label for="Price">Budynek na mojej mapie: </label>
                         <label>
                             Nie
-                            <input type="checkbox" id="tableView_Owner" name="tableView.Owner" />
+                            <input type="checkbox" id="viewModel_Owner" name="viewModel.Owner" />
                             <span class="lever"></span>
                             Tak
                         </label>
@@ -159,40 +159,11 @@
 
 <script>
     $(document).ready(function () {
-        $('.officeDealAdd').leanModal();
-        $('.officeDealShow').leanModal();
-        $('select').material_select();
-
-    });
-    $(document).on("click", "[type='checkbox']", function (e) {
-        if (this.checked) {
-            $(this).attr("value", "true");
-        } else {
-            $(this).attr("value", "false");
-        }
-    });
-
-    $("#addDeal").click(function () {
-        if ($('input[id=test1]:checked').val() == "on") {
-            $("#viewModel_DealDay").val() = 7;
-        }
-        else if ($('input[id=test2]:checked').val() == "on") {
-            $("#viewModel_DealDay").val() = 10;
-        }
-        else if ($('input[id=test3]:checked').val() == "on") {
-            $("#viewModel_DealDay").val() = 20;
-        }
-        else if ($('input[id=test4]:checked').val() == "on") {
-            $("#viewModel_DealDay").val() = 30;
-        }
+        initDeal();
     });
 
     var offer_id;
-
-
-
     var user;
-
     function showDeal(id, login, percent, building, owner) {
 
         $("#login").empty();
@@ -208,79 +179,122 @@
         $("#procentproduktu").append(100 - percent);
         $("#budynek").append(building);
 
-        if (owner == true) {
+        if (owner == "True") {
             $("#mapa").append("twojej mapie");
         }
         else {
             $("#mapa").append("mapie wspólnika");
         }
-
     }
-
-    $("#acceptDeal").click(function () {
-        $.ajax({
-            type: "POST",
-            url: '/Office/AcceptDeal',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ a: offer_id, user: user }),
-            success: function (data) {
-                location.reload();
-            }
-        });
-    });
-
-    $("#cancelDeal").click(function () {
-        $.ajax({
-            type: "POST",
-            url: '/Office/CancelDeal',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ a: offer_id, user: user }),
-            success: function (data) {
-                location.reload();
-            }
-        });
-    });
-
-    $("#cancelRerun").click(function () {
-
-        offer_id = $(this).data('id');
-
-        $.ajax({
-            type: "POST",
-            url: '/Office/CancelDeal',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ a: offer_id }),
-            success: function (data) {
-                location.reload();
-            }
-        });
-    });
-
-    $("#rerunDeal").click(function () {
-
-        offer_id = $(this).data('id');
-
-        if ($(this).data('user1') == undefined) {
-            user = $(this).data('user2');
+    $(document).on("click", "[type='checkbox']", function (e) {
+        if (this.checked) {
+            $(this).attr("value", "true");
+        } else {
+            $(this).attr("value", "false");
         }
-        else {
-            user = $(this).data('user1');
-        }
+    });
 
-        $.ajax({
-            type: "POST",
-            url: '/Office/RerunDeal',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ a: offer_id, user: user }),
-            success: function (data) {
-                location.reload();
+    function initDeal() {
+        $('.officeDealAdd').leanModal();
+        $('.officeDealShow').leanModal();
+        $('select').material_select();
+
+        $("#addDeal").click(function () {
+            if ($('input[id=test1]:checked').val() == "on") {
+                $("#viewModel_DealDay").val() = 7;
+            }
+            else if ($('input[id=test2]:checked').val() == "on") {
+                $("#viewModel_DealDay").val() = 10;
+            }
+            else if ($('input[id=test3]:checked').val() == "on") {
+                $("#viewModel_DealDay").val() = 20;
+            }
+            else if ($('input[id=test4]:checked').val() == "on") {
+                $("#viewModel_DealDay").val() = 30;
             }
         });
-    });
 
-    $('#dealList').slimScroll({
-        size: '10px',
-        height: '350px',
-        alwaysVisible: true
-    });
+
+        $("#acceptDeal").click(function () {
+            $.ajax({
+                type: "POST",
+                url: '/Office/AcceptDeal',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ a: offer_id, user: user }),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+
+        $("#cancelDeal").click(function () {
+            $.ajax({
+                type: "POST",
+                url: '/Office/CancelDeal',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ a: offer_id, user: user }),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+
+        $("#cancelDeal").click(function () {
+
+            offer_id = $(this).data('id');
+
+            $.ajax({
+                type: "POST",
+                url: '/Office/CancelDeal',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ a: offer_id }),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+
+        $("#cancelRerun").click(function () {
+
+            offer_id = $(this).data('id');
+
+            $.ajax({
+                type: "POST",
+                url: '/Office/CancelRerun',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ a: offer_id }),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+
+        $("#rerunDeal").click(function () {
+
+            offer_id = $(this).data('id');
+
+            if ($(this).data('user1') == undefined) {
+                user = $(this).data('user2');
+            }
+            else {
+                user = $(this).data('user1');
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '/Office/RerunDeal',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ a: offer_id, user: user }),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+
+        $('#dealList').slimScroll({
+            size: '10px',
+            height: '350px',
+            alwaysVisible: true
+        });
+    }
 </script>
