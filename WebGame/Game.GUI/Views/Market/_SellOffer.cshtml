@@ -75,7 +75,7 @@
                             <td id="buyTd">
                                 @if (User.Identity.Name != item.User_Login)
                                 {
-                                    <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" data-id="@item.ID" data-productid="@item.Product_ID" data-number="@item.Number" value="1" onkeypress="return isNumberKey(event)">
+                                    <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" data-id="@item.ID" data-productid="@item.Product_ID" data-price="@item.Price" data-number="@item.Number" value="1" onkeypress="return isNumberKey(event)">
                                     <button type="submit" class="btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, true)">Kup</button>
                                 }
                                 else
@@ -101,22 +101,22 @@
 <script src="~/Scripts/materialize.min.js"></script>
 <script>
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         initSell();
     });
 
-    function initSell(){
+    function initSell() {
         $('.offerSellAdd').leanModal();
         $('select').material_select();
 
-        $("#filterButton").click(function(){
+        $("#filterButton").click(function () {
             var product = $("#productNameSell").val();
             var min = $("#minPriceSell").val();
-            var max =$("#maxPriceSell").val();
+            var max = $("#maxPriceSell").val();
             $.ajax({
                 type: "POST",
                 url: 'Market/_SellOffer',
-                data: {Page_No: 1, productName: product, minPrice: min, maxPrice: max},
+                data: { Page_No: 1, productName: product, minPrice: min, maxPrice: max },
                 success: function (data) {
                     $("#sellDiv").html($(data).html());
                     initSell();
@@ -125,11 +125,11 @@
 
         });
 
-        $("#filterClear").click(function(){
+        $("#filterClear").click(function () {
             $.ajax({
                 type: "POST",
                 url: 'Market/_SellOffer',
-                data: {Page_No: 1, productName: "", minPrice: null, maxPrice: null},
+                data: { Page_No: 1, productName: "", minPrice: null, maxPrice: null },
                 success: function (data) {
                     $("#sellDiv").html($(data).html());
                     initSell();
@@ -148,30 +148,17 @@
 
         $(".numValue").bind("keyup change", function () {
             var id = $(this).data('id');
-            var productid = $(this).data('productid');
+            var price = $(this).data('price');
+            var maxVal = (parseInt($("#currDolars").text()) / price);
+            var maxVal1 = Math.round(maxVal);
 
-            if ($("#product_" + productid).text() == "") {
-                $("#numValue_" + id).val(0);
-            }
-            else {
-                var val;
-                if (parseInt($("#product_" + productid).text()) > $(this).data('number')) {
-                    val = $(this).data('number');
-                }
-                else {
-                    val = parseInt($("#product_" + productid).text());
-                }
+            $("#numValue_" + id).attr({ "max": maxVal1 });
 
-                $("#numValue_" + id).attr({ "max": val });
-                if (parseInt($("#numValue_" + id).val()) > $("#numValue_" + id).attr("max")) {
-                    if (parseInt($("#numValue_" + id).val()) > val) {
-                        $("#numValue_" + id).val($("#numValue_" + id).attr("max"));
-                    }
-                    else {
-                        $("#numValue_" + id).val(val);
-                    }
-                }
+            if (parseInt($("#numValue_" + id).val()) > maxVal1) {
+                $("#numValue_" + id).val(maxVal1);
             }
+
+
         });
 
         $('#paginationBtnSellOffer').on('click', 'a', function (e) {
