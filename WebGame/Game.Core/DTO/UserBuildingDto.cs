@@ -24,5 +24,6 @@ namespace Game.Core.DTO
         public int Percent_Product { get; set; }
         public string Color { get; set; }
         public bool Stock { get; set; }
+        public DateTime DateOfConstruction { get; set; }
     }
 }

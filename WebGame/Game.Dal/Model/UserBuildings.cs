@@ -36,6 +36,9 @@ namespace Game.Dal.Model
 
         public string Color { get; set; }
 
+        [Column(TypeName = "datetime2")]
+        public DateTime? DateOfConstruction { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuildingQueue> BuildingQueue { get; set; }
 
