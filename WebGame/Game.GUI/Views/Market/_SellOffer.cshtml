@@ -45,57 +45,59 @@
 
         </div>
     </div>
-    @if (!Model.pagedList.Any())
-    {
-        <span class="noOffer">Brak ofert</span>
-    }
-    else
-    {
-        <div id="sellOffer">
-            <table class="highlight bordered centered">
+    <div id="sellList">
+        @if (!Model.pagedList.Any())
+        {
+            <span class="noOffer">Brak ofert</span>
+        }
+        else
+        {
+            <div id="sellOffer">
+                <table class="highlight bordered centered">
 
-                <thead>
-                    <tr>
-                        <th>Wystwaiający</th>
-                        <th>Produkt</th>
-                        <th>Ilość</th>
-                        <th>Cena/szt.</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var item in Model.pagedList)
-                {
+                    <thead>
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.User_Login)</td>
-                            <td>@Html.DisplayFor(modelItem => @item.Product_Name)</td>
-                            <td>@Html.DisplayFor(modelItem => @item.Number)</td>
-                            <td>@Html.DisplayFor(modelItem => @item.Price)</td>
-                            <td id="buyTd">
-                                @if (User.Identity.Name != item.User_Login)
-                                {
-                                    <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" data-id="@item.ID" data-productid="@item.Product_ID" data-price="@item.Price" data-number="@item.Number" value="1" onkeypress="return isNumberKey(event)">
-                                    <button type="submit" class="btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, true)">Kup</button>
-                                }
-                                else
-                                {
-                                    <button type="submit" class="btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
-                                }
-                            </td>
+                            <th>Wystwaiający</th>
+                            <th>Produkt</th>
+                            <th>Ilość</th>
+                            <th>Cena/szt.</th>
+                            <th></th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
 
-                </tbody>
-            </table>
+                        @foreach (var item in Model.pagedList)
+                {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.User_Login)</td>
+                                <td>@Html.DisplayFor(modelItem => @item.Product_Name)</td>
+                                <td>@Html.DisplayFor(modelItem => @item.Number)</td>
+                                <td>@Html.DisplayFor(modelItem => @item.Price)</td>
+                                <td id="buyTd">
+                                    @if (User.Identity.Name != item.User_Login)
+                                    {
+                                        <input type="number" class="numValue" id='numValue_@item.ID' name="numValue" min="1" data-id="@item.ID" data-productid="@item.Product_ID" data-price="@item.Price" data-number="@item.Number" value="1" onkeypress="return isNumberKey(event)">
+                                        <button type="submit" class="btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, true)">Kup</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
 
 
 
-            <div class="paginationBtn" id="paginationBtnSellOffer">
-                @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+                <div class="paginationBtn" id="paginationBtnSellOffer">
+                    @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/materialize.min.js"></script>
@@ -152,12 +154,20 @@
             var maxVal = (parseInt($("#currDolars").text()) / price);
             var maxVal1 = Math.round(maxVal);
 
-            $("#numValue_" + id).attr({ "max": maxVal1 });
+            if ($(this).data('number') < maxVal1) {
+                $("#numValue_" + id).attr({ "max": $(this).data('number') });
 
-            if (parseInt($("#numValue_" + id).val()) > maxVal1) {
-                $("#numValue_" + id).val(maxVal1);
+                if (parseInt($("#numValue_" + id).val()) > maxVal1) {
+                    $("#numValue_" + id).val($(this).data('number'));
+                }
             }
+            else {
+                $("#numValue_" + id).attr({ "max": maxVal1 });
 
+                if (parseInt($("#numValue_" + id).val()) > maxVal1) {
+                    $("#numValue_" + id).val(maxVal1);
+                }
+            }
 
         });
 
