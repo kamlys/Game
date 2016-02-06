@@ -48,28 +48,44 @@ namespace Game.Service
 
             int dateSubstract = (int)DateTime.Now.Subtract((DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update)).TotalSeconds;
 
-            if (_user.GetAll().First(u => u.ID == uID).Last_Update == null)
+            // dodajemy co 10 minut
+            int intervals = dateSubstract / 600;
+            if(intervals > 0)
             {
-                _user.GetAll().First(u => u.ID == uID).Last_Update = _user.GetAll().First(u => u.ID == uID).Registration_Date;
-            }
-            foreach (var itemBuilding in _userBuilding.GetAll().Where(b => b.User_ID == uID && b.Status.Contains("gotowy") && b.Buildings.Stock == true))
-            {
-                int bID = itemBuilding.Buildings.Product_ID;
-                foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
+                if (_user.GetAll().First(u => u.ID == uID).Last_Update == null)
                 {
-                    int pID = item.Product_ID;
-                    foreach (var item2 in _buildingHelper.AddProductValue(User))
+                    _user.GetAll().First(u => u.ID == uID).Last_Update = _user.GetAll().First(u => u.ID == uID).Registration_Date;
+                }
+                foreach (var itemBuilding in _userBuilding.GetAll().Where(b => b.User_ID == uID && b.Status.Contains("gotowy") && b.Buildings.Stock == true))
+                {
+                    int bID = itemBuilding.Buildings.Product_ID;
+                    foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                     {
-                        item.Value += (Convert.ToInt32(item2[1] * dateSubstract));
+                        int pID = item.Product_ID;
+                        foreach (var item2 in _buildingHelper.AddProductValue(User))
+                        {
+                            item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * intervals));
+                        }
                     }
                 }
+
+                _user.GetAll().First(u => u.ID == uID).Last_Update = (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update.Value.AddMinutes(intervals*10));
+
+                _unitOfWork.Commit();
             }
-
-            _user.GetAll().First(u => u.ID == uID).Last_Update = DateTime.Now;
-
-            _unitOfWork.Commit();
         }
-
+        public static int Fibonacci(int n)
+        {
+            int a = 0;
+            int b = 1;
+            for (int i = 0; i < n; i++)
+            {
+                int temp = a;
+                a = b;
+                b = temp + b;
+            }
+            return a;
+        }
 
         public void Add(ProductDto product)
         {

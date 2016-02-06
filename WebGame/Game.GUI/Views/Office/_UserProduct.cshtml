@@ -21,9 +21,10 @@
     <script>
 
         $(document).ready(function () {
+            debugger;
             setBudynki(@budynkiArray);
             fillWithData(@userProducts, @Html.Raw(productNames));
-            setInterval(function () { updateProduct(@userProducts); }, 1000);
+            setInterval(function () { updateProduct(@userProducts); }, 600000);
 
             function updateProduct(dataProduct) {
                 for (var item in dataProduct) {

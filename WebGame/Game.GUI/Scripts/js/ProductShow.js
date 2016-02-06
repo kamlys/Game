@@ -35,7 +35,7 @@ function TakeValues() {
         dataType: 'Json',
         success: function (dataProduct) {
             fillWithData(dataProduct);
-            setInterval(function () { updateProduct(dataProduct); }, 1000);
+            setInterval(function () { updateProduct(dataProduct); }, 600000);
         },
         async: true,
         processData: false
