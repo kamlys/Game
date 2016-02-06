@@ -82,7 +82,8 @@ namespace Game.Service
                 Status = "budowa",
                 Percent_product = percent,
                 Owner = true,
-                Color = "bbbbbb"
+                Color = "bbbbbb",
+                DateOfConstruction = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime)
 
             });
             if (dealID == 0)
@@ -148,7 +149,8 @@ namespace Game.Service
                     Status = "budowa",
                     Percent_product = 100 - percent,
                     Owner = false,
-                    Color = "bbbbbb"
+                    Color = "bbbbbb",
+                    DateOfConstruction = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime)
                 });
 
                 _unitOfWork.Commit();
