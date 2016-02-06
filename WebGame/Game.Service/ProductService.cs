@@ -58,15 +58,33 @@ namespace Game.Service
                 }
                 foreach (var itemBuilding in _userBuilding.GetAll().Where(b => b.User_ID == uID && b.Status.Contains("gotowy") && b.Buildings.Stock == true))
                 {
-                    int bID = itemBuilding.Buildings.Product_ID;
-                    foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
+                    // jeśli wybudowano przed ostatnim update - jest ok
+                    if(itemBuilding.DateOfConstruction < (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update))
                     {
-                        int pID = item.Product_ID;
-                        foreach (var item2 in _buildingHelper.AddProductValue(User))
+                        int bID = itemBuilding.Buildings.Product_ID;
+                        foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                         {
-                            item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * intervals));
+                            int pID = item.Product_ID;
+                            foreach (var item2 in _buildingHelper.AddProductValue(User))
+                            {
+                                item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * intervals));
+                            }
+                        }
+                    }else // wpp obliczamy ile można dodać
+                    {
+                        int newDateSubstract = (int)DateTime.Now.Subtract((DateTime)itemBuilding.DateOfConstruction).TotalSeconds;
+                        int newIntervals = newDateSubstract / 600;
+                        int bID = itemBuilding.Buildings.Product_ID;
+                        foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
+                        {
+                            int pID = item.Product_ID;
+                            foreach (var item2 in _buildingHelper.AddProductValue(User))
+                            {
+                                item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * newIntervals));
+                            }
                         }
                     }
+
                 }
 
                 _user.GetAll().First(u => u.ID == uID).Last_Update = (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update.Value.AddMinutes(intervals*10));

@@ -21,10 +21,10 @@
     <script>
 
         $(document).ready(function () {
-            debugger;
-            setBudynki(@budynkiArray);
+            setInterval(function() { TakeValues();}, 30000);
+
             fillWithData(@userProducts, @Html.Raw(productNames));
-            setInterval(function () { updateProduct(@userProducts); }, 600000);
+            //setInterval(function () { updateProduct(@userProducts); }, 600000);
 
             function updateProduct(dataProduct) {
                 for (var item in dataProduct) {
@@ -51,7 +51,7 @@
                                 n = productNames[name][1];
                             }
                         }
-                        $("#products").append("<div class='product'><div class='productItem' id='product_label_" + dataProduct[item][0] + "'>" + n + ":</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div></div>");
+                        $("#products").html("<div class='product'><div class='productItem' id='product_label_" + dataProduct[item][0] + "'>" + n + ":</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div></div>");
                     } catch (e) {
 
                     }
@@ -64,8 +64,9 @@
                     type: 'Post',
                     dataType: 'Json',
                     success: function (dataProduct) {
-                        fillWithData(dataProduct);
-                        setInterval(function () { updateProduct(dataProduct); }, 1000);
+                        setBudynki();
+                        fillWithData(dataProduct,@Html.Raw(productNames));
+                       // setInterval(function () { updateProduct(dataProduct); }, 1000);
                     },
                     async: true,
                     processData: false

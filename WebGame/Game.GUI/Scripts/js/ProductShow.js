@@ -28,16 +28,3 @@ function fillWithData(dataProduct, productNames) {
         }
     }
 }
-function TakeValues() {
-    $.ajax({
-        url: '/Ajax/ShowProduct',
-        type: 'Post',
-        dataType: 'Json',
-        success: function (dataProduct) {
-            fillWithData(dataProduct);
-            setInterval(function () { updateProduct(dataProduct); }, 600000);
-        },
-        async: true,
-        processData: false
-    });
-}
