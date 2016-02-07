@@ -27,16 +27,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public string Slots(int bet)
         {
-            if (bet > (int)_dolarTableService.UserDolar(User.Identity.Name))
+            if (bet > (int)_dolarTableService.UserDolar(User.Identity.Name) && bet>1000)
             {
                 return "error";
             }
             _dolarTableService.PayForBet(User.Identity.Name, bet);
 
             Random r = new Random();
-            int s1 = r.Next(0, 7);
-            int s2 = r.Next(0, 7);
-            int s3 = r.Next(0, 7);
+            int s1 = r.Next(0, 5);
+            int s2 = r.Next(0, 5);
+            int s3 = r.Next(0, 5);
             var win = 0;
             if (s1 == s2 && s2 == s3)
             {
