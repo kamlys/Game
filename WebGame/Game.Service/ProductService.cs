@@ -48,8 +48,8 @@ namespace Game.Service
 
             int dateSubstract = (int)DateTime.Now.Subtract((DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update)).TotalSeconds;
 
-            // dodajemy co 10 minut
-            int intervals = dateSubstract / 600;
+            // dodajemy co minute
+            int intervals = dateSubstract / 60;
             if(intervals > 0)
             {
                 if (_user.GetAll().First(u => u.ID == uID).Last_Update == null)
@@ -65,29 +65,24 @@ namespace Game.Service
                         foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                         {
                             int pID = item.Product_ID;
-                            foreach (var item2 in _buildingHelper.AddProductValue(User))
-                            {
-                                item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * intervals * 10));
-                            }
+                            item.Value += (Convert.ToInt32(Fibonacci(itemBuilding.Lvl) * intervals * 10));
                         }
                     }else // wpp obliczamy ile można dodać
                     {
                         int newDateSubstract = (int)DateTime.Now.Subtract((DateTime)itemBuilding.DateOfConstruction).TotalSeconds;
-                        int newIntervals = newDateSubstract / 600;
+                        // 1 co 6 sekund
+                        int newIntervals = newDateSubstract / 6;
                         int bID = itemBuilding.Buildings.Product_ID;
                         foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                         {
                             int pID = item.Product_ID;
-                            foreach (var item2 in _buildingHelper.AddProductValue(User))
-                            {
-                                item.Value += (Convert.ToInt32(Fibonacci(item2[1]) * newIntervals * 10));
-                            }
+                            item.Value += (Convert.ToInt32(Fibonacci(itemBuilding.Lvl) * newIntervals));
                         }
                     }
 
                 }
 
-                _user.GetAll().First(u => u.ID == uID).Last_Update = (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update.Value.AddMinutes(intervals*10));
+                _user.GetAll().First(u => u.ID == uID).Last_Update = (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update.Value.AddMinutes(intervals));
 
                 _unitOfWork.Commit();
             }
