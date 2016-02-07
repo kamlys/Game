@@ -88,7 +88,7 @@
             </table>
 
             <div class="paginationBtn" id="paginationBtnBuyOffer">
-                @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+                @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No, productName = "" }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
             </div>
         </div>
     }
@@ -100,7 +100,9 @@
     $(document).ready(function(){
         initBuy();
     });
-    
+    var product;
+    var min;
+    var max;
     function initBuy(){
         $('.offerBuyAdd').leanModal();
         $('select').material_select();
@@ -116,6 +118,9 @@
                 success: function (data) {
                     $("#buyDiv").html($(data).html());
                     initBuy();
+                    $("#productNameSell").val(product);
+                    $("#minPriceSell").val(min);
+                    $("#maxPriceSell").val(max);
                 }
             });
 
@@ -129,6 +134,9 @@
                 success: function (data) {
                     $("#buyDiv").html($(data).html());
                     initBuy();
+                    product = undefined;
+                    min = undefined;
+                    max = undefined;
                 }
             });
 
@@ -172,13 +180,25 @@
 
         $('#paginationBtnBuyOffer').on('click', 'a', function (e) {
             e.preventDefault();
+
+            if(product==undefined && min==undefined && max == undefined)
+            {
+                product = "";
+                min="";
+                max="";
+            }
+
             if (!$(this).parents("li:first").hasClass("active")) {
                 $.ajax({
                     url: this.href,
                     type: 'GET',
+                    data: {productName: ""},
                     cache: false,
                     success: function (result) {
                         $('#buyOffer').html(result);
+                        $("#productNameSell").val(product);
+                        $("#minPriceSell").val(min);
+                        $("#maxPriceSell").val(max);
                     }
                 });
             }

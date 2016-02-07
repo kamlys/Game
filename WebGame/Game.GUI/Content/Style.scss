@@ -1007,24 +1007,27 @@ nav {
             display: none;
             float: right;
 
-            .filterA{
+            .filterA {
                 float: right;
                 text-align: center;
-            .filterBtn{
-                background: none;
-                border:none;
-                color: $marketColoR;
-                cursor: pointer;
+
+                .filterBtn {
+                    background: none;
+                    border: none;
+                    color: $marketColoR;
+                    cursor: pointer;
+                }
             }
-            }
+
             .select-wrapper, input[type=number] {
                 display: inline-block !important;
                 width: 25%;
                 color: #fff;
                 text-align: center;
+                display: -moz-inline-stack !important;
 
-                .dropdown-content li > a, .dropdown-content li > span{
-                    color:$marketColoR !important;
+                .dropdown-content li > a, .dropdown-content li > span {
+                    color: $marketColoR !important;
                 }
             }
         }
@@ -1035,7 +1038,7 @@ nav {
         margin-right: 10px;
 
         a {
-            color: #fff;
+            color: $marketColoR;
         }
 
         .pagination > .active > a,
@@ -1193,14 +1196,19 @@ nav {
         padding: 10px;
 
         .systemOfferItem {
+            padding-left: 10px;
             .productName {
                 display: inline-block;
+                display: -moz-inline-stack;
                 margin-right: 10px;
+                float: left;
             }
 
             .productPrice {
                 display: inline-block;
+                display: -moz-inline-stack;
                 margin-right: 10px;
+                float: left;
             }
         }
 
@@ -1209,11 +1217,13 @@ nav {
             text-align: center;
             margin-right: 10px;
             float: right;
+            display: -moz-inline-stack;
         }
 
         .sellProduct {
             float: right;
             display: block;
+            margin: 5px 10px 0 0;
             background-color: $marketColoR;
         }
     }

@@ -708,14 +708,15 @@ nav {
         display: inline-block !important;
         width: 25%;
         color: #fff;
-        text-align: center; }
+        text-align: center;
+        display: -moz-inline-stack !important; }
         .market .filterAll .filterBox .select-wrapper .dropdown-content li > a, .market .filterAll .filterBox .select-wrapper .dropdown-content li > span, .market .filterAll .filterBox input[type=number] .dropdown-content li > a, .market .filterAll .filterBox input[type=number] .dropdown-content li > span {
           color: #563232 !important; }
   .market .paginationBtn {
     float: right;
     margin-right: 10px; }
     .market .paginationBtn a {
-      color: #fff; }
+      color: #563232; }
     .market .paginationBtn .pagination > .active > a,
     .market .paginationBtn .pagination > .active > span,
     .market .paginationBtn .pagination > .active > a:hover,
@@ -823,20 +824,28 @@ nav {
     height: 500px;
     width: 500px;
     padding: 10px; }
-    .market .systemOffer .systemOfferItem .productName {
-      display: inline-block;
-      margin-right: 10px; }
-    .market .systemOffer .systemOfferItem .productPrice {
-      display: inline-block;
-      margin-right: 10px; }
+    .market .systemOffer .systemOfferItem {
+      padding-left: 10px; }
+      .market .systemOffer .systemOfferItem .productName {
+        display: inline-block;
+        display: -moz-inline-stack;
+        margin-right: 10px;
+        float: left; }
+      .market .systemOffer .systemOfferItem .productPrice {
+        display: inline-block;
+        display: -moz-inline-stack;
+        margin-right: 10px;
+        float: left; }
     .market .systemOffer .numberValue {
       width: 100px !important;
       text-align: center;
       margin-right: 10px;
-      float: right; }
+      float: right;
+      display: -moz-inline-stack; }
     .market .systemOffer .sellProduct {
       float: right;
       display: block;
+      margin: 5px 10px 0 0;
       background-color: #563232; }
   .market .btn {
     background-color: #563232; }

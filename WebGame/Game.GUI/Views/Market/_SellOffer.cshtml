@@ -64,7 +64,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="sellTable">
 
                         @foreach (var item in Model.pagedList)
                 {
@@ -93,7 +93,7 @@
 
 
                 <div class="paginationBtn" id="paginationBtnSellOffer">
-                    @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_ReceivedMessage", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "receivedMessage" }))
+                    @Html.PagedListPager(Model.pagedList, Page_No => Url.Action("_SellOffer", new { Page_No }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "sellDiv" }))
                 </div>
             </div>
         }
@@ -106,15 +106,17 @@
     $(document).ready(function () {
         initSell();
     });
-
+    var product;
+    var min;
+    var max;
     function initSell() {
         $('.offerSellAdd').leanModal();
         $('select').material_select();
 
         $("#filterButton").click(function () {
-            var product = $("#productNameSell").val();
-            var min = $("#minPriceSell").val();
-            var max = $("#maxPriceSell").val();
+            product = $("#productNameSell").val();
+            min = $("#minPriceSell").val();
+            max = $("#maxPriceSell").val();
             $.ajax({
                 type: "POST",
                 url: 'Market/_SellOffer',
@@ -122,6 +124,9 @@
                 success: function (data) {
                     $("#sellDiv").html($(data).html());
                     initSell();
+                    $("#productNameSell").val(product);
+                    $("#minPriceSell").val(min);
+                    $("#maxPriceSell").val(max);
                 }
             });
 
@@ -135,6 +140,9 @@
                 success: function (data) {
                     $("#sellDiv").html($(data).html());
                     initSell();
+                    product = undefined;
+                    min = undefined;
+                    max = undefined;
                 }
             });
 
@@ -170,16 +178,27 @@
             }
 
         });
-
         $('#paginationBtnSellOffer').on('click', 'a', function (e) {
             e.preventDefault();
+
+            if(product==undefined && min==undefined && max == undefined)
+            {
+                product = "";
+                min="";
+                max="";
+            }
+
             if (!$(this).parents("li:first").hasClass("active")) {
                 $.ajax({
                     url: this.href,
                     type: 'GET',
+                    data: {productName: product, minPrice: min, maxPrice:  max},
                     cache: false,
                     success: function (result) {
-                        $('#sellOffer').html(result);
+                        $('#sellDiv').html(result);
+                        $("#productNameSell").val(product);
+                        $("#minPriceSell").val(min);
+                        $("#maxPriceSell").val(max);
                     }
                 });
             }
