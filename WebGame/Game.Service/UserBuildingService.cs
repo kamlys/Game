@@ -283,18 +283,13 @@ namespace Game.Service
             int uID = _users.GetAll().First(i => i.Login == User).ID;
 
             List<UserBuildingDto> userBuildingsDto = new List<UserBuildingDto>();
-            int Product_per_sec = 0;
             foreach (var item in _userBuildings.GetAll().Where(i => i.User_ID == uID))
             {
                 int BuildLvl = item.Lvl;
+                int t = (ProductService.Fibonacci(BuildLvl) * 10);
+                int t2 = (ProductService.Fibonacci(BuildLvl+1) * 10);
                 var temp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID);
-                if (BuildLvl == 1)
-                {
-                    Product_per_sec = 1;
-                }
-                else {
-                    Product_per_sec = (temp.Product_per_sec * BuildLvl) + (BuildLvl);
-                }
+
                 try
                 {
                     userBuildingsDto.Add(new UserBuildingDto
@@ -308,8 +303,8 @@ namespace Game.Service
                         Building_ID = item.Building_ID,
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
                         Status = item.Status,
-                        Produkcja = Product_per_sec,
-                        ProdukcjaLvlUp = (Product_per_sec + (BuildLvl + 1)),
+                        Produkcja = (ProductService.Fibonacci(BuildLvl)*10),
+                        ProdukcjaLvlUp = (ProductService.Fibonacci(BuildLvl+1)*10),
                         PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * (BuildLvl + 1),
                         Color = item.Color,
                         Stock = item.Buildings.Stock

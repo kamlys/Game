@@ -65,7 +65,7 @@ namespace Game.Service
                         foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                         {
                             int pID = item.Product_ID;
-                            item.Value += (Convert.ToInt32(Fibonacci(itemBuilding.Lvl) * intervals * 10));
+                            item.Value += (Convert.ToInt32(Fibonacci(itemBuilding.Lvl) * intervals * 10)*(itemBuilding.Percent_product/100));
                         }
                     }else // wpp obliczamy ile można dodać
                     {
@@ -76,10 +76,9 @@ namespace Game.Service
                         foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                         {
                             int pID = item.Product_ID;
-                            item.Value += (Convert.ToInt32(Fibonacci(itemBuilding.Lvl) * newIntervals));
+                            item.Value += (Convert.ToInt32(Fibonacci(itemBuilding.Lvl) * newIntervals) * (itemBuilding.Percent_product / 100));
                         }
                     }
-
                 }
 
                 _user.GetAll().First(u => u.ID == uID).Last_Update = (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update.Value.AddMinutes(intervals));
@@ -90,12 +89,9 @@ namespace Game.Service
         public static int Fibonacci(int n)
         {
             int a = 0;
-            int b = 1;
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i <=n; i++)
             {
-                int temp = a;
-                a = b;
-                b = temp + b;
+                a += i;
             }
             return a;
         }

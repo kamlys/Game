@@ -187,43 +187,9 @@ namespace Game.Service
 
             Dictionary<int, int> tab2 = new Dictionary<int, int>();
 
-            foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID && u.Status.Contains("gotowy") && u.Buildings.Stock == true))
-            {
-                int BuildLvl = item.Lvl;
-                int Product_per_sec = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Product_per_sec * item.Lvl;
-                float Percent_per_lvl;
-                if (item.Lvl > 1)
-                {
-                    Percent_per_lvl = (_buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Percent_product_per_lvl * item.Lvl)+item.Lvl;
-
-                }else
-                {
-                    Percent_per_lvl = 1;
-                }
-
-                if (tab2.Keys.Contains(item.Buildings.Product_ID))
-                {
-                    tab2[item.Buildings.Product_ID] += (int)(Percent_per_lvl);
-                }
-                else
-                {
-                    tab2[item.Buildings.Product_ID] = (int)(Percent_per_lvl);
-                }
-            }
-
-            foreach (var item in _userProducts.GetAll().Where(p => p.User_ID == uID && !tab2.Keys.Contains(p.Products.ID)))
+            foreach (var item in _userProducts.GetAll().Where(p => p.User_ID == uID/* && !tab2.Keys.Contains(p.Products.ID))*/))
             {
                 AddProduct.Add(new int[] { item.Product_ID, 0, item.Value });
-            }
-
-            foreach (var item in tab2)
-            {
-                var prod = _userProducts.GetAll().Where(a => a.User_ID == uID).FirstOrDefault(u => u.Products.ID == item.Key);
-                if(prod != null)
-                {
-                    var productValue = prod.Value;
-                    AddProduct.Add(new int[] { item.Key, item.Value, productValue });
-                }
             }
 
             return AddProduct.ToArray<int[]>();
