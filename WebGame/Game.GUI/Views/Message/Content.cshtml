@@ -15,7 +15,7 @@
                 <label for="Odbiorca">Odbiorca:</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Theme, new { @placeholder = "", @class = "validate inputTheme", length = "150" })
+                @Html.TextBoxFor(m => m.viewModel.Theme, new { @placeholder = "", @class = "validate inputTheme", @maxlength="150" })
                 <label for="Login">Tytuł:</label>
             </div>
 

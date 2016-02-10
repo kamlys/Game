@@ -43,19 +43,20 @@ namespace Game.Service
             {
                 int userID = _user.GetAll().First(i => i.Login == offer.Login).ID;
                 int totalPrice = (offer.Price * offer.Number);
-                int ProductID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == offer.Product_Name).Product_ID;
+                string productName = _product.GetAll().First(i => i.Alias == offer.Product_Name).Name;
+                int ProductID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == productName).Product_ID;
                 int userProductValue = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value;
 
                 if (offer.Number > 0
                     && userProductValue >= offer.Number
-                    && _product.GetAll().Any(i => i.Name == offer.Product_Name)
+                    && _product.GetAll().Any(i => i.Alias == offer.Product_Name)
                     && offer.Price > 0
                     && userProductValue >= offer.Number)
                 {
                     _market.Add(new Market
                     {
                         User_ID = _user.GetAll().First(i => i.Login == offer.Login).ID,
-                        Product_ID = _product.GetAll().First(i => i.Name == offer.Product_Name).ID,
+                        Product_ID = ProductID,
                         Number = offer.Number,
                         Price = offer.Price,
                         TypeOffer = offer.TypeOffer
@@ -189,21 +190,24 @@ namespace Game.Service
             int uID = _market.Get(id).User_ID;
             int productID = _market.Get(id).Product_ID;
             int value = _market.Get(id).Number;
-            if (_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == productID))
-            {
-                _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == productID).Value += value;
-            }
-            else
-            {
-                _userProduct.Add(new UserProducts
-                {
-                    Product_ID = productID,
-                    User_ID = uID,
-                    Value = value,
-                    Product_Name = _product.Get(productID).Name,
-                });
-            }
 
+            if (_market.Get(id).TypeOffer == true)
+            {
+                if (_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == productID))
+                {
+                    _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == productID).Value += value;
+                }
+                else
+                {
+                    _userProduct.Add(new UserProducts
+                    {
+                        Product_ID = productID,
+                        User_ID = uID,
+                        Value = value,
+                        Product_Name = _product.Get(productID).Name,
+                    });
+                }
+            }
             _market.Delete(_market.Get(id));
             _unitOfWork.Commit();
         }

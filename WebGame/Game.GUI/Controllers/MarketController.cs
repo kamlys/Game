@@ -213,7 +213,7 @@ namespace Game.GUI.Controllers
                     Session["val"] = errors.ToArray<string>();
                 }
             }
-            return View("~/Views/Market/Index.cshtml");
+            return RedirectToAction("Index");
 
         }
 
