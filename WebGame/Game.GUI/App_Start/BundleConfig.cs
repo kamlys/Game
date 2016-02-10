@@ -39,7 +39,8 @@ namespace Game.GUI
                     "~/Scripts/jquery.bxslider.js",
                     "~/Scirpts/js/circle-progress.js",
                     "~/Scripts/js/AdminScripts.js",
-                    "~/Scripts/js/jquery.slimscroll.min.js"));
+                    "~/Scripts/js/jquery.slimscroll.min.js",
+                    "~/Scripts/js/Tutorial.js"));
 
             bundles.Add(new StyleBundle("~/Content/css")
                 .IncludeDirectory("~/Content/", "*.css", true));

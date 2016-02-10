@@ -284,6 +284,7 @@
     <Content Include="Scripts\js\jquery.slimscroll.min.js" />
     <Content Include="Scripts\js\Message.js" />
     <Content Include="Scripts\js\newNotification.js" />
+    <Content Include="Scripts\js\Tutorial.js" />
     <Content Include="Scripts\js\UpdateRow.js" />
     <Content Include="Scripts\js\main_page.js" />
     <Content Include="Scripts\js\Market.js" />
@@ -322,6 +323,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="Controllers\SupportController.cs" />
+    <Compile Include="Controllers\TutorialController.cs" />
     <Compile Include="Controllers\UserBuildingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
@@ -334,6 +336,9 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Building\DealBuildings\DealBuildingViewModel.cs" />
     <Compile Include="ViewModels\Building\DealBuildings\ItemDealBuildingViewModel.cs" />
+    <Compile Include="ViewModels\Casino\CasinoViewModel.cs" />
+    <Compile Include="ViewModels\Office\OfficeViewModel.cs" />
+    <Compile Include="ViewModels\Ranking\ItemRankingViewModel.cs" />
     <Compile Include="ViewModels\User\Admin\AdminViewModel.cs" />
     <Compile Include="ViewModels\User\Admin\ItemAdminViewModel.cs" />
     <Compile Include="ViewModels\User\Ban\BanViewModel.cs" />

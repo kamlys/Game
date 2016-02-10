@@ -1,8 +1,23 @@
-﻿
+﻿@model Game.GUI.ViewModels.Office.OfficeViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div id="officeTutorial">
+    @if (!Model.officeDiv && Model.allDiv)
+            {
+        <div class="tutorial">
+            <span href="#" class="closeDiv" data-divname="officeDiv"><i class="fa fa-times"></i></span><br />
+            W tej zakładce, centralnym elementem jest Twoja mapa. Na niej możesz budować nowe budynki lub burzyć już istniejące.<br />
+            <i class="fa fa-arrow-left"></i>Budynki do budowy możesz wybrać z listy "Budynki", która znajduje się po lewej stronie. Jednak budynek możesz wybudować tylko jeśli masz wystarczającą ilość pieniędzy.
+            Rówwnież po lewej stronie, w zakładce "Budynki z umów" znajdują się budynki, które musisz wybudować aby ta umowa weszła w życie, o ile w umowie jest ustalone, że budynek stoi na
+            Towjej mapie. Aby rozpocząć budowanie należy kliknąć LPM na wybranym budynku, następnie ponownie kliknąć LPM w wybranym przez Ciebie miejscu na mapie. Aby anulować budowę należy użyć PPM.<br />
+            <i class="fa fa-arrow-right"></i> Po prawej stronie znajduje się panel, umożliwiajający przeglądanie aktualnej listy Twoich znajomych oraz w zakładce "Powiadomienia" listę Twoich nowych powiadomień.<br />
+            <i class="fa fa-arrow-up"></i> U góry natomiast jest pasek, który pokazuje aktualny stan Twojego magazynu.<br />
+        </div>
+    }
+</div>
 
 <div class="row">
     <div class="office">
@@ -26,6 +41,5 @@
             @Html.Action("_UserProductRequirementList", "Office")
         </div>
     </div>
-
 </div>
 

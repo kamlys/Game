@@ -1,4 +1,5 @@
 ﻿using Game.Core.DTO;
+using Game.GUI.ViewModels.Casino;
 using Game.GUI.ViewModels.User.Ban;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
@@ -11,17 +12,22 @@ namespace Game.GUI.Controllers
     public class CasinoController : Controller
     {
         private IDolarService _dolarTableService;
+        private ITutorialService _tutorialService;
 
-        public CasinoController(IDolarService dolarTableService)
+        public CasinoController(IDolarService dolarTableService, ITutorialService tutorialService)
         {
             _dolarTableService = dolarTableService;
+            _tutorialService = tutorialService;
         }
 
         [Authorize]
         // GET: Casino
         public ActionResult Index()
         {
-            return View();
+            CasinoViewModel casinoModel = new CasinoViewModel();
+            casinoModel.allDiv = _tutorialService.tutorialUser(User.Identity.Name).allDiv;
+            casinoModel.casinoDiv= _tutorialService.tutorialUser(User.Identity.Name).casinoDiv;
+            return View(casinoModel);
         }
 
         [Authorize]

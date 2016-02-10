@@ -53,6 +53,7 @@
     <Compile Include="Interfaces\IDealService.cs" />
     <Compile Include="Interfaces\IProductRequirementsService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
+    <Compile Include="Interfaces\ITutorialService.cs" />
     <Compile Include="Interfaces\IUserBuildingService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\IBanService.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="BuildingService.cs" />
     <Compile Include="DolarService.cs" />
     <Compile Include="QueueService.cs" />
+    <Compile Include="TutorialService.cs" />
     <Compile Include="UserProductService.cs" />
     <Compile Include="UserBuildingService.cs" />
     <Compile Include="UserService.cs" />

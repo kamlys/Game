@@ -52,15 +52,20 @@ namespace Game.Service
             var products = _productR.GetAll().GroupBy(i => i.Base_ID);
             foreach (var item in products)
             {
-                bool temp = false;
+                bool[] temp = new bool[item.Count()];
                 bool temp2 = false;
                 bool can = false;
+                int iterator = 0;
                 foreach (var item2 in item)
                 {
                     if ((_userProduct.GetAll().Any(i => i.User_ID == uID && i.Product_ID == item2.Require_ID))
                         && (_userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == item2.Require_ID).Value > 0))
                     {
-                        temp = true;
+                        temp[iterator] = true;
+                    }
+                    else
+                    {
+                        temp[iterator] = false;
                     }
                     var buildingID = _building.GetAll().FirstOrDefault(p => p.Product_ID == item2.Base_ID).ID;
                     if (_userBuilding.GetAll().Any(i => i.User_ID == uID && i.Building_ID == buildingID && i.Status.Contains("gotowy")))
@@ -69,10 +74,18 @@ namespace Game.Service
                     }
 
                     building = _building.Get(buildingID).Alias;
+                    iterator++;
                 }
-                if (temp && temp2)
+                if (temp2)
                 {
                     can = true;
+                    foreach (var itemTemp in temp)
+                    {
+                        if (!itemTemp)
+                        {
+                            can = false;
+                        }
+                    }
                 }
                 productRDto.Add(new ProductRequirementDto
                 {

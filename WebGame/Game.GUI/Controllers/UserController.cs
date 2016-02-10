@@ -19,13 +19,15 @@ namespace Game.GUI.Controllers
         private IUserProductService _userProductService;
         private IUserBuildingService _userBuildingService;
         private INotificationService _notificationService;
+        private ITutorialService _tutorialService;
 
-        public UserController(IUserService userService, IUserProductService userProductService, IUserBuildingService userBuildingService, INotificationService notificationService)
+        public UserController(IUserService userService, IUserProductService userProductService, IUserBuildingService userBuildingService, INotificationService notificationService, ITutorialService tutorialService)
         {
             _userService = userService;
             _userProductService = userProductService;
             _userBuildingService = userBuildingService;
             _notificationService = notificationService;
+            _tutorialService = tutorialService;
         }
 
         [HttpGet]
@@ -69,7 +71,7 @@ namespace Game.GUI.Controllers
                 {
                     errors.Add("Email już istnieje");
                 }
-                else if(item==3)
+                else if (item == 3)
                 {
                     errors.Add("Hasło musi zawierać minimum 5 znaków, w tym jedną cyfrę.");
                 }
@@ -110,11 +112,11 @@ namespace Game.GUI.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            else if(_userService.LoginUser(user) == 2)
+            else if (_userService.LoginUser(user) == 2)
             {
                 errors.Add("Login bądź hasło niepoprawne.");
             }
-            else if(_userService.LoginUser(user) == 4)
+            else if (_userService.LoginUser(user) == 4)
             {
                 return View("~/Views/Error/_Blocked.cshtml");
             }
@@ -172,6 +174,10 @@ namespace Game.GUI.Controllers
             }
 
             profilView.Number = buildings;
+
+            profilView.allDiv = _tutorialService.tutorialUser(User.Identity.Name).allDiv;
+            profilView.setDiv = _tutorialService.tutorialUser(User.Identity.Name).setDiv;
+
             return View(profilView);
         }
 
@@ -361,6 +367,5 @@ namespace Game.GUI.Controllers
 
             return View("~/Views/User/Login.cshtml");
         }
-
     }
 }

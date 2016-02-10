@@ -18,20 +18,27 @@ namespace Game.GUI.Controllers
         private IMessageService _messageService;
         private INotificationService _notificationService;
         private IUserService _userService;
+        private ITutorialService _tutorialService;
 
 
-        public MessageController(IMessageService messageService, INotificationService notificationSerwice, IUserService userService)
+        public MessageController(IMessageService messageService, INotificationService notificationSerwice, IUserService userService, ITutorialService tutorialService)
         {
             _messageService = messageService;
             _notificationService = notificationSerwice;
             _userService = userService;
+            _tutorialService = tutorialService;
         }
 
         // GET: Message
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            MessageViewModel messageModel = new MessageViewModel();
+            messageModel.viewModel = new ItemMessageViewModel();
+            messageModel.viewModel.allDiv = _tutorialService.tutorialUser(User.Identity.Name).allDiv;
+            messageModel.viewModel.messageDiv = _tutorialService.tutorialUser(User.Identity.Name).messageDiv;
+
+            return View(messageModel);
         }
 
         [Authorize]

@@ -1490,4 +1490,40 @@ input#bet {
 /*.nav-wrapper {
     max-width: 600px !important;
 }*/
+/*TutorialDiv*/
+.cookies {
+  background: rgba(255, 255, 255, 0.8);
+  width: 91.5%;
+  text-align: center;
+  z-index: 1005;
+  position: fixed;
+  height: 50px;
+  bottom: 0; }
+
+.allDiv {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 80%;
+  height: 200px;
+  padding-top: 5%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto; }
+
+.tutorial {
+  z-index: 1005;
+  width: 70%;
+  background: rgba(255, 255, 255, 0.8);
+  /* width: 500px; */
+  color: #000;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  line-height: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+  .tutorial .closeDiv {
+    float: right;
+    cursor: pointer; }
+
+/*************/
 

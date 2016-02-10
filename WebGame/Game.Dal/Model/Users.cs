@@ -27,9 +27,10 @@ namespace Game.Dal.Model
             Messages = new HashSet<Messages>();
             Messages1 = new HashSet<Messages>();
             Notifications = new HashSet<Notifications>();
+            RecoveryCodes = new HashSet<RecoveryCodes>();
+            Tutorials = new HashSet<Tutorials>();
             UserBuildings = new HashSet<UserBuildings>();
             UserProducts = new HashSet<UserProducts>();
-            RecoveryCodes = new HashSet<RecoveryCodes>();
         }
 
         public int ID { get; set; }
@@ -103,12 +104,15 @@ namespace Game.Dal.Model
         public virtual ICollection<Notifications> Notifications { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecoveryCodes> RecoveryCodes { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tutorials> Tutorials { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBuildings> UserBuildings { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserProducts> UserProducts { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecoveryCodes> RecoveryCodes { get; set; }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="Model\Products.cs" />
     <Compile Include="Model\RecoveryCodes.cs" />
     <Compile Include="Model\sysdiagrams.cs" />
+    <Compile Include="Model\Tutorials.cs" />
     <Compile Include="Model\UserBuildings.cs" />
     <Compile Include="Model\UserProducts.cs" />
     <Compile Include="Model\Users.cs" />

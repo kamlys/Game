@@ -68,6 +68,44 @@
     }
     else
     {
+        <div id="allTutorial">
+            @if (!Model.allDiv)
+            {
+                <div class="allDiv">
+                    Witam @User.Identity.Name.
+                    Jako nowy gracz masz możlwiość skorzystania z podpowiedzi, które ułatwią ci start w grze.
+                    Jeśli nie chcesz widziesz podpowiedzie możesz je wyłączyć.<br />
+                    <button class="btn allDivBtn" data-choice="on" data-divname="allDiv">Pokaż podpowiedzi</button>
+                    <button class="btn allDivBtn" data-choice="off" data-divname="allDiv">Wyłącz podpowiedzi</button>
+                </div>
+            }
+        </div>
+
+        <div id="cookieDiv">
+            @if (!Model.cookies)
+            {
+                <div class="cookies">
+                    Ta strona używa ciasteczek (cookies), dzięki którym nasz serwis może działać lepiej.<br />
+                    <a href="http://wszystkoociasteczkach.pl" target="_blank">Dowiedz się więcej</a> <a href="#" class="cookieBtn" data-home="homeDiv" data-divname="cookies">Rozumiem</a>
+                </div>
+            }
+        </div>
+
+        <div id="homeTutorial">
+            @if (!Model.homeDiv && Model.allDiv)
+            {
+                <div class="tutorial">
+                    <span href="#" class="closeDiv" data-divname="homeDiv"><i class="fa fa-times"></i></span><br />
+                    W tej zakładce, centralnym elementem jest Twoja mapa. Na niej możesz budować nowe budynki lub burzyć już istniejące.<br />
+                    <i class="fa fa-arrow-left"></i>Budynki do budowy możesz wybrać z listy "Budynki", która znajduje się po lewej stronie. Jednak budynek możesz wybudować tylko jeśli masz wystarczającą ilość pieniędzy.
+                    Rówwnież po lewej stronie, w zakładce "Budynki z umów" znajdują się budynki, które musisz wybudować aby ta umowa weszła w życie, o ile w umowie jest ustalone, że budynek stoi na
+                    Towjej mapie. Aby rozpocząć budowanie należy kliknąć LPM na wybranym budynku, następnie ponownie kliknąć LPM w wybranym przez Ciebie miejscu na mapie. Aby anulować budowę należy użyć PPM.<br />
+                    <i class="fa fa-arrow-right"></i> Po prawej stronie znajduje się panel, umożliwiajający przeglądanie aktualnej listy Twoich znajomych oraz w zakładce "Powiadomienia" listę Twoich nowych powiadomień.<br />
+                    <i class="fa fa-arrow-up"></i> U góry natomiast jest pasek, który pokazuje aktualny stan Twojego magazynu.<br />
+                </div>
+            }
+        </div>
+
         <div class="IndexDiv">
             <div class="col m4 l3 buildingList card">
                 <div class="col s12">
@@ -95,9 +133,13 @@
         </div>
     }
 </div>
-
 <script type="text/javascript">
     $(document).ready(function () {
+        initHome();
+        tutorialInit();
+    });
+
+    function initHome() {
         $('ul.tabs').tabs();
         if ($('#Notification ul li').length >= 1) {
             $('.infoBox .tabs').tabs('select_tab', 'Notification');
@@ -106,6 +148,6 @@
         if ($('#DealBuilding ul li').length >= 1) {
             $('.buildingList .tabs').tabs('select_tab', 'DealBuilding');
         }
-    });
+    }
 
 </script>

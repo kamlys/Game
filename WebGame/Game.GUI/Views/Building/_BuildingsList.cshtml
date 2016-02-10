@@ -20,9 +20,15 @@
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
-    $('#buildingList').slimScroll({
-        size: '10px',
-        height: '350px',
-        alwaysVisible: true
+    $(document).ready(function(){
+        initBuilding();
     });
+
+    function initBuilding(){
+        $('#buildingList').slimScroll({
+            size: '10px',
+            height: '350px',
+            alwaysVisible: true
+        });
+    }
 </script>

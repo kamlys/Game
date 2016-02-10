@@ -18,19 +18,26 @@ namespace Game.GUI.Controllers
         private IMarketService _marketService;
         private IProductService _productService;
         private IUserProductService _userProductService;
+        private ITutorialService _tutorialService;
 
-        public MarketController(IMarketService marketService, IProductService productServise, IUserProductService userProductService)
+        public MarketController(IMarketService marketService, IProductService productServise, IUserProductService userProductService, ITutorialService tutroialService)
         {
             _marketService = marketService;
             _productService = productServise;
             _userProductService = userProductService;
+            _tutorialService = tutroialService;
         }
 
         // GET: Market
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            MarketViewModel marketModel = new MarketViewModel();
+            marketModel.viewModel = new ItemMarketViewModel();
+            marketModel.viewModel.allDiv = _tutorialService.tutorialUser(User.Identity.Name).allDiv;
+            marketModel.viewModel.marketDiv= _tutorialService.tutorialUser(User.Identity.Name).marketDiv;
+
+            return View(marketModel);
         }
 
         //[Authorize]

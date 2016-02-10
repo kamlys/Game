@@ -23,6 +23,7 @@ namespace Game.Service
         private IUnitOfWork _unitOfWork;
         private IHashPass _hassPass;
         private IRepository<Bans> _ban;
+        private IRepository<Tutorials> _tutorial;
 
         public UserService(
             IRepository<Users> user,
@@ -33,7 +34,8 @@ namespace Game.Service
             IRepository<RecoveryCodes> recoveryCodes,
             IUnitOfWork unitOfWork,
             IHashPass hassPass,
-            IRepository<Bans> ban)
+            IRepository<Bans> ban,
+            IRepository<Tutorials> tutorial)
         {
             _user = user;
             _map = map;
@@ -44,6 +46,7 @@ namespace Game.Service
             _unitOfWork = unitOfWork;
             _hassPass = hassPass;
             _ban = ban;
+            _tutorial = tutorial;
         }
 
 
@@ -98,6 +101,20 @@ namespace Game.Service
                 {
                     User_ID = uID,
                     Value = 20000
+                });
+
+                _tutorial.Add(new Tutorials
+                {
+                    User_ID = uID,
+                    allDiv = false,
+                    cookies = false,
+                    casinoDiv = false,
+                    homeDiv = false,
+                    marketDiv = false,
+                    messageDiv = false,
+                    officeDiv = false,
+                    rankDiv = false,
+                    setDiv = false
                 });
 
                 _unitOfWork.Commit();

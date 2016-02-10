@@ -1,8 +1,21 @@
-﻿@{
+﻿@model Game.GUI.ViewModels.Casino.CasinoViewModel
+@{
     ViewBag.Title = "Kasyno";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div id="casinoTutorial">
+    @if (!Model.casinoDiv && Model.allDiv)
+            {
+        <div class="tutorial">
+            <span href="#" class="closeDiv" data-divname="casinoDiv"><i class="fa fa-times"></i></span><br />
+            Kasyno umożliwia Ci próbę pomnożnenia twojego majątku. Jednak musisz uważać, że zawsze istnieje możliwość stracenia pieniędzy.
+            Gra polega na tym, że stawiasz wybraną przez siebie kwotę pieniędzy i klikasz "Postaw". Jeśli będziesz miał szczęście masz szansę
+            wygrania dziesięciokrotności postawionej kwoty przy wylosowaniiu trzech jednakowych symboli. Jeśli wylosujesz dwa takie same symbole to wygrana wyniesie
+            trzykrotność postwionych pieniędzy.
+        </div>
+    }
+</div>
 
 <div class="slots row clearfix">
     <div class="col s4 ">

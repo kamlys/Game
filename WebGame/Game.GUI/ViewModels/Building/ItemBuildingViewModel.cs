@@ -22,6 +22,7 @@ namespace Game.GUI.ViewModels.Building
         public string Alias { get; set; }
         public int BuildingTime { get; set; }
         public int DestructionTime { get; set; }
+        public bool buildingDiv { get; set; }
 
     }
 }

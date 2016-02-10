@@ -3,6 +3,7 @@ using Game.GUI.ViewModels.Building.UserBuildings;
 using Game.GUI.ViewModels.Deal;
 using Game.GUI.ViewModels.Map;
 using Game.GUI.ViewModels.Market;
+using Game.GUI.ViewModels.Office;
 using Game.GUI.ViewModels.Product.ProductRequirement;
 using Game.GUI.ViewModels.Product.UserProduct;
 using Game.Service.Interfaces;
@@ -26,6 +27,8 @@ namespace Game.GUI.Controllers
         private IProductService _productService;
         private IUserService _userService;
         private IMapService _mapService;
+        private ITutorialService _tutorialService;
+
 
         public OfficeController(IUserBuildingService userBuildingService,
             IMarketService marketService,
@@ -36,7 +39,8 @@ namespace Game.GUI.Controllers
             IProductService productService,
             IMapService mapService,
             IUserService userService,
-            IDealService dealService)
+            IDealService dealService,
+            ITutorialService tutorialService)
         {
             _userBuildingService = userBuildingService;
             _userProductService = userProductService;
@@ -48,6 +52,7 @@ namespace Game.GUI.Controllers
             _mapService = mapService;
             _userService = userService;
             _productRequirementService = productRequirementService;
+            _tutorialService = tutorialService;
         }
 
 
@@ -55,7 +60,10 @@ namespace Game.GUI.Controllers
         // GET: Office
         public ActionResult Index()
         {
-            return View();
+            OfficeViewModel officeModel = new OfficeViewModel();
+            officeModel.officeDiv = _tutorialService.tutorialUser(User.Identity.Name).officeDiv;
+            officeModel.allDiv= _tutorialService.tutorialUser(User.Identity.Name).allDiv;
+            return View(officeModel);
         }
 
         [Authorize]

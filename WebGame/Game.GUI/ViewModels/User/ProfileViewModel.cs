@@ -36,6 +36,9 @@ namespace Game.GUI.ViewModels.User
         [Display(Name = "E-mail")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        
+
+        public bool allDiv { get; set; }
+        public bool setDiv { get; set; }
+
     }
 }

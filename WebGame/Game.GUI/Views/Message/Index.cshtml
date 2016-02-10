@@ -4,6 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div id="messageTutorial">
+    @if (!Model.viewModel.messageDiv && Model.viewModel.allDiv)
+            {
+        <div class="tutorial">
+            <span href="#" class="closeDiv" data-divname="messageDiv"><i class="fa fa-times"></i></span><br />
+            Wiadomości to nic innego jak prosty system komunikacji z graczami.<br />
+            Znajdują się tutaj trzy zakładki. "Nowa wiadomość" umożliwia pisanie nowych wiadomoości do innego gracza.
+            "Odebrane" to skrzynka odbiorcza. Kliknięcie w "Tytuł" wiadomości powoduje jej otwarcie.
+            "Wysłane" to po prostu skrzynka wiadomości wysłanych.
+        </div>
+    }
+</div>
+
+
 <div class="Message">
     <div class="col s12">
         <ul class="tabs">

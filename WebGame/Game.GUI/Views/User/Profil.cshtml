@@ -4,6 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@if (User.Identity.Name == Model.Login)
+{
+    <div id="setTutorial">
+        @if (!Model.setDiv && Model.allDiv)
+        {
+            <div class="tutorial">
+                <span href="#" class="closeDiv" data-divname="setDiv" data-user="@User.Identity.Name"><i class="fa fa-times"></i></span><br />
+                Zakładka "Ustawienia" pozwala Ci sprawdzić swoje podstawowe statystyki w grze oraz zarządzać swoim kontem.<br />
+                W panel ustawień po prawej stronie masz możliwość zmiany hasła, zmiany adresu e-mail oraz zarządzania znajomymi i graczami ignorowanymi.
+            </div>
+        }
+    </div>
+}
+
 <div class="profil">
     @if (User.Identity.Name != Model.Login)
     {
@@ -36,7 +51,7 @@
             }
         }
 
-        
+
 
         <hr />
         <div id="left">

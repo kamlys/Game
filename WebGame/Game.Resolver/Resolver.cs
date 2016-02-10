@@ -38,6 +38,7 @@ namespace Game.Resolver
             builder.RegisterType<Repository<ProductRequirements>>().As<IRepository<ProductRequirements>>();
             builder.RegisterType<Repository<Ignored>>().As<IRepository<Ignored>>();
             builder.RegisterType<Repository<RecoveryCodes>>().As<IRepository<RecoveryCodes>>();
+            builder.RegisterType<Repository<Tutorials>>().As<IRepository<Tutorials>>();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
@@ -60,14 +61,7 @@ namespace Game.Resolver
             builder.RegisterType<NotificationService>().As<INotificationService>();
             builder.RegisterType<DealService>().As<IDealService>();
             builder.RegisterType<ProductRequirementsService>().As<IProductRequirementsService>();
-
-
-
-
-
-
-
-
+            builder.RegisterType<TutorialService>().As<ITutorialService>();
         }
     }
 }

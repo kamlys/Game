@@ -1,7 +1,23 @@
-﻿@{
+﻿@model Game.GUI.ViewModels.Market.MarketViewModel
+@{
     ViewBag.Title = "Market";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div id="marketTutorial">
+    @if (!Model.viewModel.marketDiv && Model.viewModel.allDiv)
+            {
+        <div class="tutorial">
+            <span href="#" class="closeDiv" data-divname="marketDiv"><i class="fa fa-times"></i></span><br />
+            Market umożliwia Ci handel produktami z innymi graczami.<br />
+            Cały Market podzielony jest tak jakby na dwie części.<br />
+            Pierwsza część to panel "Sprzedaj produkty". Po rozwinięciu tego panelu masz możliwość sprzedaży swoich produktów po stałych cenach.
+            Jeśli jednak chcesz sprzedać produkty w innej cenie, możesz skorzystać z drugiej części marketu, czyli wystawić ofertę widoczną dla innych graczy.
+            W wypadku, gdy brakuje ci jakiegoś surowca, a na rynku nie ma oferty z danym produktem, możesz wystawić "Ofertę kupna". Czyli zaproponować innym
+            graczom, że odkupisz od dany syrowiec za określoną kwotę.
+        </div>
+    }
+</div>
 
 <div class="market">
 

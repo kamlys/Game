@@ -8,7 +8,6 @@ namespace Game.Dal.Model
 
     public partial class RecoveryCodes
     {
-        [Key]
         public int ID { get; set; }
 
         public int User_ID { get; set; }
@@ -16,6 +15,7 @@ namespace Game.Dal.Model
         [Column(TypeName = "datetime2")]
         public DateTime LiveTime { get; set; }
 
+        [Required]
         [StringLength(5)]
         public string Code { get; set; }
 

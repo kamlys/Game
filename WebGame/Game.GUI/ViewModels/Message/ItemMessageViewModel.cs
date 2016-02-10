@@ -22,5 +22,7 @@ namespace Game.GUI.ViewModels.Message
         [Required]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
+        public bool allDiv { get; set; }
+        public bool messageDiv { get; set; }
     }
 }
