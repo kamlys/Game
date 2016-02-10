@@ -1224,10 +1224,19 @@ nav {
 
 /*Wiadomości*/
 .Message {
-  background-color: #18212A; }
+  background-color: #18212A;
+  /*min-height: 600px;*/ }
   .Message .deleteM {
     background: none;
     border: none; }
+  .Message td.toContent {
+    white-space: nowrap;
+    width: 400px !important;
+    overflow: hidden;
+    display: inline-block;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis; }
   .Message td.toContent:hover {
     text-decoration: underline !important;
     color: #000 !important;
@@ -1299,7 +1308,8 @@ nav {
       border: 1px solid rgba(97, 116, 135, 0.62);
       color: #fff; }
   .Message table {
-    background-color: #fff; }
+    background-color: #fff;
+    text-align: center; }
   .Message td, .Message th {
     border-radius: 0; }
   .Message .indicator {
@@ -1327,7 +1337,7 @@ nav {
     width: 30%; }
 
 .receivedMessage {
-  min-height: 660px; }
+  min-height: 740px; }
   .receivedMessage thead {
     background-color: rgba(97, 116, 135, 0.62);
     border: none;
@@ -1342,7 +1352,7 @@ nav {
   font-weight: bold; }
 
 .sentMessage {
-  min-height: 660px; }
+  min-height: 740px; }
   .sentMessage thead {
     background-color: rgba(97, 116, 135, 0.62);
     border: none;

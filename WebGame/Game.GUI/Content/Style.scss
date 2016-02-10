@@ -1810,16 +1810,27 @@ nav {
 /*Wiadomości*/
 .Message {
     background-color: $secondColor;
-    //min-height: 600px;
+    /*min-height: 600px;*/
     .deleteM {
         background: none;
         border: none;
+    }
+
+    td.toContent {
+        white-space: nowrap;
+        width: 400px !important;
+        overflow: hidden;
+        display: inline-block;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
     }
 
     td.toContent:hover {
         text-decoration: underline !important;
         color: #000 !important;
         cursor: pointer;
+
     }
 
     .tabs {
@@ -1910,6 +1921,7 @@ nav {
 
     table {
         background-color: #fff;
+        text-align: center;
     }
 
     td, th {
@@ -1950,7 +1962,7 @@ nav {
 }
 
 .receivedMessage {
-    min-height: 660px;
+    min-height: 740px;
 
     thead {
         background-color: rgba(97, 116, 135, 0.62);
@@ -1975,7 +1987,7 @@ nav {
 }
 
 .sentMessage {
-    min-height: 660px;
+    min-height: 740px;
 
     thead {
         background-color: rgba(97, 116, 135, 0.62);

@@ -100,7 +100,7 @@ namespace Game.Service
                 _dolar.Add(new Dolars
                 {
                     User_ID = uID,
-                    Value = 20000
+                    Value = 100000
                 });
 
                 _tutorial.Add(new Tutorials

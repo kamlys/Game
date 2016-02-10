@@ -27,7 +27,7 @@
                     {
                         <tr id="newMessage">
                             <td>@Html.DisplayFor(modelItem => item.Sender_Login)</td>
-                            <td class="toContent" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">@Html.DisplayFor(modelItem => item.Theme)</td>
+                            <td class="toContent" data-position="bottom" data-delay="50" data-tooltip="@item.Theme" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">@Html.DisplayFor(modelItem => item.Theme)</td>
                             <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
                             <td><button class="deleteM deleteRM" data-messageID="@item.ID"><i class="fa fa-trash"></i></button></td>
                         </tr>
@@ -36,7 +36,7 @@
                     {
                         <tr style="font-weight: normal">
                             <td>@Html.DisplayFor(modelItem => item.Sender_Login)</td>
-                            <td class="toContent" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">@Html.DisplayFor(modelItem => item.Theme)</td>
+                            <td class="toContent" data-position="bottom" data-delay="50" data-tooltip="@item.Theme" onclick="location.href='@Url.Action("Content", "Message", new { MessageID = @item.ID })'">@Html.DisplayFor(modelItem => item.Theme)</td>
                             <td>@Html.DisplayFor(modelItem => item.PostDate)</td>
                             <td><button class="deleteM deleteRM" data-messageID="@item.ID"><i class="fa fa-trash"></i></button></td>
                         </tr>
@@ -52,6 +52,8 @@
 <script>
 
     function initR(){
+        $('.toContent').tooltip({delay: 50});
+
         $(".deleteRM").click(function(){
             console.log($(this).data('messageid'));
             $.ajax({
