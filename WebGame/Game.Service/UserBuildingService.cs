@@ -339,8 +339,11 @@ namespace Game.Service
             int userDolars = _dolars.GetAll().First(i => i.User_ID == uID).Value;
             int percentPricePerLvl = _buildings.GetAll().First(i => i.ID == temp).Price * (_userBuildings.Get(id).Lvl + 1);
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
+            var building = _userBuildings.GetAll().First(i => i.ID == id && i.User_ID == uID);
 
-            if (userDolars >= percentPricePerLvl && _userBuildings.GetAll().First(i => i.ID == id && i.User_ID == uID).Percent_product == 100)
+            if (userDolars >= percentPricePerLvl 
+                && building.Percent_product == 100
+                && building.Status.Contains("gotowy"))
             {
                 return true;
             }
@@ -376,7 +379,7 @@ namespace Game.Service
 
                 return true;
             }
-            return true;
+            return false;
         }
 
         public List<DealBuildingDto> GetDealBuildingList(string user)

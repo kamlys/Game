@@ -22,5 +22,7 @@ namespace Game.GUI.ViewModels.Building.UserBuildings
         public int Percent_product_per_lvl { get; set; }
         public string Color { get; set; }
         public bool Stock { get; set; }
+        public int BuildTime { get; set; }
+        public int BuildDone { get; set; }
     }
 }

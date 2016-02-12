@@ -5,24 +5,33 @@
 
 <div id="userBuilding">
     <ul class="collapsible" data-collapsible="accordion">
+        @{ var startTimer = false; }
+
         @foreach (var item in Model.listModel)
         {
             <li>
-                @if (item.ifCan && item.Stock)
-                {
-                    <button class="right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
-                            id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
-                        <i class="fa fa-arrow-up"></i> Level UP
-                    </button>
-                }
+                
                 <div class="collapsible-header">
-                    @item.Building_Name
+                    <span class="officeBuildingName">@item.Building_Name</span>
 
-                    @if (item.Status != "gotowy")
-                {
-                        <div class="progress">
-                            <div class="indeterminate"></div>
+                    @if (!item.Status.Contains("gotowy"))
+                    {
+                        <div class="progress demo-wrapper html5-progress-bar">
+                            <progress class="progress-bar" style="width:100%" max="@item.BuildTime" value="@item.BuildDone"></progress>
+                            @{ startTimer = true; }
+                            <span class="progress-value">34%</span>
                         </div>
+                        <div class="time-left"></div><span class="officeBuildingStatus">(@item.Status)</span>
+                    }
+                    else
+                    {
+                        if (item.ifCan && item.Stock)
+                        {
+                            <button class="right btn tooltipped" data-position="right" data-delay="50" data-tooltip="Cena: @item.Percent_price_per_lvl Produkcja: @item.Percent_product_per_lvl"
+                                    id="lvlUp" onclick="location.href='@Url.Action("LvlUp", "UserBuilding", new { id = item.ID })'">
+                                <i class="fa fa-arrow-up"></i> Level UP
+                            </button>
+                        }
                     }
                 </div>
                 <div class="collapsible-body">
@@ -60,7 +69,7 @@
                     </p>
                 </div>
             </li>
-        }
+                                }
     </ul>
 </div>
 
@@ -69,6 +78,7 @@
 <script src="~/Scripts/js/jquery.slimscroll.min.js"></script>
 <script>
     $(document).ready(function () {
+        setInterval(progressBar, 1000);
         $('.collapsible').collapsible({
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });

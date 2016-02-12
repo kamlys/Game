@@ -62,7 +62,7 @@ namespace Game.GUI.Controllers
         {
             OfficeViewModel officeModel = new OfficeViewModel();
             officeModel.officeDiv = _tutorialService.tutorialUser(User.Identity.Name).officeDiv;
-            officeModel.allDiv= _tutorialService.tutorialUser(User.Identity.Name).allDiv;
+            officeModel.allDiv = _tutorialService.tutorialUser(User.Identity.Name).allDiv;
             return View(officeModel);
         }
 
@@ -130,25 +130,45 @@ namespace Game.GUI.Controllers
         public ActionResult _UserBuildingList()
         {
             UserBuildingsViewModel userBuildingModel = new UserBuildingsViewModel();
+            userBuildingModel.listModel = new List<ItemUserBuildingViewModel>();
 
-            userBuildingModel.listModel = _userBuildingService.GetUserBuildingList(User.Identity.Name).Select(x => new ItemUserBuildingViewModel
+            foreach (var item in _userBuildingService.GetUserBuildingList(User.Identity.Name))
             {
-                ID = x.ID,
-                User_ID = x.User_ID,
-                User_Login = x.Login,
-                X_pos = x.X_pos,
-                Y_pos = x.Y_pos,
-                Lvl = x.Lvl,
-                Building_ID = x.Building_ID,
-                Building_Name = x.Building_Name,
-                Status = x.Status,
-                Produkcja = x.Produkcja,
-                ifCan = _userBuildingService.ifLvlUp(x.ID, User.Identity.Name),
-                Percent_price_per_lvl = x.PriceLvlUp,
-                Percent_product_per_lvl = x.ProdukcjaLvlUp,
-                Color = x.Color,
-                Stock=x.Stock
-            }).ToList();
+                var building = _buildingsHelper.GetBuildings().Where(b => b.ID == item.Building_ID).First();
+                int bTime = 0;
+                int timeLeft = 0;
+                string status = String.Empty;
+                if (item.Status == "budowa" || item.Status == "rozbudowa")
+                {
+                    bTime = building.BuildingTime;
+                    timeLeft = _buildingsHelper.BuildingTimeLeft(User.Identity.Name, item.ID);
+                }
+                else if (item.Status == "burzenie")
+                {
+                    bTime = building.DestructionTime;
+                    timeLeft = _buildingsHelper.BuildingTimeLeft(User.Identity.Name, item.ID);
+                }
+                userBuildingModel.listModel.Add(new ItemUserBuildingViewModel
+                {
+                    ID = item.ID,
+                    User_ID = item.User_ID,
+                    User_Login = item.Login,
+                    X_pos = item.X_pos,
+                    Y_pos = item.Y_pos,
+                    Lvl = item.Lvl,
+                    Building_ID = item.Building_ID,
+                    Building_Name = item.Building_Name,
+                    Status = item.Status,
+                    Produkcja = item.Produkcja,
+                    ifCan = _userBuildingService.ifLvlUp(item.ID, User.Identity.Name),
+                    Percent_price_per_lvl = item.PriceLvlUp,
+                    Percent_product_per_lvl = item.ProdukcjaLvlUp,
+                    Color = item.Color,
+                    Stock = item.Stock,
+                    BuildTime = bTime,
+                    BuildDone = bTime - timeLeft
+                });
+            }
 
             return View(userBuildingModel);
         }
@@ -342,7 +362,7 @@ namespace Game.GUI.Controllers
                     {
                         errors.Add("Taki użytkownik nie istnieje.");
                     }
-                    else if(item==3)
+                    else if (item == 3)
                     {
                         errors.Add("Nie stać Cię na taką umowę.");
                     }

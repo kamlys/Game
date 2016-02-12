@@ -1280,7 +1280,7 @@ nav {
 }
 
 /*Casino*/
-.clearfix{
+.clearfix {
     margin-top: 30px;
 }
 
@@ -1312,10 +1312,10 @@ nav {
         width: 49%;
 
         .progress {
-            height: 10px;
-            margin-bottom: 5px;
-            background-color: $officeColor;
+            display: none;
         }
+
+
 
         .indeterminate {
             background-color: #8581ce;
@@ -1327,19 +1327,6 @@ nav {
 
         h5 {
             color: #fff;
-        }
-
-
-
-        #lvlUp {
-            margin-top: 4px;
-            margin-right: 5px;
-            background-color: #8581ce;
-            color: #000;
-
-            i {
-                line-height: 2rem;
-            }
         }
 
         li {
@@ -1358,6 +1345,39 @@ nav {
             margin-bottom: 5px;
             border: none;
 
+            .officeBuildingName{
+                display: inline-block;
+            }
+
+            .officeBuildingStatus{
+                float: right;
+                margin-right: 5px;
+                text-transform: capitalize;
+            }
+
+            .time-left {
+                position: relative;
+                background: none !important;
+                /*z-index: 1005;*/
+                float: right !important;
+                text-align: right;
+                /*display: inline-block;*/
+                line-height: 46px;
+                width: auto;
+                margin-right: 5px;
+            }
+
+            #lvlUp {
+                margin-top: 4px;
+                margin-right: 5px;
+                background-color: #8581ce;
+                color: #000;
+
+                i {
+                    line-height: 2rem;
+                }
+            }
+
             #lvlUp:hover {
                 border-radius: 0;
             }
@@ -1370,6 +1390,11 @@ nav {
             margin-bottom: 5px;
             border: none;
             height: 100%;
+            padding: 2rem;
+
+            p{
+                padding: 0 !important;
+            }
 
             .btn {
                 color: #000;
@@ -1837,7 +1862,6 @@ nav {
         text-decoration: underline !important;
         color: #000 !important;
         cursor: pointer;
-
     }
 
     .tabs {
@@ -2224,21 +2248,22 @@ input#bet {
 }
 
 .tutorial {
-  z-index: 1005;
-  width: 70%;
-  background: rgba(255, 255, 255, 0.8);
-  /* width: 500px; */
-  color: #000;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
-  line-height: 30px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  .closeDiv{
-      float: right;
-      cursor: pointer;
-  }
-  }
+    z-index: 1005;
+    width: 70%;
+    background: rgba(255, 255, 255, 0.8);
+    /* width: 500px; */
+    color: #000;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    line-height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .closeDiv {
+        float: right;
+        cursor: pointer;
+    }
+}
 
 /*************/

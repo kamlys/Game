@@ -4,6 +4,7 @@ using Game.GUI.ViewModels.Building.UserBuildings;
 using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
 using PagedList;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -53,8 +54,22 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult LvlUp(int id)
         {
-            _userBuildingService.LvlUp(id, User.Identity.Name);
-            return View("~/Views/Office/Index.cshtml");
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+            if (!_userBuildingService.LvlUp(id, User.Identity.Name))
+            {
+                errors.Add("Coś poszło nie tak.");
+                Session["val"] = errors.ToArray<string>();
+            }
+
+            return RedirectToAction("Index","Office");
         }
 
         [Authorize]
