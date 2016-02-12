@@ -66,7 +66,7 @@ namespace Game.GUI.Controllers
         //}
 
         [Authorize]
-        public ActionResult _SellOffer(int? Page_No, string productName, int? minPrice, int? maxPrice)
+        public ActionResult _SellOffer(int? Page_No, string productName, int? minPrice, int? maxPrice, bool? myOffer)
         {
             MarketViewModel marketList = new MarketViewModel();
             int Size_Of_Page = 10;
@@ -81,18 +81,34 @@ namespace Game.GUI.Controllers
                 maxPrice = Int32.MaxValue;
             }
 
-            marketList.pagedList = _marketService.GetSellOffer().Where(i=> i.Product_Name.Contains(productName) && i.Price>=minPrice && i.Price<=maxPrice).Select(x => new ItemMarketViewModel
+            if (myOffer == true)
             {
-                ID = x.ID,
-                User_Login = x.Login,
-                User_ID = x.User_ID,
-                Product_ID = x.Product_ID,
-                Product_Name = x.Product_Name,
-                Number = x.Number,
-                Price = x.Price,
-                TypeOffer = x.TypeOffer
-            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
-
+                marketList.pagedList = _marketService.GetSellOffer().Where(i => i.Product_Name.Contains(productName) && i.Price >= minPrice && i.Price <= maxPrice && i.Login==User.Identity.Name).Select(x => new ItemMarketViewModel
+                {
+                    ID = x.ID,
+                    User_Login = x.Login,
+                    User_ID = x.User_ID,
+                    Product_ID = x.Product_ID,
+                    Product_Name = x.Product_Name,
+                    Number = x.Number,
+                    Price = x.Price,
+                    TypeOffer = x.TypeOffer
+                }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
+            }
+            else
+            {
+                marketList.pagedList = _marketService.GetSellOffer().Where(i => i.Product_Name.Contains(productName) && i.Price >= minPrice && i.Price <= maxPrice).Select(x => new ItemMarketViewModel
+                {
+                    ID = x.ID,
+                    User_Login = x.Login,
+                    User_ID = x.User_ID,
+                    Product_ID = x.Product_ID,
+                    Product_Name = x.Product_Name,
+                    Number = x.Number,
+                    Price = x.Price,
+                    TypeOffer = x.TypeOffer
+                }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
+            }
             marketList.userProduct = _userProductService.GetUserProductList(User.Identity.Name).OrderBy(x => x.Alias).Select(i => i.Product_Name).ToArray();
             marketList.allProduct = _productService.GetProduct().OrderBy(x => x.Alias).Select(i => i.Alias).ToArray();
 
@@ -100,12 +116,11 @@ namespace Game.GUI.Controllers
         }
 
         [Authorize]
-        public ActionResult _BuyOffer(int? Page_No, string productName, int? minPrice, int? maxPrice)
+        public ActionResult _BuyOffer(int? Page_No, string productName, int? minPrice, int? maxPrice, bool? myOffer)
         {
             MarketViewModel marketList = new MarketViewModel();
             int Size_Of_Page = 10;
             int No_Of_Page = (Page_No ?? 1);
-
             if (minPrice == null)
             {
                 minPrice = 0;
@@ -115,18 +130,34 @@ namespace Game.GUI.Controllers
                 maxPrice = Int32.MaxValue;
             }
 
-            marketList.pagedList = _marketService.GetBuyOffer().Where(i => i.Product_Name.Contains(productName) && i.Price >= minPrice && i.Price <= maxPrice).Select(x => new ItemMarketViewModel
+            if (myOffer == true)
             {
-                ID = x.ID,
-                User_Login = x.Login,
-                User_ID = x.User_ID,
-                Product_ID = x.Product_ID,
-                Product_Name = x.Product_Name,
-                Number = x.Number,
-                Price = x.Price,
-                TypeOffer = x.TypeOffer
-            }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
-
+                marketList.pagedList = _marketService.GetBuyOffer().Where(i => i.Product_Name.Contains(productName) && i.Price >= minPrice && i.Price <= maxPrice && i.Login == User.Identity.Name).Select(x => new ItemMarketViewModel
+                {
+                    ID = x.ID,
+                    User_Login = x.Login,
+                    User_ID = x.User_ID,
+                    Product_ID = x.Product_ID,
+                    Product_Name = x.Product_Name,
+                    Number = x.Number,
+                    Price = x.Price,
+                    TypeOffer = x.TypeOffer
+                }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
+            }
+            else
+            {
+                marketList.pagedList = _marketService.GetBuyOffer().Where(i => i.Product_Name.Contains(productName) && i.Price >= minPrice && i.Price <= maxPrice).Select(x => new ItemMarketViewModel
+                {
+                    ID = x.ID,
+                    User_Login = x.Login,
+                    User_ID = x.User_ID,
+                    Product_ID = x.Product_ID,
+                    Product_Name = x.Product_Name,
+                    Number = x.Number,
+                    Price = x.Price,
+                    TypeOffer = x.TypeOffer
+                }).ToList().ToPagedList(No_Of_Page, Size_Of_Page);
+            }
             marketList.allProduct = _productService.GetProduct().OrderBy(x => x.Alias).Select(i => i.Alias).ToArray();
 
             return View("~/Views/Market/_BuyOffer.cshtml", marketList);

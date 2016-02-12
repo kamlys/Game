@@ -37,6 +37,8 @@
             @Html.DropDownList("productNameSell", new SelectList(Model.allProduct), "Nazwa produktu", new { @placeholder = "Nazwa produktu", @class = "validate" })
             @Html.TextBox("minPriceSell", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena minimalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
             @Html.TextBox("maxPriceSell", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena maksymalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
+            <input type="checkbox" id="myOfferSell" />
+            <label for="myOfferSell" class="filterMyOffer">Tylko moje oferty</label>
             <div class="filterA">
                 <button type="submit" class="filterBtn" id="filterButton" name="action">Filtruj</button><br />
 
@@ -109,6 +111,7 @@
     var product;
     var min;
     var max;
+    var my;
     function initSell() {
         $('.offerSellAdd').leanModal();
         $('select').material_select();
@@ -117,16 +120,19 @@
             product = $("#productNameSell").val();
             min = $("#minPriceSell").val();
             max = $("#maxPriceSell").val();
+            my = $('#myOfferSell').is(':checked');
+            console.log(my);
             $.ajax({
                 type: "POST",
                 url: 'Market/_SellOffer',
-                data: { Page_No: 1, productName: product, minPrice: min, maxPrice: max },
+                data: { Page_No: 1, productName: product, minPrice: min, maxPrice: max, myOffer: my },
                 success: function (data) {
                     $("#sellDiv").html($(data).html());
                     initSell();
                     $("#productNameSell").val(product);
                     $("#minPriceSell").val(min);
                     $("#maxPriceSell").val(max);
+                    $('#myOfferSell').attr('checked', my);
                 }
             });
 
@@ -143,6 +149,7 @@
                     product = undefined;
                     min = undefined;
                     max = undefined;
+                    my = false;
                 }
             });
 
@@ -199,6 +206,7 @@
                         $("#productNameSell").val(product);
                         $("#minPriceSell").val(min);
                         $("#maxPriceSell").val(max);
+                        $('#myOfferSell').attr('checked', my);
                     }
                 });
             }

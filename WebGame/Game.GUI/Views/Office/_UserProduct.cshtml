@@ -13,65 +13,63 @@
     </div>
 </div>
 
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/js/ProductShow.js"></script>
 
+<script>
 
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/js/ProductShow.js"></script>
+    $(document).ready(function () {
+        setInterval(function() { TakeValues();}, 30000);
 
-    <script>
+        fillWithData(@userProducts, @Html.Raw(productNames));
+        //setInterval(function () { updateProduct(@userProducts); }, 600000);
 
-        $(document).ready(function () {
-            setInterval(function() { TakeValues();}, 30000);
+        function updateProduct(dataProduct) {
+            for (var item in dataProduct) {
+                try {
+                    var id = dataProduct[item][0];
+                    var value = dataProduct[item][1];
+                } catch (e) {
 
-            fillWithData(@userProducts, @Html.Raw(productNames));
-            //setInterval(function () { updateProduct(@userProducts); }, 600000);
-
-            function updateProduct(dataProduct) {
-                for (var item in dataProduct) {
-                    try {
-                        var id = dataProduct[item][0];
-                        var value = dataProduct[item][1];
-                    } catch (e) {
-
-                    }
-                    var product = document.getElementById("product_" + id).innerHTML;
-
-                    document.getElementById("product_" + id).innerHTML = parseInt(product) + parseInt(value);
                 }
+                var product = document.getElementById("product_" + id).innerHTML;
 
+                document.getElementById("product_" + id).innerHTML = parseInt(product) + parseInt(value);
             }
 
-            function fillWithData(dataProduct, productNames) {
-                $("#products").html("");
-                for (var item in dataProduct) {
-                    try {
-                        var n = "";
-                        var id = dataProduct[item][0];
-                        for (var name in productNames) {
-                            if (productNames[name][0] == id) {
-                                n = productNames[name][1];
-                            }
+        }
+
+        function fillWithData(dataProduct, productNames) {
+            $("#products").html("");
+            for (var item in dataProduct) {
+                try {
+                    var n = "";
+                    var id = dataProduct[item][0];
+                    for (var name in productNames) {
+                        if (productNames[name][0] == id) {
+                            n = productNames[name][1];
                         }
-                        $("#products").append("<div class='product'><div class='productItem' id='product_label_" + dataProduct[item][0] + "'>" + n + ":</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div></div>");
-                    } catch (e) {
-
                     }
+                    $("#products").append("<div class='product'><div class='productItem' id='product_label_" + dataProduct[item][0] + "'>" + n + ":</div><div class='productItem' id='product_" + dataProduct[item][0] + "'>" + parseInt(dataProduct[item][2]) + "</div></div>");
+                } catch (e) {
+
                 }
             }
+        }
 
-            function TakeValues() {
-                $.ajax({
-                    url: '/Ajax/ShowProduct',
-                    type: 'Post',
-                    dataType: 'Json',
-                    success: function (dataProduct) {
-                        //setBudynki();
-                        fillWithData(dataProduct,@Html.Raw(productNames));
-                       // setInterval(function () { updateProduct(dataProduct); }, 1000);
-                    },
-                    async: true,
-                    processData: false
-                });
-            }
-        })
-    </script>
+        function TakeValues() {
+            $.ajax({
+                url: '/Ajax/ShowProduct',
+                type: 'Post',
+                dataType: 'Json',
+                success: function (dataProduct) {
+                    //setBudynki();
+                    fillWithData(dataProduct,@Html.Raw(productNames));
+                    // setInterval(function () { updateProduct(dataProduct); }, 1000);
+                },
+                async: true,
+                processData: false
+            });
+        }
+    })
+</script>
