@@ -1339,6 +1339,19 @@ nav {
             border: none;
         }
 
+        
+
+            #lvlUp {
+                margin-top: 4px;
+                margin-right: 5px;
+                background-color: #8581ce;
+                color: #000;
+
+                i {
+                    line-height: 2rem;
+                }
+            }
+
         .collapsible-header {
             background-color: $officeColor;
             color: #fff;
@@ -1358,24 +1371,11 @@ nav {
             .time-left {
                 position: relative;
                 background: none !important;
-                /*z-index: 1005;*/
                 float: right !important;
                 text-align: right;
-                /*display: inline-block;*/
                 line-height: 46px;
                 width: auto;
                 margin-right: 5px;
-            }
-
-            #lvlUp {
-                margin-top: 4px;
-                margin-right: 5px;
-                background-color: #8581ce;
-                color: #000;
-
-                i {
-                    line-height: 2rem;
-                }
             }
 
             #lvlUp:hover {

@@ -915,6 +915,13 @@ nav {
       margin-left: auto; }
     .office .uBuildingList .collapsible {
       border: none; }
+    .office .uBuildingList #lvlUp {
+      margin-top: 4px;
+      margin-right: 5px;
+      background-color: #8581ce;
+      color: #000; }
+      .office .uBuildingList #lvlUp i {
+        line-height: 2rem; }
     .office .uBuildingList .collapsible-header {
       background-color: #343256;
       color: #fff;
@@ -929,20 +936,11 @@ nav {
       .office .uBuildingList .collapsible-header .time-left {
         position: relative;
         background: none !important;
-        /*z-index: 1005;*/
         float: right !important;
         text-align: right;
-        /*display: inline-block;*/
         line-height: 46px;
         width: auto;
         margin-right: 5px; }
-      .office .uBuildingList .collapsible-header #lvlUp {
-        margin-top: 4px;
-        margin-right: 5px;
-        background-color: #8581ce;
-        color: #000; }
-        .office .uBuildingList .collapsible-header #lvlUp i {
-          line-height: 2rem; }
       .office .uBuildingList .collapsible-header #lvlUp:hover {
         border-radius: 0; }
     .office .uBuildingList .collapsible-body {
