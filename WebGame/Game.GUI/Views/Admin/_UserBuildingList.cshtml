@@ -113,13 +113,13 @@
                     <td>@item.Status</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
-                            <button class="btn-floating btn-large red">
+                            <button class="btn btn-floating">
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="ubuildingUpdate" class="btn-floating #00695c teal darken-3 modal-trigger ubuildingUpdate" onclick="updaterow(['inputID','inputLogin','inputName','inputX_pos','inputY_pos','inputLvl','inputStatus'],
+                                <li><button data-target="ubuildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ubuildingUpdate" onclick="updaterow(['inputID','inputLogin','inputName','inputX_pos','inputY_pos','inputLvl','inputStatus'],
                                              ['@item.ID','@item.User_Login','@item.Building_Name','@item.X_pos','@item.Y_pos','@item.Lvl','@item.Status'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteUserBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteUserBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

@@ -504,6 +504,8 @@ nav {
         padding: 0;
         margin: 0;
         text-transform: uppercase;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
         overflow: hidden;
         letter-spacing: .8px;
@@ -526,6 +528,8 @@ nav {
             display: block;
             width: 100%;
             height: 100%;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
             overflow: hidden;
             -webkit-transition: color .28s ease;
@@ -723,6 +727,8 @@ nav {
         padding: 0;
         margin: 0;
         text-transform: uppercase;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
         overflow: hidden;
         letter-spacing: .8px;
@@ -745,6 +751,8 @@ nav {
             display: block;
             width: 100%;
             height: 100%;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
             overflow: hidden;
             -webkit-transition: color .28s ease;
@@ -781,7 +789,7 @@ nav {
             line-height: 40px;
             width: 88%;
             margin-bottom: 10px;
-            font-size: 12px;
+            /*font-size: 12px;*/
             color: #fff;
             cursor: default;
             font-size: 85%;
@@ -895,7 +903,7 @@ nav {
 
 .productList {
     display: block;
-    width: 60%;
+    /*width: 60%;*/
     height: 50px;
     margin-left: auto !important;
     margin-right: auto;
@@ -940,6 +948,8 @@ nav {
         padding: 0;
         margin: 0;
         text-transform: uppercase;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
         overflow: hidden;
         letter-spacing: .8px;
@@ -960,6 +970,8 @@ nav {
             display: block;
             width: 100%;
             height: 100%;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
             overflow: hidden;
             -webkit-transition: color .28s ease;
@@ -977,6 +989,10 @@ nav {
             color: #f9c9cb;
             cursor: default;
         }
+    }
+
+    .fixed-action-btn.horizontal ul li{
+        margin: 0 10px !important;
     }
 
     .indicator {
@@ -1001,11 +1017,10 @@ nav {
         }
 
         .filterBox {
-            margin: -5px 0 0 10px;
+            margin: -5px 0 0 20px;
             width: auto;
             height: 40px;
-            display: none;
-            float: right;
+            display: inline-block;
 
             .filterA {
                 float: right;
@@ -1088,6 +1103,8 @@ nav {
         padding: 0;
         margin: 0;
         text-transform: uppercase;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
         overflow: hidden;
         letter-spacing: .8px;
@@ -1097,7 +1114,7 @@ nav {
 
         a {
             color: #fff !important;
-            font-size: 10px;
+            font-size: 12px;
         }
 
         a:hover {
@@ -1110,6 +1127,8 @@ nav {
             display: block;
             width: 100%;
             height: 100%;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
             overflow: hidden;
             -webkit-transition: color .28s ease;
@@ -1261,6 +1280,17 @@ nav {
     background-color: white;
     padding: 20px 20px 20px 20px;
 
+    .adminMessageLongTd {
+        max-width: 250px;
+        width: auto;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        text-align: center;
+        white-space: nowrap;
+    }
+
     h4 {
         display: inline;
     }
@@ -1339,18 +1369,18 @@ nav {
             border: none;
         }
 
-        
 
-            #lvlUp {
-                margin-top: 4px;
-                margin-right: 5px;
-                background-color: #8581ce;
-                color: #000;
 
-                i {
-                    line-height: 2rem;
-                }
+        #lvlUp {
+            margin-top: 4px;
+            margin-right: 5px;
+            background-color: #8581ce;
+            color: #000;
+
+            i {
+                line-height: 2rem;
             }
+        }
 
         .collapsible-header {
             background-color: $officeColor;
@@ -1358,11 +1388,11 @@ nav {
             margin-bottom: 5px;
             border: none;
 
-            .officeBuildingName{
+            .officeBuildingName {
                 display: inline-block;
             }
 
-            .officeBuildingStatus{
+            .officeBuildingStatus {
                 float: right;
                 margin-right: 5px;
                 text-transform: capitalize;
@@ -1392,7 +1422,7 @@ nav {
             height: 100%;
             padding: 2rem;
 
-            p{
+            p {
                 padding: 0 !important;
             }
 
@@ -1531,10 +1561,6 @@ nav {
             background-color: #8581ce;
         }
 
-        .myoffer {
-            background-color: $greyColor;
-        }
-
         .rerunDeal {
             margin-top: 3px;
             float: right;
@@ -1557,6 +1583,7 @@ nav {
             float: right;
             margin: 4px 20px 0 0;
             width: 200px;
+            background-color: $greyColor;
         }
 
         .addButton {
@@ -1891,6 +1918,8 @@ nav {
         padding: 0;
         margin: 0;
         text-transform: uppercase;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
         overflow: hidden;
         letter-spacing: .8px;
@@ -1913,6 +1942,8 @@ nav {
             display: block;
             width: 100%;
             height: 100%;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
             overflow: hidden;
             -webkit-transition: color .28s ease;
@@ -2071,6 +2102,7 @@ nav {
 
     .content {
         font-size: 18px;
+        -ms-word-wrap: break-word;
         word-wrap: break-word;
         width: 100%;
 
@@ -2114,7 +2146,11 @@ nav {
     width: 300px;
     left: 0;
     right: 0;
+    -moz-animation-name: top-margin;
+    -o-animation-name: top-margin;
     animation-name: top-margin;
+    -moz-animation-duration: 2s;
+    -o-animation-duration: 2s;
     animation-duration: 2s;
     -webkit-animation-name: top-margin;
     -webkit-animation-duration: 2s;
@@ -2147,7 +2183,13 @@ nav {
         100% {
             margin-top: 70px;
             -webkit-animation-fill-mode: forwards;
+            -moz-animation-fill-mode: forwards;
+            -o-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
             -webkit-animation-play-state: paused;
+            -moz-animation-play-state: paused;
+            -o-animation-play-state: paused;
+            animation-play-state: paused;
         }
     }
 }

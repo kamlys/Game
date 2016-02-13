@@ -329,6 +329,8 @@ nav {
     padding: 0;
     margin: 0;
     text-transform: uppercase;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
     letter-spacing: .8px;
@@ -345,6 +347,8 @@ nav {
       display: block;
       width: 100%;
       height: 100%;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
       text-overflow: ellipsis;
       overflow: hidden;
       -webkit-transition: color .28s ease;
@@ -486,6 +490,8 @@ nav {
     padding: 0;
     margin: 0;
     text-transform: uppercase;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
     letter-spacing: .8px;
@@ -502,6 +508,8 @@ nav {
       display: block;
       width: 100%;
       height: 100%;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
       text-overflow: ellipsis;
       overflow: hidden;
       -webkit-transition: color .28s ease;
@@ -530,7 +538,7 @@ nav {
     line-height: 40px;
     width: 88%;
     margin-bottom: 10px;
-    font-size: 12px;
+    /*font-size: 12px;*/
     color: #fff;
     cursor: default;
     font-size: 85%; }
@@ -608,7 +616,7 @@ nav {
 
 .productList {
   display: block;
-  width: 60%;
+  /*width: 60%;*/
   height: 50px;
   margin-left: auto !important;
   margin-right: auto;
@@ -648,6 +656,8 @@ nav {
     padding: 0;
     margin: 0;
     text-transform: uppercase;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
     letter-spacing: .8px;
@@ -663,6 +673,8 @@ nav {
       display: block;
       width: 100%;
       height: 100%;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
       text-overflow: ellipsis;
       overflow: hidden;
       -webkit-transition: color .28s ease;
@@ -675,6 +687,8 @@ nav {
     .adminDiv .tabs .tab .tab.disabled a {
       color: #f9c9cb;
       cursor: default; }
+  .adminDiv .fixed-action-btn.horizontal ul li {
+    margin: 0 10px !important; }
   .adminDiv .indicator {
     display: none !important; }
 
@@ -691,11 +705,10 @@ nav {
     .market .filterAll .filter {
       color: #fff; }
     .market .filterAll .filterBox {
-      margin: -5px 0 0 10px;
+      margin: -5px 0 0 20px;
       width: auto;
       height: 40px;
-      display: none;
-      float: right; }
+      display: inline-block; }
       .market .filterAll .filterBox .filterA {
         float: right;
         text-align: center; }
@@ -757,6 +770,8 @@ nav {
     padding: 0;
     margin: 0;
     text-transform: uppercase;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
     letter-spacing: .8px;
@@ -764,7 +779,7 @@ nav {
     min-width: 80px; }
     .market .tabs .tab a {
       color: #fff !important;
-      font-size: 10px; }
+      font-size: 12px; }
     .market .tabs .tab a:hover {
       color: #563232 !important;
       font-weight: bold; }
@@ -773,6 +788,8 @@ nav {
       display: block;
       width: 100%;
       height: 100%;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
       text-overflow: ellipsis;
       overflow: hidden;
       -webkit-transition: color .28s ease;
@@ -866,6 +883,15 @@ nav {
 .tableList {
   background-color: white;
   padding: 20px 20px 20px 20px; }
+  .tableList .adminMessageLongTd {
+    max-width: 250px;
+    width: auto;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    text-align: center;
+    white-space: nowrap; }
   .tableList h4 {
     display: inline; }
   .tableList .searchAdmin {
@@ -1036,8 +1062,6 @@ nav {
       border: none; }
     .office .uDealList .disabled {
       background-color: #8581ce; }
-    .office .uDealList .myoffer {
-      background-color: #9E9E9E; }
     .office .uDealList .rerunDeal {
       margin-top: 3px;
       float: right; }
@@ -1053,7 +1077,8 @@ nav {
     .office .uDealList .myoffer {
       float: right;
       margin: 4px 20px 0 0;
-      width: 200px; }
+      width: 200px;
+      background-color: #9E9E9E; }
     .office .uDealList .addButton {
       background-color: #343256 !important; }
   @media screen and (max-width: 950px) {
@@ -1286,6 +1311,8 @@ nav {
     padding: 0;
     margin: 0;
     text-transform: uppercase;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
     letter-spacing: .8px;
@@ -1302,6 +1329,8 @@ nav {
       display: block;
       width: 100%;
       height: 100%;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
       text-overflow: ellipsis;
       overflow: hidden;
       -webkit-transition: color .28s ease;
@@ -1407,6 +1436,7 @@ nav {
       color: #617487; }
   .contentMessage .content {
     font-size: 18px;
+    -ms-word-wrap: break-word;
     word-wrap: break-word;
     width: 100%; }
     .contentMessage .content .contentTitle {
@@ -1439,7 +1469,11 @@ nav {
   width: 300px;
   left: 0;
   right: 0;
+  -moz-animation-name: top-margin;
+  -o-animation-name: top-margin;
   animation-name: top-margin;
+  -moz-animation-duration: 2s;
+  -o-animation-duration: 2s;
   animation-duration: 2s;
   -webkit-animation-name: top-margin;
   -webkit-animation-duration: 2s; }
@@ -1464,7 +1498,13 @@ nav {
   100% {
     margin-top: 70px;
     -webkit-animation-fill-mode: forwards;
-    -webkit-animation-play-state: paused; } }
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    animation-play-state: paused; } }
 
 /*Footer*/
 footer {

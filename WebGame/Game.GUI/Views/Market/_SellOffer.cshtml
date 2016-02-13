@@ -31,9 +31,7 @@
     </div>
     <button data-target="offerSellAdd" class="btn modal-trigger offerAdd offerSellAdd">Wystaw ofertę sprzedaży</button>
     <div class="filterAll">
-        <div class="btn filter" id="filterSell">Filtruj</div>
         <div class="filterBox" id="filterBoxSell">
-
             @Html.DropDownList("productNameSell", new SelectList(Model.allProduct), "Nazwa produktu", new { @placeholder = "Nazwa produktu", @class = "validate" })
             @Html.TextBox("minPriceSell", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena minimalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
             @Html.TextBox("maxPriceSell", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena maksymalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
@@ -41,7 +39,6 @@
             <label for="myOfferSell" class="filterMyOffer">Tylko moje oferty</label>
             <div class="filterA">
                 <button type="submit" class="filterBtn" id="filterButton" name="action">Filtruj</button><br />
-
                 <button type="submit" class="filterBtn" id="filterClear" name="action">Wyczyść filtry</button>
             </div>
 
@@ -155,13 +152,13 @@
 
         });
 
-        $("#filterSell").click(function () {
-            if ($("#filterBoxSell").is(":hidden")) {
-                $("#filterBoxSell").slideDown("slow");
-            } else {
-                $("#filterBoxSell").slideUp("slow");
-            }
-        });
+        //$("#filterSell").click(function () {
+        //    if ($("#filterBoxSell").is(":hidden")) {
+        //        $("#filterBoxSell").slideDown("slow");
+        //    } else {
+        //        $("#filterBoxSell").slideUp("slow");
+        //    }
+        //});
 
         $(".numValue").bind("keyup change", function () {
             var id = $(this).data('id');

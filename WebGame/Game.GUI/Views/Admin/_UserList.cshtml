@@ -107,18 +107,18 @@
                         <td>@item.LastUpdate</td>
                         <td>
                             <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
-                                <button class="btn-floating btn-large red">
+                                <button class="btn btn-floating">
                                     <i class="fa fa-align-justify #00695c teal darken-5"></i>
                                 </button>
                                 <ul>
                                     <li>
-                                        <button data-target="userUpdate" class="btn-floating #00695c teal darken-3 modal-trigger userUpdate"
+                                        <button data-target="userUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger userUpdate"
                                                 onclick="updaterow(['inputID','inputLogin','inputEmail','inputLastLog', 'inputRegistrationDate','inputLastUpdate'],
                                             ['@item.ID','@item.User_Login','@item.Email','@item.LastLog','@item.RegistrationDate','@item.LastUpdate'])">
                                             <i class="fa fa-pencil"></i>
                                         </button>
                                     </li>
-                                    <li><button class="btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteUser", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                    <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteUser", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                                 </ul>
                             </div>
                         </td>

@@ -30,7 +30,6 @@
     </div>
     <button data-target="offerBuyAdd" class="btn modal-trigger offerAdd offerBuyAdd">Wystaw ofertę kupna</button>
     <div class="filterAll">
-        <div class="btn filter" id="filterBuy">Filtruj</div>
         <div class="filterBox" id="filterBoxBuy">
             @Html.DropDownList("productNameBuy", new SelectList(Model.allProduct), "Nazwa produktu", new { @placeholder = "Nazwa produktu", @class = "validate" })
             @Html.TextBox("minPriceBuy", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena minimalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
@@ -42,7 +41,6 @@
 
                 <button type="submit" class="filterBtn" id="filterBuyClear" name="action">Wyczyść filtry</button>
             </div>
-
         </div>
     </div>
     @if (!Model.pagedList.Any())
@@ -148,13 +146,13 @@
 
         });
 
-        $("#filterBuy").click(function () {
-            if ($("#filterBoxBuy").is(":hidden")) {
-                $("#filterBoxBuy").slideDown("slow");
-            } else {
-                $("#filterBoxBuy").slideUp("slow");
-            }
-        });
+        //$("#filterBuy").click(function () {
+        //    if ($("#filterBoxBuy").is(":hidden")) {
+        //        $("#filterBoxBuy").slideDown("slow");
+        //    } else {
+        //        $("#filterBoxBuy").slideUp("slow");
+        //    }
+        //});
 
         $(".numValue").bind("keyup change", function () {
             var id = $(this).data('id');
