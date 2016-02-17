@@ -991,7 +991,7 @@ nav {
         }
     }
 
-    .fixed-action-btn.horizontal ul li{
+    .fixed-action-btn.horizontal ul li {
         margin: 0 10px !important;
     }
 
@@ -1005,6 +1005,22 @@ nav {
     /*margin-top: 30px;*/
     padding-bottom: 80px;
     min-height: 500px;
+
+    .sortMarket {
+        cursor: pointer;
+    }
+
+    .orderMarket:after {
+        font-family: FontAwesome;
+        content: "\f0de";
+        margin-left: 2px;
+    }
+
+    .orderDescMarket:after {
+        font-family: FontAwesome;
+        content: "\f0dd";
+        margin-left: 2px;
+    }
 
     .filterAll {
         width: auto;

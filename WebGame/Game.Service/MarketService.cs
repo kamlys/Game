@@ -123,7 +123,7 @@ namespace Game.Service
         public List<MarketDto> GetSellOffer()
         {
             List<MarketDto> marketDto = new List<MarketDto>();
-            foreach (var item in _market.GetAll().Where(i => i.TypeOffer == true).OrderByDescending(i => i.ID))
+            foreach (var item in _market.GetAll().Where(i => i.TypeOffer == true))
             {
                 try
                 {
@@ -148,7 +148,7 @@ namespace Game.Service
         public List<MarketDto> GetBuyOffer()
         {
             List<MarketDto> marketDto = new List<MarketDto>();
-            foreach (var item in _market.GetAll().Where(i => i.TypeOffer == false).OrderByDescending(i=> i.ID))
+            foreach (var item in _market.GetAll().Where(i => i.TypeOffer == false))
             {
                 try
                 {

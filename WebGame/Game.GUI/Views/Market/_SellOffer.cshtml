@@ -56,10 +56,10 @@
 
                     <thead>
                         <tr>
-                            <th>Wystwaiający</th>
-                            <th>Produkt</th>
-                            <th>Ilość</th>
-                            <th>Cena/szt.</th>
+                            <th><span class="sortSellMarket" data-columnName="2">Wystwaiający</span></th>
+                            <th><span class="sortSellMarket" data-columnName="3">Produkt</span></th>
+                            <th><span class="sortSellMarket" data-columnName="4">Ilość</span></th>
+                            <th><span class="sortSellMarket" data-columnName="5">Cena/szt.</span></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -109,6 +109,8 @@
     var min;
     var max;
     var my;
+    var columnName;
+    var order;
     function initSell() {
         $('.offerSellAdd').leanModal();
         $('select').material_select();
@@ -152,14 +154,6 @@
 
         });
 
-        //$("#filterSell").click(function () {
-        //    if ($("#filterBoxSell").is(":hidden")) {
-        //        $("#filterBoxSell").slideDown("slow");
-        //    } else {
-        //        $("#filterBoxSell").slideUp("slow");
-        //    }
-        //});
-
         $(".numValue").bind("keyup change", function () {
             var id = $(this).data('id');
             var price = $(this).data('price');
@@ -185,18 +179,24 @@
         $('#paginationBtnSellOffer').on('click', 'a', function (e) {
             e.preventDefault();
 
-            if(product==undefined && min==undefined && max == undefined)
+            if(product==undefined)
             {
                 product = "";
+            }
+            if(min==undefined)
+            {
                 min="";
-                max="";
+            }
+            if(max==undefined)
+            {
+                max = "";
             }
 
             if (!$(this).parents("li:first").hasClass("active")) {
                 $.ajax({
                     url: this.href,
                     type: 'GET',
-                    data: {productName: product, minPrice: min, maxPrice:  max},
+                    data: {productName: product, minPrice: min, maxPrice:  max, columnName: parseInt(columnName) , sortOrder: parseInt(order)},
                     cache: false,
                     success: function (result) {
                         $('#sellDiv').html(result);
@@ -208,7 +208,51 @@
                 });
             }
         });
+
+        $('.sortSellMarket').click(function(){
+            columnName = $(this).data('columnname');
+            var classAdd;
+            order;
+            if($(this).hasClass('orderDescMarket')){
+                $(this).removeClass('orderDescMarket');
+                $(this).addClass('orderMarket');
+                order = "2";
+                classAdd="orderMarket";
+            }
+            else if($(this).hasClass('orderMarket')){
+                $(this).removeClass('orderMarket');
+                order = "0";
+                classAdd="";
+            }
+            else{
+                $(this).addClass('orderDescMarket');
+                order = "1";
+                classAdd = "orderDescMarket";
+            }
+
+            product = $("#productNameSell").val();
+            min = $("#minPriceSell").val();
+            max = $("#maxPriceSell").val();
+            my = $('#myOfferSell').is(':checked');
+            $.ajax({
+                type: "POST",
+                url: 'Market/_SellOffer',
+                data: { productName: product, minPrice: min, maxPrice: max, myOffer: my,columnName: parseInt(columnName) , sortOrder: parseInt(order) },
+                success: function (data) {
+                    $("#sellDiv").html($(data).html());
+                    initSell();
+                    $('span[data-columnname='+columnName+']').addClass(classAdd);
+                    $("#productNameSell").val(product);
+                    $("#minPriceSell").val(min);
+                    $("#maxPriceSell").val(max);
+                    $('#myOfferSell').attr('checked', my);
+                }
+            });
+
+        });
     }
+
+
     function isNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode
         if (charCode > 31 && (charCode < 47 || charCode > 57)) {

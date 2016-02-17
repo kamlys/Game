@@ -54,10 +54,10 @@
 
                 <thead>
                     <tr>
-                        <th>Wystawiający</th>
-                        <th>Produkt</th>
-                        <th>Ilość</th>
-                        <th>Cena/szt.</th>
+                        <th><span class="sortBuyMarket" data-columnName="2">Wystawiający</span></th>
+                        <th><span class="sortBuyMarket" data-columnName="3">Produkt</span></th>
+                        <th><span class="sortBuyMarket" data-columnName="4">Ilość</span></th>
+                        <th><span class="sortBuyMarket" data-columnName="5">Cena/szt.</span></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -104,6 +104,8 @@
     var min;
     var max;
     var my;
+    var columnName;
+    var order;
     function initBuy(){
         $('.offerBuyAdd').leanModal();
         $('select').material_select();
@@ -146,14 +148,6 @@
 
         });
 
-        //$("#filterBuy").click(function () {
-        //    if ($("#filterBoxBuy").is(":hidden")) {
-        //        $("#filterBoxBuy").slideDown("slow");
-        //    } else {
-        //        $("#filterBoxBuy").slideUp("slow");
-        //    }
-        //});
-
         $(".numValue").bind("keyup change", function () {
             var id = $(this).data('id');
             var productid = $(this).data('productid');
@@ -185,10 +179,16 @@
         $('#paginationBtnBuyOffer').on('click', 'a', function (e) {
             e.preventDefault();
 
-            if(product==undefined && min==undefined && max == undefined)
+            if(product==undefined)
             {
                 product = "";
+            }
+            if(min==undefined)
+            {
                 min="";
+            }
+            if(max==undefined)
+            {
                 max = "";
             }
 
@@ -196,7 +196,7 @@
                 $.ajax({
                     url: this.href,
                     type: 'GET',
-                    data: {productName: ""},
+                    data: {productName: product, minPrice: min, maxPrice:  max, columnName: parseInt(columnName) , sortOrder: parseInt(order)},
                     cache: false,
                     success: function (result) {
                         $('#buyOffer').html(result);
@@ -208,7 +208,51 @@
                 });
             }
         });
+
+
+        $('.sortBuyMarket').click(function(){
+            columnName = $(this).data('columnname');
+            var classAdd;
+            order;
+            if($(this).hasClass('orderDescMarket')){
+                $(this).removeClass('orderDescMarket');
+                $(this).addClass('orderMarket');
+                order = "2";
+                classAdd="orderMarket";
+            }
+            else if($(this).hasClass('orderMarket')){
+                $(this).removeClass('orderMarket');
+                order = "0";
+                classAdd="";
+            }
+            else{
+                $(this).addClass('orderDescMarket');
+                order = "1";
+                classAdd = "orderDescMarket";
+            }
+
+            product = $("#productNameSell").val();
+            min = $("#minPriceSell").val();
+            max = $("#maxPriceSell").val();
+            my = $('#myOfferSell').is(':checked');
+            $.ajax({
+                type: "POST",
+                url: 'Market/_BuyOffer',
+                data: {Page_No: 1, productName: product, minPrice: min, maxPrice: max, myOffer:my,columnName: parseInt(columnName) , sortOrder: parseInt(order) },
+                success: function (data) {
+                    $("#buyDiv").html($(data).html());
+                    initBuy();
+                    $('span[data-columnname='+columnName+']').addClass(classAdd);
+                    $("#productNameSell").val(product);
+                    $("#minPriceSell").val(min);
+                    $("#maxPriceSell").val(max);
+                    $('#myOfferBuy').attr('checked',my);
+                }
+            });
+
+        });
     }
+
     function isNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode
         if (charCode > 31 && (charCode < 47 || charCode > 57)) {
