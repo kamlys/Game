@@ -125,7 +125,7 @@
                 <li>
                     <div class="collapsible-header"><i class="fa fa-unlock-alt"></i>Zmień hasło</div>
                     <div class="collapsible-body">
-                        @using (Html.BeginForm("ChangePass", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        @using (Html.BeginForm("ChangePass", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
                         {
                             @Html.AntiForgeryToken()
 
@@ -137,7 +137,7 @@
 
                                 <div class="input-field col s12">
                                     @Html.PasswordFor(m => m.Password, new { @class = "validate" })
-                                    <label for="Password">Nowe hasło</label>
+                                    <label for="Password" data-error = "wrong">Nowe hasło</label>
                                 </div>
 
                                 <div class="input-field col s12">

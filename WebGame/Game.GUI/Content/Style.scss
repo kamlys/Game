@@ -712,6 +712,7 @@ nav {
         margin: 0;
         width: 100%;
         white-space: nowrap;
+        margin-bottom: -5px;
     }
 
     .tabs .tab {
@@ -815,7 +816,6 @@ nav {
 /******************/
 /*List znajomych*/
 .infoBox {
-
     .friendMessage {
         color: black !important;
         width: 30% !important;
@@ -830,8 +830,6 @@ nav {
         line-height: 40px;
         margin-left: auto;
         margin-right: auto;
-
-
 
 
         .slimScrollBar {
@@ -858,6 +856,10 @@ nav {
             color: #fff;
             vertical-align: middle;
             font-size: 20px;
+
+            .fa:hover{
+                color: #51B3CE;
+            }
         }
 
         .agree:hover {

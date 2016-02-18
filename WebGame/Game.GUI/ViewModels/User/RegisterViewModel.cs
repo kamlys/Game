@@ -16,6 +16,7 @@ namespace Game.GUI.ViewModels.User
         [Required]
         [Display(Name = "Hasło")]
         [DataType(DataType.Password)]
+        [MinLength(5)]
         public string Password { get; set; }
 
         [Required]

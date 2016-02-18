@@ -476,7 +476,8 @@ nav {
     background-color: #18212A;
     margin: 0;
     width: 100%;
-    white-space: nowrap; }
+    white-space: nowrap;
+    margin-bottom: -5px; }
   .infoBox .tabs .tab {
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
@@ -586,6 +587,8 @@ nav {
     color: #fff;
     vertical-align: middle;
     font-size: 20px; }
+    .infoBox .friend .icon .fa:hover {
+      color: #51B3CE; }
   .infoBox .friend .agree:hover {
     color: green; }
   .infoBox .friend .disagree:hover {
