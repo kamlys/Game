@@ -129,22 +129,24 @@ namespace Game.Service
 
         public int LoginUser(UserDto userLogin)
         {
-            int uID = _user.GetAll().First(i => i.Login == userLogin.Login).ID;
-
-            if (_ban.GetAll().Any(i => i.User_ID == uID && i.Finish_Date > DateTime.Now))
-            {
-                return 4;
-            }
-            else if (_ban.GetAll().Any(i => i.User_ID == uID))
-            {
-                int id = _ban.GetAll().First(i => i.User_ID == uID).ID;
-
-                _ban.Delete(_ban.Get(id));
-                _unitOfWork.Commit();
-            }
             if (_user.GetAll().Any(u => u.Login == userLogin.Login))
             {
+                int uID = _user.GetAll().First(i => i.Login == userLogin.Login).ID;
+
+                if (_ban.GetAll().Any(i => i.User_ID == uID && i.Finish_Date > DateTime.Now))
+                {
+                    return 4;
+                }
+                else if (_ban.GetAll().Any(i => i.User_ID == uID))
+                {
+                    int id = _ban.GetAll().First(i => i.User_ID == uID).ID;
+
+                    _ban.Delete(_ban.Get(id));
+                    _unitOfWork.Commit();
+                }
+
                 var user = _user.GetAll().First(u => u.Login == userLogin.Login);
+
                 if (_hassPass.ValidationPassword(userLogin.Password, user.Password))
                 {
                     user.Last_Log = DateTime.Now;
@@ -592,7 +594,7 @@ namespace Game.Service
         {
             string t = "Support -" + theme;
             string userEmail = email;
-            SendSupport(userEmail,content,t );
+            SendSupport(userEmail, content, t);
         }
 
         private void SendSupport(string userEmail, string body, string subject)

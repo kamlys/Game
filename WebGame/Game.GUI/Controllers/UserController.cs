@@ -120,6 +120,10 @@ namespace Game.GUI.Controllers
             {
                 return View("~/Views/Error/_Blocked.cshtml");
             }
+            else if (_userService.LoginUser(user) == 4)
+            {
+                errors.Add("Taki użytkownik nie istnieje.");
+            }
             Session["val"] = errors.ToArray<string>();
 
             return View(modelLogin);
