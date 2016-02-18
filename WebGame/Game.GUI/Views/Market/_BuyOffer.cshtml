@@ -106,6 +106,7 @@
     var my;
     var columnName;
     var order;
+    var classAdd;
     function initBuy(){
         $('.offerBuyAdd').leanModal();
         $('select').material_select();
@@ -200,6 +201,7 @@
                     cache: false,
                     success: function (result) {
                         $('#buyOffer').html(result);
+                        $('span[data-columnname='+columnName+']').addClass(classAdd);
                         $("#productNameSell").val(product);
                         $("#minPriceSell").val(min);
                         $("#maxPriceSell").val(max);
@@ -212,7 +214,6 @@
 
         $('.sortBuyMarket').click(function(){
             columnName = $(this).data('columnname');
-            var classAdd;
             order;
             if($(this).hasClass('orderDescMarket')){
                 $(this).removeClass('orderDescMarket');
