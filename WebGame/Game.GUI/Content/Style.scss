@@ -2030,6 +2030,10 @@ nav {
     padding: 10px 30px 30px 30px;
     background-color: #fff;
 
+    .dropdown-content{
+        max-height:300px !important;
+    }
+
     .sendMessageBtn {
         float: right;
         margin-bottom: 30px;

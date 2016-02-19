@@ -1391,6 +1391,8 @@ nav {
   height: 450px;
   padding: 10px 30px 30px 30px;
   background-color: #fff; }
+  .newMessage .dropdown-content {
+    max-height: 300px !important; }
   .newMessage .sendMessageBtn {
     float: right;
     margin-bottom: 30px;
