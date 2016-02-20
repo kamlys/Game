@@ -331,9 +331,16 @@ namespace Game.GUI.Controllers
             return View();
         }
 
-        public void ForgetPassword(string email)
+        public JsonResult ForgetPassword(string email)
         {
-            _userService.ForgetPassword(email);
+            if (_userService.ForgetPassword(email))
+            {
+                return new JsonResult { Data = true };
+            }
+            else
+            {
+                return new JsonResult { Data = false };
+            }
         }
 
         public ActionResult RecoveryPass(RegisterViewModel user)
