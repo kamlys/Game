@@ -588,7 +588,8 @@ nav {
     vertical-align: middle;
     font-size: 20px; }
     .infoBox .friend .icon .fa:hover {
-      color: #51B3CE; }
+      color: #51B3CE;
+      cursor: pointer; }
   .infoBox .friend .agree:hover {
     color: green; }
   .infoBox .friend .disagree:hover {
@@ -722,6 +723,13 @@ nav {
       width: auto;
       height: 40px;
       display: inline-block; }
+      .market .filterAll .filterBox .dropdown-content {
+        top: 0 !important; }
+
+@-moz-document url-prefix() {
+  .market .filterAll .filterBox .dropdown-content {
+    top: auto !important;
+    left: auto !important; } }
       .market .filterAll .filterBox .filterA {
         float: right;
         text-align: center; }
@@ -1046,6 +1054,8 @@ nav {
     float: right;
     padding: 20px 20px 20px 20px;
     width: 49%; }
+    .office .uDealList .dropdown-content li > a, .office .uDealList .dropdown-content li > span {
+      color: #343256 !important; }
     .office .uDealList .slimScrollBar {
       background: #8581ce !important; }
     .office .uDealList #dealInner {
@@ -1080,7 +1090,7 @@ nav {
       float: right; }
     .office .uDealList .officeDealAdd {
       display: inline-block;
-      margin: -65px 0 0px 100px;
+      margin: -65px 0 0 100px;
       background-color: #343256; }
     .office .uDealList .officeDealShow {
       float: right;
@@ -1391,6 +1401,8 @@ nav {
   height: 450px;
   padding: 10px 30px 30px 30px;
   background-color: #fff; }
+  .newMessage .dropdown-content li > a, .newMessage .dropdown-content li > span {
+    color: #617487 !important; }
   .newMessage .dropdown-content {
     max-height: 300px !important; }
   .newMessage .sendMessageBtn {

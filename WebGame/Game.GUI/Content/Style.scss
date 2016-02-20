@@ -857,8 +857,9 @@ nav {
             vertical-align: middle;
             font-size: 20px;
 
-            .fa:hover{
+            .fa:hover {
                 color: #51B3CE;
+                cursor: pointer;
             }
         }
 
@@ -1039,6 +1040,19 @@ nav {
             width: auto;
             height: 40px;
             display: inline-block;
+
+            .dropdown-content {
+                top: 0 !important;
+            }
+
+            @-moz-document url-prefix()
+            {
+                .dropdown-content{
+                    top: auto !important;
+                    left: auto !important;
+                }
+            }
+
 
             .filterA {
                 float: right;
@@ -1523,6 +1537,8 @@ nav {
     }
 
     .uDealList {
+
+
         background-color: $secondColor;
         margin-top: 30px;
         min-height: 400px;
@@ -1531,6 +1547,9 @@ nav {
         padding: 20px 20px 20px 20px;
         width: 49%;
 
+        .dropdown-content li > a, .dropdown-content li > span{
+        color: $officeColor !important;
+        }
         .slimScrollBar {
             background: #8581ce !important;
         }
@@ -1586,7 +1605,7 @@ nav {
 
         .officeDealAdd {
             display: inline-block;
-            margin: -65px 0 0px 100px;
+            margin: -65px 0 0 100px;
             background-color: $officeColor;
         }
 
@@ -2030,8 +2049,12 @@ nav {
     padding: 10px 30px 30px 30px;
     background-color: #fff;
 
-    .dropdown-content{
-        max-height:300px !important;
+    .dropdown-content li > a, .dropdown-content li > span{
+        color: #617487 !important;
+    }
+
+    .dropdown-content {
+        max-height: 300px !important;
     }
 
     .sendMessageBtn {

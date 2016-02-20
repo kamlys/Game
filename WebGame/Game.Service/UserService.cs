@@ -428,11 +428,12 @@ namespace Game.Service
                         Code = code
                     });
                     _unitOfWork.Commit();
-                    string content = "Została wysłana prośba o odzyskanie hasła w grze dla konta " + user
-                        + ". Jeśli nie wysyłałeś takiej prośby zignoruj tę wiadomość. Twój kod to " + code
-                        + " i będzie on ważny przez 10 minut";
+                    string content = @"<div style='background:#2c3e50;width:100%;min-height:100%;color:#fff;padding: 20px 20px 20px;font-size: 16px;'>
+                            <img src='game.webserwer.pl/Content/Images/logo.png' alt='Pierwszy Milion' tittle='Pierszy Milion' width='30%'/><br>
+                            Została wysłana prośba o odzyskanie hasła w grze dla konta <span style='color:#4dd0e1; font-weighth:bold; font-size: 18'>" + user
+                        + "</span>. Twój kod to <b>" + code + "</b> i będzie on ważny przez 10 minut <br> Jeśli nie wysyłałeś takiej prośby zignoruj tę wiadomość. <span style='margin-top: 20px; color: #fff'>#: <a href='wwww.game.webserwer.pl' style='text-decoration: underline; colo:#fff'>wwww.game.webserwer.pl</a>  @: <a href='mailto:game@game.webserwer.pl' style='text-decoration: underline;colo:#fff'>game@game.webserwer.pl</a></span></div>";
 
-                    SendMail(email, content, "Odzyskiewanie hasła - Gra");
+                    SendMail(email, content, "Pierwszy Milion - odzyskiwanie hasła");
                     return true;
                 }
             }
