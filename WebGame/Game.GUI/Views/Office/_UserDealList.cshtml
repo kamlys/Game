@@ -100,13 +100,13 @@
                                         <span>Budynek stoi na działce wspólnika</span><br />
                                     }
                                     Umowa zawarta na @item.DealDay dni.<br />
-                                    @if (item.DealDay > 1)
+                                    @if (item.Value > 1)
                                     {
-                                        <span>Umowa wygasa za @item.DealDay dni</span>
+                                        <span>Umowa wygasa za @item.Value dni</span>
                                     }
-                                    else if (item.DealDay == 1)
+                                    else if (item.Value == 1)
                                     {
-                                        <span>Umowa wygasa za @item.DealDay dzień</span>
+                                        <span>Umowa wygasa za @item.Value dzień</span>
                                     }
                                     else
                                     {

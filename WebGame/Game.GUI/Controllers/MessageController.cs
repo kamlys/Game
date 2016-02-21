@@ -136,7 +136,7 @@ namespace Game.GUI.Controllers
                 User_Login = message.Customer_Login,
                 Description = "Nowa wiadomość",
             });
-            return View("~/Views/Home/Index.cshtml");
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]

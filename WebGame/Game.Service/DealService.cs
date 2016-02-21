@@ -181,6 +181,10 @@ namespace Game.Service
                     {
                         myMap = true;
                     }
+                    else
+                    {
+                        myMap = false;
+                    }
 
                     dealList.Add(new DealDto
                     {

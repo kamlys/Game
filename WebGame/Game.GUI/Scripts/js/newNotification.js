@@ -11,7 +11,16 @@ function initialization() {
     });
 
     $(".sendMessageBtn").click(function () {
-        var customer_login = $("#Login").val();
+        if ($("#Login").val() != undefined) {
+            user_login = $("#Login").val();
+        }
+        else if ($("#viewModel_Friend_Login").val() != undefined) {
+            user_login = $("#viewModel_Friend_Login").val();
+        }
+        else if ($("#viewModel_Customer_Login").val() != undefined) {
+            user_login = $("#viewModel_Customer_Login").val();
+        }
+
         pin = "Nowa wiadomość";
     });
 
@@ -136,15 +145,7 @@ $(document).ready(function () {
         };
         $.connection.hub.start().done(function () {
             $('.sendMessageBtn').click(function () {
-                if ($("#viewModel_Customer_Login").val() == undefined) {
-                    game.server.sentNotification($("#Login").val(), pin);
-                }
-                else{
-                    game.server.sentNotification($("#viewModel_Customer_Login").val(), pin);
-                }
-            });
-            $('#friendMessage').click(function () {
-                game.server.sentNotification($("#viewModel_Friend_Login").val(), pin);
+                game.server.sentNotification(user_login, pin);
             });
             $('.addFriend').click(function () {
                 game.server.sentNotification($("#UserLogin").val(), pin);

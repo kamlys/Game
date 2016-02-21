@@ -65,18 +65,20 @@ namespace Game.Service
                         foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                         {
                             int pID = item.Product_ID;
-                            item.Value += (Convert.ToInt32(Fibonacci(itemBuilding.Lvl) * intervals * 10)*(itemBuilding.Percent_product/100));
+                            double tempValue = (((double)Fibonacci(itemBuilding.Lvl) * (double)intervals * 10.0) * ((double)itemBuilding.Percent_product / 100.0));
+                            item.Value += (int)tempValue;
                         }
                     }else // wpp obliczamy ile można dodać
                     {
                         int newDateSubstract = (int)DateTime.Now.Subtract((DateTime)itemBuilding.DateOfConstruction).TotalSeconds;
-                        // 1 co 6 sekund
+                        // 1 co 60 sekund
                         int newIntervals = newDateSubstract / 6;
                         int bID = itemBuilding.Buildings.Product_ID;
                         foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
                         {
                             int pID = item.Product_ID;
-                            item.Value += (Convert.ToInt32(Fibonacci(itemBuilding.Lvl) * newIntervals) * (itemBuilding.Percent_product / 100));
+                            double tempValue = ((double)Fibonacci(itemBuilding.Lvl) * (double)newIntervals) * ((double)itemBuilding.Percent_product / 100.0);
+                            item.Value += (int)tempValue;
                         }
                     }
                 }

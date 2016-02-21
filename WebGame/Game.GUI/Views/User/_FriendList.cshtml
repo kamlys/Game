@@ -15,17 +15,17 @@
             </div>
             <div class="input-field col s12 login">
                 @Html.TextBoxFor(m => m.viewModel.Friend_Login, new { placeholder = "", @class = "inputLogin" })
-                <label for="Customer_Login">Odbiorca:</label>
+                <label for="Friend_Login">Odbiorca:</label>
             </div>
 
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.Theme, new { placeholder = "", @class = "validate", maxlength = "150" })
-                <label for="Login">Tytuł:</label>
+                <label for="Theme">Tytuł:</label>
             </div>
 
             <div class="input-field col s12">
                 @Html.TextAreaFor(m => m.viewModel.Content, new { placeholder = "", @class = "materialize-textarea" })
-                <label for="Login">Treść:</label>
+                <label for="Content">Treść:</label>
             </div>
             <button type="submit" class="btn sendMessageBtn" id="friendMessage" name="action">Wyślij</button>
         }
@@ -97,7 +97,6 @@
         $('.userMessage').click(function(){
             $("#viewModel_Friend_Login").val($(this).data('friendlogin'));
             $("#viewModel_Friend_Login").attr('readonly',true);
-
         });
 
         $('#FriendInner').slimScroll({

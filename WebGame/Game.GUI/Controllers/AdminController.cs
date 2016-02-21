@@ -85,7 +85,7 @@ namespace Game.GUI.Controllers
             }
             else
             {
-                return View("~/Views/Home/Index.cshtml");
+                return RedirectToAction("Index", "Home");
             }
         }
 
