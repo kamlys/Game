@@ -107,7 +107,6 @@ namespace Game.Service
             int mapWidth = _maps.GetAll().First(u => u.User_ID == uID).Width;
             int userDolars = _dolars.GetAll().First(u => u.User_ID == uID).Value;
             int buildPrice = _buildings.GetAll().First(b => b.ID == id).Price;
-            bool freePlace = true;
 
             foreach (var item in _userBuildings.GetAll().Where(u => u.User_ID == uID))
             {
@@ -115,57 +114,37 @@ namespace Game.Service
                 {
                     continue;
                 }
-                if (item.X_pos == row && item.Y_pos == col)
-                {
-                    freePlace = false;
-                }
-                else if (freePlace && ((row + buildingWidth) <= mapWidth) && ((col + buildingHeight) <= mapHeight))
-                {
-                    if (dealid == 0)
-                    {
-                        if (userDolars >= buildPrice)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-                else
+                // wychodzi poza mape
+                if (((row + buildingWidth) > mapWidth) || ((col + buildingHeight) > mapHeight))
                 {
                     return false;
                 }
-            }
-
-            if (freePlace && ((row + buildingWidth) <= mapWidth) && ((col + buildingHeight) <= mapHeight))
-            {
                 if (dealid == 0)
                 {
-                    if (userDolars >= buildPrice)
-                    {
-                        return true;
-                    }
-                    else
+                    // za mało funduszy
+                    if (userDolars < buildPrice)
                     {
                         return false;
                     }
                 }
-                else
+                // zajęte miejsce
+                var bWidth = item.Buildings.Width;
+                var bHeight = item.Buildings.Height;
+                
+                // lewy górny róg stawianego leży wewnątrz istniejącego
+                if (item.X_pos <= col && item.X_pos + bWidth > col && item.Y_pos <= row && item.Y_pos + bHeight > row)
                 {
-                    return true;
+                    return false;
+                }
+                // lewy górny róg istniejącego leży wewnątrz stawianego
+                if(col <= item.X_pos && col + buildingWidth > item.X_pos && row <= item.Y_pos && item.Y_pos + buildingHeight > row)
+                {
+                    return false;
                 }
             }
-            else
-            {
-                return false;
-            }
+            return true;
         }
+    
 
         public string[][] ProductNames(string User)
         {
