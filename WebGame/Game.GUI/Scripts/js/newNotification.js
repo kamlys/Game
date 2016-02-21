@@ -161,11 +161,11 @@ $(document).ready(function () {
             });
             $('.agree').click(function () {
                 game.server.sentNotification(user_friend, pin);
-                game.server.sentNotification(friend_user, pin);
+                //game.server.sentNotification(friend_user, pin);
             });
             $('.disagree').click(function () {
                 game.server.sentNotification(user_friend, pin);
-                game.server.sentNotification(friend_user, pin);
+                //game.server.sentNotification(friend_user, pin);
             });
         });
     });

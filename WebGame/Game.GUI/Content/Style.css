@@ -476,8 +476,7 @@ nav {
     background-color: #18212A;
     margin: 0;
     width: 100%;
-    white-space: nowrap;
-    margin-bottom: -5px; }
+    white-space: nowrap; }
   .infoBox .tabs .tab {
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
@@ -562,13 +561,14 @@ nav {
 
 .infoBox .friend {
   background-color: #214954;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
   width: 88%;
   cursor: default;
   height: 40px;
-  line-height: 40px;
-  margin-left: auto;
-  margin-right: auto; }
+  line-height: 40px; }
   .infoBox .friend .slimScrollBar {
     background: #214954 !important;
     right: -5px !important; }

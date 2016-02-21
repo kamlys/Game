@@ -712,7 +712,6 @@ nav {
         margin: 0;
         width: 100%;
         white-space: nowrap;
-        margin-bottom: -5px;
     }
 
     .tabs .tab {
@@ -823,14 +822,14 @@ nav {
 
     .friend {
         background-color: $friendColorList;
-        margin-top: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: auto;
+        margin-right: auto;
         width: 88%;
         cursor: default;
         height: 40px;
         line-height: 40px;
-        margin-left: auto;
-        margin-right: auto;
-
 
         .slimScrollBar {
             background: $buildingListColor !important;
