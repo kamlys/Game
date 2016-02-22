@@ -141,8 +141,8 @@ namespace Game.Service
         {
             foreach (var item in _productR.GetAll().Where(i => i.ID == productDto.ID))
             {
-                item.Base_ID = productDto.Base_ID;
-                item.Require_ID = productDto.Require_ID;
+                item.Base_ID = _product.GetAll().First(i => i.Alias == productDto.Base_Name).ID;
+                item.Require_ID = _product.GetAll().First(i => i.Alias == productDto.Require_Name).ID;
                 item.Value = productDto.Value;
             }
 

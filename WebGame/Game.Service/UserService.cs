@@ -213,7 +213,7 @@ namespace Game.Service
             foreach (var item in _user.GetAll().Where(i => i.ID == user.ID))
             {
                 item.Login = user.Login;
-                item.Password = _hassPass.GeneratePassword(user.Password);
+                item.Password = _user.GetAll().First(i=> i.Login == user.Login).Password;
                 item.Email = user.Email;
                 item.Last_Log = user.Last_Log;
                 item.Registration_Date = user.Registration_Date;
@@ -528,14 +528,15 @@ namespace Game.Service
         public void DeleteFriendAdmin(int id)
         {
             _friend.Delete(_friend.Get(id));
+            _unitOfWork.Commit();
         }
 
         public void AddFriendAdmin(FriendDto friendDto)
         {
             _friend.Add(new Friends
             {
-                Friend_ID = friendDto.Friend_ID,
-                User_ID = friendDto.User_ID,
+                Friend_ID = _user.GetAll().First(i=> i.Login == friendDto.Friend_Login).ID,
+                User_ID = _user.GetAll().First(i => i.Login == friendDto.User_Login).ID,
                 OrAccepted = friendDto.OrAccepted
             });
 
@@ -565,7 +566,6 @@ namespace Game.Service
         {
             foreach (var item in _ignored.GetAll().Where(i => i.ID == ignoredDto.ID))
             {
-                item.ID = ignoredDto.ID;
                 item.Ignored_ID = _user.GetAll().First(i => i.Login == ignoredDto.Ignored_Login).ID;
                 item.User_ID = _user.GetAll().First(i => i.Login == ignoredDto.User_Login).ID;
             }

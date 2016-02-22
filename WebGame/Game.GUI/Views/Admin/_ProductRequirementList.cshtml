@@ -31,11 +31,11 @@
             @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Base_ID, new { @placeholder = "", @class = "validate inputBase" })
+                @Html.DropDownListFor(m => m.viewModel.BaseName, new SelectList(Model.allProduct), new { @class = "validate inputBase" })
                 <label for="BaseName">Produkt</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Require_ID, new { @placeholder = "", @class = "validate inputReq" })
+                @Html.DropDownListFor(m => m.viewModel.RequireName, new SelectList(Model.allProduct), new { @class = "validate inputReq" })
                 <label for="RequireName">Produkt wymagany</label>
             </div>
             <div class="input-field col s12">
@@ -53,12 +53,12 @@
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
-                <th data-field="id">ID</th>
-                <th data-field="baseID">ID produktu</th>
-                <th data-field="baseName">Nazwa produktu</th>
-                <th data-field="reqID">ID wymaganego</th>
-                <th data-field="reqName">Nazwa wymaganego</th>
-                <th data-field="value">Wartość</th>
+                <th>ID</th>
+                <th>ID produktu</th>
+                <th>Nazwa produktu</th>
+                <th>ID wymaganego</th>
+                <th>Nazwa wymaganego</th>
+                <th>Wartość</th>
             </tr>
         </thead>
         <tbody>
@@ -78,7 +78,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="productReqUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger productReqUpdate" onclick="updaterow(['inputID','inputBase','inputReq','inputValue'], ['@item.ID','@item.Base_ID','@item.Require_ID','@item.Value'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="productReqUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger productReqUpdate" onclick="updaterow(['inputID','inputBase','inputReq','inputValue'], ['@item.ID','@item.BaseName','@item.RequireName','@item.Value'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteProductRequirementAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

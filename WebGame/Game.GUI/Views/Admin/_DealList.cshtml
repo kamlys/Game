@@ -92,15 +92,15 @@
     <table class="highlight bordered responsive-table centered">
         <thead>
             <tr>
-                <th data-field="id">ID</th>
-                <th data-field="id">Login 1</th>
-                <th data-field="id">Procent 1</th>
-                <th data-field="id">Login 2</th>
-                <th data-field="id">Procent 2</th>
-                <th data-field="id">Nazwa budynku</th>
-                <th data-field="id">ID mapy</th>
-                <th data-field="id">Czas (dni)</th>
-                <th data-field="id">Aktywna</th>
+                <th>ID</th>
+                <th>Login 1</th>
+                <th>Procent 1</th>
+                <th>Login 2</th>
+                <th>Procent 2</th>
+                <th>Nazwa budynku</th>
+                <th>ID mapy</th>
+                <th>Czas (dni)</th>
+                <th>Aktywna</th>
             </tr>
         </thead>
         <tbody>
@@ -124,7 +124,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="dealUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger dealUpdate" onclick="updaterow(['inputID','inputLogin1','inputPercent1','inputLogin2','inputPercent2','inputBuildingName', 'inputMapID', 'inputDealDay','inputActive'], ['@item.ID','@item.User1_Login', '@item.Percent_User1','@item.User2_Login','@item.Percent_User2','@item.Building_Name', '@item.Value','@item.DealDay','@item.IsActive'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteDeal", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

@@ -149,7 +149,7 @@ namespace Game.GUI.Controllers
         public ActionResult _BanList()
         {
             BanViewModel banModel = new BanViewModel();
-            
+
             banModel.listModel = _banService.GetBan().Select(x => new ItemBanViewModel
             {
                 ID = x.ID,
@@ -211,7 +211,7 @@ namespace Game.GUI.Controllers
         public ActionResult _BuildingList()
         {
             BuildingViewModel buildingModel = new BuildingViewModel();
-            
+
             buildingModel.listModel = _buildingService.GetBuilding().Select(x => new ItemBuildingViewModel
             {
                 BuildingName = x.Name,
@@ -227,7 +227,8 @@ namespace Game.GUI.Controllers
                 Product_per_sec = x.Product_per_sec,
                 Alias = x.Alias,
                 BuildingTime = x.BuildingTime,
-                DestructionTime = x.DestructionTime
+                DestructionTime = x.DestructionTime,
+                Stock = x.Stock ? "Tak" : "Nie"
             }).ToList();
 
             return View(buildingModel);
@@ -235,7 +236,7 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Add(BuildingViewModel buildingModel)
+        public ActionResult AddBuilding(BuildingViewModel buildingModel)
         {
             BuildingDto _buildingDto = new BuildingDto();
 
@@ -246,12 +247,12 @@ namespace Game.GUI.Controllers
             _buildingDto.Dest_price = (int)buildingModel.viewModel.DestructionTime;
             _buildingDto.Percent_price_per_lvl = buildingModel.viewModel.Percent_price_per_lvl;
             _buildingDto.Percent_product_per_lvl = buildingModel.viewModel.Percent_product_per_lvl;
-            _buildingDto.Product_ID = buildingModel.viewModel.Product_ID;
             _buildingDto.Product_Name = buildingModel.viewModel.Product_Name;
             _buildingDto.Product_per_sec = buildingModel.viewModel.Product_per_sec;
             _buildingDto.Alias = buildingModel.viewModel.Alias;
             _buildingDto.BuildingTime = buildingModel.viewModel.BuildingTime;
             _buildingDto.DestructionTime = buildingModel.viewModel.DestructionTime;
+            _buildingDto.Stock = buildingModel.viewModel.Stock.ToLower().Contains("tak") ? true : false;
 
             _buildingService.Add(_buildingDto);
 
@@ -260,7 +261,7 @@ namespace Game.GUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Update(BuildingViewModel buildingModel)
+        public ActionResult UpdateBuilding(BuildingViewModel buildingModel)
         {
             BuildingDto _buildingDto = new BuildingDto();
 
@@ -272,12 +273,12 @@ namespace Game.GUI.Controllers
             _buildingDto.Dest_price = (int)buildingModel.viewModel.DestructionTime;
             _buildingDto.Percent_price_per_lvl = buildingModel.viewModel.Percent_price_per_lvl;
             _buildingDto.Percent_product_per_lvl = buildingModel.viewModel.Percent_product_per_lvl;
-            _buildingDto.Product_ID = buildingModel.viewModel.Product_ID;
             _buildingDto.Product_Name = buildingModel.viewModel.Product_Name;
             _buildingDto.Product_per_sec = buildingModel.viewModel.Product_per_sec;
             _buildingDto.Alias = buildingModel.viewModel.Alias;
             _buildingDto.BuildingTime = buildingModel.viewModel.BuildingTime;
             _buildingDto.DestructionTime = buildingModel.viewModel.DestructionTime;
+            _buildingDto.Stock = buildingModel.viewModel.Stock.ToLower().Contains("tak") ? true : false;
 
             _buildingService.Update(_buildingDto);
 
@@ -298,7 +299,7 @@ namespace Game.GUI.Controllers
         public ActionResult _UserList()
         {
             UserViewModel userModel = new UserViewModel();
-            
+
             userModel.listModel = _userService.GetUser().Select(x => new ItemUserViewModel
             {
                 ID = x.ID,
@@ -318,6 +319,7 @@ namespace Game.GUI.Controllers
             UserDto _userDto = new UserDto();
 
             _userDto.Login = userModel.viewModel.User_Login;
+            _userDto.Password = userModel.viewModel.Password;
             _userDto.Email = userModel.viewModel.Email;
             _userDto.Last_Log = userModel.viewModel.LastLog;
             _userDto.Registration_Date = userModel.viewModel.RegistrationDate;
@@ -442,7 +444,7 @@ namespace Game.GUI.Controllers
         {
             MapDto _mapDto = new MapDto();
 
-            _mapDto.User_ID = mapModel.viewModel.User_ID;
+            _mapDto.Login = mapModel.viewModel.User_Login;
             _mapDto.Height = mapModel.viewModel.Height;
             _mapDto.Width = mapModel.viewModel.Width;
 
@@ -458,7 +460,7 @@ namespace Game.GUI.Controllers
             MapDto _mapDto = new MapDto();
 
             _mapDto.Map_ID = mapModel.viewModel.ID;
-            _mapDto.User_ID = mapModel.viewModel.User_ID;
+            _mapDto.Login = mapModel.viewModel.User_Login;
             _mapDto.Height = mapModel.viewModel.Height;
             _mapDto.Width = mapModel.viewModel.Width;
 
@@ -490,7 +492,7 @@ namespace Game.GUI.Controllers
                 Price = x.Price,
                 Product_ID = x.Product_ID,
                 Product_Name = x.Product_Name,
-                TypeOffer = x.TypeOffer,
+                TypeOfferAdmin = (x.TypeOffer == false ? "Kupno" : "Sprzedaż"),
                 User_ID = x.User_ID,
                 User_Login = x.Login,
             }).ToList();
@@ -511,8 +513,14 @@ namespace Game.GUI.Controllers
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
             _marketDto.Number = marketModel.viewModel.Number;
             _marketDto.Price = marketModel.viewModel.Price;
-            _marketDto.TypeOffer = marketModel.viewModel.TypeOffer;
-
+            if (marketModel.TypeOfferAdmin.Contains("Sprzedaż"))
+            {
+                _marketDto.TypeOffer = true;
+            }
+            else
+            {
+                _marketDto.TypeOffer = false;
+            }
             _marketService.Add(_marketDto);
 
             return RedirectToAction("Admin");
@@ -529,7 +537,14 @@ namespace Game.GUI.Controllers
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
             _marketDto.Number = marketModel.viewModel.Number;
             _marketDto.Price = marketModel.viewModel.Price;
-            _marketDto.TypeOffer = marketModel.viewModel.TypeOffer;
+            if (marketModel.TypeOfferAdmin.Contains("Sprzedaż"))
+            {
+                _marketDto.TypeOffer = true;
+            }
+            else
+            {
+                _marketDto.TypeOffer = false;
+            }
 
             _marketService.Update(_marketDto);
 
@@ -613,7 +628,7 @@ namespace Game.GUI.Controllers
         public ActionResult _UserBuildingList()
         {
             UserBuildingsViewModel userBuildingModel = new UserBuildingsViewModel();
-            userBuildingModel.listModel = _userBuildingService.GetUserBuilding().Where(i => !i.Owner).Select(x => new ItemUserBuildingViewModel
+            userBuildingModel.listModel = _userBuildingService.GetUserBuilding().Select(x => new ItemUserBuildingViewModel
             {
                 ID = x.ID,
                 User_ID = x.User_ID,
@@ -623,7 +638,11 @@ namespace Game.GUI.Controllers
                 Lvl = x.Lvl,
                 Building_ID = x.Building_ID,
                 Building_Name = x.Building_Name,
-                Status = x.Status
+                Status = x.Status,
+                DateOfConstruction = x.DateOfConstruction,
+                Color = x.Color,
+                Percent_product = x.Percent_Product,
+                Owner = x.Owner ? "Tak" : "Nie"
             }).ToList();
 
             return View(userBuildingModel);
@@ -643,6 +662,9 @@ namespace Game.GUI.Controllers
             _userBuildingDto.Building_ID = userBuildingModel.viewModel.Building_ID;
             _userBuildingDto.Building_Name = userBuildingModel.viewModel.Building_Name;
             _userBuildingDto.Status = userBuildingModel.viewModel.Status;
+            _userBuildingDto.Owner = userBuildingModel.viewModel.Owner.ToLower().Contains("tak") ? true : false;
+            _userBuildingDto.Percent_Product = userBuildingModel.viewModel.Percent_product;
+            _userBuildingDto.Color = userBuildingModel.viewModel.Color;
 
             _userBuildingService.Add(_userBuildingDto);
 
@@ -664,6 +686,10 @@ namespace Game.GUI.Controllers
             _userBuildingDto.Building_ID = userBuildingModel.viewModel.Building_ID;
             _userBuildingDto.Building_Name = userBuildingModel.viewModel.Building_Name;
             _userBuildingDto.Status = userBuildingModel.viewModel.Status;
+            _userBuildingDto.Owner = userBuildingModel.viewModel.Owner.ToLower().Contains("tak") ? true : false;
+            _userBuildingDto.Percent_Product = userBuildingModel.viewModel.Percent_product;
+            _userBuildingDto.DateOfConstruction = userBuildingModel.viewModel.DateOfConstruction;
+            _userBuildingDto.Color = userBuildingModel.viewModel.Color;
 
             _userBuildingService.Update(_userBuildingDto);
 
@@ -770,7 +796,6 @@ namespace Game.GUI.Controllers
             _queueDto.Login = queueModel.viewModel.User_Login;
             _queueDto.UserBuilding_ID = queueModel.viewModel.UserBuilding_ID;
             _queueDto.NewStatus = queueModel.viewModel.NewStatus;
-            _queueDto.FinishTime = DateTime.Now.AddSeconds(queueModel.viewModel.Second);
 
             _queueService.Add(_queueDto);
 
@@ -784,8 +809,10 @@ namespace Game.GUI.Controllers
             BuildingQueueDto _buildingQueueDto = new BuildingQueueDto();
 
             _buildingQueueDto.ID = queueModel.viewModel.ID;
-            _buildingQueueDto.ID = queueModel.viewModel.ID;
             _buildingQueueDto.Login = queueModel.viewModel.User_Login;
+            _buildingQueueDto.UserBuilding_ID = queueModel.viewModel.UserBuilding_ID;
+            _buildingQueueDto.NewStatus = queueModel.viewModel.NewStatus;
+            _buildingQueueDto.FinishTime = queueModel.viewModel.FinishDate;
 
             _queueService.Update(_buildingQueueDto);
 
@@ -914,8 +941,8 @@ namespace Game.GUI.Controllers
             DealBuildingDto dealbDto = new DealBuildingDto();
 
             dealbDto.ID = dealbModel.viewModel.ID;
-            dealbDto.Building_ID = dealbModel.viewModel.Building_ID;
-            dealbDto.User_ID = dealbModel.viewModel.User_ID;
+            dealbDto.BuildingName = dealbModel.viewModel.Building_Name;
+            dealbDto.Login = dealbModel.viewModel.User_Login;
             dealbDto.Deal_ID = dealbModel.viewModel.Deal_ID;
 
             _dealService.UpdateDealBuildingAdmin(dealbDto);
@@ -973,8 +1000,9 @@ namespace Game.GUI.Controllers
         {
             FriendDto friendDto = new FriendDto();
 
-            friendDto.Friend_ID = friendModel.viewModel.Friend_ID;
-            friendDto.User_ID = friendModel.viewModel.User_ID;
+            friendDto.ID = friendModel.viewModel.ID;
+            friendDto.Friend_Login = friendModel.viewModel.Friend_Login;
+            friendDto.User_Login = friendModel.viewModel.User_Login;
             friendDto.OrAccepted = friendModel.viewModel.OrAccepted;
 
             _userService.UpdateFriendAdmin(friendDto);
@@ -1032,8 +1060,8 @@ namespace Game.GUI.Controllers
             IgnoredDto ignoredDto = new IgnoredDto();
 
             ignoredDto.ID = ignoredModel.viewModel.ID;
-            ignoredDto.Ignored_ID = ignoredModel.viewModel.Ignored_ID;
-            ignoredDto.User_ID = ignoredModel.viewModel.User_ID;
+            ignoredDto.Ignored_Login = ignoredModel.viewModel.Ignored_Login;
+            ignoredDto.User_Login = ignoredModel.viewModel.User_Login;
 
             _userService.UpdateIgnoredAdmin(ignoredDto);
 
@@ -1082,7 +1110,6 @@ namespace Game.GUI.Controllers
             messageDto.Customer_Login = messageModel.viewModel.Customer_Login;
             messageDto.Sender_Login = messageModel.viewModel.Sender_Login;
             messageDto.Theme = messageModel.viewModel.Theme;
-            messageDto.PostDate = messageModel.viewModel.PostDate;
             messageDto.IfRead = messageModel.viewModel.IfRead;
 
             _messageService.AddMessageAdmin(messageDto);
@@ -1100,7 +1127,6 @@ namespace Game.GUI.Controllers
             messageDto.Customer_ID = messageModel.viewModel.Customer_ID;
             messageDto.Sender_ID = messageModel.viewModel.Sender_ID;
             messageDto.Theme = messageModel.viewModel.Theme;
-            messageDto.PostDate = messageModel.viewModel.PostDate;
             messageDto.IfRead = messageModel.viewModel.IfRead;
 
             _messageService.UpdateMessageAdmin(messageDto);
@@ -1159,8 +1185,8 @@ namespace Game.GUI.Controllers
             ProductRequirementDto productrDto = new ProductRequirementDto();
 
             productrDto.ID = productrMode.viewModel.ID;
-            productrDto.Base_ID = productrMode.viewModel.Base_ID;
-            productrDto.Require_ID = productrMode.viewModel.Require_ID;
+            productrDto.Base_Name = productrMode.viewModel.BaseName;
+            productrDto.Require_Name = productrMode.viewModel.RequireName;
             productrDto.Value = productrMode.viewModel.Value;
 
             _productRService.UpdateProduct(productrDto);

@@ -20,10 +20,7 @@
     <div class="modal-content">
         @using (Html.BeginForm("UpdateAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
-                <label for="ID">ID</label>
-            </div>
+            @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.User_Login, new { @placeholder = "", @class = "validate inputLogin" })
                 <label for="Login">Login</label>

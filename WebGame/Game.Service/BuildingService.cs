@@ -35,11 +35,12 @@ namespace Game.Service.Table
                 Dest_price = building.Dest_price,
                 Percent_price_per_lvl = building.Percent_price_per_lvl,
                 Percent_product_per_lvl = building.Percent_product_per_lvl,
-                Product_ID = _products.GetAll().First(i => i.Name == building.Product_Name).ID,
+                Product_ID = _products.GetAll().First(i => i.Alias == building.Product_Name).ID,
                 Product_per_sec = building.Product_per_sec,
                 Alias = building.Alias,
                 BuildingTime = building.BuildingTime,
-                DestructionTime = building.DestructionTime
+                DestructionTime = building.DestructionTime,
+                Stock = building.Stock
             });
 
             _unitOfWork.Commit();
@@ -73,8 +74,9 @@ namespace Game.Service.Table
                         Product_Name = _products.Get(item.Product_ID).Name,
                         Alias = item.Alias,
                         BuildingTime = item.BuildingTime,
-                        DestructionTime = item.DestructionTime
-                    });
+                        DestructionTime = item.DestructionTime,
+                        Stock = item.Stock
+                });
                 }
                 catch (Exception)
                 {
@@ -95,10 +97,11 @@ namespace Game.Service.Table
                 item.Product_per_sec = building.Product_per_sec;
                 item.Dest_price = building.Dest_price;
                 item.Percent_product_per_lvl = building.Percent_product_per_lvl;
-                item.Product_ID = _products.GetAll().First(i => i.Name == building.Name).ID;
+                item.Product_ID = _products.GetAll().First(i => i.Alias == building.Product_Name).ID;
                 item.Alias = building.Alias;
                 item.BuildingTime = building.BuildingTime;
                 item.DestructionTime = building.DestructionTime;
+                item.Stock = building.Stock;
             }
             _unitOfWork.Commit();
         }

@@ -41,7 +41,7 @@ namespace Game.Service
         {
             _maps.Add(new Maps
             {
-                User_ID = _users.GetAll().First(i=> i.ID == map.User_ID).ID,
+                User_ID = _users.GetAll().First(i=> i.Login == map.Login).ID,
                 Height = map.Height,
                 Width = map.Width
             });

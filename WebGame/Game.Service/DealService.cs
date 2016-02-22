@@ -123,6 +123,8 @@ namespace Game.Service
                 {
                     dealbDto.Add(new DealBuildingDto
                     {
+                        ID = item.ID,
+                        Building_ID = item.Building_ID,
                         BuildingName = _buildings.Get(item.Building_ID).Alias,
                         Deal_ID = item.Deal_ID,
                         User_ID = item.User_ID,
@@ -159,9 +161,9 @@ namespace Game.Service
         {
             foreach (var item in _dealsBuildings.GetAll().Where(i => i.ID == dealDto.ID))
             {
-                item.Building_ID = dealDto.Building_ID;
+                item.Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.BuildingName).ID;
                 item.Deal_ID = item.Deal_ID;
-                item.User_ID = item.User_ID;
+                item.User_ID = _users.GetAll().First(i => i.Login == dealDto.Login).ID;
             }
 
             _unitOfWork.Commit();

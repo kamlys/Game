@@ -16,5 +16,6 @@ namespace Game.GUI.ViewModels.Market
         public bool TypeOffer { get; set; }
         public bool marketDiv { get; set; }
         public bool allDiv { get; set; }
+        public string TypeOfferAdmin { get; set; }
     }
 }

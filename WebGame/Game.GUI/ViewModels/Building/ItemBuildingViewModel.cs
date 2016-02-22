@@ -23,6 +23,7 @@ namespace Game.GUI.ViewModels.Building
         public int BuildingTime { get; set; }
         public int DestructionTime { get; set; }
         public bool buildingDiv { get; set; }
+        public string Stock { get; set; }
 
     }
 }

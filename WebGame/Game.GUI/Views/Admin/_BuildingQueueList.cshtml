@@ -9,10 +9,6 @@
         @using (Html.BeginForm("AddQueue", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.ID, new { @placeholder = "", @class = "validate inputID" })
-                <label for="ID">ID</label>
-            </div>
-            <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
                 <label for="User_Login">Login</label>
             </div>
@@ -20,11 +16,6 @@
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.UserBuilding_ID, new { placeholder = "", @class = "validate" })
                 <label for="UserBuilding_ID">ID budynku użytkownika</label>
-            </div>
-
-            <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Second, new { placeholder = "", @class = "validate" })
-                <label for="Value">Czas budowy(s)</label>
             </div>
 
             <div class="input-field col s12">
@@ -53,8 +44,8 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Second, new { placeholder = "", @class = "validate inputValue" })
-                <label for="Value">Czas budowy(s)</label>
+                @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", @class = "validate datepicker inputFinish" })
+                <label for="Second">Czas budowy(s)</label>
             </div>
 
             <div class="input-field col s12">
@@ -87,7 +78,7 @@
                     <td>@item.ID</td>
                     <td>@item.User_Login</td>
                     <td>@item.UserBuilding_ID</td>
-                    <td class="search">@item.BuildingName</td>
+                    <td>@item.BuildingName</td>
                     <td>@item.FinishDate</td>
                     <td>@item.NewStatus</td>
                     <td>
@@ -96,7 +87,9 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="queueAdd" class="btn btn-floating #00695c teal darken-3 modal-trigger queueAdd" onclick="updaterow(['inputID','inputLogin','inputUserBuilding_ID','inputValue','inputNewStatus'], ['@item.ID','@item.User_Login','@item.UserBuilding_ID','@item.Second','@item.NewStatus'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="queueUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger queueUpdate" 
+                                            onclick="updaterow(['inputID','inputLogin','inputUserBuilding_ID','inputFinish','inputNewStatus'], 
+                                            ['@item.ID','@item.User_Login','@item.UserBuilding_ID','@item.FinishDate','@item.NewStatus'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteQueue", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

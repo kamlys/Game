@@ -19,6 +19,11 @@
             </div>
 
             <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Password, new { placeholder = "", @class = "validate" })
+                <label for="Password">Tymczasowe hasło</label>
+            </div>
+
+            <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.LastLog, new { placeholder = "", @type = "date", @class = "validate datepicker" })
                 <label for="Last_Log">Ostatnie logowanie</label>
             </div>

@@ -152,7 +152,7 @@ namespace Game.Service
                 Content = messageDto.Content,
                 Customer_ID = _user.GetAll().First(i => i.Login == messageDto.Customer_Login).ID,
                 IfRead = messageDto.IfRead,
-                PostDate = messageDto.PostDate,
+                PostDate = DateTime.Now,
                 Sender_ID = _user.GetAll().First(i => i.Login == messageDto.Sender_Login).ID
             });
 
@@ -164,7 +164,6 @@ namespace Game.Service
             foreach (var item in _message.GetAll().Where(i=> i.ID == messageDto.ID))
             {
                 item.IfRead = messageDto.IfRead;
-                item.PostDate = messageDto.PostDate;
                 item.Sender_ID = messageDto.Sender_ID;
                 item.Content = messageDto.Content;
                 item.Customer_ID = messageDto.Customer_ID;

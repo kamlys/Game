@@ -24,5 +24,9 @@ namespace Game.GUI.ViewModels.Building.UserBuildings
         public bool Stock { get; set; }
         public int BuildTime { get; set; }
         public int BuildDone { get; set; }
+        public string Owner { get; set; }
+        public int Percent_product { get; set; }
+        public DateTime DateOfConstruction { get; set; }
+
     }
 }

@@ -5,7 +5,7 @@
 
 <div id="offerAdd" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("AddOffer", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddMarket", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
 
             <div class="input-field col s12">
@@ -27,7 +27,10 @@
                 @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @class = "validate" })
                 <label for="Price">Cena/szt</label>
             </div>
-
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.TypeOfferAdmin, new { placeholder = "", @class = "validate" })
+                <label for="TypeOfferAdmin">Typ oferty (Kupno/Sprzedaż)</label>
+            </div>
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
         }
     </div>
@@ -40,12 +43,12 @@
 
                 @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputLogin" })
                 <label for="User_Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate inputProductName" })
+                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.allProduct), new { @class = "validate inputProductName" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
 
@@ -58,7 +61,10 @@
                 @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @class = "validate inputPrice" })
                 <label for="Price">Cena/szt</label>
             </div>
-
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.TypeOfferAdmin, new { placeholder = "", @class = "validate inputTypeOffer" })
+                <label for="TypeOfferAdmin">Typ oferty (Kupno/Sprzedaż)</label>
+            </div>
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
         }
     </div>
@@ -74,6 +80,7 @@
                 <th>Produkt</th>
                 <th>Ilość</th>
                 <th>Cena/szt.</th>
+                <th>Typ oferty</th>
             </tr>
         </thead>
         <tbody>
@@ -84,13 +91,14 @@
                     <td>@item.Product_Name</td>
                     <td>@item.Number</td>
                     <td>@item.Price</td>
+                    <td>@item.TypeOfferAdmin</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
                             <button class="btn btn-floating">
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="offerUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger offerUpdate" onclick="updaterow(['inputID','inputLogin','inputProductName','inputNumber','inputPrice'], ['@item.ID','@item.User_Login','@item.Product_Name','@item.Number','@item.Price'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="offerUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger offerUpdate" onclick="updaterow(['inputID','inputLogin','inputProductName','inputNumber','inputPrice','inputTypeOffer'], ['@item.ID','@item.User_Login','@item.Product_Name','@item.Number','@item.Price','@item.TypeOfferAdmin'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteMarket", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

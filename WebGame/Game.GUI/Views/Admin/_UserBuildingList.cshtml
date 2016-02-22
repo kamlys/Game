@@ -37,6 +37,21 @@
                 <label for="Status">Status</label>
             </div>
 
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Owner, new { placeholder = "", @class = "validate" })
+                <label for="Owner">Jest właścicielem?</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Percent_product, new { placeholder = "", @class = "validate" })
+                <label for="Percent_product">Procent produckji</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Color, new { placeholder = "", @class = "validate" })
+                <label for="Color">Kolor</label>
+            </div>
+
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
 
         }
@@ -79,6 +94,26 @@
                 <label for="Status">Status</label>
             </div>
 
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Owner, new { placeholder = "", @class = "validate inputOwner" })
+                <label for="Owner">Jest właścicielem?</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Percent_product, new { placeholder = "", @class = "validate inputPercentProduct" })
+                <label for="Percent_product">Procent produckji</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.Color, new { placeholder = "", @class = "validate inputColor" })
+                <label for="Color">Kolor</label>
+            </div>
+
+            <div class="input-field col s12">
+                @Html.TextBoxFor(m => m.viewModel.DateOfConstruction, new { placeholder = "", @class = "validate datepicker inputDate" })
+                <label for="DateOfConstruction">Koniec budowy</label>
+            </div>
+
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
 
         }
@@ -98,6 +133,10 @@
                 <th>Level</th>
                 <th>Budynek</th>
                 <th>Status</th>
+                <th>Jest właścicielem</th>
+                <th>Procent produkcji</th>
+                <th>Kolor</th>
+                <th>Koniec budowy</th>
             </tr>
         </thead>
         <tbody>
@@ -105,20 +144,24 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td class="search">@item.User_Login</td>
+                    <td>@item.User_Login</td>
                     <td>@item.X_pos</td>
                     <td>@item.Y_pos</td>
                     <td>@item.Lvl</td>
                     <td>@item.Building_Name</td>
                     <td>@item.Status</td>
+                    <td>@item.Owner</td>
+                    <td>@item.Percent_product</td>
+                    <td>@item.Color</td>
+                    <td>@item.DateOfConstruction</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
                             <button class="btn btn-floating">
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="ubuildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ubuildingUpdate" onclick="updaterow(['inputID','inputLogin','inputName','inputX_pos','inputY_pos','inputLvl','inputStatus'],
-                                             ['@item.ID','@item.User_Login','@item.Building_Name','@item.X_pos','@item.Y_pos','@item.Lvl','@item.Status'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="ubuildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ubuildingUpdate" onclick="updaterow(['inputID','inputLogin','inputName','inputX_pos','inputY_pos','inputLvl','inputStatus','inputOwner','inputPercentProduct','inputColor','inputDate'],
+                                             ['@item.ID','@item.User_Login','@item.Building_Name','@item.X_pos','@item.Y_pos','@item.Lvl','@item.Status','@item.Owner','@item.Percent_product','@item.Color','@item.DateOfConstruction'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteUserBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

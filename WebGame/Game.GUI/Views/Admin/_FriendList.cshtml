@@ -5,7 +5,7 @@
 
 <div id="friendAdminAdd" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("AddFriend", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddFriendAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
                 @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate" })
@@ -13,7 +13,7 @@
             </div>
             <div class="input-field col s12">
                 @Html.DropDownListFor(m => m.viewModel.Friend_Login, new SelectList(Model.allUser), new { @class = "validate" })
-                <label for="User_Login">Login</label>
+                <label for="Friend_Login">Login</label>
             </div>
             <div class="input-field col s12">
                 @Html.DropDownListFor(m => m.viewModel.OrAccepted, new SelectList(new List<bool>(new bool[] { true, false })), new { @class = "validate" })
@@ -27,21 +27,21 @@
 
 <div id="friendAdminUpdate" class="modal">
     <div class="modal-content">
-        @using (Html.BeginForm("UpdateFriend", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("UpdateFriendAdmin", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
-        <div class="input-field col s12">
-            @Html.TextBoxFor(m => m.viewModel.User_ID, new { @placeholder = "", @class = "validate inputUserID" })
-            <label for="User_ID">ID usera</label>
-        </div>
-        <div class="input-field col s12">
-            @Html.TextBoxFor(m => m.viewModel.Friend_ID, new { @placeholder = "", @class = "validate inputFriendID" })
-            <label for="Friend_ID">ID znajomego</label>
-        </div>
-        <div class="input-field col s12">
-            @Html.TextBoxFor(m => m.viewModel.OrAccepted, new { @placeholder = "", @class = "validate inputOrAccepted" })
-            <label for="OrAccepted">Czy zaakceptowane</label>
-        </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputUser" })
+                <label for="User_Login">Login</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.Friend_Login, new SelectList(Model.allUser), new { @class = "validate inputFriend" })
+                <label for="Friend_Login">Login</label>
+            </div>
+            <div class="input-field col s12">
+                @Html.DropDownListFor(m => m.viewModel.OrAccepted, new SelectList(new List<bool>(new bool[] { true, false })), new { @class = "validate inputOrAccepted" })
+                <label for="IsActive">Aktywna</label>
+            </div>
         <input type="submit" value="Zapisz" class="btn addButton" name="action" />
         }
     </div>
@@ -74,7 +74,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="friendAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger friendAdminUpdate" onclick="updaterow(['inputID','inputUserID','inputFriendID','inputOrAccepted'], ['@item.ID','@item.User_ID','@item.Friend_ID','@item.OrAccepted'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="friendAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger friendAdminUpdate" onclick="updaterow(['inputID','inputUser','inputFriend','inputOrAccepted'], ['@item.ID','@item.User_Login','@item.Friend_Login','@item.OrAccepted'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteFriendAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

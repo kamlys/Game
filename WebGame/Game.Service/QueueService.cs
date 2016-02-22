@@ -36,11 +36,25 @@ namespace Game.Service.Table
 
         public void Add(BuildingQueueDto buildingQueue)
         {
+            DateTime tempDate;
+            if (buildingQueue.NewStatus.ToLower().Contains("budowa") || buildingQueue.NewStatus.ToLower().Contains("rozbudowa"))
+            {
+                tempDate = DateTime.Now.AddSeconds(_usersBuilding.Get(buildingQueue.UserBuilding_ID).Buildings.BuildingTime);
+            }
+            else if (buildingQueue.NewStatus.ToLower().Contains("burzenie"))
+            {
+                tempDate = DateTime.Now.AddSeconds(_usersBuilding.Get(buildingQueue.UserBuilding_ID).Buildings.DestructionTime);
+            }
+            else
+            {
+                tempDate = DateTime.Now;
+            }
+
             _buildingQueue.Add(new BuildingQueue
             {
                 User_ID = _user.GetAll().First(i => i.Login == buildingQueue.Login).ID,
                 UserBuilding_ID = buildingQueue.UserBuilding_ID,
-                FinishTime = buildingQueue.FinishTime,
+                FinishTime = /*(DateTime)tempDate*/ DateTime.Now,
                 NewStatus = buildingQueue.NewStatus
             });
 

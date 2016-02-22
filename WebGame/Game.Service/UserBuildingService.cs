@@ -226,14 +226,33 @@ namespace Game.Service
 
         public void Add(UserBuildingDto userBuilding)
         {
+            DateTime tempDate;
+
+            if(userBuilding.Status.ToLower().Contains("budowa") || userBuilding.Status.ToLower().Contains("rozbudowa"))
+            {
+                tempDate = DateTime.Now.AddSeconds(_buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).BuildingTime);
+            }
+            else if(userBuilding.Status.ToLower().Contains("burzenie"))
+            {
+                tempDate = DateTime.Now.AddSeconds(_buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).DestructionTime);
+            }
+            else
+            {
+                tempDate = DateTime.Now;
+            }
+
             _userBuildings.Add(new UserBuildings
             {
-                User_ID = _users.GetAll().First(i => i.ID == userBuilding.User_ID).ID,
+                User_ID = _users.GetAll().First(i => i.Login == userBuilding.Login).ID,
                 X_pos = userBuilding.X_pos,
                 Y_pos = userBuilding.Y_pos,
                 Lvl = userBuilding.Lvl,
-                Building_ID = _buildings.Get(userBuilding.Building_ID).ID,
-                Status = userBuilding.Status
+                Building_ID = _buildings.GetAll().First(i=>i.Alias == userBuilding.Building_Name).ID,
+                Status = userBuilding.Status,
+                DateOfConstruction = (DateTime)tempDate,
+                Color = userBuilding.Color,
+                Percent_product = userBuilding.Percent_Product,
+                Owner = userBuilding.Owner
             });
 
             _unitOfWork.Commit();
@@ -268,7 +287,10 @@ namespace Game.Service
                         Building_Name = _buildings.Get(item.Building_ID).Alias,
                         Status = item.Status,
                         Produkcja = Product_per_sec * Percent_per_lvl * BuildLvl,
-                        Color = item.Color
+                        Color = item.Color,
+                        Owner = item.Owner,
+                        Percent_Product = item.Percent_product,
+                        DateOfConstruction = item.DateOfConstruction
                     });
                 }
                 catch (Exception)
@@ -326,6 +348,10 @@ namespace Game.Service
                 item.Y_pos = userBuilding.Y_pos;
                 item.Lvl = userBuilding.Lvl;
                 item.Status = userBuilding.Status;
+                item.DateOfConstruction = userBuilding.DateOfConstruction;
+                item.Owner = userBuilding.Owner;
+                item.Percent_product = userBuilding.Percent_Product;
+                item.Color = userBuilding.Color;
             }
 
             _unitOfWork.Commit();
