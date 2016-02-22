@@ -561,10 +561,7 @@ nav {
 
 .infoBox .friend {
   background-color: #214954;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 5px auto 10px auto;
   width: 88%;
   cursor: default;
   height: 40px;
