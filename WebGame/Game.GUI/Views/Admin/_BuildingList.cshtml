@@ -8,46 +8,46 @@
         @using (Html.BeginForm("AddBuilding", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.BuildingName, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.BuildingName, new { @placeholder = "", @class = "validate" })
                 <label for="Name">Nazwa</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Price, new { @placeholder = "", @type="number", @min="0", @class = "validate" })
                 <label for="Price">Cena</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Percent_price_per_lvl, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Percent_price_per_lvl, new { @placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Percent_price_per_lvl">% ceny za lvl</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Width, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Width, new { @placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Width">Szerokość</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Height, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Height, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Height">Wysokość</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Product_per_sec, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Product_per_sec, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Product_per_sec">Produkcja na sekundę</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.DestPrice, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.DestPrice, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Dest_price">Koszt wyburzenia</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Percent_product_per_lvl, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Percent_product_per_lvl, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Percent_product_per_lvl">% proukcji za lvl</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate" })
+                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.productName), new { placeholder = "", @class = "validate" })
                 <label for="Nazwa produktu">Nazwa produktu</label>
             </div>
 
@@ -57,17 +57,17 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.BuildingTime, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.BuildingTime, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="BuildingTime">Czas budowy [s]</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.DestructionTime, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.DestructionTime, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="DestructionTime">Czas burzenia [s]</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Stock, new { placeholder = "", @class = "validate inputStock" })
+                @Html.DropDownListFor(m => m.viewModel.Stock, new SelectList(new List<string>(new string[] { "Tak", "Nie" })), new { placeholder = "", @class = "validate inputStock" })
                 <label for="Stock">Czy wydobywa (tak/nie)</label>
             </div>
 
@@ -89,41 +89,41 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @class = "validate inputPrice" })
+                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputPrice" })
                 <label for="Price">Cena</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Percent_price_per_lvl, new { placeholder = "", @class = "validate inputPercent_price_per_lvl" })
+                @Html.TextBoxFor(m => m.viewModel.Percent_price_per_lvl, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputPercent_price_per_lvl" })
                 <label for="Percent_price_per_lvl">% ceny za lvl</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Width, new { placeholder = "", @class = "validate inputWidth" })
+                @Html.TextBoxFor(m => m.viewModel.Width, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputWidth" })
                 <label for="Width">Szerokość</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Height, new { placeholder = "", @class = "validate inputHeight" })
+                @Html.TextBoxFor(m => m.viewModel.Height, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputHeight" })
                 <label for="Height">Wysokość</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Product_per_sec, new { placeholder = "", @class = "validate inputProduct_per_sec" })
+                @Html.TextBoxFor(m => m.viewModel.Product_per_sec, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputProduct_per_sec" })
                 <label for="Product_per_sec">Produkcja na sekundę</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.DestPrice, new { placeholder = "", @class = "validate inputDestPrice" })
+                @Html.TextBoxFor(m => m.viewModel.DestPrice, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputDestPrice" })
                 <label for="Dest_price">Koszt wyburzenia</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Percent_product_per_lvl, new { placeholder = "", @class = "validate inputPercent_product_per_lvl" })
+                @Html.TextBoxFor(m => m.viewModel.Percent_product_per_lvl, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputPercent_product_per_lvl" })
                 <label for="Percent_product_per_lvl">% proukcji za lvl</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate inputProductName" })
+                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.productName), new { placeholder = "", @class = "validate inputProductNameDrop" })
                 <label for="Nazwa produktu">Nazwa produktu</label>
             </div>
 
@@ -133,17 +133,17 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.BuildingTime, new { placeholder = "", @class = "validate inputBuildingTime" })
+                @Html.TextBoxFor(m => m.viewModel.BuildingTime, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputBuildingTime" })
                 <label for="BuildingTime">Czas budowy [s]</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.DestructionTime, new { placeholder = "", @class = "validate inputDesctructionTime" })
+                @Html.TextBoxFor(m => m.viewModel.DestructionTime, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputDesctructionTime" })
                 <label for="DestructionTime">Czas burzenia [s]</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Stock, new { placeholder = "", @class = "validate inputStock" })
+                @Html.DropDownListFor(m => m.viewModel.Stock, new SelectList(new List<string>(new string[] { "Tak", "Nie" })), new { placeholder = "", @class = "validate inputStockDrop" })
                 <label for="Stock">Czy wydobywa (tak/nie)</label>
             </div>
 
@@ -181,7 +181,7 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td class="search">@item.BuildingName</td>
+                    <td>@item.BuildingName</td>
                     <td>@item.Price</td>
                     <td>@item.Percent_price_per_lvl</td>
                     <td>@item.Width</td>
@@ -204,7 +204,7 @@
                                     <button data-target="buildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger buildingUpdate"
                                             onclick="updaterow(['inputID','inputName','inputPrice','inputPercent_price_per_lvl',
                                             'inputWidth','inputHeight','inputProduct_per_sec','inputDestPrice','inputPercent_product_per_lvl',
-                                            'inputProductName','inputAlias','inputBuildingTime','inputDesctructionTime','inputStock'],
+                                            'inputProductNameDrop','inputAlias','inputBuildingTime','inputDesctructionTime','inputStockDrop'],
                                             ['@item.ID','@item.BuildingName','@item.Price','@item.Percent_price_per_lvl','@item.Width','@item.Height',
                                             '@item.Product_per_sec','@item.DestPrice','@item.Percent_product_per_lvl','@item.Product_Name','@item.Alias',
                                             '@item.BuildingTime','@item.DestructionTime','@item.Stock'])">

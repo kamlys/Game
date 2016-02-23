@@ -8,48 +8,48 @@
         @using (Html.BeginForm("AddUserBuilding", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
+               @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate" })
                 <label for="User_Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Building_Name, new { placeholder = "", @class = "validate" })
-                <label for="Name">Nazwa budynku</label>
+                @Html.DropDownListFor(m => m.viewModel.Building_Name, new SelectList(Model.allBuilding), new { @class = "validate" })
+                <label for="Building_Name">Nazwa budynku</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.X_pos, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.X_pos, new { placeholder = "", @type="number", @min="0", @class = "validate" })
                 <label for="X_pos">Pozycja X</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Y_pos, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Y_pos, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Y_pos">Pozycja Y</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Lvl, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Lvl, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Lvl">Lvl budynku</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Status, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Status, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Status">Status</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Owner, new { placeholder = "", @class = "validate" })
+                @Html.DropDownListFor(m => m.viewModel.Owner, new SelectList(new List<string>(new string[] { "Tak", "Nie"})), new { @class = "validate" })
                 <label for="Owner">Jest właścicielem?</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Percent_product, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Percent_product, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Percent_product">Procent produckji</label>
             </div>
 
             <div class="input-field col s12">
                 @Html.TextBoxFor(m => m.viewModel.Color, new { placeholder = "", @class = "validate" })
-                <label for="Color">Kolor</label>
+                <label for="Color">Kolor (hex)</label>
             </div>
 
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
@@ -65,27 +65,27 @@
                 @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allBuilding), new { @class = "validate inputLoginDrop" })
                 <label for="User_Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Building_Name, new { placeholder = "", @class = "validate inputName" })
+                @Html.DropDownListFor(m => m.viewModel.Building_Name, new SelectList(Model.allBuilding), new { @class = "validate inputBuildingDrop" })
                 <label for="Name">Nazwa budynku</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.X_pos, new { placeholder = "", @class = "validate inputX_pos" })
+                @Html.TextBoxFor(m => m.viewModel.X_pos, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputX_pos" })
                 <label for="X_pos">Pozycja X</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Y_pos, new { placeholder = "", @class = "validate inputY_pos" })
+                @Html.TextBoxFor(m => m.viewModel.Y_pos, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputY_pos" })
                 <label for="Y_pos">Pozycja Y</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Lvl, new { placeholder = "", @class = "validate inputLvl" })
+                @Html.TextBoxFor(m => m.viewModel.Lvl, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputLvl" })
                 <label for="Lvl">Lvl budynku</label>
             </div>
 
@@ -95,12 +95,12 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Owner, new { placeholder = "", @class = "validate inputOwner" })
+                @Html.DropDownListFor(m => m.viewModel.Owner, new SelectList(new List<string>(new string[] { "Tak", "Nie" })), new { @class = "validate inputOwnerDrop" })
                 <label for="Owner">Jest właścicielem?</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Percent_product, new { placeholder = "", @class = "validate inputPercentProduct" })
+                @Html.TextBoxFor(m => m.viewModel.Percent_product, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputPercentProduct" })
                 <label for="Percent_product">Procent produckji</label>
             </div>
 
@@ -160,7 +160,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="ubuildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ubuildingUpdate" onclick="updaterow(['inputID','inputLogin','inputName','inputX_pos','inputY_pos','inputLvl','inputStatus','inputOwner','inputPercentProduct','inputColor','inputDate'],
+                                <li><button data-target="ubuildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ubuildingUpdate" onclick="updaterow(['inputID','inputLoginDrop','inputBuildingDrop','inputX_pos','inputY_pos','inputLvl','inputStatus','inputOwnerDrop','inputPercentProduct','inputColor','inputDate'],
                                              ['@item.ID','@item.User_Login','@item.Building_Name','@item.X_pos','@item.Y_pos','@item.Lvl','@item.Status','@item.Owner','@item.Percent_product','@item.Color','@item.DateOfConstruction'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteUserBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>

@@ -14,7 +14,7 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Price_per_unit, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Price_per_unit, new { placeholder = "",@type="number",@min="0", @class = "validate" })
                 <label for="Price_per_unit">Cena za sztukę</label>
             </div>
 
@@ -46,7 +46,7 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Price_per_unit, new { placeholder = "", @class = "validate inputPrice_per_unit" })
+                @Html.TextBoxFor(m => m.viewModel.Price_per_unit, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputPrice_per_unit" })
                 <label for="Price_per_unit">Cena za sztukę</label>
             </div>
 

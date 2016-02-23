@@ -14,6 +14,7 @@ namespace Game.GUI.ViewModels.User.Friend
         public int Friend_ID { get; set; }
         public string Friend_Login { get; set; }
         public bool OrAccepted { get; set; }
+        public string Accepted { get; set; }
         [Required]
         public string Theme { get; set; }
         [Required]

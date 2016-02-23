@@ -19,16 +19,16 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Number, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Number, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Number">Ilość</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
                 <label for="Price">Cena/szt</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.TypeOfferAdmin, new { placeholder = "", @class = "validate" })
+                @Html.DropDownListFor(m => m.viewModel.TypeOfferAdmin, new SelectList(new List<string>(new string[] { "Tak", "Nie" })), new { @class = "validate inputOrAccepted" })
                 <label for="TypeOfferAdmin">Typ oferty (Kupno/Sprzedaż)</label>
             </div>
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
@@ -43,26 +43,26 @@
 
                 @Html.TextBoxFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputLogin" })
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputLoginDrop" })
                 <label for="User_Login">Login</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.allProduct), new { @class = "validate inputProductName" })
+                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.allProduct), new { @class = "validate inputProductNameDrop" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Number, new { placeholder = "", @class = "validate inputNumber" })
+                @Html.TextBoxFor(m => m.viewModel.Number, new { placeholder = "", @type = "number", @min = "0", @class = "validate inputNumber" })
                 <label for="Number">Ilość</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @class = "validate inputPrice" })
+                @Html.TextBoxFor(m => m.viewModel.Price, new { placeholder = "", @type="number", @min="0", @class = "validate inputPrice" })
                 <label for="Price">Cena/szt</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.TypeOfferAdmin, new { placeholder = "", @class = "validate inputTypeOffer" })
+                @Html.DropDownListFor(m => m.viewModel.TypeOfferAdmin, new SelectList(new List<string>(new string[] { "Tak", "Nie" })), new { @class = "validate inputTypeOfferDrop" })
                 <label for="TypeOfferAdmin">Typ oferty (Kupno/Sprzedaż)</label>
             </div>
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
@@ -98,7 +98,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="offerUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger offerUpdate" onclick="updaterow(['inputID','inputLogin','inputProductName','inputNumber','inputPrice','inputTypeOffer'], ['@item.ID','@item.User_Login','@item.Product_Name','@item.Number','@item.Price','@item.TypeOfferAdmin'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="offerUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger offerUpdate" onclick="updaterow(['inputID','inputLoginDrop','inputProductNameDrop','inputNumber','inputPrice','inputTypeOfferDrop'], ['@item.ID','@item.User_Login','@item.Product_Name','@item.Number','@item.Price','@item.TypeOfferAdmin'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteMarket", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

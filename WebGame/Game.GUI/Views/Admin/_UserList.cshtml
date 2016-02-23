@@ -14,7 +14,7 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Email, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.Email, new { placeholder = "", @type="email", @class = "validate" })
                 <label for="Email">Email</label>
             </div>
 
@@ -55,7 +55,7 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Email, new { placeholder = "", @class = "validate inputEmail" })
+                @Html.TextBoxFor(m => m.viewModel.Email, new { placeholder = "", @type="email", @class = "validate inputEmail" })
                 <label for="Email">Email</label>
             </div>
 

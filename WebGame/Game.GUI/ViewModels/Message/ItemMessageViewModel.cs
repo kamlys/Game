@@ -16,6 +16,7 @@ namespace Game.GUI.ViewModels.Message
         public int Sender_ID { get; set; }
         public string Sender_Login { get; set; }
         public bool IfRead { get; set; }
+        public string Read { get; set; }
         public DateTime PostDate { get; set; }
         public DateTime SentDate { get; set; }
 

@@ -23,6 +23,10 @@ namespace Game.GUI.ViewModels.Building.UserBuildings
         public string Color;
         public string Alias { get; set; }
 
+        public string[] allProduct { get; set; }
+        public string[] allBuilding { get; set; }
+        public string[] allUser { get; set; }
+
         public ItemUserBuildingViewModel viewModel { get; set; }
         public List<ItemUserBuildingViewModel> listModel { get; set; }
         public IPagedList<ItemUserBuildingViewModel> pagedList { get; set; }

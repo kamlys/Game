@@ -22,7 +22,7 @@
             {
             @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { @placeholder = "", @class = "validate inputLogin" })
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputLoginDrop" })
                 <label for="Login">Login</label>
             </div>
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
@@ -53,7 +53,7 @@
                                 <i class="fa fa-align-justify #00695c darken-5 teal"></i>
                             </button>
                             <ul>
-                                <li><button data-target="adminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger adminUpdate" onclick="updaterow(['inputID','inputLogin'], ['@item.ID','@item.User_Login'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="adminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger adminUpdate" onclick="updaterow(['inputID','inputLoginDrop'], ['@item.ID','@item.User_Login'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

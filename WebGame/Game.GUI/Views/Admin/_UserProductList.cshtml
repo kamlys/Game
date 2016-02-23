@@ -9,11 +9,11 @@
         @using (Html.BeginForm("AddUserProduct", "Admin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate" })
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate" })
                 <label for="User_Login">Login</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate" })
+                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.allProduct), new { @class = "validate" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
             <div class="input-field col s12">
@@ -33,11 +33,11 @@
                 @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputLoginDrop" })
                 <label for="User_Login">Login</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Product_Name, new { placeholder = "", @class = "validate inputProductName" })
+                @Html.DropDownListFor(m => m.viewModel.Product_Name, new SelectList(Model.allProduct), new { @class = "validate inputProductDrop" })
                 <label for="Product_Name">Nazwa produktu</label>
             </div>
             <div class="input-field col s12">
@@ -76,7 +76,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="uproductUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger uproductUpdate" onclick="updaterow(['inputID','inputLogin','inputProductName','inputValue'], 
+                                <li><button data-target="uproductUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger uproductUpdate" onclick="updaterow(['inputID','inputLoginDrop','inputProductDrop','inputValue'], 
                                             ['@item.ID','@item.User_Login','@item.Product_Name','@item.Value'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteUserProduct", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>

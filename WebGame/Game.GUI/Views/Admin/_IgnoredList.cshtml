@@ -27,11 +27,11 @@
         {
                 @Html.HiddenFor(m => m.viewModel.ID, new { @placeholder = "", @class = "validate inputID" })
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputUser" })
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputUserDrop" })
                 <label for="User_Login">Login</label>
             </div>
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.Ignored_Login, new SelectList(Model.allUser), new { @class = "validate inputIgnore" })
+                @Html.DropDownListFor(m => m.viewModel.Ignored_Login, new SelectList(Model.allUser), new { @class = "validate inputIgnoreDrop" })
                 <label for="Ignored_Login">Login</label>
             </div>
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
@@ -64,7 +64,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="ignoredAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ignoredAdminUpdate" onclick="updaterow(['inputID','inputUser','inputIgnored'], ['@item.ID','@item.User_Login','@item.Ignored_Login'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="ignoredAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ignoredAdminUpdate" onclick="updaterow(['inputID','inputUserDrop','inputIgnoreDrop'], ['@item.ID','@item.User_Login','@item.Ignored_Login'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteIgnored", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

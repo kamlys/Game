@@ -35,7 +35,7 @@
             {
                 @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
                 <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.viewModel.User_Login, new { placeholder = "", @class = "validate inputLogin" })
+                    @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputLoginDrop" })
                     <label for="Login">Login</label>
                 </div>
 
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="input-field col s12">
-                    @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", @type = "date", @class = "validate datepicker inputFinishDate" })
+                    @Html.TextBoxFor(m => m.viewModel.FinishDate, new { placeholder = "", type="date", @class = "validate datepicker inputFinishDate" })
                     <label for="Finish_Date">Data końca</label>
                 </div>
 
@@ -75,18 +75,18 @@
             @foreach (var item in Model.listModel)
             {
                 <tr>
-                    <td>@item.ID</td>
-                    <td class="search">@item.User_Login</td>
-                    <td>@item.Description</td>
-                    <td>@item.StartDate</td>
-                    <td>@item.FinishDate</td>
+                    <td data-field="id">@item.ID</td>
+                    <td data-field="login">@item.User_Login</td>
+                    <td data-field="description">@item.Description</td>
+                    <td data-field="startdate">@item.StartDate</td>
+                    <td data-field="finishdate">@item.FinishDate</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
                             <button class="btn btn-floating">
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="banUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger banUpdate" onclick="updaterow(['inputID','inputLogin','inputDescription','inputFinishDate'], ['@item.ID','@item.User_Login','@item.Description','@item.FinishDate'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="banUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger banUpdate" onclick="updaterow(['inputID','inputLoginDrop','inputDescription','inputFinishDate'], ['@item.ID','@item.User_Login','@item.Description','@item.FinishDate'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteBan", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>

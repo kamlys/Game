@@ -14,7 +14,7 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.UserBuilding_ID, new { placeholder = "", @class = "validate" })
+                @Html.TextBoxFor(m => m.viewModel.UserBuilding_ID, new { placeholder = "", @type="number", @min="0", @class = "validate" })
                 <label for="UserBuilding_ID">ID budynku użytkownika</label>
             </div>
 
@@ -39,7 +39,7 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.UserBuilding_ID, new { @placeholder = "", @class = "validate inputUserBuilding_ID" })
+                @Html.TextBoxFor(m => m.viewModel.UserBuilding_ID, new { @placeholder = "", @type = "number", @min = "0", @class = "validate inputUserBuilding_ID" })
                 <label for="UserBuilding_ID">ID budynku użytkownika</label>
             </div>
 

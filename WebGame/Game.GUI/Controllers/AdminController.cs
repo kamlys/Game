@@ -231,6 +231,8 @@ namespace Game.GUI.Controllers
                 Stock = x.Stock ? "Tak" : "Nie"
             }).ToList();
 
+            buildingModel.productName = _productService.GetProduct().Select(x => x.Alias).ToArray();
+
             return View(buildingModel);
         }
 
@@ -513,14 +515,8 @@ namespace Game.GUI.Controllers
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
             _marketDto.Number = marketModel.viewModel.Number;
             _marketDto.Price = marketModel.viewModel.Price;
-            if (marketModel.TypeOfferAdmin.Contains("Sprzedaż"))
-            {
-                _marketDto.TypeOffer = true;
-            }
-            else
-            {
-                _marketDto.TypeOffer = false;
-            }
+            _marketDto.TypeOffer = marketModel.TypeOfferAdmin.ToLower().Contains("Sprzedaż") ? true : false;
+
             _marketService.Add(_marketDto);
 
             return RedirectToAction("Admin");
@@ -537,14 +533,7 @@ namespace Game.GUI.Controllers
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
             _marketDto.Number = marketModel.viewModel.Number;
             _marketDto.Price = marketModel.viewModel.Price;
-            if (marketModel.TypeOfferAdmin.Contains("Sprzedaż"))
-            {
-                _marketDto.TypeOffer = true;
-            }
-            else
-            {
-                _marketDto.TypeOffer = false;
-            }
+            _marketDto.TypeOffer = marketModel.TypeOfferAdmin.ToLower().Contains("Sprzedaż") ? true : false;
 
             _marketService.Update(_marketDto);
 
@@ -645,6 +634,10 @@ namespace Game.GUI.Controllers
                 Owner = x.Owner ? "Tak" : "Nie"
             }).ToList();
 
+            userBuildingModel.allBuilding = _buildingService.GetBuilding().Select(x => x.Alias).ToArray();
+            userBuildingModel.allProduct = _productService.GetProduct().Select(x => x.Alias).ToArray();
+            userBuildingModel.allUser = _userService.GetUser().Select(x => x.Login).ToArray();
+
             return View(userBuildingModel);
         }
 
@@ -722,6 +715,9 @@ namespace Game.GUI.Controllers
                 Value = x.Value,
                 Product_ID = x.Product_ID
             }).ToList();
+
+            userProductModel.allProduct = _productService.GetProduct().Select(x => x.Alias).ToArray();
+            userProductModel.allUser = _userService.GetUser().Select(x => x.Login).ToArray();
 
             return View(userProductModel);
         }
@@ -970,7 +966,7 @@ namespace Game.GUI.Controllers
                 ID = x.ID,
                 Friend_ID = x.Friend_ID,
                 Friend_Login = x.Friend_Login,
-                OrAccepted = x.OrAccepted,
+                Accepted = x.OrAccepted ? "Tak" : "Nie",
                 User_ID = x.User_ID,
                 User_Login = x.User_Login
             }).ToList();
@@ -988,7 +984,7 @@ namespace Game.GUI.Controllers
             friendDto.ID = friendModel.viewModel.ID;
             friendDto.Friend_Login = friendModel.viewModel.Friend_Login;
             friendDto.User_Login = friendModel.viewModel.User_Login;
-            friendDto.OrAccepted = friendModel.viewModel.OrAccepted;
+            friendDto.OrAccepted = friendModel.viewModel.Accepted.ToLower().Contains("tak")? true : false;
 
             _userService.AddFriendAdmin(friendDto);
 
@@ -1003,7 +999,7 @@ namespace Game.GUI.Controllers
             friendDto.ID = friendModel.viewModel.ID;
             friendDto.Friend_Login = friendModel.viewModel.Friend_Login;
             friendDto.User_Login = friendModel.viewModel.User_Login;
-            friendDto.OrAccepted = friendModel.viewModel.OrAccepted;
+            friendDto.OrAccepted = friendModel.viewModel.Accepted.ToLower().Contains("tak") ? true : false;
 
             _userService.UpdateFriendAdmin(friendDto);
 
@@ -1089,7 +1085,7 @@ namespace Game.GUI.Controllers
                 Customer_ID = x.Customer_ID,
                 Customer_Login = x.Customer_Login,
                 ID = x.ID,
-                IfRead = x.IfRead,
+                Read = x.IfRead ? "Tak":"Nie",
                 PostDate = x.PostDate,
                 Sender_ID = x.Sender_ID,
                 Sender_Login = x.Sender_Login,
@@ -1110,7 +1106,7 @@ namespace Game.GUI.Controllers
             messageDto.Customer_Login = messageModel.viewModel.Customer_Login;
             messageDto.Sender_Login = messageModel.viewModel.Sender_Login;
             messageDto.Theme = messageModel.viewModel.Theme;
-            messageDto.IfRead = messageModel.viewModel.IfRead;
+            messageDto.IfRead = messageModel.viewModel.Read.ToLower().Contains("tak") ? true:false;
 
             _messageService.AddMessageAdmin(messageDto);
 
@@ -1127,7 +1123,7 @@ namespace Game.GUI.Controllers
             messageDto.Customer_ID = messageModel.viewModel.Customer_ID;
             messageDto.Sender_ID = messageModel.viewModel.Sender_ID;
             messageDto.Theme = messageModel.viewModel.Theme;
-            messageDto.IfRead = messageModel.viewModel.IfRead;
+            messageDto.IfRead = messageModel.viewModel.Read.ToLower().Contains("tak") ? true : false;
 
             _messageService.UpdateMessageAdmin(messageDto);
 

@@ -14,6 +14,7 @@ namespace Game.GUI.ViewModels.Deal
         public int Percent_User2 { get; set; }
         public string Building_Name { get; set; }
         public bool IsActive { get; set; }
+        public string Active { get; set; }
         public bool Owner { get; set; }
         public int Value { get; set; }
         public int DealDay { get; set; }

@@ -71,7 +71,7 @@ namespace Game.Service.Table
                         Dest_price = item.Dest_price,
                         Percent_product_per_lvl = item.Percent_product_per_lvl,
                         Product_ID = item.Product_ID,
-                        Product_Name = _products.Get(item.Product_ID).Name,
+                        Product_Name = _products.Get(item.Product_ID).Alias,
                         Alias = item.Alias,
                         BuildingTime = item.BuildingTime,
                         DestructionTime = item.DestructionTime,
