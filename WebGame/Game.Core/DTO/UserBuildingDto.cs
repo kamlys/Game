@@ -25,5 +25,7 @@ namespace Game.Core.DTO
         public string Color { get; set; }
         public bool Stock { get; set; }
         public DateTime DateOfConstruction { get; set; }
+        public int DestPrice { get; set; }
+        public bool CanDelete { get; set; }
     }
 }

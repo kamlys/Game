@@ -75,6 +75,8 @@ namespace Game.Service
         public List<UserBuildingDto> GetBuildings(string User)
         {
             var buildings = _userBuildings.GetAll().Where(a => a.Users.Login == User);
+            int uID = _users.GetAll().First(i => i.Login == User).ID;
+            int dolars = _dolars.GetAll().First(i => i.User_ID == uID).Value;
             List<UserBuildingDto> list = new List<UserBuildingDto>();
             foreach (var a in buildings)
             {
@@ -89,8 +91,10 @@ namespace Game.Service
                         Y_pos = a.Y_pos,
                         Status = a.Status,
                         Building_Name = a.Buildings.Name,
-                         Owner = a.Owner,
-                         Color = a.Color
+                        Owner = a.Owner,
+                        Color = a.Color,
+                        DestPrice = (int)_buildings.Get(a.Building_ID).Dest_price,
+                        CanDelete = ((int)dolars - (int)_buildings.Get(a.Building_ID).Dest_price) > 0 ? true : false
                     }
                 );
             }

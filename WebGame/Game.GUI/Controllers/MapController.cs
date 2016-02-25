@@ -68,7 +68,9 @@ namespace Game.GUI.Controllers
                     BuildTime = bTime,
                     BuildDone = bTime - _buildingsHelper.BuildingTimeLeft(User.Identity.Name, a.ID),
                     Alias = building.Alias,
-                    Color = a.Color
+                    Color = a.Color,
+                    DestPrice = (int)building.Dest_price,
+                    CanDelete = a.CanDelete
                 });
             }
             vm.UserBuildings = ubv;

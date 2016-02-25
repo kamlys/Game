@@ -21,6 +21,8 @@ namespace Game.GUI.ViewModels.Building.UserBuildings
         public string Status;
         public int BuildDone;
         public string Color;
+        public int DestPrice;
+        public bool CanDelete;
         public string Alias { get; set; }
 
         public string[] allProduct { get; set; }

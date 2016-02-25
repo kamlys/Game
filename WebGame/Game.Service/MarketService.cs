@@ -18,7 +18,8 @@ namespace Game.Service
         private IRepository<Products> _product;
         private IRepository<Dolars> _dolar;
         private IRepository<UserProducts> _userProduct;
-
+        private IRepository<UserBuildings> _userBuilding;
+        private IRepository<Buildings> _building;
 
         private IUnitOfWork _unitOfWork;
 
@@ -27,7 +28,9 @@ namespace Game.Service
             IRepository<Users> user,
             IRepository<Products> product,
             IRepository<Dolars> dolar,
-            IRepository<UserProducts> userProduct)
+            IRepository<UserProducts> userProduct,
+            IRepository<UserBuildings> userBuilding,
+            IRepository<Buildings> buildings)
         {
             _market = market;
             _user = user;
@@ -35,6 +38,8 @@ namespace Game.Service
             _dolar = dolar;
             _userProduct = userProduct;
             _unitOfWork = unitOfWork;
+            _userBuilding = userBuilding;
+            _building = buildings;
         }
 
         public bool AddOffer(MarketDto offer)
@@ -62,8 +67,9 @@ namespace Game.Service
                         TypeOffer = offer.TypeOffer
                     });
 
-
-                    if ((_userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value - offer.Number) == 0)
+                    int buildingID = _building.GetAll().First(i => i.Product_ID == ProductID).ID;
+                    if (!_userBuilding.GetAll().Any(i => i.User_ID == userID && i.Building_ID == buildingID)
+                        && ((_userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value - offer.Number) == 0))
                     {
                         int upID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).ID;
                         _userProduct.Delete(_userProduct.Get(upID));
@@ -309,7 +315,6 @@ namespace Game.Service
                     }
 
                     _dolar.GetAll().First(i => i.User_ID == market.User_ID).Value += totalPrice;
-
                     if (_market.Get(market.ID).Number == market.Number)
                     {
                         _market.Delete(_market.Get(market.ID));
@@ -334,12 +339,24 @@ namespace Game.Service
                 {
                     if (_userProduct.GetAll().Any(i => i.User_ID == suID && i.Product_ID == market.Product_ID))
                     {
+                        int buildingID = _building.GetAll().First(i => i.Product_ID == market.Product_ID).ID;
+
                         _userProduct.GetAll().First(i => i.User_ID == suID && i.Product_ID == market.Product_ID).Value += market.Number;
                         _dolar.GetAll().First(i => i.User_ID == suID).Value -= totalPrice;
 
-                        _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == market.Product_ID).Value -= market.Number;
+
+                        if (_userBuilding.GetAll().Any(i => i.User_ID == uID && i.Building_ID == buildingID))
+                        {
+                            _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == market.Product_ID).Value -= market.Number;
+                        }
+                        else
+                        {
+                            int uProductID = _userProduct.GetAll().First(i => i.User_ID == uID && i.Product_ID == market.Product_ID).ID;
+                            _userProduct.Delete(_userProduct.Get(uProductID));
+                        }
                         _dolar.GetAll().First(i => i.User_ID == uID).Value += totalPrice;
 
+                        
                         if (market.Number == _market.Get(market.ID).Number)
                         {
                             _market.Delete(_market.Get(market.ID));
@@ -389,13 +406,17 @@ namespace Game.Service
             if (_userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value >= value)
             {
                 int upID = _userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).ID;
-                if ((_userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value - value) > 0)
-                {
-                    _userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value -= value;
-                }
-                else
+
+                int buildingID = _building.GetAll().First(i => i.Product_ID == productID).ID;
+
+                if (!_userBuilding.GetAll().Any(i => i.User_ID == uID && i.Building_ID == buildingID)
+                    && ((_userProduct.GetAll().First(l => l.Product_ID == productID && l.User_ID == uID).Value - value) == 0))
                 {
                     _userProduct.Delete(_userProduct.Get(upID));
+                }
+                else 
+                {
+                    _userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value -= value;
                 }
                 _dolar.GetAll().First(i => i.User_ID == uID).Value += money;
 

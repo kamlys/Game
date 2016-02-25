@@ -45,7 +45,14 @@
                 <div class="building-name">@a.Alias</div>
                 @if (a.Status == "gotowy")
                 {
-                <div name="remove" class="building-remove" data-buildingid="@a.ID"><i class="fa fa-times"></i></div>
+                    if (a.CanDelete)
+                    {
+                        <div name="remove" class="building-remove" data-buildingid="@a.ID" data-position="bottom" data-delay="50" data-tooltip="Koszt - @a.DestPrice"><i class="fa fa-times"></i></div>
+                    }
+                    else
+                    {
+                        <div class="building-remove" data-buildingid="@a.ID" data-position="bottom" data-delay="50" data-tooltip="Koszt - @a.DestPrice"><i class="fa fa-times" style="color: gray"></i></div>
+                    }
                 }
                 @if (a.Status != "gotowy")
                 {
@@ -73,5 +80,7 @@
         //fillWithData(@userProducts, @Html.Raw(productNames));
         //setInterval(function () { updateProduct(@userProducts); }, 1000);
         setInterval(progressBar, 1000);
+        $('.building-remove').tooltip({delay: 50});
+
     });
 </script>

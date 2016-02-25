@@ -23,6 +23,5 @@ namespace Game.Core.DTO
         public int BuildingTime { get; set; }
         public int DestructionTime { get; set; }
         public bool Stock { get; set; }
-
     }
 }
