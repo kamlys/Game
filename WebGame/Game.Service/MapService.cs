@@ -37,22 +37,28 @@ namespace Game.Service
         }
 
 
-        public void Add(MapDto map)
+        public bool Add(MapDto map)
         {
-            _maps.Add(new Maps
+            if (!_maps.GetAll().Any(i => i.Users.Login == map.Login) && map.Width >= 0 && map.Height >= 0)
             {
-                User_ID = _users.GetAll().First(i=> i.Login == map.Login).ID,
-                Height = map.Height,
-                Width = map.Width
-            });
+                _maps.Add(new Maps
+                {
+                    User_ID = _users.GetAll().First(i => i.Login == map.Login).ID,
+                    Height = map.Height,
+                    Width = map.Width
+                });
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
-        public void Delete(int id)
-        {
-            _maps.Delete(_maps.Get(id));
-        }
+        //public void Delete(int id)
+        //{
+        //    _maps.Delete(_maps.Get(id));
+        //    _unitOfWork.Commit();
+        //}
 
         public List<MapDto> GetMaps()
         {
@@ -77,16 +83,21 @@ namespace Game.Service
             return mapDto;
         }
 
-        public void Update(MapDto map)
+        public bool Update(MapDto map)
         {
-            foreach (var item in _maps.GetAll().Where(i => i.Map_ID == map.Map_ID))
+            if (map.Width >= 0 && map.Height >= 0)
             {
-                item.User_ID = _users.GetAll().First(i => i.Login == map.Login).ID;
-                item.Height = map.Height;
-                item.Width = map.Width;
-            }
+                foreach (var item in _maps.GetAll().Where(i => i.Map_ID == map.Map_ID))
+                {
+                    item.User_ID = _users.GetAll().First(i => i.Login == map.Login).ID;
+                    item.Height = map.Height;
+                    item.Width = map.Width;
+                }
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
     }
 }

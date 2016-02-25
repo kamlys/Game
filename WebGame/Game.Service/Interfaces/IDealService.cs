@@ -11,18 +11,18 @@ namespace Game.Service.Interfaces
     {
         List<DealDto> GetDeals();
         List<DealDto> GetUserDeals(string User);
-        void AddDealAdmin(DealDto dealDto);
-        void DeleteDealAdmin(int id);
-        void UpdateDealAdmin(DealDto dealDto);
+        bool AddDealAdmin(DealDto dealDto);
+        bool DeleteDealAdmin(int id);
+        bool UpdateDealAdmin(DealDto dealDto);
         int[] AddDeal(DealDto dealDto);
         bool AcceptDeal(int ID, string user);
         void CancelDeal(int ID);
         void CancelRerun(int ID);
         void RerunDeal(int ID, string user);
         List<DealBuildingDto> GetDealBuildings();
-        void AddDealBuildingAdmin(DealBuildingDto dealDto);
-        void DeleteDealBuildingAdmin(int id);
-        void UpdateDealBuildingAdmin(DealBuildingDto dealDto);
+        bool AddDealBuildingAdmin(DealBuildingDto dealDto);
+        bool DeleteDealBuildingAdmin(int id);
+        bool UpdateDealBuildingAdmin(DealBuildingDto dealDto);
 
     }
 }

@@ -224,44 +224,69 @@ namespace Game.Service
 
 
 
-        public void Add(UserBuildingDto userBuilding)
+        public bool Add(UserBuildingDto userBuilding)
         {
-            DateTime tempDate;
+            if (_buildings.GetAll().Any(i => i.Alias == userBuilding.Building_Name)
+                && userBuilding.Lvl > 0
+                && userBuilding.Percent_Product > 0
+                && userBuilding.Percent_Product <= 100)
+            {
+                try
+                {
+                    DateTime tempDate;
 
-            if(userBuilding.Status.ToLower().Contains("budowa") || userBuilding.Status.ToLower().Contains("rozbudowa"))
-            {
-                tempDate = DateTime.Now.AddSeconds(_buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).BuildingTime);
-            }
-            else if(userBuilding.Status.ToLower().Contains("burzenie"))
-            {
-                tempDate = DateTime.Now.AddSeconds(_buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).DestructionTime);
-            }
-            else
-            {
-                tempDate = DateTime.Now;
-            }
+                    if (userBuilding.Status.ToLower().Contains("budowa") || userBuilding.Status.ToLower().Contains("rozbudowa"))
+                    {
+                        tempDate = DateTime.Now.AddSeconds(_buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).BuildingTime);
+                    }
+                    else if (userBuilding.Status.ToLower().Contains("burzenie"))
+                    {
+                        tempDate = DateTime.Now.AddSeconds(_buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).DestructionTime);
+                    }
+                    else
+                    {
+                        tempDate = DateTime.Now;
+                    }
 
-            _userBuildings.Add(new UserBuildings
-            {
-                User_ID = _users.GetAll().First(i => i.Login == userBuilding.Login).ID,
-                X_pos = userBuilding.X_pos,
-                Y_pos = userBuilding.Y_pos,
-                Lvl = userBuilding.Lvl,
-                Building_ID = _buildings.GetAll().First(i=>i.Alias == userBuilding.Building_Name).ID,
-                Status = userBuilding.Status,
-                DateOfConstruction = (DateTime)tempDate,
-                Color = userBuilding.Color,
-                Percent_product = userBuilding.Percent_Product,
-                Owner = userBuilding.Owner
-            });
+                    _userBuildings.Add(new UserBuildings
+                    {
+                        User_ID = _users.GetAll().First(i => i.Login == userBuilding.Login).ID,
+                        X_pos = userBuilding.X_pos,
+                        Y_pos = userBuilding.Y_pos,
+                        Lvl = userBuilding.Lvl,
+                        Building_ID = _buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).ID,
+                        Status = userBuilding.Status,
+                        DateOfConstruction = (DateTime)tempDate,
+                        Color = userBuilding.Color,
+                        Percent_product = userBuilding.Percent_Product,
+                        Owner = userBuilding.Owner
+                    });
 
-            _unitOfWork.Commit();
+                    _unitOfWork.Commit();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            _userBuildings.Delete(_userBuildings.Get(id));
-            _unitOfWork.Commit();
+            try
+            {
+                _userBuildings.Delete(_userBuildings.Get(id));
+                _unitOfWork.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
         public List<UserBuildingDto> GetUserBuilding()
@@ -310,7 +335,7 @@ namespace Game.Service
                 int BuildLvl = item.Lvl;
                 var temp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID);
                 double tempProductValue = (((double)ProductService.Fibonacci(BuildLvl) * 10.0) * ((double)item.Percent_product / 100.0));
-                double tempUpProductValue = (((double)ProductService.Fibonacci(BuildLvl+1) * 10.0) * ((double)item.Percent_product / 100.0));
+                double tempUpProductValue = (((double)ProductService.Fibonacci(BuildLvl + 1) * 10.0) * ((double)item.Percent_product / 100.0));
                 try
                 {
                     userBuildingsDto.Add(new UserBuildingDto
@@ -338,23 +363,38 @@ namespace Game.Service
             return userBuildingsDto;
         }
 
-        public void Update(UserBuildingDto userBuilding)
+        public bool Update(UserBuildingDto userBuilding)
         {
-            foreach (var item in _userBuildings.GetAll().Where(i => i.ID == userBuilding.ID))
+            if (_buildings.GetAll().Any(i => i.Alias == userBuilding.Building_Name)
+               && userBuilding.Lvl > 0
+               && userBuilding.Percent_Product > 0
+               && userBuilding.Percent_Product <= 100)
             {
-                item.User_ID = _users.GetAll().First(i => i.Login == userBuilding.Login).ID;
-                item.Building_ID = _buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).ID;
-                item.X_pos = userBuilding.X_pos;
-                item.Y_pos = userBuilding.Y_pos;
-                item.Lvl = userBuilding.Lvl;
-                item.Status = userBuilding.Status;
-                item.DateOfConstruction = userBuilding.DateOfConstruction;
-                item.Owner = userBuilding.Owner;
-                item.Percent_product = userBuilding.Percent_Product;
-                item.Color = userBuilding.Color;
-            }
+                try
+                {
+                    foreach (var item in _userBuildings.GetAll().Where(i => i.ID == userBuilding.ID))
+                    {
+                        item.User_ID = _users.GetAll().First(i => i.Login == userBuilding.Login).ID;
+                        item.Building_ID = _buildings.GetAll().First(i => i.Alias == userBuilding.Building_Name).ID;
+                        item.X_pos = userBuilding.X_pos;
+                        item.Y_pos = userBuilding.Y_pos;
+                        item.Lvl = userBuilding.Lvl;
+                        item.Status = userBuilding.Status;
+                        item.DateOfConstruction = userBuilding.DateOfConstruction;
+                        item.Owner = userBuilding.Owner;
+                        item.Percent_product = userBuilding.Percent_Product;
+                        item.Color = userBuilding.Color;
+                    }
 
-            _unitOfWork.Commit();
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
 
         public bool ifLvlUp(int id, string User)
@@ -366,7 +406,7 @@ namespace Game.Service
             int buildingPrice = _buildings.GetAll().First(i => i.ID == temp).Price;
             var building = _userBuildings.GetAll().First(i => i.ID == id && i.User_ID == uID);
 
-            if (userDolars >= percentPricePerLvl 
+            if (userDolars >= percentPricePerLvl
                 && building.Percent_product == 100
                 && building.Status.Contains("gotowy"))
             {

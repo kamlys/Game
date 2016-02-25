@@ -26,23 +26,45 @@ namespace Game.Service.Table
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(BanDto ban)
+        public bool Add(BanDto ban)
         {
-            _bans.Add(new Bans
+            if (!_bans.GetAll().Any(i => i.Users.Login == ban.Login))
             {
-                User_ID = _users.GetAll().First(i=> i.Login == ban.Login).ID,
-                Description = ban.Description,
-                Start_Date = DateTime.Now,
-                Finish_Date = ban.Finish_Date
-            });
+                try
+                {
+                    _bans.Add(new Bans
+                    {
+                        User_ID = _users.GetAll().First(i => i.Login == ban.Login).ID,
+                        Description = ban.Description,
+                        Start_Date = DateTime.Now,
+                        Finish_Date = ban.Finish_Date
+                    });
 
-            _unitOfWork.Commit();
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            _bans.Delete(_bans.Get(id));
-            _unitOfWork.Commit();
+            try
+            {
+                _bans.Delete(_bans.Get(id));
+                _unitOfWork.Commit();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
         public List<BanDto> GetBan()
@@ -56,7 +78,7 @@ namespace Game.Service.Table
                     {
                         ID = item.ID,
                         User_ID = item.User_ID,
-                        Login = _users.GetAll().First(i=> i.ID == item.User_ID).Login,
+                        Login = _users.GetAll().First(i => i.ID == item.User_ID).Login,
                         Description = item.Description,
                         Start_Date = item.Start_Date,
                         Finish_Date = item.Finish_Date
@@ -69,16 +91,28 @@ namespace Game.Service.Table
             return banDto;
         }
 
-        public void Update(BanDto ban)
+        public bool Update(BanDto ban)
         {
-            foreach (var item in _bans.GetAll().Where(i => i.ID == ban.ID))
+            if (_bans.GetAll().Any(i => i.ID == ban.ID))
             {
-                item.User_ID = _users.GetAll().First(i => i.Login == ban.Login).ID;
-                item.Description = ban.Description;
-                item.Finish_Date = ban.Finish_Date;
-            }
+                try
+                {
+                    foreach (var item in _bans.GetAll().Where(i => i.ID == ban.ID))
+                    {
+                        item.User_ID = _users.GetAll().First(i => i.Login == ban.Login).ID;
+                        item.Description = ban.Description;
+                        item.Finish_Date = ban.Finish_Date;
+                    }
 
-            _unitOfWork.Commit();
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

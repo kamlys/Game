@@ -14,9 +14,9 @@ namespace Game.Service.Interfaces
         List<MarketDto> GetBuyOffer();
         bool BuyOffer(MarketDto market, string User);
         bool AddOffer(MarketDto offer);
-        void Add(MarketDto market);
-        void Update(MarketDto market);
-        void Delete(int id);
+        bool Add(MarketDto market);
+        bool Update(MarketDto market);
+        bool Delete(int id);
         bool SellProduct(int productID, int value, string user);
 
 

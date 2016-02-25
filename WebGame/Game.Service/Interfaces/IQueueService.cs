@@ -10,8 +10,8 @@ namespace Game.Service.Interfaces.TableInterface
     public interface IQueueService
     {
         List<BuildingQueueDto> GetQueue();
-        void Add(BuildingQueueDto buildingQueue);
-        void Update(BuildingQueueDto buildingQueue);
-        void Delete(int id);
+        bool Add(BuildingQueueDto buildingQueue);
+        bool Update(BuildingQueueDto buildingQueue);
+        bool Delete(int id);
     }
 }

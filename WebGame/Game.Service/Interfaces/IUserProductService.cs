@@ -11,9 +11,9 @@ namespace Game.Service.Interfaces.TableInterface
     {
         List<UserProductDto> GetUserProduct();
         List<UserProductDto> GetUserProductList(string User);
-        void Add(UserProductDto userProduct);
-        void Update(UserProductDto userProduct);
-        void Delete(int id);
+        bool Add(UserProductDto userProduct);
+        bool Update(UserProductDto userProduct);
+        bool Delete(int id);
         void CreateProduct(int value, string productNem, string user);
     }
 }

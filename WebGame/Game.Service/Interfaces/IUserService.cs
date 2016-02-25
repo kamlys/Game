@@ -12,9 +12,9 @@ namespace Game.Service.Interfaces
         int[] RegisterUser(UserDto user);
         int LoginUser(UserDto user);
         List<UserDto> GetUser();
-        void Add(UserDto user);
-        void Update(UserDto user);
-        void Delete(int id);
+        bool Add(UserDto user);
+        bool Update(UserDto user);
+        bool Delete(int id);
         DolarDto UserDolar();
         UserDto Profil(string User);
         bool ChangePass(UserDto user, string User);
@@ -32,13 +32,13 @@ namespace Game.Service.Interfaces
         bool ForgetPassword(string email);
         int RecoveryPass(UserDto user);
         List<FriendDto> GetFriends();
-        void UpdateFriendAdmin(FriendDto friendDto);
-        void DeleteFriendAdmin(int id);
-        void AddFriendAdmin(FriendDto friendDto);
+        bool UpdateFriendAdmin(FriendDto friendDto);
+        bool DeleteFriendAdmin(int id);
+        bool AddFriendAdmin(FriendDto friendDto);
         List<IgnoredDto> GetIgnored();
-        void UpdateIgnoredAdmin(IgnoredDto friendDto);
-        void DeleteIgnoredAdmin(int id);
-        void AddIgnoredAdmin(IgnoredDto friendDto);
+        bool UpdateIgnoredAdmin(IgnoredDto friendDto);
+        bool DeleteIgnoredAdmin(int id);
+        bool AddIgnoredAdmin(IgnoredDto friendDto);
         void HelpMessage(string email, string content, string theme);
     }
 }

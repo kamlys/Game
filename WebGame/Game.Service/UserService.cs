@@ -24,6 +24,16 @@ namespace Game.Service
         private IHashPass _hassPass;
         private IRepository<Bans> _ban;
         private IRepository<Tutorials> _tutorial;
+        private IRepository<Deals> _deals;
+        private IRepository<Admins> _admins;
+        private IRepository<BuildingQueue> _queue;
+        private IRepository<DealsBuildings> _dealBuildings;
+        private IRepository<Market> _market;
+        private IRepository<Messages> _messages;
+        private IRepository<Notifications> _notifications;
+        private IRepository<UserBuildings> _uBuildings;
+        private IRepository<UserProducts> _uProducts;
+
 
         public UserService(
             IRepository<Users> user,
@@ -35,7 +45,16 @@ namespace Game.Service
             IUnitOfWork unitOfWork,
             IHashPass hassPass,
             IRepository<Bans> ban,
-            IRepository<Tutorials> tutorial)
+            IRepository<Tutorials> tutorial,
+            IRepository<Deals> deals,
+            IRepository<Admins> admins,
+        IRepository<BuildingQueue> queue,
+        IRepository<DealsBuildings> dealBuildings,
+        IRepository<Market> market,
+        IRepository<Messages> messages,
+        IRepository<Notifications> notifications,
+        IRepository<UserBuildings> uBuildings,
+        IRepository<UserProducts> uProducts)
         {
             _user = user;
             _map = map;
@@ -47,6 +66,15 @@ namespace Game.Service
             _hassPass = hassPass;
             _ban = ban;
             _tutorial = tutorial;
+            _deals = deals;
+            _admins = admins;
+            _queue = queue;
+            _dealBuildings = dealBuildings;
+            _market = market;
+            _messages = messages;
+            _notifications = notifications;
+            _uBuildings = uBuildings;
+            _uProducts = uProducts;
         }
 
 
@@ -161,25 +189,157 @@ namespace Game.Service
             return 3;
         }
 
-        public void Add(UserDto user)
+        public bool Add(UserDto user)
         {
-            _user.Add(new Users
+            if (!_user.GetAll().Any(i => i.Login == user.Login || i.Email == user.Email))
             {
-                Login = user.Login,
-                Password = _hassPass.GeneratePassword(user.Password),
-                Email = user.Email,
-                Last_Log = (DateTime)user.Last_Log,
-                Last_Update = (DateTime)user.Last_Update,
-                Registration_Date = (DateTime)user.Registration_Date
-            });
+                try
+                {
+                    _user.Add(new Users
+                    {
+                        Login = user.Login,
+                        Password = _hassPass.GeneratePassword(user.Password),
+                        Email = user.Email,
+                        Last_Log = (DateTime)user.Last_Log,
+                        Last_Update = (DateTime)user.Last_Update,
+                        Registration_Date = (DateTime)user.Registration_Date
+                    });
 
-            _unitOfWork.Commit();
+                    _unitOfWork.Commit();
+
+                    int uID = _user.GetAll().First(u => u.Login == user.Login).ID;
+
+                    _map.Add(new Maps
+                    {
+                        User_ID = uID,
+                        Width = 10,
+                        Height = 10
+                    });
+
+                    _dolar.Add(new Dolars
+                    {
+                        User_ID = uID,
+                        Value = 100000
+                    });
+
+                    _tutorial.Add(new Tutorials
+                    {
+                        User_ID = uID,
+                        allDiv = false,
+                        cookies = false,
+                        casinoDiv = false,
+                        homeDiv = false,
+                        marketDiv = false,
+                        messageDiv = false,
+                        officeDiv = false,
+                        rankDiv = false,
+                        setDiv = false
+                    });
+
+                    _unitOfWork.Commit();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            _user.Delete(_user.Get(id));
-            _unitOfWork.Commit();
+            if (!_deals.GetAll().Any(i => i.User1_ID == id || i.User2_ID == id))
+            {
+                try
+                {
+                    if (_admins.GetAll().Any(i => i.User_ID == id))
+                    {
+                        int ID = _admins.GetAll().First(i => i.User_ID == id).ID;
+                        _admins.Delete(_admins.Get(ID));
+                    }
+                    if (_ban.GetAll().Any(i => i.User_ID == id))
+                    {
+                        int ID = _ban.GetAll().First(i => i.User_ID == id).ID;
+                        _ban.Delete(_ban.Get(ID));
+                    }
+                    if (_queue.GetAll().Any(i => i.User_ID == id))
+                    {
+                        int ID = _queue.GetAll().First(i => i.User_ID == id).ID;
+                        _queue.Delete(_queue.Get(ID));
+                    }
+                    if (_queue.GetAll().Any(i => i.User_ID == id))
+                    {
+                        int ID = _queue.GetAll().First(i => i.User_ID == id).ID;
+                        _queue.Delete(_queue.Get(ID));
+                    }
+                    if (_dolar.GetAll().Any(i => i.User_ID == id))
+                    {
+                        int ID = _dolar.GetAll().First(i => i.User_ID == id).ID;
+                        _dolar.Delete(_dolar.Get(ID));
+                    }
+                    foreach (var item in _friend.GetAll().Where(i => i.User_ID == id || i.Friend_ID == id))
+                    {
+                        _friend.Delete(_friend.Get(item.Id));
+                        _unitOfWork.Commit();
+                    }
+                    foreach (var item in _ignored.GetAll().Where(i => i.User_ID == id || i.Ignored_ID == id))
+                    {
+                        _ignored.Delete(_ignored.Get(item.ID));
+                        _unitOfWork.Commit();
+                    }
+                    if (_map.GetAll().Any(i => i.User_ID == id))
+                    {
+                        int ID = _map.GetAll().First(i => i.User_ID == id).Map_ID;
+                        _map.Delete(_map.Get(ID));
+                    }
+                    foreach (var item in _market.GetAll().Where(i => i.User_ID == id))
+                    {
+                        _market.Delete(_market.Get(item.ID));
+                        _unitOfWork.Commit();
+                    }
+                    foreach (var item in _messages.GetAll().Where(i => i.Customer_ID == id || i.Sender_ID == id))
+                    {
+                        _messages.Delete(_messages.Get(item.ID));
+                        _unitOfWork.Commit();
+                    }
+                    foreach (var item in _notifications.GetAll().Where(i => i.User_ID == id))
+                    {
+                        _notifications.Delete(_notifications.Get(item.ID));
+                        _unitOfWork.Commit();
+                    }
+                    foreach (var item in _recoveryCodes.GetAll().Where(i => i.User_ID == id))
+                    {
+                        _recoveryCodes.Delete(_recoveryCodes.Get(item.ID));
+                        _unitOfWork.Commit();
+                    }
+                    if (_tutorial.GetAll().Any(i => i.User_ID == id))
+                    {
+                        int ID = _tutorial.GetAll().First(i => i.User_ID == id).ID;
+                        _tutorial.Delete(_tutorial.Get(ID));
+                    }
+                    foreach (var item in _uBuildings.GetAll().Where(i => i.User_ID == id))
+                    {
+                        _uBuildings.Delete(_uBuildings.Get(item.ID));
+                        _unitOfWork.Commit();
+                    }
+                    foreach (var item in _uProducts.GetAll().Where(i => i.User_ID == id))
+                    {
+                        _uProducts.Delete(_uProducts.Get(item.ID));
+                        _unitOfWork.Commit();
+                    }
+
+                    _user.Delete(_user.Get(id));
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
 
         public List<UserDto> GetUser()
@@ -208,19 +368,33 @@ namespace Game.Service
             return userDto;
         }
 
-        public void Update(UserDto user)
+        public bool Update(UserDto user)
         {
-            foreach (var item in _user.GetAll().Where(i => i.ID == user.ID))
+            try
             {
-                item.Login = user.Login;
-                item.Password = _user.GetAll().First(i=> i.Login == user.Login).Password;
-                item.Email = user.Email;
-                item.Last_Log = user.Last_Log;
-                item.Registration_Date = user.Registration_Date;
-                item.Last_Update = user.Last_Update;
+                foreach (var item in _user.GetAll().Where(i => i.ID == user.ID))
+                {
+                    if (_user.GetAll().Any(i => i.Login == user.Login || i.Email == user.Email))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        item.Login = user.Login;
+                        item.Password = _user.GetAll().First(i => i.Login == user.Login).Password;
+                        item.Email = user.Email;
+                        item.Last_Log = user.Last_Log;
+                        item.Registration_Date = user.Registration_Date;
+                        item.Last_Update = user.Last_Update;
+                    }
+                }
+                _unitOfWork.Commit();
+                return true;
             }
-
-            _unitOfWork.Commit();
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public DolarDto UserDolar()
@@ -512,35 +686,49 @@ namespace Game.Service
             return friendDto;
         }
 
-        public void UpdateFriendAdmin(FriendDto friendDto)
+        public bool UpdateFriendAdmin(FriendDto friendDto)
         {
-            foreach (var item in _friend.GetAll().Where(i => i.Id == friendDto.ID))
+            if (_user.GetAll().Any(i => i.Login == friendDto.Friend_Login && i.Login == friendDto.User_Login)
+                && friendDto.User_Login != friendDto.User_Login)
             {
-                item.Id = friendDto.ID;
-                item.Friend_ID = _user.GetAll().First(i => i.Login == friendDto.Friend_Login).ID;
-                item.User_ID = _user.GetAll().First(i => i.Login == friendDto.User_Login).ID;
-                item.OrAccepted = friendDto.OrAccepted;
-            };
 
-            _unitOfWork.Commit();
+                foreach (var item in _friend.GetAll().Where(i => i.Id == friendDto.ID))
+                {
+                    item.Id = friendDto.ID;
+                    item.Friend_ID = _user.GetAll().First(i => i.Login == friendDto.Friend_Login).ID;
+                    item.User_ID = _user.GetAll().First(i => i.Login == friendDto.User_Login).ID;
+                    item.OrAccepted = friendDto.OrAccepted;
+                };
+
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
-        public void DeleteFriendAdmin(int id)
+        public bool DeleteFriendAdmin(int id)
         {
             _friend.Delete(_friend.Get(id));
             _unitOfWork.Commit();
+            return true;
         }
 
-        public void AddFriendAdmin(FriendDto friendDto)
+        public bool AddFriendAdmin(FriendDto friendDto)
         {
-            _friend.Add(new Friends
+            if (_user.GetAll().Any(i => i.Login == friendDto.Friend_Login && i.Login == friendDto.User_Login)
+                && friendDto.User_Login != friendDto.User_Login)
             {
-                Friend_ID = _user.GetAll().First(i=> i.Login == friendDto.Friend_Login).ID,
-                User_ID = _user.GetAll().First(i => i.Login == friendDto.User_Login).ID,
-                OrAccepted = friendDto.OrAccepted
-            });
+                _friend.Add(new Friends
+                {
+                    Friend_ID = _user.GetAll().First(i => i.Login == friendDto.Friend_Login).ID,
+                    User_ID = _user.GetAll().First(i => i.Login == friendDto.User_Login).ID,
+                    OrAccepted = friendDto.OrAccepted
+                });
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
         public List<IgnoredDto> GetIgnored()
@@ -562,32 +750,51 @@ namespace Game.Service
             return ignoredDto;
         }
 
-        public void UpdateIgnoredAdmin(IgnoredDto ignoredDto)
+        public bool UpdateIgnoredAdmin(IgnoredDto ignoredDto)
         {
-            foreach (var item in _ignored.GetAll().Where(i => i.ID == ignoredDto.ID))
+            if (_user.GetAll().Any(i => i.Login == ignoredDto.User_Login && i.Login == ignoredDto.Ignored_Login)
+                && (ignoredDto.Ignored_Login != ignoredDto.User_Login))
             {
-                item.Ignored_ID = _user.GetAll().First(i => i.Login == ignoredDto.Ignored_Login).ID;
-                item.User_ID = _user.GetAll().First(i => i.Login == ignoredDto.User_Login).ID;
+                foreach (var item in _ignored.GetAll().Where(i => i.ID == ignoredDto.ID))
+                {
+                    item.Ignored_ID = _user.GetAll().First(i => i.Login == ignoredDto.Ignored_Login).ID;
+                    item.User_ID = _user.GetAll().First(i => i.Login == ignoredDto.User_Login).ID;
+                }
+
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteIgnoredAdmin(int id)
+        {
+            try
+            {
+                _ignored.Delete(_ignored.Get(id));
+                _unitOfWork.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
 
-            _unitOfWork.Commit();
         }
 
-        public void DeleteIgnoredAdmin(int id)
+        public bool AddIgnoredAdmin(IgnoredDto ignoredDto)
         {
-            _ignored.Delete(_ignored.Get(id));
-            _unitOfWork.Commit();
-        }
-
-        public void AddIgnoredAdmin(IgnoredDto ignoredDto)
-        {
-            _ignored.Add(new Ignored
+            if (_user.GetAll().Any(i => i.Login == ignoredDto.User_Login && i.Login == ignoredDto.Ignored_Login))
             {
-                Ignored_ID = _user.GetAll().First(i => i.Login == ignoredDto.Ignored_Login).ID,
-                User_ID = _user.GetAll().First(i => i.Login == ignoredDto.User_Login).ID
-            });
-
-            _unitOfWork.Commit();
+                _ignored.Add(new Ignored
+                {
+                    Ignored_ID = _user.GetAll().First(i => i.Login == ignoredDto.Ignored_Login).ID,
+                    User_ID = _user.GetAll().First(i => i.Login == ignoredDto.User_Login).ID
+                });
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
 

@@ -86,30 +86,57 @@ namespace Game.Service
             }
             return adminDto;
         }
-        public void Add(AdminDto admin)
+        public bool Add(AdminDto admin)
         {
-            _admins.Add(new Admins
+            if (_users.GetAll().Any(i => i.Login == admin.Login) && !_admins.GetAll().Any(i => i.Users.Login == admin.Login))
             {
-                User_ID = _users.GetAll().First(i => i.Login == admin.Login).ID
-            });
+                _admins.Add(new Admins
+                {
+                    User_ID = _users.GetAll().First(i => i.Login == admin.Login).ID
+                });
 
-            _unitOfWork.Commit();
-        }
+                _unitOfWork.Commit();
 
-        public void Delete(int id)
-        {
-            _admins.Delete(_admins.Get(id));
-            _unitOfWork.Commit();
-        }
-
-        public void Update(AdminDto admin)
-        {
-            foreach (var item in _admins.GetAll().Where(i => i.ID == admin.ID))
-            {
-                item.User_ID = _users.GetAll().First(i=> i.Login == admin.Login).ID;
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
 
-            _unitOfWork.Commit();
+        public bool Delete(int id)
+        {
+            try
+            {
+                _admins.Delete(_admins.Get(id));
+                _unitOfWork.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool Update(AdminDto admin)
+        {
+            if (_admins.GetAll().Any(i => i.ID == admin.ID))
+            {
+                try
+                {
+                    foreach (var item in _admins.GetAll().Where(i => i.ID == admin.ID))
+                    {
+                        item.User_ID = _users.GetAll().First(i => i.Login == admin.Login).ID;
+                    }
+                    _unitOfWork.Commit();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

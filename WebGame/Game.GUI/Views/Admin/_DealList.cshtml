@@ -78,7 +78,7 @@
                 <label for="DealDay">Czas (dni)</label>
             </div>
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.IsActive, new SelectList(new List<bool>(new bool[] { true, false })), new { @class = "validate inputActiveDrop" })
+                @Html.DropDownListFor(m => m.viewModel.Active, new SelectList(new List<string>(new string[] { "Tak", "Nie"})), new { @class = "validate inputActiveDrop" })
                 <label for="IsActive">Aktywna</label>
             </div>
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
@@ -100,6 +100,7 @@
                 <th>Nazwa budynku</th>
                 <th>ID mapy</th>
                 <th>Czas (dni)</th>
+                <th>Data końca</th>
                 <th>Aktywna</th>
             </tr>
         </thead>
@@ -116,7 +117,8 @@
                     <td>@item.Building_Name</td>
                     <td>@item.Value</td>
                     <td>@item.DealDay</td>
-                    <td>@item.IsActive</td>
+                    <td>@item.FinishDate</td>
+                    <td>@item.Active</td>
                     <td>
                         <div class="fixed-action-btn horizontal" style="position: relative; top: 5px; float: right">
                             <button class="btn btn-floating">

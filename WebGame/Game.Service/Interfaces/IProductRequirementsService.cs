@@ -11,9 +11,9 @@ namespace Game.Service.Interfaces
     {
         List<ProductRequirementDto> GetCanUserProducts(string user);
         List<ProductRequirementDto> GetProducts();
-        void AddProduct(ProductRequirementDto productDto);
-        void UpdateProduct(ProductRequirementDto productDto);
-        void DeleteProduct(int id);
+        bool AddProduct(ProductRequirementDto productDto);
+        bool UpdateProduct(ProductRequirementDto productDto);
+        bool DeleteProduct(int id);
 
 
     }

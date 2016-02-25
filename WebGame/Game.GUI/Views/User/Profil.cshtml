@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 @if (User.Identity.Name == Model.Login)
 {
     <div id="setTutorial">
@@ -137,7 +136,7 @@
 
                                 <div class="input-field col s12">
                                     @Html.PasswordFor(m => m.Password, new { @class = "validate" })
-                                    <label for="Password" data-error = "wrong">Nowe hasło</label>
+                                    <label for="Password">Nowe hasło (min. 5 znaków)</label>
                                 </div>
 
                                 <div class="input-field col s12">

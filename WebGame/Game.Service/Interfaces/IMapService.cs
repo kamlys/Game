@@ -12,8 +12,8 @@ namespace Game.Service.Interfaces
     {
         MapDto GetMap(string User);
         List<MapDto> GetMaps();
-        void Add(MapDto admin);
-        void Update(MapDto map);
-        void Delete(int id);
+        bool Add(MapDto admin);
+        bool Update(MapDto map);
+        //void Delete(int id);
     }
 }

@@ -27,22 +27,35 @@ namespace Game.Service.Table
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(DolarDto dolar)
+        public bool Add(DolarDto dolar)
         {
-            _dolars.Add(new Dolars
+            if (!_dolars.GetAll().Any(i => i.Users.Login == dolar.Login) && dolar.Value>=0)
             {
-                User_ID = _users.GetAll().First(i=> i.ID == dolar.User_ID).ID,
-                Value = dolar.Value
-            });
+                try
+                {
+                    _dolars.Add(new Dolars
+                    {
+                        User_ID = _users.GetAll().First(i => i.ID == dolar.User_ID).ID,
+                        Value = dolar.Value
+                    });
 
-            _unitOfWork.Commit();
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
+
         }
 
-        public void Delete(int id)
-        {
-            _dolars.Delete(_dolars.Get(id));
-            _unitOfWork.Commit();
-        }
+        //public void Delete(int id)
+        //{
+        //    _dolars.Delete(_dolars.Get(id));
+        //    _unitOfWork.Commit();
+        //}
 
         public List<DolarDto> GetDolars()
         {
@@ -66,15 +79,20 @@ namespace Game.Service.Table
             return dolarDto;
         }
 
-        public void Update(DolarDto dolar)
+        public bool Update(DolarDto dolar)
         {
-            foreach (var item in _dolars.GetAll().Where(i => i.ID == dolar.ID))
+            if (_dolars.GetAll().Any(i => i.Users.Login == dolar.Login) && dolar.Value >= 0)
             {
-                item.User_ID = _users.GetAll().First(i => i.Login == dolar.Login).ID;
-                item.Value = dolar.Value;
-            }
+                foreach (var item in _dolars.GetAll().Where(i => i.ID == dolar.ID))
+                {
+                    item.User_ID = _users.GetAll().First(i => i.Login == dolar.Login).ID;
+                    item.Value = dolar.Value;
+                }
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
         public List<DolarDto> GetToRank()
@@ -97,7 +115,7 @@ namespace Game.Service.Table
                 {
                 }
             }
-            return dolarDto.OrderByDescending(x=>x.Value).ToList();
+            return dolarDto.OrderByDescending(x => x.Value).ToList();
         }
 
         public int UserDolar(string user)
@@ -121,7 +139,7 @@ namespace Game.Service.Table
             int uID = _users.GetAll().First(i => i.Login == user).ID;
             int dolar = _dolars.GetAll().First(i => i.User_ID == uID).Value;
 
-            _dolars.GetAll().First(i => i.User_ID == uID).Value += mul*bet;
+            _dolars.GetAll().First(i => i.User_ID == uID).Value += mul * bet;
             _unitOfWork.Commit();
             return mul * bet;
         }

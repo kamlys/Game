@@ -123,19 +123,19 @@ namespace Game.Dal.Model
                 .HasMany(e => e.Admins)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Bans)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.BuildingQueue)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Deals)
@@ -153,91 +153,91 @@ namespace Game.Dal.Model
                 .HasMany(e => e.DealsBuildings)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Dolars)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Friends)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.Friend_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Friends1)
                 .WithRequired(e => e.Users1)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Ignored)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.Ignored_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Ignored1)
                 .WithRequired(e => e.Users1)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Maps)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Market)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Messages)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.Customer_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Messages1)
                 .WithRequired(e => e.Users1)
                 .HasForeignKey(e => e.Sender_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Notifications)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.RecoveryCodes)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.Tutorials)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.UserBuildings)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.UserProducts)
                 .WithRequired(e => e.Users)
                 .HasForeignKey(e => e.User_ID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
     }
 }

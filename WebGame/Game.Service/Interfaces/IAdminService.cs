@@ -11,9 +11,9 @@ namespace Game.Service.Interfaces
     {
         bool ifAdmin(string User);
         List<AdminDto> GetAdmin();
-        void Add(AdminDto admin);
-        void Update(AdminDto admin);
-        void Delete(int id);
+        bool Add(AdminDto admin);
+        bool Update(AdminDto admin);
+        bool Delete(int id);
 
     }
 }

@@ -29,23 +29,39 @@ namespace Game.Service.Table
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(UserProductDto userProduct)
+        public bool Add(UserProductDto userProduct)
         {
-            _userProducts.Add(new UserProducts
+            if (!_userProducts.GetAll().Any(i => i.Users.Login == userProduct.Login && i.Products.Alias == userProduct.Product_Name)
+                && userProduct.Value > 0)
             {
-                User_ID = _user.GetAll().First(i => i.Login == userProduct.Login).ID,
-                Product_Name = userProduct.Product_Name,
-                Value = userProduct.Value,
-                Product_ID = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).ID
-            });
+                _userProducts.Add(new UserProducts
+                {
+                    User_ID = _user.GetAll().First(i => i.Login == userProduct.Login).ID,
+                    Product_Name = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).Name,
+                    Value = userProduct.Value,
+                    Product_ID = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).ID
+                });
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            _userProducts.Delete(_userProducts.Get(id));
-            _unitOfWork.Commit();
+            try
+            {
+                _userProducts.Delete(_userProducts.Get(id));
+                _unitOfWork.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+
         }
 
         public List<UserProductDto> GetUserProduct()
@@ -98,16 +114,22 @@ namespace Game.Service.Table
             return userProductsDto;
         }
 
-        public void Update(UserProductDto userProduct)
+        public bool Update(UserProductDto userProduct)
         {
-            foreach (var item in _userProducts.GetAll().Where(i => i.ID == userProduct.ID))
+            if (userProduct.Value > 0)
             {
-                item.User_ID = _user.GetAll().First(i => i.Login == userProduct.Login).ID;
-                item.Product_ID = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).ID;
-                item.Value = userProduct.Value;
-            }
+                foreach (var item in _userProducts.GetAll().Where(i => i.ID == userProduct.ID))
+                {
+                    item.User_ID = _user.GetAll().First(i => i.Login == userProduct.Login).ID;
+                    item.Product_ID = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).ID;
+                    item.Value = userProduct.Value;
+                    item.Product_Name = _product.GetAll().First(i => i.Alias == userProduct.Product_Name).Name;
+                }
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
         public void CreateProduct(int value, string productName, string user)

@@ -18,6 +18,7 @@ namespace Game.Service
         private IRepository<Users> _user;
         private IRepository<Buildings> _building;
         private IRepository<UserBuildings> _userBuilding;
+        private IRepository<ProductRequirements> _requirementsProduct;
         private IBuildingHelper _buildingHelper;
         private IUnitOfWork _unitOfWork;
 
@@ -27,6 +28,7 @@ namespace Game.Service
             IRepository<Buildings> building,
             IRepository<UserBuildings> userBuilding,
             IRepository<Products> products,
+            IRepository<ProductRequirements> requirementsProduct,
             IBuildingHelper buildingHelper,
             IUnitOfWork unitOfWork)
         {
@@ -35,6 +37,7 @@ namespace Game.Service
             _building = building;
             _userBuilding = userBuilding;
             _product = products;
+            _requirementsProduct = requirementsProduct;
             _buildingHelper = buildingHelper;
             _unitOfWork = unitOfWork;
         }
@@ -50,7 +53,7 @@ namespace Game.Service
 
             // dodajemy co minute
             int intervals = dateSubstract / 60;
-            if(intervals > 0)
+            if (intervals > 0)
             {
                 if (_user.GetAll().First(u => u.ID == uID).Last_Update == null)
                 {
@@ -59,7 +62,7 @@ namespace Game.Service
                 foreach (var itemBuilding in _userBuilding.GetAll().Where(b => b.User_ID == uID && b.Status.Contains("gotowy") && b.Buildings.Stock == true))
                 {
                     // jeśli wybudowano przed ostatnim update - jest ok
-                    if(itemBuilding.DateOfConstruction < (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update))
+                    if (itemBuilding.DateOfConstruction < (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update))
                     {
                         int bID = itemBuilding.Buildings.Product_ID;
                         foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
@@ -68,7 +71,8 @@ namespace Game.Service
                             double tempValue = (((double)Fibonacci(itemBuilding.Lvl) * (double)intervals * 10.0) * ((double)itemBuilding.Percent_product / 100.0));
                             item.Value += (int)tempValue;
                         }
-                    }else // wpp obliczamy ile można dodać
+                    }
+                    else // wpp obliczamy ile można dodać
                     {
                         int newDateSubstract = (int)DateTime.Now.Subtract((DateTime)itemBuilding.DateOfConstruction).TotalSeconds;
                         // 1 co 60 sekund
@@ -91,30 +95,67 @@ namespace Game.Service
         public static int Fibonacci(int n)
         {
             int a = 0;
-            for (int i = 1; i <=n; i++)
+            for (int i = 1; i <= n; i++)
             {
                 a += i;
             }
             return a;
         }
 
-        public void Add(ProductDto product)
+        public bool Add(ProductDto product)
         {
-            _product.Add(new Products
+            try
             {
-                Name = product.Name,
-                Price_per_unit = product.Price_per_unit,
-                Unit = product.Unit,
-                Alias = product.Alias
-            });
+                if (!_product.GetAll().Any(i => i.Name == product.Name || i.Alias == product.Alias)
+                    && product.Price_per_unit > 0)
+                {
+                    _product.Add(new Products
+                    {
+                        Name = product.Name,
+                        Price_per_unit = product.Price_per_unit,
+                        Unit = product.Unit,
+                        Alias = product.Alias
+                    });
 
-            _unitOfWork.Commit();
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            _product.Delete(_product.Get(id));
-            _unitOfWork.Commit();
+            try
+            {
+                foreach(var item in _building.GetAll().Where(i => i.Product_ID == id))
+                {
+                    _building.Delete(_building.Get(item.ID));
+                    _unitOfWork.Commit();
+                }
+
+                foreach (var item in _requirementsProduct.GetAll().Where(i => i.Base_ID== id || i.Require_ID == id))
+                {
+                    _requirementsProduct.Delete(_requirementsProduct.Get(item.ID));
+                    _unitOfWork.Commit();
+                }
+
+                _product.Delete(_product.Get(id));
+                _unitOfWork.Commit();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public List<ProductDto> GetProduct()
@@ -140,17 +181,22 @@ namespace Game.Service
             return productDto;
         }
 
-        public void Update(ProductDto product)
+        public bool Update(ProductDto product)
         {
-            foreach (var item in _product.GetAll().Where(i => i.ID == product.ID))
+            if (product.Price_per_unit > 0)
             {
-                item.Name = product.Name;
-                item.Price_per_unit = product.Price_per_unit;
-                item.Unit = product.Unit;
-                item.Alias = product.Alias;
-            }
+                foreach (var item in _product.GetAll().Where(i => i.ID == product.ID))
+                {
+                    item.Name = product.Name;
+                    item.Price_per_unit = product.Price_per_unit;
+                    item.Unit = product.Unit;
+                    item.Alias = product.Alias;
+                }
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
     }

@@ -95,14 +95,14 @@ namespace Game.Service
                 });
             }
 
-            return message.OrderByDescending(i=> i.PostDate).ToList();
+            return message.OrderByDescending(i => i.PostDate).ToList();
         }
 
         public MessageDto ConentMessage(int ID, string User)
         {
             MessageDto message = new MessageDto();
 
-            foreach (var item in _message.GetAll().Where(i=> i.ID == ID))
+            foreach (var item in _message.GetAll().Where(i => i.ID == ID))
             {
                 message.ID = item.ID;
                 message.Customer_Login = _user.Get(item.Customer_ID).Login;
@@ -111,7 +111,7 @@ namespace Game.Service
                 message.Content = item.Content;
                 message.PostDate = (DateTime)item.PostDate;
 
-                if(item.Customer_ID == _user.GetAll().First(i=> i.Login == User).ID)
+                if (item.Customer_ID == _user.GetAll().First(i => i.Login == User).ID)
                 {
                     item.IfRead = true;
                     _unitOfWork.Commit();
@@ -136,7 +136,7 @@ namespace Game.Service
                     IfRead = item.IfRead,
                     PostDate = item.PostDate,
                     Sender_ID = item.Sender_ID,
-                    Sender_Login = _user.GetAll().First(i=> i.ID == item.Sender_ID).Login,
+                    Sender_Login = _user.GetAll().First(i => i.ID == item.Sender_ID).Login,
                     Theme = item.Theme
                 });
             }
@@ -144,39 +144,61 @@ namespace Game.Service
             return messageDto;
         }
 
-        public void AddMessageAdmin(MessageDto messageDto)
+        public bool AddMessageAdmin(MessageDto messageDto)
         {
-            _message.Add(new Messages
+            if (_user.GetAll().Any(i => i.Login == messageDto.Customer_Login && i.Login == messageDto.Sender_Login)
+                && messageDto.Theme.Length <= 150)
             {
-                Theme = messageDto.Theme,
-                Content = messageDto.Content,
-                Customer_ID = _user.GetAll().First(i => i.Login == messageDto.Customer_Login).ID,
-                IfRead = messageDto.IfRead,
-                PostDate = DateTime.Now,
-                Sender_ID = _user.GetAll().First(i => i.Login == messageDto.Sender_Login).ID
-            });
+                _message.Add(new Messages
+                {
+                    Theme = messageDto.Theme,
+                    Content = messageDto.Content,
+                    Customer_ID = _user.GetAll().First(i => i.Login == messageDto.Customer_Login).ID,
+                    IfRead = messageDto.IfRead,
+                    PostDate = DateTime.Now,
+                    Sender_ID = _user.GetAll().First(i => i.Login == messageDto.Sender_Login).ID
+                });
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
-        public void UpdateMessageAdmin(MessageDto messageDto)
+        public bool UpdateMessageAdmin(MessageDto messageDto)
         {
-            foreach (var item in _message.GetAll().Where(i=> i.ID == messageDto.ID))
+            if (_user.GetAll().Any(i => i.Login == messageDto.Customer_Login && i.Login == messageDto.Sender_Login)
+               && messageDto.Theme.Length <= 150)
             {
-                item.IfRead = messageDto.IfRead;
-                item.Sender_ID = messageDto.Sender_ID;
-                item.Content = messageDto.Content;
-                item.Customer_ID = messageDto.Customer_ID;
-                item.Theme = messageDto.Theme;
+                foreach (var item in _message.GetAll().Where(i => i.ID == messageDto.ID))
+                {
+                    item.IfRead = messageDto.IfRead;
+                    item.Sender_ID = messageDto.Sender_ID;
+                    item.Content = messageDto.Content;
+                    item.Customer_ID = messageDto.Customer_ID;
+                    item.Theme = messageDto.Theme;
+                }
+
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteMessageAdmin(int id)
+        {
+            try
+            {
+                _message.Delete(_message.Get(id));
+                _unitOfWork.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
 
-            _unitOfWork.Commit();
-        }
 
-        public void DeleteMessageAdmin(int id)
-        {
-            _message.Delete(_message.Get(id));
-            _unitOfWork.Commit();
         }
     }
 }

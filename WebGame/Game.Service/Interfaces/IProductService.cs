@@ -11,8 +11,8 @@ namespace Game.Service.Interfaces
     {
         void UpdateUserProduct(string User);
         List<ProductDto> GetProduct();
-        void Add(ProductDto product);
-        void Update(ProductDto product);
-        void Delete(int id);
+        bool Add(ProductDto product);
+        bool Update(ProductDto product);
+        bool Delete(int id);
     }
 }

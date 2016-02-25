@@ -20,6 +20,7 @@ using Game.Service.Interfaces;
 using Game.Service.Interfaces.TableInterface;
 using PagedList;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -110,11 +111,29 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddAdmin(AdminViewModel adminModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             AdminDto _adminDto = new AdminDto();
 
             _adminDto.Login = adminModel.viewModel.User_Login;
 
-            _adminService.Add(_adminDto);
+            if (_adminService.Add(_adminDto))
+            {
+                errors.Add("Dodano administratora.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -123,13 +142,31 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateAdmin(AdminViewModel viewModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             AdminDto _adminDto = new AdminDto();
 
             _adminDto.ID = viewModel.viewModel.ID;
             _adminDto.Login = viewModel.viewModel.User_Login;
 
-            _adminService.Update(_adminDto);
+            if (_adminService.Update(_adminDto))
+            {
+                errors.Add("Zaktualizowano.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
 
+            Session["val"] = errors.ToArray<string>();
             return RedirectToAction("Admin");
         }
 
@@ -138,7 +175,26 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteAdmin(int id)
         {
-            _adminService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_adminService.Delete(id))
+            {
+                errors.Add("Usunięto administratora.");
+            }
+            else
+            {
+                errors.Add("Błąd. Srpróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Admin");
         }
 
@@ -169,13 +225,31 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddBan(BanViewModel banModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             BanDto _banDto = new BanDto();
 
             _banDto.Login = banModel.viewModel.User_Login;
             _banDto.Description = banModel.viewModel.Description;
             _banDto.Finish_Date = banModel.viewModel.FinishDate;
 
-            _banService.Add(_banDto);
+            if (_banService.Add(_banDto))
+            {
+                errors.Add("Zablokowano gracza.");
+            }
+            else
+            {
+                errors.Add("Błąd. Srpróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -185,6 +259,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateBan(BanViewModel banModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             BanDto _banDto = new BanDto();
 
             _banDto.ID = banModel.viewModel.ID;
@@ -192,7 +276,15 @@ namespace Game.GUI.Controllers
             _banDto.Description = banModel.viewModel.Description;
             _banDto.Finish_Date = banModel.viewModel.FinishDate;
 
-            _banService.Update(_banDto);
+            if (_banService.Update(_banDto))
+            {
+                errors.Add("Zaktualizowano.");
+            }
+            else
+            {
+                errors.Add("Błąd. Srpróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -201,7 +293,26 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteBan(int id)
         {
-            _banService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_banService.Delete(id))
+            {
+                errors.Add("Usunięto blokade.");
+            }
+            else
+            {
+                errors.Add("Błąd. Srpróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Admin");
         }
         #endregion
@@ -240,6 +351,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddBuilding(BuildingViewModel buildingModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             BuildingDto _buildingDto = new BuildingDto();
 
             _buildingDto.Name = buildingModel.viewModel.BuildingName;
@@ -256,7 +377,15 @@ namespace Game.GUI.Controllers
             _buildingDto.DestructionTime = buildingModel.viewModel.DestructionTime;
             _buildingDto.Stock = buildingModel.viewModel.Stock.ToLower().Contains("tak") ? true : false;
 
-            _buildingService.Add(_buildingDto);
+            if (_buildingService.Add(_buildingDto))
+            {
+                errors.Add("Dodano budynek.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -265,6 +394,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateBuilding(BuildingViewModel buildingModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             BuildingDto _buildingDto = new BuildingDto();
 
             _buildingDto.ID = buildingModel.viewModel.ID;
@@ -282,7 +421,15 @@ namespace Game.GUI.Controllers
             _buildingDto.DestructionTime = buildingModel.viewModel.DestructionTime;
             _buildingDto.Stock = buildingModel.viewModel.Stock.ToLower().Contains("tak") ? true : false;
 
-            _buildingService.Update(_buildingDto);
+            if (_buildingService.Update(_buildingDto))
+            {
+                errors.Add("Zaktualizowano budynek.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -291,7 +438,26 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteBuilding(int id)
         {
-            _buildingService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_buildingService.Delete(id))
+            {
+                errors.Add("Usunięto budynek.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Admin");
         }
         #endregion
@@ -318,6 +484,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddUser(UserViewModel userModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserDto _userDto = new UserDto();
 
             _userDto.Login = userModel.viewModel.User_Login;
@@ -327,7 +503,15 @@ namespace Game.GUI.Controllers
             _userDto.Registration_Date = userModel.viewModel.RegistrationDate;
             _userDto.Last_Update = userModel.viewModel.LastUpdate;
 
-            _userService.Add(_userDto);
+            if (_userService.Add(_userDto))
+            {
+                errors.Add("Dodano użytkownika.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -336,6 +520,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateUser(UserViewModel userModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserDto _userDto = new UserDto();
 
             _userDto.ID = userModel.viewModel.ID;
@@ -345,7 +539,15 @@ namespace Game.GUI.Controllers
             _userDto.Registration_Date = userModel.viewModel.RegistrationDate;
             _userDto.Last_Update = userModel.viewModel.LastUpdate;
 
-            _userService.Update(_userDto);
+            if (_userService.Update(_userDto))
+            {
+                errors.Add("Zaktualizowano użytkownika.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -354,7 +556,27 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteUser(int id)
         {
-            _userService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+
+            if (_userService.Delete(id))
+            {
+                errors.Add("Usunięto użytkownika.");
+            }
+            else
+            {
+                errors.Add("Błąd. Sprawdź czy użytkownik nie ma aktualnej umowy i spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Admin");
         }
 
@@ -383,13 +605,31 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddDolar(DolarViewModel dolarModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             DolarDto _dolarDto = new DolarDto();
 
             _dolarDto.User_ID = dolarModel.viewModel.User_ID;
             _dolarDto.Login = dolarModel.viewModel.User_Login;
             _dolarDto.Value = dolarModel.viewModel.DolarValue;
 
-            _dolarService.Add(_dolarDto);
+            if (_dolarService.Add(_dolarDto))
+            {
+                errors.Add("Dodano pieniądze.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -398,6 +638,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateDolar(DolarViewModel dolarModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             DolarDto _dolarDto = new DolarDto();
 
             _dolarDto.ID = dolarModel.viewModel.ID;
@@ -405,18 +655,26 @@ namespace Game.GUI.Controllers
             _dolarDto.Login = dolarModel.viewModel.User_Login;
             _dolarDto.Value = dolarModel.viewModel.DolarValue;
 
-            _dolarService.Update(_dolarDto);
+            if (_dolarService.Update(_dolarDto))
+            {
+                errors.Add("Zaktualizowano.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
 
-        [HttpGet]
-        [Authorize]
-        public ActionResult DeleteDolar(int id)
-        {
-            _dolarService.Delete(id);
-            return RedirectToAction("Admin");
-        }
+        //[HttpGet]
+        //[Authorize]
+        //public ActionResult DeleteDolar(int id)
+        //{
+        //    _dolarService.Delete(id);
+        //    return RedirectToAction("Admin");
+        //}
         #endregion
 
         #region MapTable
@@ -444,13 +702,31 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddMap(MapViewModel mapModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MapDto _mapDto = new MapDto();
 
             _mapDto.Login = mapModel.viewModel.User_Login;
             _mapDto.Height = mapModel.viewModel.Height;
             _mapDto.Width = mapModel.viewModel.Width;
 
-            _mapService.Add(_mapDto);
+            if (_mapService.Add(_mapDto))
+            {
+                errors.Add("Dodano mapę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -459,6 +735,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateMap(MapViewModel mapModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MapDto _mapDto = new MapDto();
 
             _mapDto.Map_ID = mapModel.viewModel.ID;
@@ -466,18 +752,46 @@ namespace Game.GUI.Controllers
             _mapDto.Height = mapModel.viewModel.Height;
             _mapDto.Width = mapModel.viewModel.Width;
 
-            _mapService.Update(_mapDto);
+            if (_mapService.Update(_mapDto))
+            {
+                errors.Add("Zaktualizowano mapę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
 
-        [HttpGet]
-        [Authorize]
-        public ActionResult DeleteMap(int id)
-        {
-            _mapService.Delete(id);
-            return RedirectToAction("Admin");
-        }
+        //[HttpGet]
+        //[Authorize]
+        //public ActionResult DeleteMap(int id)
+        //{
+        //    List<string> errors;
+        //    if (Session["val"] != null)
+        //    {
+        //        errors = ((string[])Session["val"]).ToList();
+        //    }
+        //    else
+        //    {
+        //        errors = new List<string>();
+        //    }
+
+        //    try
+        //    {
+        //        _mapService.Delete(id);
+        //        errors.Add("Usunięto mapę");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        errors.Add(ex.Message);
+        //    }
+        //    Session["val"] = errors.ToArray<string>();
+
+        //    return RedirectToAction("Admin");
+        //}
         #endregion
 
         #region MarketTable
@@ -509,6 +823,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddMarket(MarketViewModel marketModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MarketDto _marketDto = new MarketDto();
 
             _marketDto.Login = marketModel.viewModel.User_Login;
@@ -517,7 +841,15 @@ namespace Game.GUI.Controllers
             _marketDto.Price = marketModel.viewModel.Price;
             _marketDto.TypeOffer = marketModel.TypeOfferAdmin.ToLower().Contains("Sprzedaż") ? true : false;
 
-            _marketService.Add(_marketDto);
+            if (_marketService.Add(_marketDto))
+            {
+                errors.Add("Dodano ofertę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -526,6 +858,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateMarket(MarketViewModel marketModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MarketDto _marketDto = new MarketDto();
 
             _marketDto.ID = marketModel.viewModel.ID;
@@ -535,7 +877,15 @@ namespace Game.GUI.Controllers
             _marketDto.Price = marketModel.viewModel.Price;
             _marketDto.TypeOffer = marketModel.TypeOfferAdmin.ToLower().Contains("Sprzedaż") ? true : false;
 
-            _marketService.Update(_marketDto);
+            if (_marketService.Update(_marketDto))
+            {
+                errors.Add("Zaktualizowano ofertę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -545,7 +895,25 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteMarket(int id)
         {
-            _marketService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_marketService.Delete(id))
+            {
+                errors.Add("Usunięto ofertę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
             return RedirectToAction("Admin");
         }
 
@@ -573,6 +941,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddProduct(ProductViewModel productModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             ProductDto _productDto = new ProductDto();
 
             _productDto.Name = productModel.viewModel.ProductName;
@@ -580,7 +958,15 @@ namespace Game.GUI.Controllers
             _productDto.Unit = productModel.viewModel.Unit;
             _productDto.Alias = productModel.viewModel.Alias;
 
-            _productService.Add(_productDto);
+            if (_productService.Add(_productDto))
+            {
+                errors.Add("Dodano produkt.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -589,6 +975,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateProduct(ProductViewModel productModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             ProductDto _productDto = new ProductDto();
 
             _productDto.ID = productModel.viewModel.ID;
@@ -597,7 +993,15 @@ namespace Game.GUI.Controllers
             _productDto.Unit = productModel.viewModel.Unit;
             _productDto.Alias = productModel.viewModel.Alias;
 
-            _productService.Update(_productDto);
+            if (_productService.Update(_productDto))
+            {
+                errors.Add("Zaktualizowano produkt.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -606,7 +1010,26 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteProduct(int id)
         {
-            _productService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_productService.Delete(id))
+            {
+                errors.Add("Usunięto produkt i budynek, który go produkuje.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Admin");
         }
 
@@ -645,6 +1068,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddUserBuilding(UserBuildingsViewModel userBuildingModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
 
             _userBuildingDto.User_ID = userBuildingModel.viewModel.User_ID;
@@ -659,7 +1092,15 @@ namespace Game.GUI.Controllers
             _userBuildingDto.Percent_Product = userBuildingModel.viewModel.Percent_product;
             _userBuildingDto.Color = userBuildingModel.viewModel.Color;
 
-            _userBuildingService.Add(_userBuildingDto);
+            if (_userBuildingService.Add(_userBuildingDto))
+            {
+                errors.Add("Dodano budynek użytkownikowi.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -668,6 +1109,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateUserBuilding(UserBuildingsViewModel userBuildingModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
 
             _userBuildingDto.ID = userBuildingModel.viewModel.ID;
@@ -684,7 +1135,15 @@ namespace Game.GUI.Controllers
             _userBuildingDto.DateOfConstruction = userBuildingModel.viewModel.DateOfConstruction;
             _userBuildingDto.Color = userBuildingModel.viewModel.Color;
 
-            _userBuildingService.Update(_userBuildingDto);
+            if (_userBuildingService.Update(_userBuildingDto))
+            {
+                errors.Add("Dodano budynek użytkownikowi.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -694,7 +1153,25 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteUserBuilding(int id)
         {
-            _userBuildingService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_userBuildingService.Delete(id))
+            {
+                errors.Add("Dodano budynek użytkownikowi.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+
             return RedirectToAction("Admin");
         }
 
@@ -726,13 +1203,31 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddUserProduct(UserProductViewModel userProductModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserProductDto _userProductDto = new UserProductDto();
 
             _userProductDto.Login = userProductModel.viewModel.User_Login;
             _userProductDto.Product_Name = userProductModel.viewModel.Product_Name;
             _userProductDto.Value = userProductModel.viewModel.Value;
 
-            _userProductService.Add(_userProductDto);
+            if(_userProductService.Add(_userProductDto))
+            {
+                errors.Add("Dodano produkt użytkownikow.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -741,6 +1236,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateUserProduct(UserProductViewModel userProductModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             UserProductDto _userProductDto = new UserProductDto();
 
             _userProductDto.ID = userProductModel.viewModel.ID;
@@ -749,7 +1254,15 @@ namespace Game.GUI.Controllers
             _userProductDto.Product_Name = userProductModel.viewModel.Product_Name;
             _userProductDto.Value = userProductModel.viewModel.Value;
 
-            _userProductService.Update(_userProductDto);
+            if(_userProductService.Update(_userProductDto))
+            {
+                errors.Add("Zaktualizowano produkt użytkownika.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -758,7 +1271,26 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteUserProduct(int id)
         {
-            _userProductService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if(_userProductService.Delete(id))
+            {
+                errors.Add("Usunięto produkt użytkownikowi.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Admin");
         }
         #endregion
@@ -787,13 +1319,31 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddQueue(QueueViewModel queueModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             BuildingQueueDto _queueDto = new BuildingQueueDto();
 
             _queueDto.Login = queueModel.viewModel.User_Login;
             _queueDto.UserBuilding_ID = queueModel.viewModel.UserBuilding_ID;
             _queueDto.NewStatus = queueModel.viewModel.NewStatus;
 
-            _queueService.Add(_queueDto);
+            if(_queueService.Add(_queueDto))
+            {
+                errors.Add("Dodano budynek do kolejki.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -802,6 +1352,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateQueue(QueueViewModel queueModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             BuildingQueueDto _buildingQueueDto = new BuildingQueueDto();
 
             _buildingQueueDto.ID = queueModel.viewModel.ID;
@@ -810,7 +1370,15 @@ namespace Game.GUI.Controllers
             _buildingQueueDto.NewStatus = queueModel.viewModel.NewStatus;
             _buildingQueueDto.FinishTime = queueModel.viewModel.FinishDate;
 
-            _queueService.Update(_buildingQueueDto);
+            if(_queueService.Update(_buildingQueueDto))
+            {
+                errors.Add("Zaktualizowano budynek w kolejce.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -819,7 +1387,26 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteQueue(int id)
         {
-            _queueService.Delete(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_queueService.Delete(id))
+            {
+                errors.Add("Usunięto budynek z kolejki.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Admin");
         }
         #endregion
@@ -835,12 +1422,13 @@ namespace Game.GUI.Controllers
                 Building_Name = x.Building_Name,
                 DealDay = x.DayTime,
                 ID = x.ID,
-                IsActive = x.IsActive,
+                Active = (x.IsActive==true ? "Tak":"Nie"),
                 Value = x.Map_ID,
                 Percent_User1 = x.Percent_User1,
                 Percent_User2 = x.Percent_User2,
                 User1_Login = x.User1_Login,
                 User2_Login = x.User2_Login,
+                FinishDate = (DateTime)x.FinishDate
             }).ToList();
 
             dealModel.buildingList = _buildingService.GetBuilding().Select(x => x.Alias).ToArray();
@@ -851,18 +1439,37 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddDeal(DealViewModel dealModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+
             DealDto dealDto = new DealDto();
 
             dealDto.Building_Name = dealModel.viewModel.Building_Name;
             dealDto.DayTime = dealModel.viewModel.DealDay;
-            dealDto.IsActive = dealModel.viewModel.IsActive;
+            dealDto.IsActive = dealModel.viewModel.Active.ToLower().Contains("tak")? true : false;
             dealDto.Map_ID = dealModel.viewModel.Value;
             dealDto.Percent_User1 = dealModel.viewModel.Percent_User1;
             dealDto.Percent_User2 = dealModel.viewModel.Percent_User2;
             dealDto.User2_Login = dealModel.viewModel.User2_Login;
             dealDto.User1_Login = dealModel.viewModel.User1_Login;
 
-            _dealService.AddDealAdmin(dealDto);
+            if(_dealService.AddDealAdmin(dealDto))
+            {
+                errors.Add("Dodano umowę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -870,19 +1477,37 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateDeal(DealViewModel dealModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             DealDto dealDto = new DealDto();
 
             dealDto.ID = dealModel.viewModel.ID;
             dealDto.Building_Name = dealModel.viewModel.Building_Name;
             dealDto.DayTime = dealModel.viewModel.DealDay;
-            dealDto.IsActive = dealModel.viewModel.IsActive;
+            dealDto.IsActive = dealModel.viewModel.Active.ToLower().Contains("tak") ? true : false;
             dealDto.Map_ID = dealModel.viewModel.Value;
             dealDto.Percent_User1 = dealModel.viewModel.Percent_User1;
             dealDto.Percent_User2 = dealModel.viewModel.Percent_User2;
             dealDto.User2_Login = dealModel.viewModel.User2_Login;
             dealDto.User1_Login = dealModel.viewModel.User1_Login;
 
-            _dealService.UpdateDealAdmin(dealDto);
+            if(_dealService.UpdateDealAdmin(dealDto))
+            {
+                errors.Add("Zaktualizowano umowę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -890,7 +1515,26 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteDeal(int id)
         {
-            _dealService.DeleteDealAdmin(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_dealService.DeleteDealAdmin(id))
+            {
+                errors.Add("Usunięto umowę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Admin");
         }
         #endregion
@@ -920,13 +1564,32 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddDealBuilding(DealBuildingViewModel dealbModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+
             DealBuildingDto dealbDto = new DealBuildingDto();
 
             dealbDto.BuildingName = dealbModel.viewModel.Building_Name;
             dealbDto.Login = dealbModel.viewModel.User_Login;
             dealbDto.Deal_ID = dealbModel.viewModel.Deal_ID;
 
-            _dealService.AddDealBuildingAdmin(dealbDto);
+            if(_dealService.AddDealBuildingAdmin(dealbDto))
+            {
+                errors.Add("Dodano budynek do umowy.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -934,6 +1597,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateDealBuilding(DealBuildingViewModel dealbModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             DealBuildingDto dealbDto = new DealBuildingDto();
 
             dealbDto.ID = dealbModel.viewModel.ID;
@@ -941,7 +1614,15 @@ namespace Game.GUI.Controllers
             dealbDto.Login = dealbModel.viewModel.User_Login;
             dealbDto.Deal_ID = dealbModel.viewModel.Deal_ID;
 
-            _dealService.UpdateDealBuildingAdmin(dealbDto);
+            if(_dealService.UpdateDealBuildingAdmin(dealbDto))
+            {
+                errors.Add("Zaktualizowano budynek.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -949,7 +1630,25 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteDealBuilding(int id)
         {
-            _dealService.DeleteDealBuildingAdmin(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if(_dealService.DeleteDealBuildingAdmin(id))
+            {
+                errors.Add("Usunięto budynek.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -979,21 +1678,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddFriendAdmin(FriendViewModel friendModel)
         {
-            FriendDto friendDto = new FriendDto();
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
 
-            friendDto.ID = friendModel.viewModel.ID;
-            friendDto.Friend_Login = friendModel.viewModel.Friend_Login;
-            friendDto.User_Login = friendModel.viewModel.User_Login;
-            friendDto.OrAccepted = friendModel.viewModel.Accepted.ToLower().Contains("tak")? true : false;
-
-            _userService.AddFriendAdmin(friendDto);
-
-            return RedirectToAction("Admin");
-        }
-
-        [Authorize]
-        public ActionResult UpdateFriendAdmin(FriendViewModel friendModel)
-        {
             FriendDto friendDto = new FriendDto();
 
             friendDto.ID = friendModel.viewModel.ID;
@@ -1001,7 +1695,48 @@ namespace Game.GUI.Controllers
             friendDto.User_Login = friendModel.viewModel.User_Login;
             friendDto.OrAccepted = friendModel.viewModel.Accepted.ToLower().Contains("tak") ? true : false;
 
-            _userService.UpdateFriendAdmin(friendDto);
+            if(_userService.AddFriendAdmin(friendDto))
+            {
+                errors.Add("Dodano.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
+            return RedirectToAction("Admin");
+        }
+
+        [Authorize]
+        public ActionResult UpdateFriendAdmin(FriendViewModel friendModel)
+        {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            FriendDto friendDto = new FriendDto();
+
+            friendDto.ID = friendModel.viewModel.ID;
+            friendDto.Friend_Login = friendModel.viewModel.Friend_Login;
+            friendDto.User_Login = friendModel.viewModel.User_Login;
+            friendDto.OrAccepted = friendModel.viewModel.Accepted.ToLower().Contains("tak") ? true : false;
+
+            if(_userService.UpdateFriendAdmin(friendDto))
+            {
+                errors.Add("Zaktualizowano.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1009,7 +1744,25 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteFriendAdmin(int id)
         {
-            _userService.DeleteFriendAdmin(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if(_userService.DeleteFriendAdmin(id))
+            {
+                errors.Add("Usunięto.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1039,13 +1792,30 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddIgnored(IgnoredViewModel ignoredModel)
         {
-            IgnoredDto ignoredDto = new IgnoredDto();
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
 
+            IgnoredDto ignoredDto = new IgnoredDto();
 
             ignoredDto.Ignored_Login = ignoredModel.viewModel.Ignored_Login;
             ignoredDto.User_Login = ignoredModel.viewModel.User_Login;
 
-            _userService.AddIgnoredAdmin(ignoredDto);
+            if(_userService.AddIgnoredAdmin(ignoredDto))
+            {
+                errors.Add("Dodano.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1053,13 +1823,31 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateIgnored(IgnoredViewModel ignoredModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             IgnoredDto ignoredDto = new IgnoredDto();
 
             ignoredDto.ID = ignoredModel.viewModel.ID;
             ignoredDto.Ignored_Login = ignoredModel.viewModel.Ignored_Login;
             ignoredDto.User_Login = ignoredModel.viewModel.User_Login;
 
-            _userService.UpdateIgnoredAdmin(ignoredDto);
+            if(_userService.UpdateIgnoredAdmin(ignoredDto))
+            {
+                errors.Add("Zaktualizowano.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1067,7 +1855,25 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteIgnored(int id)
         {
-            _userService.DeleteIgnoredAdmin(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if (_userService.DeleteIgnoredAdmin(id))
+            {
+                errors.Add("Zaktualizowano mapę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1085,7 +1891,7 @@ namespace Game.GUI.Controllers
                 Customer_ID = x.Customer_ID,
                 Customer_Login = x.Customer_Login,
                 ID = x.ID,
-                Read = x.IfRead ? "Tak":"Nie",
+                Read = x.IfRead ? "Tak" : "Nie",
                 PostDate = x.PostDate,
                 Sender_ID = x.Sender_ID,
                 Sender_Login = x.Sender_Login,
@@ -1100,15 +1906,33 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddMessageAdmin(MessageViewModel messageModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MessageDto messageDto = new MessageDto();
 
             messageDto.Content = messageModel.viewModel.Content;
             messageDto.Customer_Login = messageModel.viewModel.Customer_Login;
             messageDto.Sender_Login = messageModel.viewModel.Sender_Login;
             messageDto.Theme = messageModel.viewModel.Theme;
-            messageDto.IfRead = messageModel.viewModel.Read.ToLower().Contains("tak") ? true:false;
+            messageDto.IfRead = messageModel.viewModel.Read.ToLower().Contains("tak") ? true : false;
 
-            _messageService.AddMessageAdmin(messageDto);
+            if(_messageService.AddMessageAdmin(messageDto))
+            {
+                errors.Add("Dodano wiadomość.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1116,6 +1940,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateMessageAdmin(MessageViewModel messageModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MessageDto messageDto = new MessageDto();
 
             messageDto.ID = messageModel.viewModel.ID;
@@ -1125,7 +1959,15 @@ namespace Game.GUI.Controllers
             messageDto.Theme = messageModel.viewModel.Theme;
             messageDto.IfRead = messageModel.viewModel.Read.ToLower().Contains("tak") ? true : false;
 
-            _messageService.UpdateMessageAdmin(messageDto);
+            if(_messageService.UpdateMessageAdmin(messageDto))
+            {
+                errors.Add("Zaktualizowano wiadomość.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1133,7 +1975,25 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteMessageAdmin(int id)
         {
-            _messageService.DeleteMessageAdmin(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if(_messageService.DeleteMessageAdmin(id))
+            {
+                errors.Add("Usunięto wiadomość.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1164,13 +2024,31 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddProductRequirementAdmin(ProductRequirementViewModel productrMode)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             ProductRequirementDto productrDto = new ProductRequirementDto();
 
             productrDto.Base_Name = productrMode.viewModel.BaseName;
             productrDto.Require_Name = productrMode.viewModel.RequireName;
             productrDto.Value = productrMode.viewModel.Value;
 
-            _productRService.AddProduct(productrDto);
+            if(_productRService.AddProduct(productrDto))
+            {
+                errors.Add("Dodano produkt.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1178,6 +2056,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult UpdateProductRequirementAdmin(ProductRequirementViewModel productrMode)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             ProductRequirementDto productrDto = new ProductRequirementDto();
 
             productrDto.ID = productrMode.viewModel.ID;
@@ -1185,7 +2073,15 @@ namespace Game.GUI.Controllers
             productrDto.Require_Name = productrMode.viewModel.RequireName;
             productrDto.Value = productrMode.viewModel.Value;
 
-            _productRService.UpdateProduct(productrDto);
+            if(_productRService.UpdateProduct(productrDto))
+            {
+                errors.Add("Zaktualizowano produkt.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }
@@ -1193,7 +2089,25 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult DeleteProductRequirementAdmin(int id)
         {
-            _productRService.DeleteProduct(id);
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
+            if(_productRService.DeleteProduct(id))
+            {
+                errors.Add("Usunięto produkt.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Admin");
         }

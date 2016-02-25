@@ -172,21 +172,44 @@ namespace Game.Service
         }
 
 
-        public void Add(MarketDto market)
+        public bool Add(MarketDto market)
         {
-            _market.Add(new Market
+            try
             {
-                User_ID = _user.GetAll().First(i => i.Login == market.Login).ID,
-                Product_ID = _product.GetAll().First(i => i.Alias == market.Product_Name).ID,
-                Number = market.Number,
-                Price = market.Price,
-                TypeOffer = market.TypeOffer
-            });
+                int userID = _user.GetAll().First(i => i.Login == market.Login).ID;
+                int totalPrice = (market.Price * market.Number);
+                string productName = _product.GetAll().First(i => i.Alias == market.Product_Name).Name;
+                int ProductID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == productName).Product_ID;
+                int userProductValue = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value;
 
-            _unitOfWork.Commit();
+                if (market.Number > 0
+                    && userProductValue >= market.Number
+                    && _product.GetAll().Any(i => i.Alias == market.Product_Name)
+                    && market.Price > 0
+                    && userProductValue >= market.Number)
+                {
+                    _market.Add(new Market
+                    {
+                        User_ID = _user.GetAll().First(i => i.Login == market.Login).ID,
+                        Product_ID = _product.GetAll().First(i => i.Alias == market.Product_Name).ID,
+                        Number = market.Number,
+                        Price = market.Price,
+                        TypeOffer = market.TypeOffer
+                    });
+
+                    _unitOfWork.Commit();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return false;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             int uID = _market.Get(id).User_ID;
             int productID = _market.Get(id).Product_ID;
@@ -211,22 +234,39 @@ namespace Game.Service
             }
             _market.Delete(_market.Get(id));
             _unitOfWork.Commit();
+            return true;
         }
 
 
 
-        public void Update(MarketDto market)
+        public bool Update(MarketDto market)
         {
-            foreach (var item in _market.GetAll().Where(i => i.ID == market.ID))
-            {
-                item.User_ID = _user.GetAll().First(i => i.Login == market.Login).ID;
-                item.Product_ID = _product.GetAll().First(i => i.Alias == market.Product_Name).ID;
-                item.Number = market.Number;
-                item.Price = market.Number;
-                item.TypeOffer = market.TypeOffer;
-            }
+            int userID = _user.GetAll().First(i => i.Login == market.Login).ID;
+            int totalPrice = (market.Price * market.Number);
+            string productName = _product.GetAll().First(i => i.Alias == market.Product_Name).Name;
+            int ProductID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == productName).Product_ID;
+            int userProductValue = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value;
 
-            _unitOfWork.Commit();
+            if (market.Number > 0
+                && userProductValue >= market.Number
+                && _product.GetAll().Any(i => i.Alias == market.Product_Name)
+                && market.Price > 0
+                && userProductValue >= market.Number)
+            {
+                foreach (var item in _market.GetAll().Where(i => i.ID == market.ID))
+                {
+                    item.User_ID = _user.GetAll().First(i => i.Login == market.Login).ID;
+                    item.Product_ID = _product.GetAll().First(i => i.Alias == market.Product_Name).ID;
+                    item.Number = market.Number;
+                    item.Price = market.Number;
+                    item.TypeOffer = market.TypeOffer;
+                }
+
+                _unitOfWork.Commit();
+
+                return true;
+            }
+            return false;
         }
 
         public bool BuyOffer(MarketDto market, string User)

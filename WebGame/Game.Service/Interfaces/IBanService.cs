@@ -10,8 +10,8 @@ namespace Game.Service.Interfaces.TableInterface
     public interface IBanService
     {
         List<BanDto> GetBan();
-        void Add(BanDto admin);
-        void Update(BanDto admin);
-        void Delete(int id);
+        bool Add(BanDto admin);
+        bool Update(BanDto admin);
+        bool Delete(int id);
     }
 }

@@ -125,35 +125,55 @@ namespace Game.Service
             return productDto;
         }
 
-        public void AddProduct(ProductRequirementDto productDto)
+        public bool AddProduct(ProductRequirementDto productDto)
         {
-            _productR.Add(new ProductRequirements
+            if (!_productR.GetAll().Any(i => i.Products.Alias == productDto.Base_Name && i.Products1.Alias == productDto.Require_Name)
+                && _product.GetAll().Any(i => i.Alias == productDto.Require_Name && i.Alias == productDto.Base_Name))
             {
-                Base_ID = _product.GetAll().First(i => i.Alias == productDto.Base_Name).ID,
-                Require_ID = _product.GetAll().First(i => i.Alias == productDto.Require_Name).ID,
-                Value = productDto.Value
-            });
+                _productR.Add(new ProductRequirements
+                {
+                    Base_ID = _product.GetAll().First(i => i.Alias == productDto.Base_Name).ID,
+                    Require_ID = _product.GetAll().First(i => i.Alias == productDto.Require_Name).ID,
+                    Value = productDto.Value
+                });
 
-            _unitOfWork.Commit();
-        }
-
-        public void UpdateProduct(ProductRequirementDto productDto)
-        {
-            foreach (var item in _productR.GetAll().Where(i => i.ID == productDto.ID))
-            {
-                item.Base_ID = _product.GetAll().First(i => i.Alias == productDto.Base_Name).ID;
-                item.Require_ID = _product.GetAll().First(i => i.Alias == productDto.Require_Name).ID;
-                item.Value = productDto.Value;
+                _unitOfWork.Commit();
+                return true;
             }
-
-            _unitOfWork.Commit();
+            return false;
         }
 
-        public void DeleteProduct(int id)
+        public bool UpdateProduct(ProductRequirementDto productDto)
         {
-            _productR.Delete(_productR.Get(id));
+            if (_product.GetAll().Any(i => i.Alias == productDto.Require_Name && i.Alias == productDto.Base_Name))
+            {
+                foreach (var item in _productR.GetAll().Where(i => i.ID == productDto.ID))
+                {
+                    item.Base_ID = _product.GetAll().First(i => i.Alias == productDto.Base_Name).ID;
+                    item.Require_ID = _product.GetAll().First(i => i.Alias == productDto.Require_Name).ID;
+                    item.Value = productDto.Value;
+                }
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteProduct(int id)
+        {
+            try
+            {
+                _productR.Delete(_productR.Get(id));
+
+                _unitOfWork.Commit();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

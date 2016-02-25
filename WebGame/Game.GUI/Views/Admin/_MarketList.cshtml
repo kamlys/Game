@@ -28,7 +28,7 @@
                 <label for="Price">Cena/szt</label>
             </div>
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.TypeOfferAdmin, new SelectList(new List<string>(new string[] { "Tak", "Nie" })), new { @class = "validate inputOrAccepted" })
+                @Html.DropDownListFor(m => m.viewModel.TypeOfferAdmin, new SelectList(new List<string>(new string[] { "Sprzedaż", "Kupno" })), new { @class = "validate inputOrAccepted" })
                 <label for="TypeOfferAdmin">Typ oferty (Kupno/Sprzedaż)</label>
             </div>
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />

@@ -14,9 +14,9 @@ namespace Game.Service.Interfaces
         void Destroy(string user, int ID);
         List<UserBuildingDto> GetUserBuilding();
         List<UserBuildingDto> GetUserBuildingList(string User);
-        void Add(UserBuildingDto userBuilding);
-        void Update(UserBuildingDto userBuilding);
-        void Delete(int id);
+        bool Add(UserBuildingDto userBuilding);
+        bool Update(UserBuildingDto userBuilding);
+        bool Delete(int id);
         bool ifLvlUp(int id, string User);
         bool LvlUp(int id, string User);
         List<DealBuildingDto> GetDealBuildingList(string user);

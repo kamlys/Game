@@ -70,47 +70,70 @@ namespace Game.Service
             return dealList;
         }
 
-        public void AddDealAdmin(DealDto dealDto)
+        public bool AddDealAdmin(DealDto dealDto)
         {
-            _deals.Add(new Deals
+            if (_users.GetAll().Any(i => i.Login == dealDto.User1_Login && i.Login == dealDto.User2_Login)
+                && (dealDto.Percent_User1 > 10 && dealDto.Percent_User1 < 90)
+                && ((100 - dealDto.Percent_User2) == dealDto.Percent_User1)
+                && dealDto.Map_ID == _maps.GetAll().First(i => i.Users.Login == dealDto.User1_Login || i.Users.Login == dealDto.User2_Login).Map_ID)
             {
-                Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID,
-                IsActive = dealDto.IsActive,
-                Map_ID = dealDto.Map_ID,
-                Percent_User1 = dealDto.Percent_User1,
-                Percent_User2 = dealDto.Percent_User2,
-                User1_ID = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID,
-                User2_ID = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID,
-                DayTime = dealDto.DayTime,
-                FinishDate = DateTime.Now.AddDays(dealDto.DayTime)
-            });
+                _deals.Add(new Deals
+                {
+                    Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID,
+                    IsActive = dealDto.IsActive,
+                    Map_ID = dealDto.Map_ID,
+                    Percent_User1 = dealDto.Percent_User1,
+                    Percent_User2 = dealDto.Percent_User2,
+                    User1_ID = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID,
+                    User2_ID = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID,
+                    DayTime = dealDto.DayTime,
+                    FinishDate = DateTime.Now.AddDays(dealDto.DayTime)
+                });
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
-        public void DeleteDealAdmin(int id)
+        public bool DeleteDealAdmin(int id)
         {
-            _deals.Delete(_deals.Get(id));
-
-            _unitOfWork.Commit();
-        }
-
-        public void UpdateDealAdmin(DealDto dealDto)
-        {
-            foreach (var item in _deals.GetAll().Where(i => i.ID == dealDto.ID))
+            foreach (var item in _dealsBuildings.GetAll().Where(i=>i.Deal_ID == id))
             {
-                item.IsActive = dealDto.IsActive;
-                item.Map_ID = dealDto.Map_ID;
-                item.Percent_User1 = dealDto.Percent_User1;
-                item.Percent_User2 = dealDto.Percent_User2;
-                item.User1_ID = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID;
-                item.User2_ID = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID;
-                item.FinishDate = DateTime.Now.AddDays(dealDto.DayTime);
-                item.DayTime = dealDto.DayTime;
-                item.Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID;
+                _dealsBuildings.Delete(_dealsBuildings.Get(item.ID));
+                _unitOfWork.Commit();
             }
 
+            _deals.Delete(_deals.Get(id));
             _unitOfWork.Commit();
+
+            return true;
+        }
+
+        public bool UpdateDealAdmin(DealDto dealDto)
+        {
+            if (_users.GetAll().Any(i => i.Login == dealDto.User1_Login && i.Login == dealDto.User2_Login)
+               && (dealDto.Percent_User1 > 10 && dealDto.Percent_User1 < 90)
+               && ((100 - dealDto.Percent_User2) == dealDto.Percent_User1)
+               && dealDto.Map_ID == _maps.GetAll().First(i => i.Users.Login == dealDto.User1_Login || i.Users.Login == dealDto.User2_Login).Map_ID)
+            {
+                foreach (var item in _deals.GetAll().Where(i => i.ID == dealDto.ID))
+                {
+                    item.IsActive = dealDto.IsActive;
+                    item.Map_ID = dealDto.Map_ID;
+                    item.Percent_User1 = dealDto.Percent_User1;
+                    item.Percent_User2 = dealDto.Percent_User2;
+                    item.User1_ID = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID;
+                    item.User2_ID = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID;
+                    item.FinishDate = DateTime.Now.AddDays(dealDto.DayTime);
+                    item.DayTime = dealDto.DayTime;
+                    item.Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID;
+                }
+
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
         public List<DealBuildingDto> GetDealBuildings()
@@ -139,34 +162,44 @@ namespace Game.Service
             return dealbDto;
         }
 
-        public void AddDealBuildingAdmin(DealBuildingDto dealDto)
+        public bool AddDealBuildingAdmin(DealBuildingDto dealDto)
         {
-            _dealsBuildings.Add(new DealsBuildings
+            if (_deals.GetAll().Any(i => i.Buildings.Alias == dealDto.BuildingName && ((i.Users.Login == dealDto.Login) || (i.Users1.Login == dealDto.Login))))
             {
-                Deal_ID = dealDto.Deal_ID,
-                Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.BuildingName).ID,
-                User_ID = _users.GetAll().First(i => i.Login == dealDto.Login).ID,
-            });
+                _dealsBuildings.Add(new DealsBuildings
+                {
+                    Deal_ID = dealDto.Deal_ID,
+                    Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.BuildingName).ID,
+                    User_ID = _users.GetAll().First(i => i.Login == dealDto.Login).ID,
+                });
 
-            _unitOfWork.Commit();
+                _unitOfWork.Commit();
+                return true;
+            }
+            return false;
         }
 
-        public void DeleteDealBuildingAdmin(int id)
+        public bool DeleteDealBuildingAdmin(int id)
         {
             _dealsBuildings.Delete(_dealsBuildings.Get(id));
             _unitOfWork.Commit();
+            return true;
         }
 
-        public void UpdateDealBuildingAdmin(DealBuildingDto dealDto)
+        public bool UpdateDealBuildingAdmin(DealBuildingDto dealDto)
         {
-            foreach (var item in _dealsBuildings.GetAll().Where(i => i.ID == dealDto.ID))
+            if (_deals.GetAll().Any(i => i.Buildings.Alias == dealDto.BuildingName && ((i.Users.Login == dealDto.Login) || (i.Users1.Login == dealDto.Login))))
             {
-                item.Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.BuildingName).ID;
-                item.Deal_ID = item.Deal_ID;
-                item.User_ID = _users.GetAll().First(i => i.Login == dealDto.Login).ID;
+                foreach (var item in _dealsBuildings.GetAll().Where(i => i.ID == dealDto.ID))
+                {
+                    item.Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.BuildingName).ID;
+                    item.Deal_ID = item.Deal_ID;
+                    item.User_ID = _users.GetAll().First(i => i.Login == dealDto.Login).ID;
+                }
+                _unitOfWork.Commit();
+                return true;
             }
-
-            _unitOfWork.Commit();
+            return false;
         }
 
         public List<DealDto> GetUserDeals(string User)

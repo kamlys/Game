@@ -73,7 +73,7 @@
                             <td id="buyTd">
                                 @if (User.Identity.Name != item.User_Login)
                                 {
-                                    <input type="number" class="numValue" id='numberValue_@item.ID' data-id="@item.ID" data-productid="@item.Product_ID" data-number="@item.Number" name="numValue" min="1" value="1" onkeypress="return isNumberKey(event)">
+                                    <input type="number" class="numValue" id='numValue_@item.ID' data-id="@item.ID" data-productid="@item.Product_ID" data-number="@item.Number" name="numValue" min="1" value="1" onkeypress="return isNumberKey(event)">
                                     <button type="submit" class="btn buyButton" id="buyButton_@item.User_Login" onclick="buyoffer(@item.ID, @item.User_ID, @item.Product_ID, @item.Price, false)">Sprzedaj</button>
                                 }
                                 else
@@ -154,7 +154,7 @@
             var productid = $(this).data('productid');
 
             if ($("#product_" + productid).text() == "") {
-                $("#numberValue_" + id).val(0);
+                $("#numValue_" + id).val(0);
             }
             else {
                 var val;
@@ -165,13 +165,13 @@
                     val = parseInt($("#product_" + productid).text());
                 }
 
-                $("#numberValue_" + id).attr({ "max": val });
-                if (parseInt($("#numberValue_" + id).val()) > $("#numberValue_" + id).attr("max")) {
-                    if (parseInt($("#numberValue_" + id).val()) > val) {
-                        $("#numberValue_" + id).val($("#numberValue_" + id).attr("max"));
+                $("#numValue_" + id).attr({ "max": val });
+                if (parseInt($("#numValue_" + id).val()) > $("#numValue_" + id).attr("max")) {
+                    if (parseInt($("#numValue_" + id).val()) > val) {
+                        $("#numValue_" + id).val($("#numValue_" + id).attr("max"));
                     }
                     else {
-                        $("#numberValue_" + id).val(val);
+                        $("#numValue_" + id).val(val);
                     }
                 }
             }

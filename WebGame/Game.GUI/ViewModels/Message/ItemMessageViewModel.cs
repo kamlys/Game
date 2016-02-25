@@ -9,7 +9,9 @@ namespace Game.GUI.ViewModels.Message
     public class ItemMessageViewModel
     {
         public int ID { get; set; }
+        [Required]
         public string Theme { get; set; }
+        [Required]
         public string Content { get; set; }
         public int Customer_ID { get; set; }
         public string Customer_Login { get; set; }

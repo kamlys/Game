@@ -11,9 +11,9 @@ namespace Game.Service.Interfaces.TableInterface
     {
         List<DolarDto> GetDolars();
         List<DolarDto> GetToRank();
-        void Add(DolarDto admin);
-        void Update(DolarDto admin);
-        void Delete(int id);
+        bool Add(DolarDto admin);
+        bool Update(DolarDto admin);
+        //bool Delete(int id);
         int UserDolar(string user);
         void PayForBet(string user, int bet);
         int AddFromBet(string user, int bet, int mul);

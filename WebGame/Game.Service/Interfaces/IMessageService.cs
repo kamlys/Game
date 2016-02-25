@@ -16,9 +16,9 @@ namespace Game.Service.Interfaces
         List<MessageDto> GetSentMessage(string User);
         List<MessageDto> GetReceivedMessages(string User);
         List<MessageDto> GetMessage();
-        void AddMessageAdmin(MessageDto messageDto);
-        void UpdateMessageAdmin(MessageDto messageDto);
-        void DeleteMessageAdmin(int id);
+        bool AddMessageAdmin(MessageDto messageDto);
+        bool UpdateMessageAdmin(MessageDto messageDto);
+        bool DeleteMessageAdmin(int id);
 
 
     }

@@ -24,32 +24,53 @@ namespace Game.Service.Table
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(BuildingDto building)
+        public bool Add(BuildingDto building)
         {
-            _buildings.Add(new Buildings
+            if (!_buildings.GetAll().Any(i => i.Name == building.Name && i.Alias == building.Alias))
             {
-                Name = building.Name,
-                Price = building.Price,
-                Height = building.Height,
-                Width = building.Width,
-                Dest_price = building.Dest_price,
-                Percent_price_per_lvl = building.Percent_price_per_lvl,
-                Percent_product_per_lvl = building.Percent_product_per_lvl,
-                Product_ID = _products.GetAll().First(i => i.Alias == building.Product_Name).ID,
-                Product_per_sec = building.Product_per_sec,
-                Alias = building.Alias,
-                BuildingTime = building.BuildingTime,
-                DestructionTime = building.DestructionTime,
-                Stock = building.Stock
-            });
+                try
+                {
+                    _buildings.Add(new Buildings
+                    {
+                        Name = building.Name,
+                        Price = building.Price,
+                        Height = building.Height,
+                        Width = building.Width,
+                        Dest_price = building.Dest_price,
+                        Percent_price_per_lvl = building.Percent_price_per_lvl,
+                        Percent_product_per_lvl = building.Percent_product_per_lvl,
+                        Product_ID = _products.GetAll().First(i => i.Alias == building.Product_Name).ID,
+                        Product_per_sec = building.Product_per_sec,
+                        Alias = building.Alias,
+                        BuildingTime = building.BuildingTime,
+                        DestructionTime = building.DestructionTime,
+                        Stock = building.Stock
+                    });
 
-            _unitOfWork.Commit();
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            _buildings.Delete(_buildings.Get(id));
-            _unitOfWork.Commit();
+            try
+            {
+                _buildings.Delete(_buildings.Get(id));
+                _unitOfWork.Commit();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
         public List<BuildingDto> GetBuilding()
@@ -76,7 +97,7 @@ namespace Game.Service.Table
                         BuildingTime = item.BuildingTime,
                         DestructionTime = item.DestructionTime,
                         Stock = item.Stock
-                });
+                    });
                 }
                 catch (Exception)
                 {
@@ -85,25 +106,37 @@ namespace Game.Service.Table
             return buildingDto;
         }
 
-        public void Update(BuildingDto building)
+        public bool Update(BuildingDto building)
         {
-            foreach (var item in _buildings.GetAll().Where(i => i.ID == building.ID))
+            if (_buildings.GetAll().Any(i => i.ID == building.ID))
             {
-                item.Name = building.Name;
-                item.Price = building.Price;
-                item.Percent_price_per_lvl = building.Percent_price_per_lvl;
-                item.Width = building.Width;
-                item.Height = building.Height;
-                item.Product_per_sec = building.Product_per_sec;
-                item.Dest_price = building.Dest_price;
-                item.Percent_product_per_lvl = building.Percent_product_per_lvl;
-                item.Product_ID = _products.GetAll().First(i => i.Alias == building.Product_Name).ID;
-                item.Alias = building.Alias;
-                item.BuildingTime = building.BuildingTime;
-                item.DestructionTime = building.DestructionTime;
-                item.Stock = building.Stock;
+                try
+                {
+                    foreach (var item in _buildings.GetAll().Where(i => i.ID == building.ID))
+                    {
+                        item.Name = building.Name;
+                        item.Price = building.Price;
+                        item.Percent_price_per_lvl = building.Percent_price_per_lvl;
+                        item.Width = building.Width;
+                        item.Height = building.Height;
+                        item.Product_per_sec = building.Product_per_sec;
+                        item.Dest_price = building.Dest_price;
+                        item.Percent_product_per_lvl = building.Percent_product_per_lvl;
+                        item.Product_ID = _products.GetAll().First(i => i.Alias == building.Product_Name).ID;
+                        item.Alias = building.Alias;
+                        item.BuildingTime = building.BuildingTime;
+                        item.DestructionTime = building.DestructionTime;
+                        item.Stock = building.Stock;
+                    }
+                    _unitOfWork.Commit();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                }
             }
-            _unitOfWork.Commit();
+            return false;
         }
     }
 }

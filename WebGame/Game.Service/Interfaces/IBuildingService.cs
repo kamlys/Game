@@ -10,8 +10,8 @@ namespace Game.Service.Interfaces.TableInterface
     public interface IBuildingService
     {
         List<BuildingDto> GetBuilding();
-        void Add(BuildingDto building);
-        void Update(BuildingDto building);
-        void Delete(int id);
+        bool Add(BuildingDto building);
+        bool Update(BuildingDto building);
+        bool Delete(int id);
     }
 }
