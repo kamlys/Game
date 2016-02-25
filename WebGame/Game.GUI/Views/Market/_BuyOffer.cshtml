@@ -177,36 +177,39 @@
         });
 
         $('#paginationBtnBuyOffer').on('click', 'a', function (e) {
-            e.preventDefault();
+            if (!$(this).parents("li:first").hasClass("disabled"))
+            {
+                e.preventDefault();
 
-            if(product==undefined)
-            {
-                product = "";
-            }
-            if(min==undefined)
-            {
-                min="";
-            }
-            if(max==undefined)
-            {
-                max = "";
-            }
+                if(product==undefined)
+                {
+                    product = "";
+                }
+                if(min==undefined)
+                {
+                    min="";
+                }
+                if(max==undefined)
+                {
+                    max = "";
+                }
 
-            if (!$(this).parents("li:first").hasClass("active")) {
-                $.ajax({
-                    url: this.href,
-                    type: 'GET',
-                    data: {productName: product, minPrice: min, maxPrice:  max, columnName: parseInt(columnName) , sortOrder: parseInt(order)},
-                    cache: false,
-                    success: function (result) {
-                        $('#buyOffer').html(result);
-                        $('span[data-columnname='+columnName+']').addClass(classAdd);
-                        $("#productNameSell").val(product);
-                        $("#minPriceSell").val(min);
-                        $("#maxPriceSell").val(max);
-                        $('#myOfferBuy').attr('checked', my);
-                    }
-                });
+                if (!$(this).parents("li:first").hasClass("active")) {
+                    $.ajax({
+                        url: this.href,
+                        type: 'GET',
+                        data: {productName: product, minPrice: min, maxPrice:  max, columnName: parseInt(columnName) , sortOrder: parseInt(order)},
+                        cache: false,
+                        success: function (result) {
+                            $('#buyOffer').html(result);
+                            $('span[data-columnname='+columnName+']').addClass(classAdd);
+                            $("#productNameSell").val(product);
+                            $("#minPriceSell").val(min);
+                            $("#maxPriceSell").val(max);
+                            $('#myOfferBuy').attr('checked', my);
+                        }
+                    });
+                }
             }
         });
 

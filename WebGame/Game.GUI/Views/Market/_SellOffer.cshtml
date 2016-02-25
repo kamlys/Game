@@ -178,11 +178,8 @@
 
         });
         $('#paginationBtnSellOffer').on('click', 'a', function (e) {
-            console.log("ma disabled");
-            if(!$(this).siblings('li').hasClass('disabled'))
+            if (!$(this).parents("li:first").hasClass("disabled"))
             {
-                console.log("nie ma disabled");
-
                 e.preventDefault();
 
                 if(product==undefined)
