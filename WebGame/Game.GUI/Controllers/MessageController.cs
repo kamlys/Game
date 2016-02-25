@@ -55,7 +55,6 @@ namespace Game.GUI.Controllers
                 }
                 i++;
             }
-
             messageModel.userList = temp.ToArray();
             Array.Sort(messageModel.userList);
             return View(messageModel);
@@ -89,13 +88,14 @@ namespace Game.GUI.Controllers
                     User_Login = message.Customer_Login,
                     Description = "Nowa wiadomość",
                 });
+                errors.Add("Wiadomość wysłana.");
             }
             else
             {
                 errors.Add("Błąd wysyłania. Spróbuj ponownie.");
-                Session["val"] = errors.ToArray<string>();
             }
 
+            Session["val"] = errors.ToArray<string>();
 
             return RedirectToAction("Index");
 
@@ -104,6 +104,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult SendMessageProfile(ProfileViewModel profilViewModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MessageDto message = new MessageDto();
 
             message.Sender_Login = User.Identity.Name;
@@ -111,18 +121,37 @@ namespace Game.GUI.Controllers
             message.Theme = profilViewModel.Theme;
             message.Content = profilViewModel.Content;
 
-            _messageService.SendMessage(message);
-            _notificationService.SentNotification(new NotificationDto
+            if (_messageService.SendMessage(message))
             {
-                User_Login = message.Customer_Login,
-                Description = "Nowa wiadomość",
-            });
+                _notificationService.SentNotification(new NotificationDto
+                {
+                    User_Login = message.Customer_Login,
+                    Description = "Nowa wiadomość",
+                });
+                errors.Add("Wiadomość wysłana.");
+            }
+            else
+            {
+                errors.Add("Błąd wysyłania. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Profil", "User", new { User = message.Customer_Login });
         }
 
         [Authorize]
         public ActionResult SendFriendMessage(FriendViewModel friendViewModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MessageDto message = new MessageDto();
 
             message.Sender_Login = User.Identity.Name;
@@ -130,12 +159,22 @@ namespace Game.GUI.Controllers
             message.Theme = friendViewModel.viewModel.Theme;
             message.Content = friendViewModel.viewModel.Content;
 
-            _messageService.SendMessage(message);
-            _notificationService.SentNotification(new NotificationDto
+            if (_messageService.SendMessage(message))
             {
-                User_Login = message.Customer_Login,
-                Description = "Nowa wiadomość",
-            });
+                _notificationService.SentNotification(new NotificationDto
+                {
+                    User_Login = message.Customer_Login,
+                    Description = "Nowa wiadomość",
+                });
+                errors.Add("Wiadomość wysłana.");
+
+            }
+            else
+            {
+                errors.Add("Błąd wysyłania. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
+
             return RedirectToAction("Index", "Home");
         }
 

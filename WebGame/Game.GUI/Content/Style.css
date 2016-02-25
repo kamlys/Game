@@ -735,6 +735,8 @@ nav {
           border: none;
           color: #563232;
           cursor: pointer; }
+        .market .filterAll .filterBox .filterA .filterBtn:hover {
+          color: #fff; }
       .market .filterAll .filterBox .select-wrapper, .market .filterAll .filterBox input[type=number] {
         display: inline-block !important;
         width: 20%;

@@ -1060,6 +1060,9 @@ nav {
                     color: $marketColoR;
                     cursor: pointer;
                 }
+                .filterBtn:hover{
+                    color: #fff;
+                }
             }
 
             .select-wrapper, input[type=number] {
