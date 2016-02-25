@@ -69,16 +69,19 @@
 
 
         $('#paginationBtnReceived').on('click', 'a', function (e) {
-            e.preventDefault();
-            if (!$(this).parents("li:first").hasClass("active")) {
-                $.ajax({
-                    url: this.href,
-                    type: 'GET',
-                    cache: false,
-                    success: function (result) {
-                        $('#receivedMessage').html(result);
-                    }
-                });
+            if (!$(this).parents("li:first").hasClass("disabled"))
+            {
+                e.preventDefault();
+                if (!$(this).parents("li:first").hasClass("active")) {
+                    $.ajax({
+                        url: this.href,
+                        type: 'GET',
+                        cache: false,
+                        success: function (result) {
+                            $('#receivedMessage').html(result);
+                        }
+                    });
+                }
             }
         });
     }

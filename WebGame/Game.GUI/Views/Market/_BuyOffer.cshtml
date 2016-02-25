@@ -125,7 +125,10 @@
                     $("#productNameSell").val(product);
                     $("#minPriceSell").val(min);
                     $("#maxPriceSell").val(max);
-                   $('#myOfferBuy').attr('checked',my);
+                    $('#myOfferBuy').attr('checked',my);
+                    $("#productNameSell").siblings(".select-dropdown").val(product);
+                    $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
+                    $("#productNameSell").val(product);
                 }
             });
 
@@ -207,6 +210,9 @@
                             $("#minPriceSell").val(min);
                             $("#maxPriceSell").val(max);
                             $('#myOfferBuy').attr('checked', my);
+                            $("#productNameSell").siblings(".select-dropdown").val(product);
+                            $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
+                            $("#productNameSell").val(product);
                         }
                     });
                 }
@@ -250,6 +256,9 @@
                     $("#minPriceSell").val(min);
                     $("#maxPriceSell").val(max);
                     $('#myOfferBuy').attr('checked',my);
+                    $("#productNameSell").siblings(".select-dropdown").val(product);
+                    $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
+                    $("#productNameSell").val(product);
                 }
             });
 
