@@ -22,7 +22,7 @@
     @if (User.Identity.Name != Model.Login)
     {
         @Html.Hidden("UserLogin", Model.Login)
-        <h2>@Model.Login</h2>
+        <h3>@Model.Login</h3>
 
         if (!Model.Ignor)
         {
@@ -98,7 +98,7 @@
     }
     else
     {
-        <h4>Witaj </h4> <h2>@Model.Login</h2>
+        <h5>Witaj </h5> <h3>@Model.Login</h3>
         <hr />
         <div id="left">
             @if (Model.RegDays <= 1)

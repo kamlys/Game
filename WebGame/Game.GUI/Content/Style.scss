@@ -136,23 +136,20 @@ nav {
 
     @media screen and (min-width: 993px) {
         .userDolar {
-            color: $greyColor;
+            color: #CCCCCC;
             float: left;
             margin-left: 20px;
             margin-top: 10px;
             padding: 5px 10px 5px 10px;
             display: inline-block;
-            background-color: #214954;
             text-align: center;
             min-width: 80px;
             width: auto;
             height: 45px;
             line-height: 35px;
-            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
         }
 
         .userDolar:hover {
-            color: #51B3CE;
             cursor: default;
         }
     }
@@ -171,24 +168,17 @@ nav {
             height: 45px;
             line-height: 45px;
             font-size: 15px;
-            background: #214954;
-            color: $greyColor;
-            border-radius: 0;
+            color: #CCCCCC;
+            background: none;
+            border: none;
 
             .fa {
                 font-size: 150%;
-                color: $greyColor;
+                color: #E84141;
             }
         }
 
-        .userLogout:hover {
-            color: #51B3CE;
-            background-color: #214954 !important;
-
-            .fa {
-                color: #51B3CE;
-            }
-        }
+        
     }
 }
 /*Panel logowania*/
@@ -1774,12 +1764,12 @@ nav {
         margin-right: 10px;
     }
 
-    h4 {
+    h5 {
         color: #fff;
         display: inline-block;
     }
 
-    h2 {
+    h3 {
         color: #4dd0e1;
         text-transform: capitalize;
         display: inline-block;
@@ -1823,7 +1813,7 @@ nav {
         width: 50%;
         margin: 0 20px 0 0;
 
-        h3 {
+        h4 {
             margin-bottom: 50px;
             color: #4dd0e1;
             font-size: 20px;

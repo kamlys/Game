@@ -1431,7 +1431,7 @@ namespace Game.GUI.Controllers
                 FinishDate = (DateTime)x.FinishDate
             }).ToList();
 
-            //dealModel.buildingList = _buildingService.GetBuilding().Select(x => x.Alias).ToArray();
+            dealModel.buildingList = _buildingService.GetBuilding().Select(x => x.Alias).ToArray();
             dealModel.userList = _userService.GetUser().Select(x => x.Login).ToArray();
             return View(dealModel);
         }

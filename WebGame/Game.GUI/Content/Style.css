@@ -80,21 +80,18 @@ nav {
       cursor: default; } }
   @media screen and (min-width: 993px) {
     nav .userDolar {
-      color: #9E9E9E;
+      color: #CCCCCC;
       float: left;
       margin-left: 20px;
       margin-top: 10px;
       padding: 5px 10px 5px 10px;
       display: inline-block;
-      background-color: #214954;
       text-align: center;
       min-width: 80px;
       width: auto;
       height: 45px;
-      line-height: 35px;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
+      line-height: 35px; }
     nav .userDolar:hover {
-      color: #51B3CE;
       cursor: default; } }
   @media screen and (max-width: 992px) {
     nav .userLogout {
@@ -107,17 +104,12 @@ nav {
       height: 45px;
       line-height: 45px;
       font-size: 15px;
-      background: #214954;
-      color: #9E9E9E;
-      border-radius: 0; }
+      color: #CCCCCC;
+      background: none;
+      border: none; }
       nav .userLogout .fa {
         font-size: 150%;
-        color: #9E9E9E; }
-    nav .userLogout:hover {
-      color: #51B3CE;
-      background-color: #214954 !important; }
-      nav .userLogout:hover .fa {
-        color: #51B3CE; } }
+        color: #E84141; } }
 
 /*Panel logowania*/
 .loginForm {
@@ -1209,10 +1201,10 @@ nav {
     margin-top: 30px;
     background-color: #4dd0e1;
     margin-right: 10px; }
-  .profil h4 {
+  .profil h5 {
     color: #fff;
     display: inline-block; }
-  .profil h2 {
+  .profil h3 {
     color: #4dd0e1;
     text-transform: capitalize;
     display: inline-block; }
@@ -1241,7 +1233,7 @@ nav {
     display: inline-block;
     width: 50%;
     margin: 0 20px 0 0; }
-    .profil #right h3 {
+    .profil #right h4 {
       margin-bottom: 50px;
       color: #4dd0e1;
       font-size: 20px; }
