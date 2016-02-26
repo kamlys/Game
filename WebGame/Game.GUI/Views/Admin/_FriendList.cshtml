@@ -75,7 +75,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="friendAdminUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger friendAdminUpdate" onclick="updaterow(['inputID','inputUserDrop','inputFriendDrop','inputOrAcceptedDrop'], ['@item.ID','@item.User_Login','@item.Friend_Login','@item.Accepted'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteFriendAdmin", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="if(confirm('Na pewno?')==true) { location.href='@Url.Action("DeleteFriendAdmin", "Admin", new { id = item.ID })'}"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

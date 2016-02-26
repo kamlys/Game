@@ -99,7 +99,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="offerUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger offerUpdate" onclick="updaterow(['inputID','inputLoginDrop','inputProductNameDrop','inputNumber','inputPrice','inputTypeOfferDrop'], ['@item.ID','@item.User_Login','@item.Product_Name','@item.Number','@item.Price','@item.TypeOfferAdmin'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteMarket", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="if(confirm('Na pewno?')==true) { location.href='@Url.Action("DeleteMarket", "Admin", new { id = item.ID })'}"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

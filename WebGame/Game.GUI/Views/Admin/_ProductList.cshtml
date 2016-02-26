@@ -96,7 +96,7 @@
                             <ul>
                                 <li><button data-target="productUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger productUpdate" onclick="updaterow(['inputID','inputName','inputPrice_per_unit','inputUnit','inputAlias'],
                                              ['@item.ID','@item.ProductName','@item.Price_per_unit','@item.Unit','@item.Alias'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteProduct", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="if(confirm('Zostanie usunięty również budynek, który go produkuje. Na pewno?')==true) { location.href='@Url.Action("DeleteProduct", "Admin", new { id = item.ID })'}"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

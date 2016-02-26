@@ -4,7 +4,7 @@
 }
 
 <div id="dealInner">
-    <div id="officeDealAdd" class="modal">
+    <div id="officeDealAdd" class="modal modal-fixed-footer">
         <div class="modal-content">
             @using (Html.BeginForm("AddDeal", "Office", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -19,7 +19,7 @@
 
                     <div class="input-field col s12" id="Number">
                         @*@Html.TextBoxFor(m => m.viewModel.Building_Name, new { @placeholder = "", @class = "validate inputBuildingName" })*@
-                        @Html.DropDownListFor(m => m.viewModel.Building_Name, new SelectList(Model.buildingList), new { @class = "validate" })
+                        @Html.DropDownListFor(m => m.viewModel.Building_Name, Model.buildingList2, new { @class = "validate" })
                         <label for="BuildingName">Budynek:</label>
                     </div>
                     <div class="col s12">
@@ -46,6 +46,9 @@
                     <button type="submit" class="btn addButton" id="addDeal" name="action">Złóż ofertę</button>
                 </form>
             }
+            <div class="modal-footer">
+                Zanim zaproponujesz umowę, upewnij się, że jesteś w stanie zrealizować jej warunki.
+            </div>
         </div>
     </div>
 

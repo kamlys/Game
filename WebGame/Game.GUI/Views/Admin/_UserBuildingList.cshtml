@@ -162,7 +162,7 @@
                             <ul>
                                 <li><button data-target="ubuildingUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger ubuildingUpdate" onclick="updaterow(['inputID','inputLoginDrop','inputBuildingDrop','inputX_pos','inputY_pos','inputLvl','inputStatus','inputOwnerDrop','inputPercentProduct','inputColor','inputDate'],
                                              ['@item.ID','@item.User_Login','@item.Building_Name','@item.X_pos','@item.Y_pos','@item.Lvl','@item.Status','@item.Owner','@item.Percent_product','@item.Color','@item.DateOfConstruction'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="location.href='@Url.Action("DeleteUserBuilding", "Admin", new { id = item.ID })'"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="if(confirm('Na pewno?')==true) { location.href='@Url.Action("DeleteUserBuilding", "Admin", new { id = item.ID })'}"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

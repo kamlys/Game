@@ -159,7 +159,7 @@ namespace Game.GUI.Controllers
 
             if (_adminService.Update(_adminDto))
             {
-                errors.Add("Zaktualizowano.");
+                errors.Add("Zaktualizowano administratora.");
             }
             else
             {
@@ -278,7 +278,7 @@ namespace Game.GUI.Controllers
 
             if (_banService.Update(_banDto))
             {
-                errors.Add("Zaktualizowano.");
+                errors.Add("Zaktualizowano blokadę.");
             }
             else
             {
@@ -657,7 +657,7 @@ namespace Game.GUI.Controllers
 
             if (_dolarService.Update(_dolarDto))
             {
-                errors.Add("Zaktualizowano.");
+                errors.Add("Zaktualizowano pieniądze.");
             }
             else
             {
@@ -1137,7 +1137,7 @@ namespace Game.GUI.Controllers
 
             if (_userBuildingService.Update(_userBuildingDto))
             {
-                errors.Add("Dodano budynek użytkownikowi.");
+                errors.Add("Zaktualizowano budynek użytkownika.");
             }
             else
             {
@@ -1165,7 +1165,7 @@ namespace Game.GUI.Controllers
 
             if (_userBuildingService.Delete(id))
             {
-                errors.Add("Dodano budynek użytkownikowi.");
+                errors.Add("Usunięto budynek użytkownikowi.");
             }
             else
             {
@@ -1221,7 +1221,7 @@ namespace Game.GUI.Controllers
 
             if(_userProductService.Add(_userProductDto))
             {
-                errors.Add("Dodano produkt użytkownikow.");
+                errors.Add("Dodano produkt użytkownikowi.");
             }
             else
             {
@@ -1283,7 +1283,7 @@ namespace Game.GUI.Controllers
 
             if(_userProductService.Delete(id))
             {
-                errors.Add("Usunięto produkt użytkownikowi.");
+                errors.Add("Usunięto produkt użytkownika.");
             }
             else
             {
@@ -1431,7 +1431,7 @@ namespace Game.GUI.Controllers
                 FinishDate = (DateTime)x.FinishDate
             }).ToList();
 
-            dealModel.buildingList = _buildingService.GetBuilding().Select(x => x.Alias).ToArray();
+            //dealModel.buildingList = _buildingService.GetBuilding().Select(x => x.Alias).ToArray();
             dealModel.userList = _userService.GetUser().Select(x => x.Login).ToArray();
             return View(dealModel);
         }
@@ -1616,7 +1616,7 @@ namespace Game.GUI.Controllers
 
             if(_dealService.UpdateDealBuildingAdmin(dealbDto))
             {
-                errors.Add("Zaktualizowano budynek.");
+                errors.Add("Zaktualizowano budynek z umowy.");
             }
             else
             {
@@ -1642,7 +1642,7 @@ namespace Game.GUI.Controllers
 
             if(_dealService.DeleteDealBuildingAdmin(id))
             {
-                errors.Add("Usunięto budynek.");
+                errors.Add("Usunięto budynek z umowy.");
             }
             else
             {
@@ -1697,7 +1697,7 @@ namespace Game.GUI.Controllers
 
             if(_userService.AddFriendAdmin(friendDto))
             {
-                errors.Add("Dodano.");
+                errors.Add("Dodano znajomych.");
             }
             else
             {
@@ -1730,7 +1730,7 @@ namespace Game.GUI.Controllers
 
             if(_userService.UpdateFriendAdmin(friendDto))
             {
-                errors.Add("Zaktualizowano.");
+                errors.Add("Zaktualizowano znajomych.");
             }
             else
             {
@@ -1756,7 +1756,7 @@ namespace Game.GUI.Controllers
 
             if(_userService.DeleteFriendAdmin(id))
             {
-                errors.Add("Usunięto.");
+                errors.Add("Usunięto znajomych.");
             }
             else
             {
@@ -1809,7 +1809,7 @@ namespace Game.GUI.Controllers
 
             if(_userService.AddIgnoredAdmin(ignoredDto))
             {
-                errors.Add("Dodano.");
+                errors.Add("Dodano ignorowanych.");
             }
             else
             {
@@ -1841,7 +1841,7 @@ namespace Game.GUI.Controllers
 
             if(_userService.UpdateIgnoredAdmin(ignoredDto))
             {
-                errors.Add("Zaktualizowano.");
+                errors.Add("Zaktualizowano ignorowanych.");
             }
             else
             {
@@ -1867,7 +1867,7 @@ namespace Game.GUI.Controllers
 
             if (_userService.DeleteIgnoredAdmin(id))
             {
-                errors.Add("Zaktualizowano mapę.");
+                errors.Add("Usunięto ignorowanych.");
             }
             else
             {

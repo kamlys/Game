@@ -35,13 +35,14 @@
             @Html.DropDownList("productNameSell", new SelectList(Model.allProduct), "Nazwa produktu", new { @placeholder = "Nazwa produktu", @class = "validate" })
             @Html.TextBox("minPriceSell", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena minimalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
             @Html.TextBox("maxPriceSell", null, new { @type = "number", @value = "1", @min = "1", @placeholder = "Cena maksymalna", @class = "validate", @onkeypress = "return isNumberKey(event)" })
-            <input type="checkbox" id="myOfferSell" />
-            <label for="myOfferSell" class="filterMyOffer">Tylko moje oferty</label>
+
             <div class="filterA">
-                <button type="submit" class="filterBtn" id="filterButton" name="action">Filtruj</button><br />
+                <input type="checkbox" id="myOfferSell" />
+                <label for="myOfferSell" class="filterMyOffer">Tylko moje oferty</label>
+                
+                <button type="submit" class="filterBtn" id="filterButton" name="action">Filtruj</button>
                 <button type="submit" class="filterBtn" id="filterClear" name="action">Wyczyść filtry</button>
             </div>
-
         </div>
     </div>
     <div id="sellList">
@@ -80,7 +81,7 @@
                                     }
                                     else
                                     {
-                                        <button type="submit" class="btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj ofertę</button>
+                                        <button type="submit" class="btn buyButton" id="buyButton" onclick="location.href='@Url.Action("DeleteOffer", "Market", new { id = item.ID })'">Anuluj</button>
                                     }
                                 </td>
                             </tr>
@@ -181,20 +182,16 @@
 
         });
         $('#paginationBtnSellOffer').on('click', 'a', function (e) {
-            if (!$(this).parents("li:first").hasClass("disabled"))
-            {
+            if (!$(this).parents("li:first").hasClass("disabled")) {
                 e.preventDefault();
 
-                if(product==undefined)
-                {
+                if (product == undefined) {
                     product = "";
                 }
-                if(min==undefined)
-                {
-                    min="";
+                if (min == undefined) {
+                    min = "";
                 }
-                if(max==undefined)
-                {
+                if (max == undefined) {
                     max = "";
                 }
 
@@ -202,11 +199,11 @@
                     $.ajax({
                         url: this.href,
                         type: 'GET',
-                        data: {productName: product, minPrice: min, maxPrice:  max, columnName: parseInt(columnName) , sortOrder: parseInt(order)},
+                        data: { productName: product, minPrice: min, maxPrice: max, columnName: parseInt(columnName), sortOrder: parseInt(order) },
                         cache: false,
                         success: function (result) {
                             $('#sellDiv').html(result);
-                            $('span[data-columnname='+columnName+']').addClass(classAdd);
+                            $('span[data-columnname=' + columnName + ']').addClass(classAdd);
                             $("#productNameSell").val(product);
                             $("#minPriceSell").val(min);
                             $("#maxPriceSell").val(max);
@@ -220,21 +217,21 @@
             }
         });
 
-        $('.sortSellMarket').click(function(){
+        $('.sortSellMarket').click(function () {
             columnName = $(this).data('columnname');
             order;
-            if($(this).hasClass('orderDescMarket')){
+            if ($(this).hasClass('orderDescMarket')) {
                 $(this).removeClass('orderDescMarket');
                 $(this).addClass('orderMarket');
                 order = "2";
-                classAdd="orderMarket";
+                classAdd = "orderMarket";
             }
-            else if($(this).hasClass('orderMarket')){
+            else if ($(this).hasClass('orderMarket')) {
                 $(this).removeClass('orderMarket');
                 order = "0";
-                classAdd="";
+                classAdd = "";
             }
-            else{
+            else {
                 $(this).addClass('orderDescMarket');
                 order = "1";
                 classAdd = "orderDescMarket";
@@ -247,11 +244,11 @@
             $.ajax({
                 type: "POST",
                 url: 'Market/_SellOffer',
-                data: { productName: product, minPrice: min, maxPrice: max, myOffer: my,columnName: parseInt(columnName) , sortOrder: parseInt(order) },
+                data: { productName: product, minPrice: min, maxPrice: max, myOffer: my, columnName: parseInt(columnName), sortOrder: parseInt(order) },
                 success: function (data) {
                     $("#sellDiv").html($(data).html());
                     initSell();
-                    $('span[data-columnname='+columnName+']').addClass(classAdd);
+                    $('span[data-columnname=' + columnName + ']').addClass(classAdd);
                     $("#productNameSell").val(product);
                     $("#minPriceSell").val(min);
                     $("#maxPriceSell").val(max);

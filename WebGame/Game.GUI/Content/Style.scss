@@ -1023,27 +1023,28 @@ nav {
 
     .filterAll {
         width: auto;
-        display: inline-block;
+        display: block;
         padding-bottom: 20px;
         margin-bottom: 20px;
+        padding: 0 10px 0 10px;
 
         .filter {
             color: #fff;
         }
 
         .filterBox {
-            margin: -5px 0 0 20px;
-            width: auto;
+            margin: 0 0 0 20px;
+            width: 100%;
             height: 40px;
             display: inline-block;
+
 
             .dropdown-content {
                 top: 0 !important;
             }
 
-            @-moz-document url-prefix()
-            {
-                .dropdown-content{
+            @-moz-document url-prefix() {
+                .dropdown-content {
                     top: auto !important;
                     left: auto !important;
                 }
@@ -1051,26 +1052,42 @@ nav {
 
 
             .filterA {
-                float: right;
                 text-align: center;
+                display: inline-block;
+                margin-right: 25px;
+                line-height: 46px;
+                float: right;
 
                 .filterBtn {
                     background: none;
                     border: none;
-                    color: $marketColoR;
+                    color: #9e9e9e;
                     cursor: pointer;
                 }
-                .filterBtn:hover{
+
+                .filterBtn:hover {
                     color: #fff;
                 }
             }
 
             .select-wrapper, input[type=number] {
                 display: inline-block !important;
-                width: 20%;
+                width: 15%;
                 color: #fff;
                 text-align: center;
                 display: -moz-inline-stack !important;
+                font-size: 12px;
+                text-align: center;
+
+                .caret {
+                    color: #9e9e9e;
+                }
+
+                input.select-dropdown {
+                    font-size: 12px;
+                    text-align: center;
+                    color: #9e9e9e;
+                }
 
                 .dropdown-content li > a, .dropdown-content li > span {
                     color: $marketColoR !important;
@@ -1219,11 +1236,15 @@ nav {
         float: left;
         max-width: 60px;
         margin-right: 40px;
+        text-align: center;
     }
 
-    #buyButton {
+    .buyButton {
         margin-top: 10px;
         background-color: $marketColoR;
+        width: 120px;
+        float: right;
+        margin-right: 20px;
     }
 
     #buyTd {
@@ -1536,8 +1557,6 @@ nav {
     }
 
     .uDealList {
-
-
         background-color: $secondColor;
         margin-top: 30px;
         min-height: 400px;
@@ -1546,9 +1565,10 @@ nav {
         padding: 20px 20px 20px 20px;
         width: 49%;
 
-        .dropdown-content li > a, .dropdown-content li > span{
-        color: $officeColor !important;
+        .dropdown-content li > a, .dropdown-content li > span {
+            color: $officeColor !important;
         }
+
         .slimScrollBar {
             background: #8581ce !important;
         }
@@ -1606,6 +1626,14 @@ nav {
             display: inline-block;
             margin: -65px 0 0 100px;
             background-color: $officeColor;
+        }
+
+        .modal.modal-fixed-footer .modal-content {
+            overflow-x: hidden !important;
+        }
+
+        .modal-footer {
+            width: 95%;
         }
 
         .officeDealShow {
@@ -2048,7 +2076,7 @@ nav {
     padding: 10px 30px 30px 30px;
     background-color: #fff;
 
-    .dropdown-content li > a, .dropdown-content li > span{
+    .dropdown-content li > a, .dropdown-content li > span {
         color: #617487 !important;
     }
 

@@ -209,7 +209,16 @@ namespace Game.GUI.Controllers
                 DealDay = x.DayTime,
             }).ToList();
 
-            dealModel.buildingList = _buildingsHelper.GetBuildings().OrderBy(x => x.Alias).Select(x => x.Alias).ToArray();
+            //dealModel.buildingList = new string [ _buildingsHelper.GetBuildings().OrderBy(x => x.Alias).Select(x => x.Alias).ToString(), Convert.ToString(_buildingsHelper.GetBuildings().OrderBy(x => x.Alias).Select(x => x.Price))];
+            dealModel.buildingList2 = new List<SelectListItem>();
+            foreach (var item in _buildingsHelper.GetBuildings())
+            {
+                dealModel.buildingList2.Add(new SelectListItem
+                {
+                    Value = item.Alias,
+                    Text = item.Alias +" - $"+ item.Price.ToString()
+                });
+            }
 
             List<string> temp = new List<string>();
             int i = 0;
@@ -381,6 +390,16 @@ namespace Game.GUI.Controllers
         [Authorize]
         public ActionResult AddOffer(UserProductViewModel marketModel)
         {
+            List<string> errors;
+            if (Session["val"] != null)
+            {
+                errors = ((string[])Session["val"]).ToList();
+            }
+            else
+            {
+                errors = new List<string>();
+            }
+
             MarketDto _marketDto = new MarketDto();
 
             _marketDto.Login = User.Identity.Name;
@@ -389,9 +408,17 @@ namespace Game.GUI.Controllers
             _marketDto.Price = marketModel.viewModel.Price;
             _marketDto.TypeOffer = true;
 
-            _marketService.AddOffer(_marketDto);
+            if(_marketService.AddOffer(_marketDto))
+            {
+                errors.Add("Dodano ofertę.");
+            }
+            else
+            {
+                errors.Add("Błąd. Spróbuj ponownie.");
+            }
+            Session["val"] = errors.ToArray<string>();
 
-            return View("~/Views/Office/Index.cshtml");
+            return RedirectToAction("Index");
         }
 
     }

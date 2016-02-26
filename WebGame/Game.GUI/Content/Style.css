@@ -710,14 +710,15 @@ nav {
     margin-left: 2px; }
   .market .filterAll {
     width: auto;
-    display: inline-block;
+    display: block;
     padding-bottom: 20px;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    padding: 0 10px 0 10px; }
     .market .filterAll .filter {
       color: #fff; }
     .market .filterAll .filterBox {
-      margin: -5px 0 0 20px;
-      width: auto;
+      margin: 0 0 0 20px;
+      width: 100%;
       height: 40px;
       display: inline-block; }
       .market .filterAll .filterBox .dropdown-content {
@@ -728,21 +729,32 @@ nav {
     top: auto !important;
     left: auto !important; } }
       .market .filterAll .filterBox .filterA {
-        float: right;
-        text-align: center; }
+        text-align: center;
+        display: inline-block;
+        margin-right: 25px;
+        line-height: 46px;
+        float: right; }
         .market .filterAll .filterBox .filterA .filterBtn {
           background: none;
           border: none;
-          color: #563232;
+          color: #9e9e9e;
           cursor: pointer; }
         .market .filterAll .filterBox .filterA .filterBtn:hover {
           color: #fff; }
       .market .filterAll .filterBox .select-wrapper, .market .filterAll .filterBox input[type=number] {
         display: inline-block !important;
-        width: 20%;
+        width: 15%;
         color: #fff;
         text-align: center;
-        display: -moz-inline-stack !important; }
+        display: -moz-inline-stack !important;
+        font-size: 12px;
+        text-align: center; }
+        .market .filterAll .filterBox .select-wrapper .caret, .market .filterAll .filterBox input[type=number] .caret {
+          color: #9e9e9e; }
+        .market .filterAll .filterBox .select-wrapper input.select-dropdown, .market .filterAll .filterBox input[type=number] input.select-dropdown {
+          font-size: 12px;
+          text-align: center;
+          color: #9e9e9e; }
         .market .filterAll .filterBox .select-wrapper .dropdown-content li > a, .market .filterAll .filterBox .select-wrapper .dropdown-content li > span, .market .filterAll .filterBox input[type=number] .dropdown-content li > a, .market .filterAll .filterBox input[type=number] .dropdown-content li > span {
           color: #563232 !important; }
   .market .paginationBtn {
@@ -845,10 +857,14 @@ nav {
   .market .numValue {
     float: left;
     max-width: 60px;
-    margin-right: 40px; }
-  .market #buyButton {
+    margin-right: 40px;
+    text-align: center; }
+  .market .buyButton {
     margin-top: 10px;
-    background-color: #563232; }
+    background-color: #563232;
+    width: 120px;
+    float: right;
+    margin-right: 20px; }
   .market #buyTd {
     width: 300px; }
   .market #Price {
@@ -1091,6 +1107,10 @@ nav {
       display: inline-block;
       margin: -65px 0 0 100px;
       background-color: #343256; }
+    .office .uDealList .modal.modal-fixed-footer .modal-content {
+      overflow-x: hidden !important; }
+    .office .uDealList .modal-footer {
+      width: 95%; }
     .office .uDealList .officeDealShow {
       float: right;
       margin: 4px 20px 0 0;
