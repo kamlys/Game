@@ -23,6 +23,7 @@ namespace Game.Core.DTO
         public int DayTime { get; set; }
         public bool IsActive { get; set; }
         public bool MyMap { get; set; }
+        public string OwnerLogin { get; set; }
 
     }
 }

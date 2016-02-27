@@ -128,7 +128,8 @@ namespace Game.Service
         public bool AddProduct(ProductRequirementDto productDto)
         {
             if (!_productR.GetAll().Any(i => i.Products.Alias == productDto.Base_Name && i.Products1.Alias == productDto.Require_Name)
-                && _product.GetAll().Any(i => i.Alias == productDto.Require_Name && i.Alias == productDto.Base_Name))
+                && (_product.GetAll().Any(i => i.Alias == productDto.Require_Name))
+                && (_product.GetAll().Any(i => i.Alias == productDto.Require_Name)))
             {
                 _productR.Add(new ProductRequirements
                 {
@@ -145,7 +146,8 @@ namespace Game.Service
 
         public bool UpdateProduct(ProductRequirementDto productDto)
         {
-            if (_product.GetAll().Any(i => i.Alias == productDto.Require_Name && i.Alias == productDto.Base_Name))
+            if (_product.GetAll().Any(i => i.Alias == productDto.Require_Name)
+                && (_product.GetAll().Any(i=> i.Alias == productDto.Base_Name)))
             {
                 foreach (var item in _productR.GetAll().Where(i => i.ID == productDto.ID))
                 {

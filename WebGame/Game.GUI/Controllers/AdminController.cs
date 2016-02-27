@@ -499,9 +499,9 @@ namespace Game.GUI.Controllers
             _userDto.Login = userModel.viewModel.User_Login;
             _userDto.Password = userModel.viewModel.Password;
             _userDto.Email = userModel.viewModel.Email;
-            _userDto.Last_Log = userModel.viewModel.LastLog;
-            _userDto.Registration_Date = userModel.viewModel.RegistrationDate;
-            _userDto.Last_Update = userModel.viewModel.LastUpdate;
+            //_userDto.Last_Log = userModel.viewModel.LastLog;
+            //_userDto.Registration_Date = userModel.viewModel.RegistrationDate;
+            //_userDto.Last_Update = userModel.viewModel.LastUpdate;
 
             if (_userService.Add(_userDto))
             {
@@ -839,8 +839,7 @@ namespace Game.GUI.Controllers
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
             _marketDto.Number = marketModel.viewModel.Number;
             _marketDto.Price = marketModel.viewModel.Price;
-            _marketDto.TypeOffer = marketModel.TypeOfferAdmin.ToLower().Contains("Sprzedaż") ? true : false;
-
+            _marketDto.TypeOffer = marketModel.viewModel.TypeOfferAdmin.ToLower().Contains("sprzedaż") ? true : false;
             if (_marketService.Add(_marketDto))
             {
                 errors.Add("Dodano ofertę.");
@@ -875,7 +874,7 @@ namespace Game.GUI.Controllers
             _marketDto.Product_Name = marketModel.viewModel.Product_Name;
             _marketDto.Number = marketModel.viewModel.Number;
             _marketDto.Price = marketModel.viewModel.Price;
-            _marketDto.TypeOffer = marketModel.TypeOfferAdmin.ToLower().Contains("Sprzedaż") ? true : false;
+            _marketDto.TypeOffer = marketModel.viewModel.TypeOfferAdmin.ToLower().Contains("sprzedaż") ? true : false;
 
             if (_marketService.Update(_marketDto))
             {
@@ -1122,12 +1121,10 @@ namespace Game.GUI.Controllers
             UserBuildingDto _userBuildingDto = new UserBuildingDto();
 
             _userBuildingDto.ID = userBuildingModel.viewModel.ID;
-            _userBuildingDto.User_ID = userBuildingModel.viewModel.User_ID;
             _userBuildingDto.Login = userBuildingModel.viewModel.User_Login;
             _userBuildingDto.X_pos = userBuildingModel.viewModel.X_pos;
             _userBuildingDto.Y_pos = userBuildingModel.viewModel.Y_pos;
             _userBuildingDto.Lvl = userBuildingModel.viewModel.Lvl;
-            _userBuildingDto.Building_ID = userBuildingModel.viewModel.Building_ID;
             _userBuildingDto.Building_Name = userBuildingModel.viewModel.Building_Name;
             _userBuildingDto.Status = userBuildingModel.viewModel.Status;
             _userBuildingDto.Owner = userBuildingModel.viewModel.Owner.ToLower().Contains("tak") ? true : false;
@@ -1312,6 +1309,8 @@ namespace Game.GUI.Controllers
                 NewStatus = x.NewStatus
             }).ToList();
 
+            queueModel.allUser = _userService.GetUser().Select(x => x.Login).ToArray();
+
             return View(queueModel);
         }
 
@@ -1455,7 +1454,7 @@ namespace Game.GUI.Controllers
             dealDto.Building_Name = dealModel.viewModel.Building_Name;
             dealDto.DayTime = dealModel.viewModel.DealDay;
             dealDto.IsActive = dealModel.viewModel.Active.ToLower().Contains("tak")? true : false;
-            dealDto.Map_ID = dealModel.viewModel.Value;
+            dealDto.OwnerLogin = dealModel.viewModel.OwnerLogin.ToLower().Contains("użytkownik 1") ? dealModel.viewModel.User1_Login : dealModel.viewModel.User2_Login;
             dealDto.Percent_User1 = dealModel.viewModel.Percent_User1;
             dealDto.Percent_User2 = dealModel.viewModel.Percent_User2;
             dealDto.User2_Login = dealModel.viewModel.User2_Login;
@@ -1493,7 +1492,7 @@ namespace Game.GUI.Controllers
             dealDto.Building_Name = dealModel.viewModel.Building_Name;
             dealDto.DayTime = dealModel.viewModel.DealDay;
             dealDto.IsActive = dealModel.viewModel.Active.ToLower().Contains("tak") ? true : false;
-            dealDto.Map_ID = dealModel.viewModel.Value;
+            dealDto.OwnerLogin = dealModel.viewModel.OwnerLogin.ToLower().Contains("użytkownik 1") ? dealModel.viewModel.User1_Login : dealModel.viewModel.User2_Login;
             dealDto.Percent_User1 = dealModel.viewModel.Percent_User1;
             dealDto.Percent_User2 = dealModel.viewModel.Percent_User2;
             dealDto.User2_Login = dealModel.viewModel.User2_Login;
@@ -1954,10 +1953,11 @@ namespace Game.GUI.Controllers
 
             messageDto.ID = messageModel.viewModel.ID;
             messageDto.Content = messageModel.viewModel.Content;
-            messageDto.Customer_ID = messageModel.viewModel.Customer_ID;
-            messageDto.Sender_ID = messageModel.viewModel.Sender_ID;
+            messageDto.Customer_Login = messageModel.viewModel.Customer_Login;
+            messageDto.Sender_Login = messageModel.viewModel.Sender_Login;
             messageDto.Theme = messageModel.viewModel.Theme;
             messageDto.IfRead = messageModel.viewModel.Read.ToLower().Contains("tak") ? true : false;
+            messageDto.PostDate = messageModel.viewModel.PostDate;
 
             if(_messageService.UpdateMessageAdmin(messageDto))
             {
@@ -2009,10 +2009,10 @@ namespace Game.GUI.Controllers
             productrViewModel.listModel = _productRService.GetProducts().Select(x => new ItemProductRequirementViewModel
             {
                 ID = x.ID,
-                BaseName = x.Base_Name,
                 Base_ID = x.Base_ID,
-                RequireName = x.Require_Name,
                 Require_ID = x.Require_ID,
+                BaseName = x.Base_Name,
+                RequireName = x.Require_Name,
                 Value = x.Value
             }).ToList();
 

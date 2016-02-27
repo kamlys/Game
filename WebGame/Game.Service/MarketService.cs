@@ -247,32 +247,41 @@ namespace Game.Service
 
         public bool Update(MarketDto market)
         {
-            int userID = _user.GetAll().First(i => i.Login == market.Login).ID;
-            int totalPrice = (market.Price * market.Number);
-            string productName = _product.GetAll().First(i => i.Alias == market.Product_Name).Name;
-            int ProductID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == productName).Product_ID;
-            int userProductValue = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value;
-
-            if (market.Number > 0
-                && userProductValue >= market.Number
-                && _product.GetAll().Any(i => i.Alias == market.Product_Name)
-                && market.Price > 0
-                && userProductValue >= market.Number)
+            try
             {
-                foreach (var item in _market.GetAll().Where(i => i.ID == market.ID))
+                int userID = _user.GetAll().First(i => i.Login == market.Login).ID;
+                int totalPrice = (market.Price * market.Number);
+                string productName = _product.GetAll().First(i => i.Alias == market.Product_Name).Name;
+                int ProductID = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_Name == productName).Product_ID;
+                int userProductValue = _userProduct.GetAll().First(i => i.User_ID == userID && i.Product_ID == ProductID).Value;
+
+                if (market.Number > 0
+                    && userProductValue >= market.Number
+                    && _product.GetAll().Any(i => i.Alias == market.Product_Name)
+                    && market.Price > 0
+                    && userProductValue >= market.Number)
                 {
-                    item.User_ID = _user.GetAll().First(i => i.Login == market.Login).ID;
-                    item.Product_ID = _product.GetAll().First(i => i.Alias == market.Product_Name).ID;
-                    item.Number = market.Number;
-                    item.Price = market.Number;
-                    item.TypeOffer = market.TypeOffer;
+                    foreach (var item in _market.GetAll().Where(i => i.ID == market.ID))
+                    {
+                        item.User_ID = _user.GetAll().First(i => i.Login == market.Login).ID;
+                        item.Product_ID = _product.GetAll().First(i => i.Alias == market.Product_Name).ID;
+                        item.Number = market.Number;
+                        item.Price = market.Price;
+                        item.TypeOffer = market.TypeOffer;
+                    }
+
+                    _unitOfWork.Commit();
+
+                    return true;
                 }
-
-                _unitOfWork.Commit();
-
-                return true;
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
+
+
         }
 
         public bool BuyOffer(MarketDto market, string User)
@@ -356,7 +365,7 @@ namespace Game.Service
                         }
                         _dolar.GetAll().First(i => i.User_ID == uID).Value += totalPrice;
 
-                        
+
                         if (market.Number == _market.Get(market.ID).Number)
                         {
                             _market.Delete(_market.Get(market.ID));
@@ -414,7 +423,7 @@ namespace Game.Service
                 {
                     _userProduct.Delete(_userProduct.Get(upID));
                 }
-                else 
+                else
                 {
                     _userProduct.GetAll().First(i => i.Product_ID == productID && i.User_ID == uID).Value -= value;
                 }

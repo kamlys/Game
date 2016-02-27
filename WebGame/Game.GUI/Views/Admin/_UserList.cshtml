@@ -24,18 +24,18 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.LastLog, new { placeholder = "", @type = "date", @class = "validate datepicker" })
-                <label for="Last_Log">Ostatnie logowanie</label>
+                @Html.TextBox("lastLog",DateTime.Now, new { placeholder = "", @class = "validate" })
+                <label for="lastLog">Ostatnie logowanie</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.RegistrationDate, new { placeholder = "", @type = "date", @class = "validate datepicker" })
-                <label for="Registration_Date">Data rejestracji</label>
+                @Html.TextBox("registerDate",DateTime.Now, new { placeholder = "", @class = "validate" })
+                <label for="registerDate">Data rejestracji</label>
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.LastUpdate, new { placeholder = "", @type = "date", @class = "validate datepicker" })
-                <label for="Last_update">Ostatni update surowców</label>
+                @Html.TextBox("lastUpdate",DateTime.Now, new { placeholder = "", @class = "validate" })
+                <label for="lastUpdate">Ostatni update surowców</label>
             </div>
 
             <input type="submit" value="Zapisz" class="btn addButton" name="action" />
@@ -148,5 +148,9 @@
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.userAdd').leanModal();
         $('.userUpdate').leanModal();
+
+        $('#lastLog').attr('readonly',true);
+        $('#registerDate').attr('readonly',true);
+        $('#lastUpdate').attr('readonly',true);
 
     });</script>

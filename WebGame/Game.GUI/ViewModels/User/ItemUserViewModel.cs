@@ -12,6 +12,8 @@ namespace Game.GUI.ViewModels.User
         [Required]
         public string User_Login { get; set; }
         [Required]
+        [Display(Name = "Hasło")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required]
         public string Email { get; set; }

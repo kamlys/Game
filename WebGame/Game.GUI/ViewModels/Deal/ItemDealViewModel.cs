@@ -19,5 +19,6 @@ namespace Game.GUI.ViewModels.Deal
         public int Value { get; set; }
         public int DealDay { get; set; }
         public DateTime FinishDate { get; set; }
+        public string OwnerLogin { get; set; }
     }
 }

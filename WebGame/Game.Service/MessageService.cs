@@ -146,7 +146,8 @@ namespace Game.Service
 
         public bool AddMessageAdmin(MessageDto messageDto)
         {
-            if (_user.GetAll().Any(i => i.Login == messageDto.Customer_Login && i.Login == messageDto.Sender_Login)
+            if (_user.GetAll().Any(i => i.Login == messageDto.Customer_Login)
+                && (_user.GetAll().Any(i => i.Login == messageDto.Sender_Login))
                 && messageDto.Theme.Length <= 150)
             {
                 _message.Add(new Messages
@@ -167,16 +168,18 @@ namespace Game.Service
 
         public bool UpdateMessageAdmin(MessageDto messageDto)
         {
-            if (_user.GetAll().Any(i => i.Login == messageDto.Customer_Login && i.Login == messageDto.Sender_Login)
+            if (_user.GetAll().Any(i => i.Login == messageDto.Customer_Login)
+                && (_user.GetAll().Any(i => i.Login == messageDto.Sender_Login))
                && messageDto.Theme.Length <= 150)
             {
                 foreach (var item in _message.GetAll().Where(i => i.ID == messageDto.ID))
                 {
                     item.IfRead = messageDto.IfRead;
-                    item.Sender_ID = messageDto.Sender_ID;
+                    item.Sender_ID = _user.GetAll().First(i => i.Login == messageDto.Sender_Login).ID;
                     item.Content = messageDto.Content;
-                    item.Customer_ID = messageDto.Customer_ID;
+                    item.Customer_ID = _user.GetAll().First(i => i.Login == messageDto.Customer_Login).ID;
                     item.Theme = messageDto.Theme;
+                    item.PostDate = messageDto.PostDate;
                 }
 
                 _unitOfWork.Commit();

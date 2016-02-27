@@ -59,7 +59,8 @@ namespace Game.Service
                         IsActive = item.IsActive,
                         FinishDate = item.FinishDate,
                         DayTime = item.DayTime,
-                        Map_ID = item.Map_ID
+                        Map_ID = item.Map_ID,
+                        OwnerLogin = (item.Map_ID == _maps.GetAll().First(i => i.User_ID == item.User1_ID).Map_ID) ? _users.Get(item.User1_ID).Login : _users.Get(item.User2_ID).Login
                     });
                 }
             }
@@ -72,25 +73,39 @@ namespace Game.Service
 
         public bool AddDealAdmin(DealDto dealDto)
         {
-            if (_users.GetAll().Any(i => i.Login == dealDto.User1_Login && i.Login == dealDto.User2_Login)
-                && (dealDto.Percent_User1 > 10 && dealDto.Percent_User1 < 90)
-                && ((100 - dealDto.Percent_User2) == dealDto.Percent_User1)
-                && dealDto.Map_ID == _maps.GetAll().First(i => i.Users.Login == dealDto.User1_Login || i.Users.Login == dealDto.User2_Login).Map_ID)
+            if (_users.GetAll().Any(i => i.Login == dealDto.User1_Login)
+                && (_users.GetAll().Any(i => i.Login == dealDto.User2_Login))
+                && ((dealDto.Percent_User1 >= 10) && (dealDto.Percent_User1 <= 90))
+                && ((100 - dealDto.Percent_User2) == dealDto.Percent_User1))
             {
                 _deals.Add(new Deals
                 {
                     Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID,
                     IsActive = dealDto.IsActive,
-                    Map_ID = dealDto.Map_ID,
                     Percent_User1 = dealDto.Percent_User1,
                     Percent_User2 = dealDto.Percent_User2,
                     User1_ID = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID,
                     User2_ID = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID,
                     DayTime = dealDto.DayTime,
+                    Map_ID = dealDto.OwnerLogin.ToLower().Contains(dealDto.User1_Login) ? _maps.GetAll().First(i => i.Users.Login == dealDto.User1_Login).Map_ID : _maps.GetAll().First(i => i.Users.Login == dealDto.User2_Login).Map_ID,
                     FinishDate = DateTime.Now.AddDays(dealDto.DayTime)
                 });
-
                 _unitOfWork.Commit();
+
+                if (dealDto.IsActive)
+                {
+                    int uID1 = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID;
+                    int uID2 = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID;
+                    int buildingID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID;
+                    _dealsBuildings.Add(new DealsBuildings
+                    {
+                        Deal_ID = _deals.GetAll().OrderByDescending(i=>i.ID).First(l => l.User1_ID == uID1 && l.User2_ID == uID2 && l.Building_ID == buildingID).ID,
+                        User_ID = _users.GetAll().First(i => i.Login == dealDto.OwnerLogin).ID,
+                        Building_ID = buildingID
+                    });
+
+                    _unitOfWork.Commit();
+                }
                 return true;
             }
             return false;
@@ -98,7 +113,7 @@ namespace Game.Service
 
         public bool DeleteDealAdmin(int id)
         {
-            foreach (var item in _dealsBuildings.GetAll().Where(i=>i.Deal_ID == id))
+            foreach (var item in _dealsBuildings.GetAll().Where(i => i.Deal_ID == id))
             {
                 _dealsBuildings.Delete(_dealsBuildings.Get(item.ID));
                 _unitOfWork.Commit();
@@ -112,21 +127,23 @@ namespace Game.Service
 
         public bool UpdateDealAdmin(DealDto dealDto)
         {
-            if (_users.GetAll().Any(i => i.Login == dealDto.User1_Login && i.Login == dealDto.User2_Login)
-               && (dealDto.Percent_User1 > 10 && dealDto.Percent_User1 < 90)
-               && ((100 - dealDto.Percent_User2) == dealDto.Percent_User1)
-               && dealDto.Map_ID == _maps.GetAll().First(i => i.Users.Login == dealDto.User1_Login || i.Users.Login == dealDto.User2_Login).Map_ID)
+            if (_users.GetAll().Any(i => i.Login == dealDto.User1_Login)
+                && (_users.GetAll().Any(i => i.Login == dealDto.User2_Login))
+                && ((dealDto.Percent_User1 >= 10) && (dealDto.Percent_User1 <= 90))
+                && ((100 - dealDto.Percent_User2) == dealDto.Percent_User1))
             {
                 foreach (var item in _deals.GetAll().Where(i => i.ID == dealDto.ID))
                 {
+                    int uID1 = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID;
+                    int uID2 = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID;
                     item.IsActive = dealDto.IsActive;
-                    item.Map_ID = dealDto.Map_ID;
                     item.Percent_User1 = dealDto.Percent_User1;
                     item.Percent_User2 = dealDto.Percent_User2;
-                    item.User1_ID = _users.GetAll().First(i => i.Login == dealDto.User1_Login).ID;
-                    item.User2_ID = _users.GetAll().First(i => i.Login == dealDto.User2_Login).ID;
+                    item.User1_ID = uID1;
+                    item.User2_ID = uID2;
                     item.FinishDate = DateTime.Now.AddDays(dealDto.DayTime);
                     item.DayTime = dealDto.DayTime;
+                    item.Map_ID = dealDto.OwnerLogin.ToLower().Contains(dealDto.User1_Login) ? _maps.GetAll().First(i => i.User_ID == uID1).Map_ID : _maps.GetAll().First(i => i.User_ID == uID2).Map_ID;
                     item.Building_ID = _buildings.GetAll().First(i => i.Alias == dealDto.Building_Name).ID;
                 }
 
@@ -327,7 +344,7 @@ namespace Game.Service
                 _deals.Get(ID).IsActive = true;
                 _deals.Get(ID).FinishDate = DateTime.Now.AddDays(day);
                 _dolars.GetAll().First(i => i.User_ID == uID).Value -= myPrice;
-                var mapID= _deals.Get(ID).Map_ID;
+                var mapID = _deals.Get(ID).Map_ID;
                 int userID = _maps.Get(mapID).User_ID;
                 _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = userID, Deal_ID = ID });
 
@@ -342,7 +359,7 @@ namespace Game.Service
         {
             int user1ID = _deals.Get(ID).User1_ID;
             int user2ID = _deals.Get(ID).User2_ID;
-            int buildingID = _deals.Get (ID).Building_ID;
+            int buildingID = _deals.Get(ID).Building_ID;
             int buildingPrice = _buildings.Get(buildingID).Price;
             int percent = _deals.Get(ID).Percent_User1;
             double temp1 = (double)buildingPrice * ((double)percent / 100.0);

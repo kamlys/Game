@@ -200,9 +200,9 @@ namespace Game.Service
                         Login = user.Login,
                         Password = _hassPass.GeneratePassword(user.Password),
                         Email = user.Email,
-                        Last_Log = (DateTime)user.Last_Log,
-                        Last_Update = (DateTime)user.Last_Update,
-                        Registration_Date = (DateTime)user.Registration_Date
+                        Last_Log = DateTime.Now,
+                        Last_Update = DateTime.Now,
+                        Registration_Date = DateTime.Now
                     });
 
                     _unitOfWork.Commit();
@@ -688,8 +688,9 @@ namespace Game.Service
 
         public bool UpdateFriendAdmin(FriendDto friendDto)
         {
-            if (_user.GetAll().Any(i => i.Login == friendDto.Friend_Login && i.Login == friendDto.User_Login)
-                && friendDto.User_Login != friendDto.User_Login)
+            if (_user.GetAll().Any(i => i.Login == friendDto.Friend_Login)
+                && (_user.GetAll().Any(i => i.Login == friendDto.User_Login))
+                && (friendDto.User_Login != friendDto.Friend_Login))
             {
 
                 foreach (var item in _friend.GetAll().Where(i => i.Id == friendDto.ID))
@@ -715,8 +716,9 @@ namespace Game.Service
 
         public bool AddFriendAdmin(FriendDto friendDto)
         {
-            if (_user.GetAll().Any(i => i.Login == friendDto.Friend_Login && i.Login == friendDto.User_Login)
-                && friendDto.User_Login != friendDto.User_Login)
+            if (_user.GetAll().Any(i => i.Login == friendDto.Friend_Login)
+                && (_user.GetAll().Any(i => i.Login == friendDto.User_Login))
+                && (friendDto.User_Login != friendDto.Friend_Login))
             {
                 _friend.Add(new Friends
                 {
@@ -752,8 +754,9 @@ namespace Game.Service
 
         public bool UpdateIgnoredAdmin(IgnoredDto ignoredDto)
         {
-            if (_user.GetAll().Any(i => i.Login == ignoredDto.User_Login && i.Login == ignoredDto.Ignored_Login)
-                && (ignoredDto.Ignored_Login != ignoredDto.User_Login))
+            if (_user.GetAll().Any(i => i.Login == ignoredDto.Ignored_Login)
+                && (_user.GetAll().Any(i => i.Login == ignoredDto.User_Login))
+                && (ignoredDto.User_Login != ignoredDto.Ignored_Login))
             {
                 foreach (var item in _ignored.GetAll().Where(i => i.ID == ignoredDto.ID))
                 {
@@ -784,7 +787,9 @@ namespace Game.Service
 
         public bool AddIgnoredAdmin(IgnoredDto ignoredDto)
         {
-            if (_user.GetAll().Any(i => i.Login == ignoredDto.User_Login && i.Login == ignoredDto.Ignored_Login))
+            if (_user.GetAll().Any(i => i.Login == ignoredDto.Ignored_Login)
+                 && (_user.GetAll().Any(i => i.Login == ignoredDto.User_Login))
+                 && (ignoredDto.User_Login != ignoredDto.Ignored_Login))
             {
                 _ignored.Add(new Ignored
                 {

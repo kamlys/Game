@@ -33,7 +33,7 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Status, new { placeholder = "", @type = "number", @min = "0", @class = "validate" })
+                @Html.DropDownListFor(m => m.viewModel.Status, new SelectList(new List<string>(new string[] { "gotowy", "burzenie","rozbudowa" })), new { placeholder = "", @class = "validate" })
                 <label for="Status">Status</label>
             </div>
 
@@ -65,7 +65,7 @@
                 @Html.HiddenFor(m => m.viewModel.ID, new { placeholder = "", @class = "validate inputID" })
 
             <div class="input-field col s12">
-                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allBuilding), new { @class = "validate inputLoginDrop" })
+                @Html.DropDownListFor(m => m.viewModel.User_Login, new SelectList(Model.allUser), new { @class = "validate inputLoginDrop" })
                 <label for="User_Login">Login</label>
             </div>
 
@@ -90,7 +90,7 @@
             </div>
 
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Status, new { placeholder = "", @class = "validate inputStatus" })
+                @Html.DropDownListFor(m => m.viewModel.Status, new SelectList(new List<string>(new string[] { "gotowy", "burzenie", "rozbudowa" })), new { placeholder = "", @class = "validate inputStatusDrop" })
                 <label for="Status">Status</label>
             </div>
 

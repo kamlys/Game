@@ -60,8 +60,6 @@ namespace Game.Service.Table
             {
                 return false;
             }
-
-
         }
 
         public List<UserProductDto> GetUserProduct()
@@ -76,7 +74,7 @@ namespace Game.Service.Table
                         ID = item.ID,
                         User_ID = item.User_ID,
                         Login = _user.GetAll().First(i => i.ID == item.User_ID).Login,
-                        Product_Name = item.Product_Name,
+                        Product_Name = _product.GetAll().First(i=>i.ID == item.Product_ID).Alias,
                         Value = item.Value,
                         Product_ID = item.Product_ID
                     });

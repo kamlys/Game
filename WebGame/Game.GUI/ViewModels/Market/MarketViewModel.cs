@@ -11,7 +11,6 @@ namespace Game.GUI.ViewModels.Market
         public string[] allProduct { get; set; }
         public string[] userProduct { get; set; }
         public string[] allUser { get; set; }
-        public string TypeOfferAdmin { get; set; }
         public ItemMarketViewModel viewModel { get; set; }
         public List<ItemMarketViewModel> systemOfferList { get; set; }
         public IPagedList<ItemMarketViewModel> pagedList { get; set; }

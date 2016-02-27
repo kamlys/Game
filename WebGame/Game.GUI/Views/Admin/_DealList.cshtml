@@ -28,11 +28,11 @@
                 <label for="Building_Name">Nazwa budynku</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Value, new { @type = "number", @min = "1", @placeholder = "", @class = "validate" })
-                <label for="Value">ID Mapy</label>
+                @Html.DropDownListFor(m => m.viewModel.OwnerLogin, new SelectList(new List<string>(new string[] { "Użytkownik 1", "Użytkownik 2" })), new { @placeholder = "", @class = "validate" })
+                <label for="OwnerLogin">Właściciel budynku</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.DealDay, new { @type = "number", @min = "10", @max = "30", @step = "10", @placeholder = "", @class = "validate" })
+                @Html.DropDownListFor(m => m.viewModel.DealDay, new SelectList(new List<int>(new int[] { 30, 45,60 })), new { @type = "number", @min = "30", @max = "60", @step = "15", @placeholder = "", @class = "validate" })
                 <label for="DealDay">Czas (dni)</label>
             </div>
             <div class="input-field col s12">
@@ -70,11 +70,11 @@
                 <label for="Building_Name">Nazwa budynku</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.Value, new { @type = "number", @min = "1", @placeholder = "", @class = "validate inputMapID" })
-                <label for="Value">ID Mapy</label>
+                @Html.DropDownListFor(m => m.viewModel.OwnerLogin, new SelectList(new List<string>(new string[] { "Użytkownik 1", "Użytkownik 2" })), new { @placeholder = "", @class = "validate inputMapDrop" })
+                <label for="OwnerLogin">Właściciel budynku</label>
             </div>
             <div class="input-field col s12">
-                @Html.TextBoxFor(m => m.viewModel.DealDay, new { @type = "number", @min = "30", @max = "60", @step = "15", @placeholder = "", @class = "validate inputDealDay" })
+                @Html.DropDownListFor(m => m.viewModel.DealDay, new SelectList(new List<int>(new int[] { 30, 45, 60 })), new { @type = "number", @min = "30", @max = "60", @step = "15", @placeholder = "", @class = "validate inputDealDayDrop" })
                 <label for="DealDay">Czas (dni)</label>
             </div>
             <div class="input-field col s12">
@@ -125,7 +125,7 @@
                                 <i class="fa fa-align-justify #00695c teal darken-5"></i>
                             </button>
                             <ul>
-                                <li><button data-target="dealUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger dealUpdate" onclick="updaterow(['inputID','inputLogin1Drop','inputPercent1','inputLogin2Drop','inputPercent2','inputBuildingNameDrop', 'inputMapID', 'inputDealDay','inputActiveDrop'], ['@item.ID','@item.User1_Login', '@item.Percent_User1','@item.User2_Login','@item.Percent_User2','@item.Building_Name', '@item.Value','@item.DealDay','@item.IsActive'])"><i class="fa fa-pencil"></i></button></li>
+                                <li><button data-target="dealUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger dealUpdate" onclick="updaterow(['inputID','inputLogin1Drop','inputPercent1','inputLogin2Drop','inputPercent2','inputBuildingNameDrop', 'inputMapID', 'inputDealDayDrop','inputActiveDrop'], ['@item.ID','@item.User1_Login', '@item.Percent_User1','@item.User2_Login','@item.Percent_User2','@item.Building_Name', '@item.Value','@item.DealDay','@item.Active'])"><i class="fa fa-pencil"></i></button></li>
                                 <li><button class="btn btn-floating #00695c teal darken-3" onclick="if(confirm('Na pewno?')==true) { location.href='@Url.Action("DeleteDeal", "Admin", new { id = item.ID })'}"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
