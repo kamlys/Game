@@ -17,7 +17,5 @@ namespace Game.Dal.Model
         public bool OrAccepted { get; set; }
 
         public virtual Users Users { get; set; }
-
-        public virtual Users Users1 { get; set; }
     }
 }

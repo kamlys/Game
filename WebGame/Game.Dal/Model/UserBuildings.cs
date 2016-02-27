@@ -40,10 +40,14 @@ namespace Game.Dal.Model
         [Column(TypeName = "datetime2")]
         public DateTime DateOfConstruction { get; set; }
 
+        public int? DealID { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuildingQueue> BuildingQueue { get; set; }
 
         public virtual Buildings Buildings { get; set; }
+
+        public virtual Deals Deals { get; set; }
 
         public virtual Users Users { get; set; }
     }

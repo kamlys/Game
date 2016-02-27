@@ -60,6 +60,7 @@ namespace Game.Service
             int idProduct = _buildings.GetAll().First(b => b.ID == id).Product_ID;
             bool create = true;
             int percent = 100;
+            int? deal_id = null;
 
             if (dealID != 0)
             {
@@ -71,6 +72,8 @@ namespace Game.Service
                 {
                     percent = _deal.Get(dealID).Percent_User2;
                 }
+
+                deal_id = dealID;
             }
             _userBuildings.Add(new UserBuildings
             {
@@ -83,9 +86,10 @@ namespace Game.Service
                 Percent_product = percent,
                 Owner = true,
                 Color = "bbbbbb",
-                DateOfConstruction = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime)
-
+                DateOfConstruction = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime),
+                DealID = deal_id
             });
+
             if (dealID == 0)
             {
                 _dolars.GetAll().First(u => u.User_ID == uID).Value -= buildPrice;
@@ -150,7 +154,8 @@ namespace Game.Service
                     Percent_product = 100 - percent,
                     Owner = false,
                     Color = "bbbbbb",
-                    DateOfConstruction = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime)
+                    DateOfConstruction = DateTime.Now.AddSeconds(_buildings.Get(id).BuildingTime),
+                    DealID = deal_id
                 });
 
                 _unitOfWork.Commit();
@@ -278,9 +283,13 @@ namespace Game.Service
         {
             try
             {
-                _userBuildings.Delete(_userBuildings.Get(id));
-                _unitOfWork.Commit();
-                return true;
+                if (_userBuildings.Get(id).DealID == null)
+                {
+                    _userBuildings.Delete(_userBuildings.Get(id));
+                    _unitOfWork.Commit();
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {
@@ -315,7 +324,8 @@ namespace Game.Service
                         Color = item.Color,
                         Owner = item.Owner,
                         Percent_Product = item.Percent_product,
-                        DateOfConstruction = item.DateOfConstruction
+                        DateOfConstruction = item.DateOfConstruction,
+                        DealID = item.DealID
                     });
                 }
                 catch (Exception)
@@ -353,7 +363,8 @@ namespace Game.Service
                         ProdukcjaLvlUp = (int)tempUpProductValue,
                         PriceLvlUp = _buildings.GetAll().First(b => b.Product_ID == item.Buildings.Product_ID).Price * (BuildLvl + 1),
                         Color = item.Color,
-                        Stock = item.Buildings.Stock
+                        Stock = item.Buildings.Stock,
+                        DealID = item.DealID
                     });
                 }
                 catch (Exception)

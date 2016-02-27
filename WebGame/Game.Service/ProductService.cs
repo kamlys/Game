@@ -20,6 +20,7 @@ namespace Game.Service
         private IRepository<UserBuildings> _userBuilding;
         private IRepository<ProductRequirements> _requirementsProduct;
         private IBuildingHelper _buildingHelper;
+        private IRepository<Deals> _deal;
         private IUnitOfWork _unitOfWork;
 
         public ProductService(
@@ -30,6 +31,7 @@ namespace Game.Service
             IRepository<Products> products,
             IRepository<ProductRequirements> requirementsProduct,
             IBuildingHelper buildingHelper,
+            IRepository<Deals> deal,
             IUnitOfWork unitOfWork)
         {
             _user = user;
@@ -39,6 +41,7 @@ namespace Game.Service
             _product = products;
             _requirementsProduct = requirementsProduct;
             _buildingHelper = buildingHelper;
+            _deal = deal;
             _unitOfWork = unitOfWork;
         }
 
@@ -61,28 +64,36 @@ namespace Game.Service
                 }
                 foreach (var itemBuilding in _userBuilding.GetAll().Where(b => b.User_ID == uID && b.Status.Contains("gotowy") && b.Buildings.Stock == true))
                 {
-                    // jeśli wybudowano przed ostatnim update - jest ok
-                    if (itemBuilding.DateOfConstruction < (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update))
+                    int? ifEndDeal = null;
+                    if (itemBuilding.DealID != null) //Jeśli budynek z umowy
                     {
-                        int bID = itemBuilding.Buildings.Product_ID;
-                        foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
-                        {
-                            int pID = item.Product_ID;
-                            double tempValue = (((double)Fibonacci(itemBuilding.Lvl) * (double)intervals * 10.0) * ((double)itemBuilding.Percent_product / 100.0));
-                            item.Value += (int)tempValue;
-                        }
+                        ifEndDeal = _deal.Get((int)itemBuilding.DealID).FinishDate.Subtract(DateTime.Now).Seconds;
                     }
-                    else // wpp obliczamy ile można dodać
+                    if (itemBuilding.DealID == null || ifEndDeal>0)
                     {
-                        int newDateSubstract = (int)DateTime.Now.Subtract((DateTime)itemBuilding.DateOfConstruction).TotalSeconds;
-                        // 1 co 60 sekund
-                        int newIntervals = newDateSubstract / 6;
-                        int bID = itemBuilding.Buildings.Product_ID;
-                        foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
+                        // jeśli wybudowano przed ostatnim update - jest ok
+                        if (itemBuilding.DateOfConstruction < (DateTime)(_user.GetAll().First(u => u.ID == uID).Last_Update))
                         {
-                            int pID = item.Product_ID;
-                            double tempValue = ((double)Fibonacci(itemBuilding.Lvl) * (double)newIntervals) * ((double)itemBuilding.Percent_product / 100.0);
-                            item.Value += (int)tempValue;
+                            int bID = itemBuilding.Buildings.Product_ID;
+                            foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
+                            {
+                                int pID = item.Product_ID;
+                                double tempValue = (((double)Fibonacci(itemBuilding.Lvl) * (double)intervals * 10.0) * ((double)itemBuilding.Percent_product / 100.0));
+                                item.Value += (int)tempValue;
+                            }
+                        }
+                        else // wpp obliczamy ile można dodać
+                        {
+                            int newDateSubstract = (int)DateTime.Now.Subtract((DateTime)itemBuilding.DateOfConstruction).TotalSeconds;
+                            // 1 co 60 sekund
+                            int newIntervals = newDateSubstract / 6;
+                            int bID = itemBuilding.Buildings.Product_ID;
+                            foreach (var item in _userProduct.GetAll().Where(u => u.User_ID == uID && u.Product_ID == bID))
+                            {
+                                int pID = item.Product_ID;
+                                double tempValue = ((double)Fibonacci(itemBuilding.Lvl) * (double)newIntervals) * ((double)itemBuilding.Percent_product / 100.0);
+                                item.Value += (int)tempValue;
+                            }
                         }
                     }
                 }
@@ -135,13 +146,13 @@ namespace Game.Service
         {
             try
             {
-                foreach(var item in _building.GetAll().Where(i => i.Product_ID == id))
+                foreach (var item in _building.GetAll().Where(i => i.Product_ID == id))
                 {
                     _building.Delete(_building.Get(item.ID));
                     _unitOfWork.Commit();
                 }
 
-                foreach (var item in _requirementsProduct.GetAll().Where(i => i.Base_ID== id || i.Require_ID == id))
+                foreach (var item in _requirementsProduct.GetAll().Where(i => i.Base_ID == id || i.Require_ID == id))
                 {
                     _requirementsProduct.Delete(_requirementsProduct.Get(item.ID));
                     _unitOfWork.Commit();

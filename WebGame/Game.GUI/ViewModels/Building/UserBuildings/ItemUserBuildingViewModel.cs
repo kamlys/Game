@@ -27,6 +27,8 @@ namespace Game.GUI.ViewModels.Building.UserBuildings
         public string Owner { get; set; }
         public int Percent_product { get; set; }
         public DateTime DateOfConstruction { get; set; }
+        public int DealID { get; set; }
+        public string ifDeal { get; set; }
 
     }
 }

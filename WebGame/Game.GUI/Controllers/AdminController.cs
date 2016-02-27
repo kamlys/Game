@@ -1053,7 +1053,8 @@ namespace Game.GUI.Controllers
                 DateOfConstruction = x.DateOfConstruction,
                 Color = x.Color,
                 Percent_product = x.Percent_Product,
-                Owner = x.Owner ? "Tak" : "Nie"
+                Owner = x.Owner ? "Tak" : "Nie",
+                ifDeal = x.DealID!=null ? "Tak" : "Nie"
             }).ToList();
 
             userBuildingModel.allBuilding = _buildingService.GetBuilding().Select(x => x.Alias).ToArray();
@@ -1166,7 +1167,7 @@ namespace Game.GUI.Controllers
             }
             else
             {
-                errors.Add("Błąd. Spróbuj ponownie.");
+                errors.Add("Błąd. Upewnij się czy budynek nie jest z umowy i spróbuj ponownie.");
             }
 
             return RedirectToAction("Admin");

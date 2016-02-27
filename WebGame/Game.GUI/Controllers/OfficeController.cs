@@ -166,7 +166,8 @@ namespace Game.GUI.Controllers
                     Color = item.Color,
                     Stock = item.Stock,
                     BuildTime = bTime,
-                    BuildDone = bTime - timeLeft
+                    BuildDone = bTime - timeLeft,
+                    ifDeal = (item.DealID != null) ? "Tak" : "Nie"
                 });
             }
 
@@ -205,7 +206,8 @@ namespace Game.GUI.Controllers
                 Building_Name = x.Building_Name,
                 IsActive = x.IsActive,
                 Owner = x.MyMap,
-                Value = x.FinishDate.Value.Subtract(DateTime.Now).Days,
+                Value = x.FinishDate.Value.Subtract(DateTime.Now).Minutes,
+                DayToEnd = x.FinishDate.Value.Subtract(DateTime.Now).Days,
                 DealDay = x.DayTime,
             }).ToList();
 

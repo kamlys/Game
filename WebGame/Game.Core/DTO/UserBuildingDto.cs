@@ -27,5 +27,6 @@ namespace Game.Core.DTO
         public DateTime DateOfConstruction { get; set; }
         public int DestPrice { get; set; }
         public bool CanDelete { get; set; }
+        public int? DealID { get; set; }
     }
 }

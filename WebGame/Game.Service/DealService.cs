@@ -119,6 +119,12 @@ namespace Game.Service
                 _unitOfWork.Commit();
             }
 
+            foreach (var item in _userBuildings.GetAll().Where(i=> i.DealID == id))
+            {
+                _userBuildings.Delete(_userBuildings.Get(item.ID));
+                _unitOfWork.Commit();
+            }
+
             _deals.Delete(_deals.Get(id));
             _unitOfWork.Commit();
 
@@ -365,6 +371,12 @@ namespace Game.Service
             double temp1 = (double)buildingPrice * ((double)percent / 100.0);
             _dolars.GetAll().First(i => i.User_ID == user1ID).Value += (int)temp1;
 
+            foreach (var item in _userBuildings.GetAll().Where(i => i.DealID == ID))
+            {
+                _userBuildings.Delete(_userBuildings.Get(item.ID));
+                _unitOfWork.Commit();
+            }
+
             _deals.Delete(_deals.Get(ID));
             _unitOfWork.Commit();
         }
@@ -375,6 +387,13 @@ namespace Game.Service
             {
                 _dealsBuildings.Delete(_dealsBuildings.Get(item.ID));
             }
+
+            foreach (var item in _userBuildings.GetAll().Where(i => i.DealID == ID))
+            {
+                _userBuildings.Delete(_userBuildings.Get(item.ID));
+                _unitOfWork.Commit();
+            }
+
             _deals.Delete(_deals.Get(ID));
             _unitOfWork.Commit();
         }

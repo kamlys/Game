@@ -1094,7 +1094,9 @@ nav {
       background-color: #8581ce; }
     .office .uDealList .rerunDeal {
       margin-top: 3px;
-      float: right; }
+      float: right;
+      background-color: #343256;
+      margin-right: 5px; }
     .office .uDealList .officeDealAdd {
       display: inline-block;
       margin: -65px 0 0 100px;

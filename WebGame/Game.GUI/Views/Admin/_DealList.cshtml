@@ -126,7 +126,7 @@
                             </button>
                             <ul>
                                 <li><button data-target="dealUpdate" class="btn btn-floating #00695c teal darken-3 modal-trigger dealUpdate" onclick="updaterow(['inputID','inputLogin1Drop','inputPercent1','inputLogin2Drop','inputPercent2','inputBuildingNameDrop', 'inputMapID', 'inputDealDayDrop','inputActiveDrop'], ['@item.ID','@item.User1_Login', '@item.Percent_User1','@item.User2_Login','@item.Percent_User2','@item.Building_Name', '@item.Value','@item.DealDay','@item.Active'])"><i class="fa fa-pencil"></i></button></li>
-                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="if(confirm('Na pewno?')==true) { location.href='@Url.Action("DeleteDeal", "Admin", new { id = item.ID })'}"><i class="fa fa-trash-o"></i></button></li>
+                                <li><button class="btn btn-floating #00695c teal darken-3" onclick="if(confirm('Zostaną usunięte wszystkie budynki związane z tą umową. Na pewno?')==true) { location.href='@Url.Action("DeleteDeal", "Admin", new { id = item.ID })'}"><i class="fa fa-trash-o"></i></button></li>
                             </ul>
                         </div>
                     </td>

@@ -12,6 +12,7 @@ namespace Game.Dal.Model
         public Deals()
         {
             DealsBuildings = new HashSet<DealsBuildings>();
+            UserBuildings = new HashSet<UserBuildings>();
         }
 
         public int ID { get; set; }
@@ -41,6 +42,9 @@ namespace Game.Dal.Model
         public virtual ICollection<DealsBuildings> DealsBuildings { get; set; }
 
         public virtual Maps Maps { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserBuildings> UserBuildings { get; set; }
 
         public virtual Users Users { get; set; }
 

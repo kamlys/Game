@@ -94,7 +94,7 @@ namespace Game.Service
                         Owner = a.Owner,
                         Color = a.Color,
                         DestPrice = (int)_buildings.Get(a.Building_ID).Dest_price,
-                        CanDelete = ((int)dolars - (int)_buildings.Get(a.Building_ID).Dest_price) > 0 ? true : false
+                        CanDelete = (((int)dolars - (int)_buildings.Get(a.Building_ID).Dest_price) > 0 && a.DealID==null) ? true : false,
                     }
                 );
             }
