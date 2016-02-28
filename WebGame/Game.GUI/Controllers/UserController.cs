@@ -112,7 +112,7 @@ namespace Game.GUI.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            else if (_userService.LoginUser(user) == 2)
+            else if (_userService.LoginUser(user) == 2 || _userService.LoginUser(user) == 3)
             {
                 errors.Add("Login bądź hasło niepoprawne.");
             }

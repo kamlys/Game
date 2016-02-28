@@ -59,7 +59,7 @@
             <div>Przy twoim wkładzie w wysokości <span id="procent"></span>%.</div>
             <div><span id="procentproduktu"></span>% wytworzonych produktów będzie przeznaczonych dla ciebie</div>
 
-            <button class="btn-large officeDealAccept" id="acceptDeal">Akceptuje</button> <button class="btn-large" id="cancelDeal">Odrzuć</button>
+            <button class="btn btn-large officeDealAccept" id="acceptDeal">Akceptuje</button> <button class="btn-large" id="cancelDeal">Odrzuć</button>
         </div>
     </div>
 
@@ -208,20 +208,20 @@
         $('.officeDealShow').leanModal();
         $('select').material_select();
 
-        $("#addDeal").click(function () {
-            if ($('input[id=test1]:checked').val() == "on") {
-                $("#viewModel_DealDay").val() = 7;
-            }
-            else if ($('input[id=test2]:checked').val() == "on") {
-                $("#viewModel_DealDay").val() = 10;
-            }
-            else if ($('input[id=test3]:checked').val() == "on") {
-                $("#viewModel_DealDay").val() = 20;
-            }
-            else if ($('input[id=test4]:checked').val() == "on") {
-                $("#viewModel_DealDay").val() = 30;
-            }
-        });
+        //$("#addDeal").click(function () {
+        //    if ($('input[id=test1]:checked').val() == "on") {
+        //        $("#viewModel_DealDay").val() = 7;
+        //    }
+        //    else if ($('input[id=test2]:checked').val() == "on") {
+        //        $("#viewModel_DealDay").val() = 10;
+        //    }
+        //    else if ($('input[id=test3]:checked').val() == "on") {
+        //        $("#viewModel_DealDay").val() = 20;
+        //    }
+        //    else if ($('input[id=test4]:checked').val() == "on") {
+        //        $("#viewModel_DealDay").val() = 30;
+        //    }
+        //});
 
 
         $("#acceptDeal").click(function () {
