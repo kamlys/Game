@@ -352,10 +352,20 @@ namespace Game.Service
                 _dolars.GetAll().First(i => i.User_ID == uID).Value -= myPrice;
                 var mapID = _deals.Get(ID).Map_ID;
                 int userID = _maps.Get(mapID).User_ID;
-                _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = userID, Deal_ID = ID });
+                if (!_userBuildings.GetAll().Any(i => i.DealID == ID))
+                {
+                    _dealsBuildings.Add(new DealsBuildings { Building_ID = buildingID, User_ID = userID, Deal_ID = ID });
 
-                _unitOfWork.Commit();
-
+                    _unitOfWork.Commit();
+                }
+                else
+                {
+                    foreach (var item in _userBuildings.GetAll().Where(i=>i.DealID==ID))
+                    {
+                        item.DateOfConstruction = DateTime.Now;
+                        _unitOfWork.Commit();
+                    }
+                }
                 return true;
             }
             return false;
