@@ -38,7 +38,7 @@
             <div class="filterA">
                 <input type="checkbox" id="myOfferBuy" />
                 <label for="myOfferBuy" class="filterMyOffer">Tylko moje oferty</label>
-                
+
                 <button type="submit" class="filterBtn" id="filterBuyButton" name="action">Filtruj</button>
                 <button type="submit" class="filterBtn" id="filterBuyClear" name="action">Wyczyść filtry</button>
             </div>
@@ -124,13 +124,12 @@
                 success: function (data) {
                     $("#buyDiv").html($(data).html());
                     initBuy();
-                    $("#productNameSell").val(product);
-                    $("#minPriceSell").val(min);
-                    $("#maxPriceSell").val(max);
+                    $("#productNameBuy").val(product);
+                    $("#minPriceBuy").val(min);
+                    $("#maxPriceBuy").val(max);
                     $('#myOfferBuy').attr('checked', my);
-                    $("#productNameSell").siblings(".select-dropdown").val(product);
-                    $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
-                    $("#productNameSell").val(product);
+                    $("#productNameBuy").siblings(".select-dropdown").val(product);
+                    $("#productNameBuy").siblings(".select-dropdown").attr({ value: product });
                 }
             });
 
@@ -204,13 +203,13 @@
                         success: function (result) {
                             $('#buyOffer').html(result);
                             $('span[data-columnname=' + columnName + ']').addClass(classAdd);
-                            $("#productNameSell").val(product);
-                            $("#minPriceSell").val(min);
-                            $("#maxPriceSell").val(max);
+                            $("#productNameBuy").val(product);
+                            $("#minPriceBuy").val(min);
+                            $("#maxPriceBuy").val(max);
                             $('#myOfferBuy').attr('checked', my);
-                            $("#productNameSell").siblings(".select-dropdown").val(product);
-                            $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
-                            $("#productNameSell").val(product);
+                            $("#productNameBuy").siblings(".select-dropdown").val(product);
+                            $("#productNameBuy").siblings(".select-dropdown").attr({ value: product });
+                            $("#productNameBuy").val(product);
                         }
                     });
                 }
@@ -238,10 +237,10 @@
                 classAdd = "orderDescMarket";
             }
 
-            product = $("#productNameSell").val();
-            min = $("#minPriceSell").val();
-            max = $("#maxPriceSell").val();
-            my = $('#myOfferSell').is(':checked');
+            product = $("#productNameBuy").val();
+            min = $("#minPriceBuy").val();
+            max = $("#maxPriceBuy").val();
+            my = $('#myOfferBuy').is(':checked');
             $.ajax({
                 type: "POST",
                 url: 'Market/_BuyOffer',
@@ -250,13 +249,23 @@
                     $("#buyDiv").html($(data).html());
                     initBuy();
                     $('span[data-columnname=' + columnName + ']').addClass(classAdd);
-                    $("#productNameSell").val(product);
-                    $("#minPriceSell").val(min);
-                    $("#maxPriceSell").val(max);
+                    $("#productNameBuy").val(product);
+                    $("#minPriceBuy").val(min);
+                    $("#maxPriceBuy").val(max);
                     $('#myOfferBuy').attr('checked', my);
-                    $("#productNameSell").siblings(".select-dropdown").val(product);
-                    $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
-                    $("#productNameSell").val(product);
+                    if(product=="")
+                    {
+                        $("#productNameBuy").siblings(".select-dropdown").val("Nazwa produktu");
+                        $("#productNameBuy").siblings(".select-dropdown").attr({ value: "Nazwa produktu" });
+                        $("#productNameBuy").val("Nazwa produktu");
+                    }
+                    else
+                    {
+                        $("#productNameBuy").siblings(".select-dropdown").val(product);
+                        $("#productNameBuy").siblings(".select-dropdown").attr({ value: product });
+                        $("#productNameBuy").val(product);
+
+                    }
                 }
             });
 

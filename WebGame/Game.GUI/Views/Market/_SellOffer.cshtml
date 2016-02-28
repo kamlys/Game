@@ -134,9 +134,18 @@
                     $("#minPriceSell").val(min);
                     $("#maxPriceSell").val(max);
                     $('#myOfferSell').attr('checked', my);
-                    $("#productNameSell").siblings(".select-dropdown").val(product);
-                    $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
-                    $("#productNameSell").val(product);
+                    if(product=="")
+                    {
+                        $("#productNameSell").siblings(".select-dropdown").val("Nazwa produktu");
+                        $("#productNameSell").siblings(".select-dropdown").attr({ value: "Nazwa produktu" });
+                        $("#productNameSell").val("Nazwa produktu");
+                    }
+                    else
+                    {
+                        $("#productNameSell").siblings(".select-dropdown").val(product);
+                        $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
+                        $("#productNameSell").val(product);
+                    }
                 }
             });
 
@@ -204,13 +213,21 @@
                         success: function (result) {
                             $('#sellDiv').html(result);
                             $('span[data-columnname=' + columnName + ']').addClass(classAdd);
-                            $("#productNameSell").val(product);
                             $("#minPriceSell").val(min);
                             $("#maxPriceSell").val(max);
                             $('#myOfferSell').attr('checked', my);
-                            $("#productNameSell").siblings(".select-dropdown").val(product);
-                            $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
-                            $("#productNameSell").val(product);
+                            if(product=="")
+                            {
+                                $("#productNameSell").siblings(".select-dropdown").val("Nazwa produktu");
+                                $("#productNameSell").siblings(".select-dropdown").attr({ value: "Nazwa produktu" });
+                                $("#productNameSell").val("Nazwa produktu");
+                            }
+                            else
+                            {
+                                $("#productNameSell").siblings(".select-dropdown").val(product);
+                                $("#productNameSell").siblings(".select-dropdown").attr({ value: product });
+                                $("#productNameSell").val(product);
+                            }
                         }
                     });
                 }

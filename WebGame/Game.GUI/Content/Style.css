@@ -856,7 +856,8 @@ nav {
     background-color: #563232;
     width: 120px;
     float: right;
-    margin-right: 20px; }
+    margin-right: 20px;
+    padding: 0 !important; }
   .market #buyTd {
     width: 300px; }
   .market #Price {
