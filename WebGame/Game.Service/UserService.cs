@@ -592,8 +592,21 @@ namespace Game.Service
                 string user = _user.GetAll().First(i => i.Email == email).Login;
                 int uID = _user.GetAll().First(i => i.Email == email).ID;
                 var date = DateTime.Now.AddMinutes(10);
-                bool temp = _recoveryCodes.GetAll().Any(i => i.User_ID == uID && i.LiveTime.CompareTo(DateTime.Now) > 0);
-                if (!temp)
+                bool temp = true;
+                foreach (var item in _recoveryCodes.GetAll().Where(i=>i.User_ID == uID))
+                {
+                    if (item.LiveTime.Subtract(DateTime.Now).Minutes >= 0 && item.LiveTime.Subtract(DateTime.Now).Minutes <= 10)
+                    {
+                        temp = false;
+                    }
+                    else
+                    {
+                        _recoveryCodes.Delete(_recoveryCodes.Get(item.ID));
+                        _unitOfWork.Commit();
+                    }
+                }
+
+                if (temp)
                 {
                     _recoveryCodes.Add(new RecoveryCodes
                     {
@@ -608,8 +621,9 @@ namespace Game.Service
                         + "</span>. Twój kod to <b>" + code + "</b> i będzie on ważny przez 10 minut. <br><br><br> Jeśli nie wysyłałeś takiej prośby zignoruj tę wiadomość. <br><br><span style='margin-top: 20px; color: #fff'>#: <a href='wwww.game.webserwer.pl' style='text-decoration: underline; color:#fff'>wwww.game.webserwer.pl</a>  @: <a href='mailto:game@game.webserwer.pl' style='text-decoration: underline;color:#fff'>game@game.webserwer.pl</a></span></div>";
 
                     SendMail(email, content, "Pierwszy Milion - odzyskiwanie hasła");
-                    return true;
+                    
                 }
+                return true;
             }
             return false;
         }
@@ -617,11 +631,12 @@ namespace Game.Service
         public int RecoveryPass(UserDto user)
         {
             int uID = _user.GetAll().First(i => i.Email == user.Email).ID;
-            var code = _recoveryCodes.GetAll().Any(i => i.User_ID == uID && i.LiveTime.CompareTo(DateTime.Now) > 0);
 
-            if (code)
+            if (_recoveryCodes.GetAll().Any(i => i.User_ID == uID && i.Code == user.Code))
             {
-                if (_recoveryCodes.GetAll().First(i => i.User_ID == uID && i.LiveTime.CompareTo(DateTime.Now) > 0).Code == user.Code && _user.Get(uID).Email == user.Email)
+                int liveCode = _recoveryCodes.GetAll().First(i => i.User_ID == uID && i.Code == user.Code).LiveTime.Subtract(DateTime.Now).Minutes;
+
+                if (liveCode>=0 && liveCode<=10)
                 {
                     _user.Get(uID).Password = _hassPass.GeneratePassword(user.Password);
                     _recoveryCodes.Delete(_recoveryCodes.GetAll().First(i => i.Code == user.Code));
@@ -631,12 +646,14 @@ namespace Game.Service
                 }
                 else
                 {
-                    return 2; // Kod się nie zgadza
+                    _recoveryCodes.Delete(_recoveryCodes.GetAll().First(i => i.Code == user.Code));
+                    _unitOfWork.Commit();
+                    return 3; // Kod się przedawnił.
                 }
             }
             else
             {
-                return 3; //Kod przedawniony;
+                return 2; //Kod niepoprawny;
             }
         }
 

@@ -120,10 +120,7 @@ namespace Game.GUI.Controllers
             {
                 return View("~/Views/Error/_Blocked.cshtml");
             }
-            else if (_userService.LoginUser(user) == 4)
-            {
-                errors.Add("Taki użytkownik nie istnieje.");
-            }
+            
             Session["val"] = errors.ToArray<string>();
 
             return View(modelLogin);
@@ -361,22 +358,30 @@ namespace Game.GUI.Controllers
             userDto.Code = user.RecoveryCode;
             userDto.Email = user.Email;
 
-            if (_userService.RecoveryPass(userDto) == 1)
+            int result = _userService.RecoveryPass(userDto);
+
+            if (result == 1)
             {
+                errors.Clear();
                 errors.Add("Hasło zostało zmienione.");
+                Session["val"] = errors.ToArray<string>();
+                return RedirectToAction("Login");
             }
-            else if (_userService.RecoveryPass(userDto) == 2)
+            else if (result == 2)
             {
+                errors.Clear();
                 errors.Add("Niepoprawny kod.");
             }
-            else if (_userService.RecoveryPass(userDto) == 3)
+            else if (result == 3)
             {
+                errors.Clear();
                 errors.Add("Kod stracił ważność.");
             }
-
             Session["val"] = errors.ToArray<string>();
+            return RedirectToAction("RecoveryPassword");
 
-            return View("~/Views/User/Login.cshtml");
+
+
         }
     }
 }
