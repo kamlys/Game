@@ -33,6 +33,8 @@ namespace Game.GUI.Controllers
                 SenderLogin = x.SenderLogin
             }).ToList();
 
+            notificationModel.listModel = notificationModel.listModel.OrderByDescending(i=> i.ID).ToList();
+
             return View(notificationModel);
         }
     }

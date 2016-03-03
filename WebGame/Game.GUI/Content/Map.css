@@ -1,11 +1,13 @@
 ﻿.map {
   background-color: #386307;
-  position: relative; }
+  position: relative;}
   .map .building {
     background: #808080;
     color: white;
     display: block;
-    position: absolute; }
+    position: absolute; 
+    
+  }
 
 .fake-building {
   display: none;
