@@ -391,24 +391,21 @@ nav {
     margin-left: auto !important;
     margin-right: auto !important;
     border: none !important;
-    background: none !important; 
-    width: 500px;
-    box-shadow:none;
-  } }
-
+    background: none !important;
+    width: 500px !important;
+    box-shadow: none; } }
 
 @media screen and (max-width: 861px) {
   .mapBox {
     margin-top: 30px;
-    margin-right: -35px; 
-    width: 500px;
-    box-shadow:none;
-  } }
+    margin-right: -35px;
+    width: 500px !important;
+    box-shadow: none; } }
 
 @media screen and (max-width: 1000px) {
   .mapBox {
     margin-top: 30px;
-    width: 540px;
+    width: 540px !important;
     margin-left: auto;
     /*padding: 20px 20px 20px 20px;*/
     border: 20px solid #18212A;
@@ -573,14 +570,13 @@ nav {
     font-size: 12px;
     cursor: pointer; }
   .infoBox .friend .login:hover {
-    color: #51B3CE;
-    }
+    color: #51B3CE; }
   .infoBox .friend .icon {
     float: right;
     margin-right: 5%;
     color: #fff;
     vertical-align: middle;
-    font-size: 20px; }
+    font-size: 18px; }
     .infoBox .friend .icon .fa:hover {
       cursor: pointer; }
   .infoBox .friend .agree:hover {
@@ -1317,7 +1313,7 @@ nav {
     border: none; }
   .Message td.toContent {
     white-space: nowrap;
-    width: 400px !important;
+    width: 300px !important;
     overflow: hidden;
     display: inline-block;
     -ms-text-overflow: ellipsis;
